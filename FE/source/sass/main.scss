@@ -1,0 +1,28 @@
+// We architecting this project follow as the "7-1 Pattern" (7 folders, 1 file)
+// For more detail about this pattern
+// (https://sass-guidelin.es/#the-7-1-pattern)
+
+// 1. Vendors
+// ----------
+
+// 2. Abstracts
+// ------------
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'abstracts/functions';
+
+// 3. Base
+// -------
+@import 'base/global';
+@import 'base/typography';
+
+// 4. Layout
+// ---------;
+@import 'layout/header';
+@import 'layout/footer';
+
+// 5. Components
+// -------------
+
+// 6. Pages
+// -------------
