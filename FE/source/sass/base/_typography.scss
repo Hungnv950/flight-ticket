@@ -1,0 +1,50 @@
+// ======================================================
+// Base :: Typography
+// ======================================================
+
+a {
+  color: #0074da;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: $font-weight-bold;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+@font-face {
+  font-family: AcuminPro;
+  src: url('/fonts/AcuminPro-Regular.woff');
+  font-weight: $font-weight-base;
+}
+
+@font-face {
+  font-family: AcuminPro;
+  src: url('/fonts/AcuminPro-Bold.woff');
+  font-weight: $font-weight-bold;
+}
+
+@font-face {
+  font-family: HelveticaNeueLTStd;
+  src: url('/fonts/HelveticaNeueLTStd-Regular.ttf');
+  font-weight: $font-weight-base;
+}
