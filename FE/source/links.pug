@@ -1,0 +1,20 @@
+extends layout/_page-no-header
+
+block head
+  +head('Link')
+  style.
+    table {
+      margin: 0 auto;
+      width: 1140px;
+      max-width: 100%;
+      background-color: #c1c1c1;
+      border-spacing: 0;
+    }
+
+    table td, table th {
+      border-bottom: 1px solid white;
+      padding: 10px;
+    }
+
+block main
+  +page-list(pageList.data)

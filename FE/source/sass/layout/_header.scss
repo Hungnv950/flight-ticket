@@ -1,0 +1,76 @@
+// ======================================================
+// Layout :: Header
+// ======================================================
+
+.header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 21px;
+  box-shadow: 0 5px 5px rgba(119, 118, 118, .07);
+
+  &__nav-item {
+    display: flex;
+    align-items: center;
+    margin-right: 29px;
+
+    a {
+      display: flex;
+      align-items: center;
+
+      span:not(.header__user-name):not(.cart-number) {
+        font-family: AcuminPro, sans-serif;
+        font-weight: $font-weight-base;
+        font-size: $font-size-base - 1;
+        color: $gray;
+        position: relative;
+        transition: .2s;
+        margin: 4px 0 0 5px;
+
+        &:after {
+          content: '';
+          width: 24px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: -10px;
+          height: 1px;
+          background-color: $orange;
+          opacity: 0;
+          transition: .2s;
+        }
+      }
+
+      &:hover {
+        span:not(.header__user-name):not(.cart-number) {
+          color: $orange;
+          transition: .2s;
+
+          &:after {
+            opacity: 1;
+            transition: .2s;
+          }
+        }
+
+        svg path {
+          fill: $orange;
+          transition: .2s;
+        }
+      }
+    }
+  }
+
+  &__user-name {
+    color: $gray;
+    margin-left: 5px;
+    font-family: HelveticaNeueLTStd, sans-serif;
+    font-weight: $font-weight-base;
+    font-size: $font-size-base - 1;
+    margin-top: 4px;
+  }
+
+  .header-f-w {
+    width: 93px;
+  }
+}
