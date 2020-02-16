@@ -1,0 +1,27 @@
+mixin header()
+  header.header
+    img.header__logo(src='/images/logo.png')
+    ul.header__nav.d-flex.justify-content-between.h-100
+      li.header__nav-item
+        a(href='#').hneader-f-w
+          include ../images/icon_internet.svg
+          span Cộng đồng
+      li.header__nav-item
+        a(href='#').header-f-w.active
+          include ../images/icon_plan.svg
+          span Vé máy bay
+      li.header__nav-item
+        a(href='#')
+          include ../images/icon_noti.svg
+      li.header__nav-item
+        a(href='#')
+          include ../images/icon_mess.svg
+      li.header__nav-item
+        a(href='#')
+          .img-wrap
+            img.img-full-height(src='/images/icon_plan.svg')
+          span.header__user-name Minh Tu
+      li.header__nav-item
+        a(href='#').header__cart
+          include ../images/icon_cart.svg
+          span.header__cart-number 1

@@ -1,0 +1,45 @@
+mixin result-search-item(logo, content)
+  .result-list-item.js-toggle
+    .airline
+      .logo
+        img(src=logo, alt="logo airlines")
+      .number-bought
+        .group-people
+          .img-wrap.group-people__item
+            img.img-full-height(src="/images/avatar-demo.png", alt="avatar")
+          .img-wrap.group-people__item
+            img.img-full-height(src="/images/avatar-demo.png", alt="avatar")
+          .img-wrap.group-people__item
+            img.img-full-height(src="/images/avatar-demo.png", alt="avatar")
+          span.plus +
+            | 4
+          span=content
+      p.detail.js-toggle-control(data-target='.toggle-content')
+        span Chi tiết chuyến bay
+        include ../images/icon_arrow-down.svg
+    .time
+      .time__from
+        p.time__address Ho Chi Minh
+        p.time__content 10 : 30
+      .time__to
+        p.time__address To Ha Noi
+        p.time__content 23 : 30
+    .price
+      .price__per-people
+        span.price__number 1.000.000
+        span.price__unit /khách
+      button.price__btn(href='#') Chọn mua
+        include ../images/icon_arrow-right.svg
+    .js-toggle-content
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+       | Consequatur nobis distinctio officia libero voluptatem perspiciatis inventore laboriosam quam dolor, animi, magni nisi incidunt harum error dolorem.
+       | Error eligendi minus qui aliquid eum animi mollitia delectus optio perferendis dicta, molestias enim inventore corporis?
+       | Iure blanditiis tempore, explicabo quam officiis eos ea.
+      .result-list-item__share
+        p.info
+         | Chia sẻ link mời bạn bè và nhận&nbsp;
+         a.preference.link(href='#') nhiều ưu đãi
+         | &nbsp;tuyệt vời từ ThankTrip
+        a.btn-share(href='#')
+          include ../images/icon_share.svg
+          span Share link

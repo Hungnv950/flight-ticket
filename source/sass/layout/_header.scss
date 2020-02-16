@@ -1,0 +1,110 @@
+// ======================================================
+// Layout :: Header
+// ======================================================
+
+.header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 21px;
+  box-shadow: 0 5px 5px rgba(119, 118, 118, .07);
+  background-color: $white;
+
+  &__logo {
+    height: 57px;
+  }
+
+  &__nav-item {
+    display: flex;
+    align-items: center;
+    margin-right: 29px;
+
+    a {
+      display: flex;
+      align-items: center;
+
+      span:not(.header__user-name):not(.header__cart-number) {
+        font-family: AcuminPro, sans-serif;
+        font-weight: $font-weight-base;
+        font-size: $font-size-base - 1;
+        color: $gray;
+        position: relative;
+        transition: .2s;
+        margin: 4px 0 0 5px;
+
+        &:after {
+          content: '';
+          width: 24px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: -10px;
+          height: 1px;
+          background-color: $orange;
+          opacity: 0;
+          transition: .2s;
+        }
+      }
+
+      &:hover {
+        span:not(.header__user-name):not(.header__cart-number) {
+          color: $orange;
+          transition: .2s;
+
+          &:after {
+            opacity: 1;
+            transition: .2s;
+          }
+        }
+
+        svg path {
+          fill: $orange;
+          transition: .2s;
+        }
+      }
+    }
+
+    .active {
+      span:not(.header__user-name):not(.header__cart-number) {
+        color: $orange;
+        font-weight: $font-weight-bold;
+      }
+
+      svg path {
+        fill: $orange;
+      }
+    }
+  }
+
+  &__user-name {
+    color: $gray;
+    margin-left: 5px;
+    font-family: Helvetica, sans-serif;
+    font-weight: $font-weight-base;
+    font-size: $font-size-base - 1;
+  }
+
+  &__cart {
+    position: relative;
+  }
+
+  &__cart-number {
+    position: absolute;
+    top: -14px;
+    right: -17px;
+    font-size: $font-size-medium + 1;
+    line-height: 20px;
+    padding: 0 5px;
+    border-radius: 50%;
+    background-image: linear-gradient(180deg, #ffa700 0%, #ff5111 100%);
+    color: $white;
+    font-family: Helvetica, sans-serif;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .header-f-w {
+    width: 96px;
+  }
+}
