@@ -1,0 +1,45 @@
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-title {
+  display: inline-block;
+  font-weight: 500;
+  line-height: 18px;
+  margin-bottom: 8px;
+  color: $smoke-dark;
+}
+
+.form-control {
+  line-height: 15px;
+  padding: 13px 34px 12px;
+  width: 100%;
+  border-radius: 20px;
+  font-size: $font-size-base - 1;
+  font-family: Helvetica, sans-serif;
+  appearance: none;
+  border: none;
+  background-color: $gray-medium;
+
+  &::placeholder {
+    color: $smoke-medium;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.group-input {
+  display: flex;
+
+  .form-control {
+    border-radius: 20px 0 0 20px;
+  }
+
+  .icon-search {
+    padding: 12px 13px 13px;
+    border-radius: 0 20px 20px 0;
+    display: flex;
+  }
+}

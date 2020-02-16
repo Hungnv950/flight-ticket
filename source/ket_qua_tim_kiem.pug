@@ -1,0 +1,190 @@
+extends layout/_page-default
+
+block head
+  +head('Ket qua tim kiem')
+
+block main
+  +header()
+
+  main.main
+    .banner.bg-img-base.js-lazy-load(data-src='/images/bg-banner.png' data-type='background-image')
+      .d-flex.align-items-center.h-100
+        .container
+          .banner__content
+            p.title Thank Flight
+            p.slogan Bay muôn nơi - thảnh thơi không lo giá vé…!
+
+    .search
+      .container
+        .row-custom
+          .col-8.col-md-12.col-custom
+            .result-board
+              .result-board__title
+                include ./images/icon_plan.svg
+                p
+                  span.text-start Khởi hành từ
+                  span.from HỒ CHÍ MINH, Việt Nam (SGN)
+                  span.text-to đến
+                  span.to HÀ NỘI, Việt Nam (HNN)
+              .result-board__border
+              .result-board__celendar
+                .result-board__celendar-wrap
+                  .slider.js-slider
+                    .slider__list-wrap
+                      .slider__list
+                        .slider__item
+                          p.date T2,14/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T3,15/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T4,16/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T5,17/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T6,18/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T7,19/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date CN,20/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T2,21/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T3,22/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T4,23/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T5,24/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T6,25/9/2020
+                          p.price 1.000.000đ
+                        .slider__item
+                          p.date T7,26/9/2020
+                          p.price 1.000.000đ
+                    .slider__control-btn.slider__btn-prev.js-prev-slide
+                      include ././images/icon_arrow-left.svg
+                    .slider__control-btn.slider__btn-next.js-next-slide
+                      include ././images/icon_arrow-right.svg
+            .result-list
+              .result-list__filter
+                .d-flex
+                  .airline.js-dropdown.dropdown
+                    p.dropdown__title.js-control-show-dropdown Hãng hàng không
+                      include ././images/icon_arrow-down.svg
+                    ul.dropdown__list
+                      li.dropdown__item
+                        a(href="#").active Vietnam Airlines
+                      li.dropdown__item
+                        a(href="#") Jetstar
+                  .filter.js-dropdown.dropdown
+                    p.dropdown__title.js-control-show-dropdown Sắp xếp
+                      include ././images/icon_arrow-down.svg
+                    ul.dropdown__list
+                      li.dropdown__intro
+                        p Vui lòng chọn
+                          span.js-control-show-dropdown
+                            include ././images/icon_arrow-up.svg
+                      li.dropdown__item
+                        a(href="#").active Thời gian
+                      li.dropdown__item
+                        a(href="#") Giá từ cao đến thấp
+                      li.dropdown__item
+                        a(href="#") Giá từ thấp đến cao
+                .price.js-dropdown.dropdown
+                  p.dropdown__title.js-control-show-dropdown Giá hiển thị
+                    include ././images/icon_arrow-down.svg
+                  ul.dropdown__list.right-0
+                    li.dropdown__intro
+                      p Vui lòng chọn
+                        span.js-control-show-dropdown
+                          include ././images/icon_arrow-up.svg
+                    li.dropdown__item
+                      a(href="#").active Giá bao gồm thuế phí
+                    li.dropdown__item
+                      a(href="#") Giá chưa bao gồm thuế phí
+
+              .result-list__content
+                +result-search-item('/images/logo-vietnam-airlines.png', 'đã mua')
+                - for (let i = 0; i < 7; i++)
+                  +result-search-item('/images/logo-jetstar.png', 'đã mua')
+
+          .col-4.col-md-12.col-custom
+            .form-search
+              form
+                h2.form-search__title
+                  span Thay đổi tìm kiếm
+                .form-search__content
+                  .form-search__radio.form-group-radio
+                    p
+                      input(type="radio" id="motChieu" name="radio-group" checked)
+                      label(for="motChieu") Một chiều
+                    p
+                      input(type="radio" id="khuHoi" name="radio-group")
+                      label(for="khuHoi") Khứ hồi
+                  .form-group
+                    label.form-title Ngày khởi hành
+                    input.date-picker.form-control
+                  .form-group
+                    label.form-title Điểm khởi hành
+                    select.form-control
+                      option Hồ Chí Minh, Việt Nam (SNG)
+                      option Vinh
+                      option Ha Noi
+                  .form-group
+                    label.form-title Điểm đến
+                    select.form-control
+                      option Hà Nội, Việt Nam (HNN)
+                      option Ho Chi Minh
+                      option Vinh
+                  .form-group.form-group--number.dropdown.js-dropdown
+                    label.form-title Người lớn
+                    input(type='number' value=1 placeholder=0).form-control
+                    .icon-people
+                      include ././images/icon_people.svg
+                    .icon-select.js-control-show-dropdown
+                    ul.dropdown__list
+                      li.dropdown__item
+                        span 0
+                      li.dropdown__item
+                        span.active 1
+                      li.dropdown__item
+                        span 2
+                  .form-group.form-group--number.dropdown.js-dropdown
+                    label.form-title Trẻ em 2 - 11 tuổi
+                    input(type='number' placeholder=0).form-control
+                    .icon-people
+                      include ././images/icon_people.svg
+                    .icon-select.js-control-show-dropdown
+                    ul.dropdown__list
+                      li.dropdown__item
+                        span 0
+                      li.dropdown__item
+                        span 1
+                      li.dropdown__item
+                        span 2
+                  .form-group.form-group--number.dropdown.js-dropdown
+                    label.form-title Trẻ em <2 tuổi
+                    input(type='number' placeholder=0).form-control
+                    .icon-people
+                      include ././images/icon_people.svg
+                    .icon-select.js-control-show-dropdown
+                    ul.dropdown__list
+                      li.dropdown__item
+                        span 0
+                      li.dropdown__item
+                        span 1
+                      li.dropdown__item
+                        span 2
+                  input(type='submit' value='Tìm kiếm').btn.form-search__btn-submit
+
+  +footer()
