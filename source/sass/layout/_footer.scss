@@ -1,0 +1,147 @@
+// ======================================================
+// Layout :: Footer
+// ======================================================
+
+.footer {
+  height: 686px;
+  position: relative;
+  font-family: Helvetica, sans-serif;
+  padding-top: 56px;
+
+  &__content-wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: calc(100% - 62px);
+    padding: 0 30px 60px;
+    background-image: url('/images/bg-footer.png');
+    background-size: 100% auto;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-color: #efefef;
+  }
+
+  &__content {
+    width: 880px;
+    max-width: 100%;
+  }
+
+  &__content-top {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: space-between;
+
+    .intro,
+    .links,
+    .contact-us {
+      display: flex;
+      align-items: flex-end;
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+    }
+
+    .intro {
+      width: 372px;
+    }
+
+    .links {
+      width: 77px;
+    }
+
+    .contact-us {
+      width: 232px;
+    }
+  }
+
+  &__intro-content {
+    line-height: 25px;
+    word-break: break-word;
+  }
+
+  &__intro {
+    width: 372px;
+  }
+
+  &__links {
+    width: 77px;
+
+    a {
+      display: block;
+      width: 100%;
+      line-height: 25px;
+      margin-bottom: 5px;
+      color: $black;
+
+      &:hover {
+        color: $orange;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__contact-us {
+    width: 232px;
+
+    p {
+      line-height: 25px;
+      margin-bottom: 5px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__content-body {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__social {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  &__social-item {
+    margin-right: 22px;
+    border-radius: 50%;
+    height: 31px;
+    width: 30px;
+
+    &:hover {
+      box-shadow: 0 0 6px #000000b5;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__logo {
+    width: 170px;
+    max-width: 100%;
+  }
+
+  &__bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 62px;
+    background-color: $gray-lighter;
+
+    p {
+      font-size: 15px;
+      font-family: Helvetica, sans-serif;
+      opacity: .44;
+      width: 880px;
+      max-width: 100%;
+      padding-top: 22px;
+      margin: 0 auto;
+    }
+  }
+}

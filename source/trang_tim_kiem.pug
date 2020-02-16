@@ -1,0 +1,283 @@
+extends layout/_page-default
+
+block head
+  +head('Trang tim kiem')
+
+block body
+  body.bg-white
+
+  block main
+    .banner-search-page
+      header.header
+        img.header__logo(src='/images/logo-white.png')
+        ul.header__nav.d-flex.justify-content-between.h-100
+          li.header__nav-item
+            a(href='#').header-f-w
+              include ./images/icon_internet.svg
+              span Cộng đồng
+          li.header__nav-item
+            a(href='#').header-f-w.active
+              include ./images/icon_plan.svg
+              span Vé máy bay
+          li.header__nav-item
+            a(href='#')
+              include ./images/icon_noti.svg
+          li.header__nav-item
+            a(href='#')
+              include ./images/icon_mess.svg
+          li.header__nav-item
+            a(href='#')
+              .img-wrap
+                img.img-full-height(src='/images/icon_plan.svg')
+              span.header__user-name Minh Tu
+          li.header__nav-item
+            a(href='#').header__cart
+              include ./images/icon_cart.svg
+              span.header__cart-number 1
+      .form
+        form
+          .tab.js-tab
+            ul.tab__nav
+              li.tab__nav-item.w-50
+                a(data-target='.one-way').active.js-tab-nav.tab__nav-link Một chiều
+              li.tab__nav-item.w-50
+                a(data-target='.round-trip').js-tab-nav.tab__nav-link Khứ hồi
+            .tab__content
+              .tab__content-item.js-tab-content-item.one-way.active
+                .form__content
+                  .form__address
+                    .form-group.js-dropdown.dropdown
+                      label.form-title Điểm khởi hành
+                      .group-input
+                        input.form-control(type='text' placeholder='Thành phố - Quốc Gia - Sân Bay')
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_search.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span Ha Noi
+                        li.dropdown__item
+                          span Vinh
+                        li.dropdown__item
+                          span Ho Chi Minh
+                    .form-group.js-dropdown.dropdown
+                      label.form-title Điểm đến
+                      .group-input
+                        input.form-control(type='text' placeholder='Thành phố - Quốc Gia - Sân Bay')
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_search.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span Ha Noi
+                        li.dropdown__item
+                          span Vinh
+                        li.dropdown__item
+                          span Ho Chi Minh
+                    .form-group
+                      label.form-title Ngày đi
+                      .group-input
+                        input.form-control(type='text' value='14/03/2020')
+                        .icon-search
+                          include ./images/icon_celendar.svg
+                  .form__passenger
+                    .form-group.dropdown.js-dropdown
+                      label.form-title Số hành khách người lớn
+                      .group-input
+                        select.form-control
+                          option 1 hành khách
+                          option 2 hành khách
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_arrow-down-light.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span 1 hành khách
+                        li.dropdown__item
+                          span 2 hành khách
+                        li.dropdown__item
+                          span 3 hành khách
+                    .form-group.dropdown.js-dropdown
+                      label.form-title Trẻ em từ 2 đến 11 tuổi
+                      .group-input
+                        select.form-control
+                          option 1 hành khách
+                          option 2 hành khách
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_arrow-down-light.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span 1 hành khách
+                        li.dropdown__item
+                          span 2 hành khách
+                        li.dropdown__item
+                          span 3 hành khách
+                    .form-group.dropdown.js-dropdown
+                      label.form-title Trẻ em dưới 2 tuổi
+                      .group-input
+                        select.form-control
+                          option 1 hành khách
+                          option 2 hành khách
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_arrow-down-light.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span 1 hành khách
+                        li.dropdown__item
+                          span 2 hành khách
+                        li.dropdown__item
+                          span 3 hành khách
+                  .form__btn-search
+                    button Tìm Kiếm
+
+              .tab__content-item.js-tab-content-item.round-trip
+                .form__content
+                  .form__address
+                    .form-group.js-dropdown.dropdown
+                      label.form-title Điểm khởi hành
+                      .group-input
+                        input.form-control(type='text' placeholder='Thành phố - Quốc Gia - Sân Bay')
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_search.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span Ha Noi
+                        li.dropdown__item
+                          span Vinh
+                        li.dropdown__item
+                          span Ho Chi Minh
+                    .form-group.js-dropdown.dropdown
+                      label.form-title Điểm đến
+                      .group-input
+                        input.form-control(type='text' placeholder='Thành phố - Quốc Gia - Sân Bay')
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_search.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span Ha Noi
+                        li.dropdown__item
+                          span Vinh
+                        li.dropdown__item
+                          span Ho Chi Minh
+                    .form-group
+                      label.form-title Ngày đi
+                      .group-input
+                        input.form-control(type='text' value='14/03/2020')
+                        .icon-search
+                          include ./images/icon_celendar.svg
+                    .form-group
+                      label.form-title Ngày về
+                      .group-input
+                        input.form-control(type='text' value='14/03/2020')
+                        .icon-search
+                          include ./images/icon_celendar.svg
+                  .form__passenger
+                    .form-group.dropdown.js-dropdown
+                      label.form-title Số hành khách người lớn
+                      .group-input
+                        select.form-control
+                          option 1 hành khách
+                          option 2 hành khách
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_arrow-down-light.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span 1 hành khách
+                        li.dropdown__item
+                          span 2 hành khách
+                        li.dropdown__item
+                          span 3 hành khách
+                    .form-group.dropdown.js-dropdown
+                      label.form-title Trẻ em từ 2 đến 11 tuổi
+                      .group-input
+                        select.form-control
+                          option 1 hành khách
+                          option 2 hành khách
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_arrow-down-light.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span 1 hành khách
+                        li.dropdown__item
+                          span 2 hành khách
+                        li.dropdown__item
+                          span 3 hành khách
+                    .form-group.dropdown.js-dropdown
+                      label.form-title Trẻ em dưới 2 tuổi
+                      .group-input
+                        select.form-control
+                          option 1 hành khách
+                          option 2 hành khách
+                        .icon-search.js-control-show-dropdown
+                          include ./images/icon_arrow-down-light.svg
+                      ul.dropdown__list
+                        li.dropdown__item
+                          span 1 hành khách
+                        li.dropdown__item
+                          span 2 hành khách
+                        li.dropdown__item
+                          span 3 hành khách
+                  .form__btn-search
+                    button Tìm Kiếm
+
+    main.main-search-page
+      .review
+        .review__wrap
+          .slider.js-slider
+            .slider__list-wrap
+              .slider__list
+                .slider__item
+                  .img-wrap.img-wrap--medium
+                    img(src='/images/avatar-demo2.png').img-full-height
+                  p.reviewer Steve Vo thanh
+                  p.review__content “For the first time in our company's history, we were featured on every single platform that we worked on, thanks to ThankTrips.”
+                .slider__item
+                  .img-wrap.img-wrap--medium
+                    img(src='/images/avatar-demo2.png').img-full-height
+                  p.reviewer Nguyen Van A
+                  p.review__content “For the first time in our company's history, we were featured on every single platform that we worked on, thanks to ThankTrips.”
+                .slider__item
+                  .img-wrap.img-wrap--medium
+                    img(src='/images/avatar-demo2.png').img-full-height
+                  p.reviewer Tran Duc B
+                  p.review__content “For the first time in our company's history, we were featured on every single platform that we worked on, thanks to ThankTrips.”
+            .slider__control-btn.slider__btn-prev.js-prev-slide
+              include ././images/icon_arrow-left.svg
+            .slider__control-btn.slider__btn-next.js-next-slide
+              include ././images/icon_arrow-right.svg
+      .offer
+        h1.offer__title ƯU ĐÃI HẤP DẪN
+        span.offer__intro Ưu đãi Chỉ dành riêng cho thành viên ThankTrip
+        .offer__content
+          .offer__item
+            img(src='/images/gift.png')
+            p.offer__item-content Phần thưởng hấp dẫn
+          .offer__item
+            img(src='/images/sale.png')
+            p.offer__item-content Giảm giá hấp dẫn
+          .offer__item
+            img(src='/images/group-user.png')
+            p.offer__item-content Ưu đãi cho khách hàng
+              br
+              | theo nhóm
+        .recommend-regis
+          img(src='/images/gift.png')
+          p.recommend-regis__content Bạn chưa là thành viên.
+            br
+            | Vui lòng&nbsp;
+            a(href='#') đăng nhập
+            | &nbsp;hoặc&nbsp;
+            a(href='#') đăng kí
+            | &nbsp;tài khoản để hưởng các ưu đãi đặc biệt cho thành viên từ ThankTrip
+      .partner
+        h1.partner__title Đối tác hàng không
+        .partner__wrap
+          .partner__item
+            img(src='/images/logo-bamboo.png' alt='Bamboo')
+          .partner__item
+            img(src='/images/logo-jetstar.png' alt='Jetstar')
+          .partner__item
+            img(src='/images/logo-bamboo.png' alt='Bamboo')
+          .partner__item
+            img(src='/images/logo-bamboo.png' alt='Bamboo')
+          .partner__item
+            img(src='/images/logo-bamboo.png' alt='Bamboo')
+
+    +footer('footer-search-page')
