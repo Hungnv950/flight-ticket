@@ -1,0 +1,41 @@
+mixin footer(customClass)
+  footer.footer(class=customClass ? customClass : null)
+    .footer__content-wrap
+      .footer__content
+        .footer__content-top
+          .intro
+            img.footer__logo(src='/images/logo.png')
+          .links
+            span LINKS
+          .contact-us
+            span CONTACT US
+        .footer__content-body
+          .footer__intro
+            p.footer__intro-content Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              | sed do eiusmod tempor incididunt ut labore magna aliqua.
+              | Ut aliquip ex ea commodo consequat.
+            .footer__social
+              a.footer__social-item(href="#" src='/images/icon_fb.png')
+                img(src="/images/icon_fb.png", alt="icon facebook")
+              a.footer__social-item(href="#")
+                img(src='/images/icon_twitter.png', alt="icon twitter")
+              a.footer__social-item(href="#")
+                img(src='/images/icon_gmail.png', alt="icon gmail")
+              a.footer__social-item(href="#")
+                img(src="/images/icon_pinterest.png", alt="icon pinterest")
+              a.footer__social-item(href="#")
+                img(src='/images/icon_insta.png', alt="icon instagram")
+          .footer__links
+            a(href="#") Homepage
+            a(href="#") News Feed
+            a(href="#") Messages
+            a(href="#") My Profile
+            a(href="#") About us
+          .footer__contact-us
+            p Hotline: 012345678
+            p Email: email@gmail.com
+            p Address: 01 Nguyen Thi Minh Khai
+              br
+              | phuong 19, quan Binh Thanh
+    .footer__bottom
+      p © 2015 All rights reserved. THANKTRIPS

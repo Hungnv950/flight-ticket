@@ -1,0 +1,40 @@
+// ======================================================
+// Abstracts :: Variables
+// ======================================================
+
+// Colors
+$white: #fff;
+$black: #000;
+$main-black: #333;
+$black-lighter: #171717;
+
+$gray: #818181;
+$gray-medium: #f6f6f6;
+$gray-light: #f5f5f5;
+$gray-lighter: #e5e5e5;
+$smoke-dark: #919191;
+$smoke-medium: #9f9f9f;
+$orange: #ff6200;
+$orange-medium: #ff5111;
+
+$red-orange: #ff4827;
+
+// Border & box-shadow
+$border-radius-base: 10px;
+$border-gray: #dbdbdb;
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+
+$font-family-base: 'Roboto', sans-serif;
+
+$font-weight-thin: 100;
+$font-weight-light: 300;
+$font-weight-base: 400;
+$font-weight-bold: 600;
+
+$font-size-extra-small: 10px;
+$font-size-small: 12px;
+$font-size-base: 15px;
+$font-size-medium: 16px;
+$font-size-large: 18px;

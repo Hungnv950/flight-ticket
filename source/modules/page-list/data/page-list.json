@@ -1,0 +1,14 @@
+{
+  "pageList": {
+    "data": [
+      {
+        "title": "Layout ket qua tim kiem",
+        "url": "ket_qua_tim_kiem"
+      },
+      {
+        "title": "Trang tim kiem",
+        "url": "trang_tim_kiem"
+      }
+    ]
+  }
+}
