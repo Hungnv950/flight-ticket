@@ -112,7 +112,7 @@ $(document).ready(function() {
   }
 
   slider($('.review .js-slider'));
-  slider($('.result-board__celendar'), {
+  slider($('.result-board__calendar'), {
     number: 5,
     activeSlide: 7
   });
