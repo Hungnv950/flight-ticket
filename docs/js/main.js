@@ -112,12 +112,23 @@ $(document).ready(function() {
   }
 
   slider($('.review .js-slider'));
-  slider($('.result-board__celendar'), {
+  slider($('.result-board__calendar'), {
     number: 5,
     activeSlide: 7
   });
 
   $('select').on('mousedown', function(e) {
     e.preventDefault()
-  })
+  });
+
+  $('.js-toggle-modal').on('click', function() {
+    $('body').addClass('show-modal');
+    $($(this).data('target')).addClass('show');
+  });
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('.modal-content').length && !$(e.target).closest('.js-toggle-modal').length) {
+      $('.modal').removeClass('show');
+      $('body').removeClass('show-modal');
+    }
+  });
 });

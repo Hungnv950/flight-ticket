@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -12,6 +13,7 @@ body {
   line-height: 1.2;
   background-color: #f5f5f5;
   word-break: break-word;
+  position: relative;
 }
 
 .bg-white {
@@ -47,7 +49,8 @@ ol {
 }
 
 .main {
-  min-height: calc(100vh - 756px);
+  padding-top: 70px;
+  min-height: calc(100vh - 686px);
 }
 
 .bg-img-base {
@@ -240,6 +243,53 @@ ol {
   display: block;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  height: calc(100vh - 70px);
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal.show {
+  display: block;
+  animation: fadeModal .8s forwards;
+}
+
+.js-toggle-modal {
+  cursor: pointer;
+}
+
+/* stylelint-disable */
+body.show-modal {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* stylelint-enable */
+@keyframes fadeModal {
+  0% {
+    opacity: .3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  margin-top: 99px;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: calc(100% - 200px);
+  overflow-y: auto;
+  background-color: #fff;
+  width: 712px;
+  max-width: calc(100% - 20px);
+}
+
 .slider {
   width: 100%;
 }
@@ -275,6 +325,23 @@ ol {
   fill: #000;
 }
 
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 35px 0 26px;
+}
+
+.card__title {
+  padding: 0 30px 0 43px;
+  line-height: 28px;
+  font-weight: 600;
+  border-left: 6px solid #ff4827;
+}
+
+.card__content {
+  padding: 0 30px 0 49px;
+}
+
 button {
   border: 0;
   cursor: pointer;
@@ -291,6 +358,15 @@ button {
 
 .w-50 {
   width: 50%;
+}
+
+.mbpx-30 {
+  margin-bottom: 30px;
+}
+
+.my-5 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .d-flex {
@@ -473,20 +549,28 @@ h3 {
 
 @font-face {
   font-family: AcuminPro;
-  src: url("../fonts/AcuminPro-Regular.woff");
+  src: url("/fonts/AcuminPro-Regular.woff");
   font-weight: 400;
 }
 
 @font-face {
   font-family: AcuminPro;
-  src: url("../fonts/AcuminPro-Bold.woff");
+  src: url("/fonts/AcuminPro-Bold.woff");
   font-weight: 600;
 }
 
 @font-face {
   font-family: HelveticaNeueLTStd;
-  src: url("../fonts/HelveticaNeueLTStd-Regular.ttf");
+  src: url("/fonts/HelveticaNeueLTStd-Regular.ttf");
   font-weight: 400;
+}
+
+.text-blue-sky {
+  color: #00a6d1;
+}
+
+.text-smoke-dark {
+  color: #919191;
 }
 
 .header {
@@ -500,6 +584,11 @@ h3 {
   padding: 0 21px;
   box-shadow: 0 5px 5px rgba(119, 118, 118, 0.07);
   background-color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 19;
 }
 
 .header__logo {
@@ -604,7 +693,10 @@ h3 {
   height: 686px;
   position: relative;
   font-family: Helvetica, sans-serif;
-  padding-top: 56px;
+  background-image: url("../images/bg-footer-gray.png");
+  background-size: 100% 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
 }
 
 .footer__content-wrap {
@@ -616,11 +708,6 @@ h3 {
       justify-content: center;
   height: calc(100% - 62px);
   padding: 0 30px 60px;
-  background-image: url("../images/bg-footer.png");
-  background-size: 100% auto;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-color: #efefef;
 }
 
 .footer__content {
@@ -926,7 +1013,14 @@ h3 {
   font-weight: 500;
   line-height: 18px;
   margin-bottom: 8px;
-  color: #919191;
+  color: #000;
+  font-family: Helvetica, sans-serif;
+}
+
+.form-title.required:after {
+  content: '(*)';
+  color: #ff5111;
+  margin-left: 3px;
 }
 
 .form-control {
@@ -945,14 +1039,21 @@ h3 {
 
 .form-control:-ms-input-placeholder {
   color: #9f9f9f;
+  font-family: Helvetica, sans-serif;
 }
 
 .form-control::placeholder {
   color: #9f9f9f;
+  font-family: Helvetica, sans-serif;
 }
 
 .form-control:focus {
   outline: none;
+}
+
+.form-control--textarea {
+  min-height: 116px;
+  resize: none;
 }
 
 .group-input {
@@ -969,6 +1070,55 @@ h3 {
   border-radius: 0 20px 20px 0;
   display: -ms-flexbox;
   display: flex;
+}
+
+.checkbox {
+  display: block;
+  position: relative;
+  min-height: 20px;
+}
+
+.checkbox label {
+  padding-left: 30px;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: color 100ms ease-in;
+  overflow: hidden;
+}
+
+.checkbox label:after {
+  width: 20px;
+  height: 20px;
+  content: '';
+  background-color: #d8d8d8;
+  background-image: url("../images/icon_check.svg");
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: 2px 3px;
+  border-radius: 50%;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 100ms ease-in;
+}
+
+.checkbox input:checked ~ label:after {
+  background-color: #27c4ff;
+}
+
+.checkbox input {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 0;
+  height: 0;
+  visibility: hidden;
 }
 
 .form-group-radio [type='radio']:checked,
@@ -1111,51 +1261,51 @@ h3 {
   font-weight: 700;
 }
 
-.result-board__celendar {
+.result-board__calendar {
   background-color: #fff;
   border-radius: 0 0 10px 10px;
   padding: 0 40px;
   position: relative;
 }
 
-.result-board__celendar .slider__control-btn {
+.result-board__calendar .slider__control-btn {
   position: absolute;
   top: 27px;
 }
 
-.result-board__celendar .slider__control-btn:hover svg path {
+.result-board__calendar .slider__control-btn:hover svg path {
   fill: #ff6200;
 }
 
-.result-board__celendar .slider__btn-prev {
+.result-board__calendar .slider__btn-prev {
   left: 6px;
 }
 
-.result-board__celendar .slider__btn-next {
+.result-board__calendar .slider__btn-next {
   right: 6px;
 }
 
-.result-board__celendar .slider__item {
+.result-board__calendar .slider__item {
   padding: 15px 12px 14px;
 }
 
-.result-board__celendar .slider__item:hover {
+.result-board__calendar .slider__item:hover {
   cursor: pointer;
 }
 
-.result-board__celendar .slider__item:hover .date,
-.result-board__celendar .slider__item:hover .price {
+.result-board__calendar .slider__item:hover .date,
+.result-board__calendar .slider__item:hover .price {
   opacity: 1;
 }
 
-.result-board__celendar .slider__item .date {
+.result-board__calendar .slider__item .date {
   font-weight: 300;
   line-height: 25px;
   margin-bottom: 4px;
   opacity: .5;
 }
 
-.result-board__celendar .slider__item .price {
+.result-board__calendar .slider__item .price {
   opacity: .5;
   font-weight: 600;
   line-height: 25px;
@@ -1163,25 +1313,25 @@ h3 {
   color: #ff5111;
 }
 
-.result-board__celendar .slider__item.active {
+.result-board__calendar .slider__item.active {
   padding-bottom: 7px;
   background-image: linear-gradient(180deg, #ffba00 0%, #ff5111 100%);
   position: relative;
 }
 
-.result-board__celendar .slider__item.active .date,
-.result-board__celendar .slider__item.active .price {
+.result-board__calendar .slider__item.active .date,
+.result-board__calendar .slider__item.active .price {
   color: #fff;
   opacity: 1;
 }
 
-.result-board__celendar .slider__item.active:after {
+.result-board__calendar .slider__item.active:after {
   content: '';
   position: absolute;
   bottom: 0;
   left: -8px;
   width: calc(100% + 16px);
-  background-image: url("../images/border-celendar-active.png");
+  background-image: url("../images/border-calendar-active.png");
   height: 7px;
   background-position: center;
   background-size: cover;
@@ -1536,7 +1686,6 @@ h3 {
 }
 
 .banner-search-page {
-  background-image: url("../images/banner-search-page.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1550,6 +1699,7 @@ h3 {
   padding: 24px 40px;
   height: 100px;
   box-shadow: none;
+  position: static;
 }
 
 .banner-search-page .header__logo {
@@ -1767,7 +1917,7 @@ h3 {
   color: #464646;
 }
 
-.offer .recommend-regis {
+.recommend-regis {
   width: 880px;
   max-width: 100%;
   margin: 0 auto;
@@ -1779,7 +1929,7 @@ h3 {
   margin-top: 18px;
 }
 
-.offer .recommend-regis__content {
+.recommend-regis__content {
   font-size: 13px;
   line-height: 17px;
   color: #727272;
@@ -1788,11 +1938,11 @@ h3 {
   text-align: left;
 }
 
-.offer .recommend-regis img {
+.recommend-regis img {
   height: 62px;
 }
 
-.offer .recommend-regis a {
+.recommend-regis a {
   font-weight: 600;
   color: #ff4827;
 }
@@ -1837,16 +1987,410 @@ h3 {
 }
 
 .footer-search-page {
-  padding-top: 20px;
   background-image: url("../images/bg-footer-white.png");
-  background-position: 0 0;
-  background-size: 100% 100%;
+}
+
+.step {
+  height: 198px;
+  padding: 40px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  background-color: #fff;
+}
+
+.step__wrap {
+  width: 750px;
+  max-width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  position: relative;
+}
+
+.step__item {
+  position: relative;
+  width: 38px;
+  height: 38px;
+}
+
+.step__item.current:before {
+  content: '';
+  width: 48px;
+  height: 30px;
+  position: absolute;
+  bottom: 23px;
+  right: 40px;
+  background-image: url("../images/icon-step-plan.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.step__item.active {
+  position: relative;
+}
+
+.step__item.active .step__number:after {
+  content: '';
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  left: -3px;
+  top: -3px;
+  background-image: url("../images/icon_done.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.step__item.active .step__title {
+  font-weight: 600;
+}
+
+.step__number {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 3px solid #919191;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  color: #919191;
+  font-weight: 600;
+  font-size: 16px;
+  position: relative;
+}
+
+.step__title {
+  font-family: Helvetica, sans-serif;
+  font-size: 13px;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  -ms-transform: translate(-50%);
+      transform: translate(-50%);
+  white-space: nowrap;
+}
+
+.step__wire {
+  width: calc((100% - 152px) / 3);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+}
+
+.step__wire-line {
+  height: 3px;
+  width: 100%;
+  background-color: #919191;
+}
+
+.step__wire-line.active {
+  background-image: linear-gradient(270deg, #ffa700 0%, #ef5e03 100%);
+}
+
+.step__tree1 {
+  position: absolute;
+  left: 9%;
+  bottom: 19px;
+  display: none;
+  z-index: 1;
+}
+
+.step__tree1.active {
+  display: block;
+}
+
+.step__tree2 {
+  position: absolute;
+  right: 26.27%;
+  bottom: 19px;
+  display: none;
+  z-index: 1;
+}
+
+.step__tree2.active {
+  display: block;
+}
+
+.book-ticket {
+  margin-top: 13px;
+}
+
+.book-ticket .recommend-regis {
+  margin-top: 0;
+  margin-bottom: 13px;
+}
+
+.book-ticket .regis-get-bill {
+  margin-top: 26px;
+}
+
+.book-ticket .regis-get-bill .checkbox {
+  margin-bottom: 22px;
+}
+
+.book-ticket .info-flight {
+  padding: 25px 0 22px;
+}
+
+.book-ticket .info-flight .card__title {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  padding: 0 25px 0 19px;
+  margin-bottom: 10px;
+}
+
+.book-ticket .info-flight__logo-airline {
+  height: 35px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+}
+
+.book-ticket .info-flight__logo-airline img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.book-ticket .info-flight .type {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  font-size: 17px;
+}
+
+.book-ticket .info-flight .type span {
+  font-weight: 300;
+  margin-right: 4px;
+  color: #919191;
+}
+
+.book-ticket .info-flight__detail {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  padding: 0 25px;
+  margin-bottom: 14px;
+}
+
+.book-ticket .info-flight__detail .detail {
+  font-size: 16px;
+  font-weight: 300;
+  color: #ff6200;
+}
+
+.book-ticket .info-flight__detail .detail:hover {
+  color: #ff4827;
+}
+
+.book-ticket .info-flight .serial__title {
+  color: #919191;
+  font-weight: 300;
+  margin-right: 4px;
+}
+
+.book-ticket .info-flight .serial__content {
+  color: #00a6d1;
+  font-weight: 600;
+}
+
+.book-ticket .info-flight__location {
+  background-color: rgba(255, 98, 0, 0.24);
+  padding: 20px 25px;
+}
+
+.book-ticket .info-flight__location .location {
+  font-family: Anton, sans-serif;
+  font-size: 33px;
+  text-transform: uppercase;
+  color: #898989;
+  white-space: nowrap;
+}
+
+.book-ticket .info-flight__location .img {
+  margin: 14px 15px 0;
+}
+
+.book-ticket .info-flight__location img {
+  max-width: 100%;
+}
+
+.book-ticket .info-flight__location .location-full {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.book-ticket .info-flight__time {
+  padding: 12px 25px 0;
+}
+
+.book-ticket .info-flight__time .start {
+  text-align: left;
+}
+
+.book-ticket .info-flight__time .arrivals {
+  text-align: right;
+  padding-left: 8px;
+}
+
+.book-ticket .info-flight__time .date {
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.book-ticket .info-flight .time-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 15px;
+  color: #919191;
+}
+
+.book-ticket .info-flight .time-content {
+  display: block;
+  font-family: Anton, sans-serif;
+  font-size: 25px;
+  line-height: 38px;
+  margin-top: 7px;
+}
+
+.book-ticket .info-flight .time {
+  text-align: center;
+  -ms-transform: translateY(14px);
+      transform: translateY(14px);
+}
+
+.book-ticket .info-flight .time img {
+  display: block;
+  margin-bottom: 5px;
+  max-height: 30px;
+  max-width: 158px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book-ticket .info-flight .time-spent {
+  color: #919191;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+  width: 158px;
+  padding: 2px 20px;
+  background-image: url("../images/frame-time.svg");
+  background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
-.footer-search-page .footer__content-wrap {
-  background-image: none;
-  background-color: transparent;
+.book-ticket .compendious {
+  margin-top: 12px;
+  padding: 18px 0 24px;
+}
+
+.book-ticket .compendious .card__title {
+  font-size: 18px;
+  padding: 0 16px 0 19px;
+}
+
+.book-ticket .compendious__wrap {
+  padding: 0 16px 0 25px;
+  margin-top: 17px;
+}
+
+.book-ticket .compendious .form-control {
+  margin-bottom: 13px;
+  padding: 13px 14px 12px 42px;
+  font-family: Roboto, sans-serif;
+}
+
+.book-ticket .compendious .price {
+  color: #00a6d1;
+  font-weight: 300;
+}
+
+.book-ticket .compendious .luggage {
+  color: #919191;
+  font-weight: 300;
+}
+
+.book-ticket .compendious .luggage__number {
+  margin-right: 4px;
+}
+
+.book-ticket .compendious .luggage.active {
+  color: #171717;
+}
+
+.book-ticket .compendious .luggage.active .luggage__number {
+  font-weight: 600;
+}
+
+.book-ticket .compendious .number-passenger {
+  font-size: 18px;
+  line-height: 18px;
+  color: #919191;
+  font-weight: 300;
+}
+
+.book-ticket .compendious .number-passenger__content {
+  margin-right: 4px;
+}
+
+.book-ticket .compendious .number-passenger.active {
+  color: #171717;
+}
+
+.book-ticket .compendious .number-passenger.active .number-passenger__content {
+  font-weight: 600;
+}
+
+.book-ticket .compendious__total {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  margin-top: 17px;
+}
+
+.book-ticket .compendious__total-title {
+  white-space: nowrap;
+  font-size: 13px;
+  color: #43425d;
+  margin-top: 3px;
+}
+
+.book-ticket .compendious__total-price {
+  text-align: right;
+}
+
+.book-ticket .compendious__total-price .price {
+  font-weight: 600;
+  font-size: 19px;
+  color: #00a6d1;
+  display: block;
+  line-height: 28px;
+}
+
+.book-ticket .compendious__total-price .note {
+  font-size: 13px;
+  color: #919191;
 }
 
 /*# sourceMappingURL=main.css.map */
