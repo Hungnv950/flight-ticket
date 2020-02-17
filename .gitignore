@@ -24,3 +24,14 @@ yarn-error.log*
 # Editors/IDE
 .vscode/
 .idea/
+
+.editorconfig
+.eslintignore
+.eslintrc
+.stylelintignore
+.stylelintrc
+docs/css/main.css.map
+docs/links.html
+gulpfile.js
+package.json
+source/
