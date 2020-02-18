@@ -117,10 +117,6 @@ $(document).ready(function() {
     activeSlide: 7
   });
 
-  $('select').on('mousedown', function(e) {
-    e.preventDefault()
-  });
-
   $('.js-toggle-modal').on('click', function() {
     $('body').addClass('show-modal');
     $($(this).data('target')).addClass('show');
