@@ -6,6 +6,10 @@ let logger = require('morgan');
 
 let dashboardRouter = require('./routes/admin/dashboard.route');
 
+// Frontend
+let ticketsRouter = require("./routes/tickets");
+let searchRouter = require("./routes/search");
+
 let app = express();
 
 // view engine setup
@@ -19,6 +23,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', dashboardRouter);
+
+// Frontend
+app.use("/tickets", ticketsRouter);
+app.use("/search", searchRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
