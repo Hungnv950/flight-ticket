@@ -5,6 +5,11 @@ import { Route, Redirect } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+let navbar = <Navbar />;
+if(window.location.pathname === "/" || window.location.pathname === "/search") {
+  navbar = null;
+}
+
 const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
     {...rest}
@@ -13,7 +18,7 @@ const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
         <Redirect to="/" />
       ) : (
         <div>
-          {/* <Navbar /> */}
+          {navbar}
           <Component {...props} />
           <Footer />
         </div>
