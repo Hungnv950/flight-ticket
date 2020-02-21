@@ -4,15 +4,15 @@ import {imagesUrl} from '../consts/path'
 const Search = () => {
     return (
         <React.Fragment>
-            <div className="banner-search-page js-lazy-load" 
+            <div className="banner-search-page js-lazy-load"
                 data-src={imagesUrl + "banner-search-page.png" } 
                 data-type="background-image"
                 style={{background: `url(${imagesUrl + "banner-search-page.png"})`}}
             >
-                <header className="header"><img className="header__logo" src={imagesUrl + "logo-white.png"} />
+                <header className="header"><img alt="img" className="header__logo" src={imagesUrl + "logo-white.png"} />
                     <ul className="header__nav d-flex justify-content-between h-100">
                         <li className="header__nav-item">
-                            <a className="header-f-w" href="#">
+                            <a className="header-f-w" href="# ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 16 16">
                                     <g>
                                         <g>
@@ -22,7 +22,7 @@ const Search = () => {
                                 </svg><span>Cộng đồng</span></a>
                         </li>
                         <li className="header__nav-item">
-                            <a className="header-f-w active" href="#">
+                            <a className="header-f-w active" href="# ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 13 13">
                                     <g>
                                         <g>
@@ -32,7 +32,7 @@ const Search = () => {
                                 </svg><span>Vé máy bay</span></a>
                         </li>
                         <li className="header__nav-item">
-                            <a href="#">
+                            <a href="# ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={19} height={19} viewBox="0 0 19 19">
                                     <g>
                                         <g>
@@ -47,7 +47,7 @@ const Search = () => {
                             </a>
                         </li>
                         <li className="header__nav-item">
-                            <a href="#">
+                            <a href="# ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={21} height={18} viewBox="0 0 21 18">
                                     <g>
                                         <g>
@@ -67,12 +67,12 @@ const Search = () => {
                             </a>
                         </li>
                         <li className="header__nav-item">
-                            <a href="#">
-                                <div className="img-wrap"><img className="img-full-height" src={imagesUrl + "icon_plan.svg" }/></div><span className="header__user-name">Minh Tu</span>
+                            <a href="# ">
+                                <div className="img-wrap"><img alt="img" className="img-full-height" src={imagesUrl + "icon_plan.svg" }/></div><span className="header__user-name">Minh Tu</span>
                             </a>
                         </li>
                         <li className="header__nav-item">
-                            <a className="header__cart" href="#">
+                            <a className="header__cart" href="# ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={27} height={19} viewBox="0 0 27 19">
                                     <g>
                                         <g>
@@ -87,8 +87,8 @@ const Search = () => {
                     <form>
                         <div className="tab js-tab">
                             <ul className="tab__nav">
-                                <li className="tab__nav-item w-50"><a className="active js-tab-nav tab__nav-link" data-target=".one-way">Một chiều</a></li>
-                                <li className="tab__nav-item w-50"><a className="js-tab-nav tab__nav-link" data-target=".round-trip">Khứ hồi</a></li>
+                                <li className="tab__nav-item w-50"><a className="active js-tab-nav tab__nav-link" data-target=".one-way" href="# ">Một chiều</a></li>
+                                <li className="tab__nav-item w-50"><a className="js-tab-nav tab__nav-link" data-target=".round-trip" href="# ">Khứ hồi</a></li>
                             </ul>
                             <div className="tab__content">
                                 <div className="tab__content-item js-tab-content-item one-way active">
@@ -534,17 +534,17 @@ const Search = () => {
                             <div className="slider__list-wrap">
                                 <div className="slider__list">
                                     <div className="slider__item">
-                                        <div className="img-wrap img-wrap--medium"><img className="img-full-height" src={imagesUrl + "avatar-demo2.png"} /></div>
+                                        <div className="img-wrap img-wrap--medium"><img alt="img" className="img-full-height" src={imagesUrl + "avatar-demo2.png"} /></div>
                                         <p className="reviewer">Steve Vo thanh</p>
                                         <p className="review__content">“For the first time in our company's history, we were featured on every single platform that we worked on, thanks to ThankTrips.”</p>
                                     </div>
                                     <div className="slider__item">
-                                        <div className="img-wrap img-wrap--medium"><img className="img-full-height" src={imagesUrl + "avatar-demo2.png"} /></div>
+                                        <div className="img-wrap img-wrap--medium"><img alt="img" className="img-full-height" src={imagesUrl + "avatar-demo2.png"} /></div>
                                         <p className="reviewer">Nguyen Van A</p>
                                         <p className="review__content">“For the first time in our company's history, we were featured on every single platform that we worked on, thanks to ThankTrips.”</p>
                                     </div>
                                     <div className="slider__item">
-                                        <div className="img-wrap img-wrap--medium"><img className="img-full-height" src={imagesUrl + "avatar-demo2.png"} /></div>
+                                        <div className="img-wrap img-wrap--medium"><img alt="img" className="img-full-height" src={imagesUrl + "avatar-demo2.png"} /></div>
                                         <p className="reviewer">Tran Duc B</p>
                                         <p className="review__content">“For the first time in our company's history, we were featured on every single platform that we worked on, thanks to ThankTrips.”</p>
                                     </div>
@@ -576,20 +576,20 @@ const Search = () => {
                 <div className="offer">
                     <h1 className="offer__title">ƯU ĐÃI HẤP DẪN</h1><span className="offer__intro">Ưu đãi Chỉ dành riêng cho thành viên ThankTrip</span>
                     <div className="offer__content">
-                        <div className="offer__item"><img src={imagesUrl + "gift.png" }/>
+                        <div className="offer__item"><img alt="img" src={imagesUrl + "gift.png" }/>
                             <p className="offer__item-content">Phần thưởng hấp dẫn</p>
                         </div>
-                        <div className="offer__item"><img src={imagesUrl + "sale.png" }/>
+                        <div className="offer__item"><img alt="img" src={imagesUrl + "sale.png" }/>
                             <p className="offer__item-content">Giảm giá hấp dẫn</p>
                         </div>
-                        <div className="offer__item"><img src={imagesUrl + "group-user.png"} />
+                        <div className="offer__item"><img alt="img" src={imagesUrl + "group-user.png"} />
                             <p className="offer__item-content">Ưu đãi cho khách hàng
                                 <br />theo nhóm</p>
                         </div>
                     </div>
-                    <div className="recommend-regis"><img src={imagesUrl + "gift.png" }/>
+                    <div className="recommend-regis"><img alt="img" src={imagesUrl + "gift.png" }/>
                         <p className="recommend-regis__content">Bạn chưa là thành viên.
-                            <br />Vui lòng&nbsp;<a href="#">đăng nhập</a>&nbsp;hoặc&nbsp;<a href="#">đăng kí</a>&nbsp;tài khoản để hưởng các ưu đãi đặc biệt cho thành viên từ ThankTrip</p>
+                            <br />Vui lòng&nbsp;<a href="# ">đăng nhập</a>&nbsp;hoặc&nbsp;<a href="# ">đăng kí</a>&nbsp;tài khoản để hưởng các ưu đãi đặc biệt cho thành viên từ ThankTrip</p>
                     </div>
                 </div>
                 <div className="partner">
