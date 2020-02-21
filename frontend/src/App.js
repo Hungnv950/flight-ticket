@@ -1,23 +1,13 @@
-import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './components/Home';
-import About from './components/About';
-import Search from './components/Search';
+import React from "react";
+import { Provider } from "react-redux";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
-        <Route exact path='/' component={Home} />
-        <Route path='/about' component={About} />
-        <Route path='/search' component={Search} />
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
-}
+import AppRouter from "./routers/AppRouter";
+import store from "./store/configureStore";
+
+const App = () => (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
 
 export default App;

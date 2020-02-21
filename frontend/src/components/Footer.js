@@ -18,24 +18,24 @@ const Footer = () => {
                         Ut aliquip ex ea commodo consequat.
                     </p>
                     <div className="footer__social">
-                        <a className="footer__social-item" href="#" src={imagesUrl + "icon_fb.png"}>
+                        <a className="footer__social-item" href="/" src={imagesUrl + "icon_fb.png"}>
                             <img src={imagesUrl + "icon_fb.png"} alt="icon facebook" />
                         </a>
-                        <a className="footer__social-item" href="#">
+                        <a className="footer__social-item" href="/">
                             <img src={imagesUrl + "icon_twitter.png"} alt="icon twitter" />
                         </a>
-                        <a className="footer__social-item" href="#">
+                        <a className="footer__social-item" href="/">
                             <img src={imagesUrl + "icon_gmail.png"} alt="icon gmail" />
                         </a>
-                        <a className="footer__social-item" href="#">
+                        <a className="footer__social-item" href="/">
                             <img src={imagesUrl + "icon_pinterest.png"} alt="icon pinterest" />
                         </a>
-                        <a className="footer__social-item" href="#">
+                        <a className="footer__social-item" href="/">
                             <img src={imagesUrl + "icon_insta.png"} alt="icon instagram" />
                         </a>
                     </div>
                     </div>
-                    <div className="footer__links"><a href="#">Homepage</a><a href="#">News Feed</a><a href="#">Messages</a><a href="#">My Profile</a><a href="#">About us</a></div>
+                    <div className="footer__links"><a href="/">Homepage</a><a href="/">News Feed</a><a href="/">Messages</a><a href="/">My Profile</a><a href="/">About us</a></div>
                     <div className="footer__contact-us">
                     <p>Hotline: 012345678</p>
                     <p>Email: email@gmail.com</p>
