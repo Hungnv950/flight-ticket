@@ -2168,7 +2168,7 @@ var widgetsDatepicker = $.datepicker;
 
 
 }));
-/*eslint-disable*/
+/*eslint-enable*/
 
 
 $(document).ready(function() {
@@ -2346,5 +2346,5 @@ $(document).ready(function() {
         }
       }
     }
-  })
+  });
 });
