@@ -31,6 +31,7 @@ yarn-error.log*
 .stylelintignore
 .stylelintrc
 docs/css/main.css.map
+*main.css.map
 docs/links.html
 gulpfile.js
 package.json
