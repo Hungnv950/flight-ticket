@@ -4,6 +4,16 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const config = require('./db');
+
+mongoose.connect(config.DB, { useNewUrlParser: true }).then(
+    () => {console.log('Database is connected') },
+    err => { console.log('Can not connect to the database'+ err)}
+);
+
 let dashboardRouter = require('./routes/admin/dashboard.route');
 
 // Frontend
@@ -16,6 +26,8 @@ let app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
