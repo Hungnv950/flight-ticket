@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "client": "cd client && npm start",
-    "server": "npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "frontend": "cd ../frontend && npm start",
+    "backend": "DEBUG=express:* node ./bin/www",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
