@@ -28,7 +28,7 @@ const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
 );
 
 const mapStateToProps = state => ({
-  isAuthenticated: !!state.auth.id
+  isAuthenticated: false
 });
 
 export default connect(mapStateToProps)(PublicRoute);
