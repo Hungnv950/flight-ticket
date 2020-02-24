@@ -9,6 +9,8 @@ import Cart from "../components/Cart";
 import Home from "../components/Home";
 import SearchResult from "../components/SearchResult";
 import Booking from "../components/Booking";
+import Register from "../components/Register";
+import Login from "../components/Login";
 
 const history = createBrowserHistory();
 
@@ -20,6 +22,10 @@ const AppRouter = () => (
       <PublicRoute exact path="/" component={Search} />
       <PublicRoute exact path="/search/result" component={SearchResult} />
       <PublicRoute path="/booking" component={Booking} />
+
+      <PublicRoute path="/register" component={Register} />
+      <PublicRoute path="/login" component={Login} />
+
       <PrivateRoute path="/cart" component={Cart} />
     </Switch>
   </Router>
