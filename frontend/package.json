@@ -22,7 +22,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "frontend": "npm start",
+    "backend": "cd ../backend && DEBUG=express:* node ./bin/www",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\""
   },
   "proxy": "http://localhost:9000",
   "eslintConfig": {
