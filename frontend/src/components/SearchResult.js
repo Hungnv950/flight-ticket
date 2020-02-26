@@ -1,11 +1,10 @@
 import React from 'react'
 import {imagesUrl} from '../consts/path'
 
-
 const SearchResult = () => {
     return (
         <main className="main">
-            <div className="banner bg-img-base js-lazy-load" 
+            <div className="banner bg-img-base js-lazy-load"
                 data-src={imagesUrl +"bg-banner.png"}
                 data-type="background-image"
                 style={{background: `url(${imagesUrl + "bg-banner.png"})`}}
