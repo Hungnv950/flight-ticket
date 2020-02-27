@@ -2,15 +2,624 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a707c5bb-25b5-4b62-b14b-f8097221ecc8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/controllers/admin/dashboard.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/jquery-jvectormap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/leaflet.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/material-design-iconic-font.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/admin/dashboard.route.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controllers/admin/collaborator.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/user.model.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/.prettierignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/.prettierrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/Gruntfile.coffee" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/assets/docs.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/assets/docs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/assets/docs.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/bower.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/convertSvgToAssetCatalog.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/css/flag-icon.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/css/flag-icon.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ad.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ae.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/af.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ag.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ai.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/al.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/am.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ao.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/aq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/as.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/at.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/au.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/aw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ax.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/az.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ba.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/be.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/br.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/by.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/bz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ca.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ch.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ci.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ck.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/co.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cx.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/cz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/de.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/dj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/dk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/dm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/do.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/dz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ec.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ee.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/eg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/eh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/er.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/es-ca.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/es.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/et.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/eu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/fi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/fj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/fk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/fm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/fo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/fr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ga.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gb-eng.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gb-nir.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gb-sct.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gb-wls.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ge.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/gy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/hk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/hm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/hn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/hr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ht.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/hu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/id.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ie.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/il.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/im.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/in.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/io.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/iq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ir.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/is.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/it.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/je.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/jm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/jo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/jp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ke.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/kg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/kh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ki.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/km.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/kn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/kp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/kr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/kw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ky.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/kz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/la.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/lb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/lc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/li.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/lk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/lr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ls.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/lt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/lu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/lv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ly.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ma.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/md.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/me.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ml.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ms.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mx.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/my.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/mz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/na.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/nc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ne.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/nf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ng.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ni.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/nl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/no.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/np.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/nr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/nu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/nz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/om.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pa.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pe.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ph.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ps.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/pw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/py.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/qa.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/re.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ro.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/rs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ru.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/rw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sa.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/se.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/si.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/so.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ss.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/st.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sx.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/sz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/td.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/th.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/to.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/tz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ua.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ug.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/um.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/un.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/us.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/uy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/uz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/va.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/vc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ve.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/vg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/vi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/vn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/vu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/wf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ws.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/xk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/ye.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/yt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/za.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/zm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/1x1/zw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ad.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ae.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/af.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ag.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ai.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/al.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/am.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ao.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/aq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/as.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/at.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/au.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/aw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ax.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/az.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ba.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/be.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/br.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/by.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/bz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ca.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ch.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ci.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ck.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/co.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cx.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/cz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/de.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/dj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/dk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/dm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/do.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/dz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ec.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ee.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/eg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/eh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/er.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/es-ca.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/es.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/et.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/eu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/fi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/fj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/fk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/fm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/fo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/fr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ga.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gb-eng.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gb-nir.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gb-sct.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gb-wls.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ge.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/gy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/hk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/hm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/hn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/hr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ht.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/hu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/id.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ie.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/il.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/im.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/in.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/io.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/iq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ir.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/is.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/it.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/je.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/jm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/jo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/jp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ke.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/kg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/kh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ki.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/km.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/kn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/kp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/kr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/kw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ky.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/kz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/la.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/lb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/lc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/li.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/lk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/lr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ls.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/lt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/lu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/lv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ly.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ma.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/md.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/me.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ml.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mq.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ms.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mx.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/my.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/mz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/na.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/nc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ne.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/nf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ng.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ni.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/nl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/no.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/np.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/nr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/nu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/nz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/om.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pa.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pe.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ph.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ps.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/pw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/py.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/qa.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/re.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ro.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/rs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ru.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/rw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sa.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sb.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sd.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/se.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sh.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/si.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/so.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ss.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/st.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sx.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/sz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/td.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/th.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tj.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tl.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/to.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tr.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tv.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/tz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ua.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ug.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/um.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/un.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/us.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/uy.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/uz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/va.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/vc.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ve.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/vg.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/vi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/vn.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/vu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/wf.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ws.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/xk.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/ye.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/yt.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/za.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/zm.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/flags/4x3/zw.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/less/flag-icon-base.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/less/flag-icon-list.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/less/flag-icon-more.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/less/flag-icon.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/less/variables.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/sass/_flag-icon-base.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/sass/_flag-icon-list.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/sass/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/sass/flag-icon.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/svgo.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/HELP-US-OUT.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/css/font-awesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/css/font-awesome.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/css/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/animated.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/bordered-pulled.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/core.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/fixed-width.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/font-awesome.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/icons.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/larger.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/list.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/mixins.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/path.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/rotated-flipped.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/screen-reader.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/stacked.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/less/variables.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_animated.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_bordered-pulled.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_core.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_fixed-width.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_icons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_larger.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_list.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_path.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_rotated-flipped.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_screen-reader.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_stacked.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/font-awesome/scss/font-awesome.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/pace.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/CODE_OF_CONDUCT.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/History.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/LICENSE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/bower.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/fonts/Simple-Line-Icons.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/fonts/Simple-Line-Icons.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/fonts/Simple-Line-Icons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/fonts/Simple-Line-Icons.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/fonts/Simple-Line-Icons.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/less/simple-line-icons.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/scss/simple-line-icons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/admin/collaborator.route.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/views/admin/collaborator/create.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/views/admin/collaborator/index.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/views/admin/dashboard/login.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/vietlv.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/vietlv.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/admin/dashboard.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/admin/dashboard.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/public/stylesheets/jquery-jvectormap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/public/stylesheets/leaflet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/public/stylesheets/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/public/stylesheets/material-design-iconic-font.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons.css" beforeDir="false" afterPath="$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/css/simple-line-icons.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/public/stylesheets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/backend/public/stylesheets/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/admin/dashboard.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/admin/dashboard.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/views/admin/dashboard/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/admin/dashboard/index.ejs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,21 +633,52 @@
         <entry file="file://$PROJECT_DIR$/backend/routes/admin/dashboard.route.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+              <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/routes/users.js">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/backend/views/admin/dashboard/login.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="34" column="66" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="66" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/routes/index.js">
+        <entry file="file://$PROJECT_DIR$/backend/views/admin/dashboard/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="44" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="44" />
+            <state relative-caret-position="3111">
+              <caret line="183" column="17" selection-start-line="183" selection-start-column="17" selection-end-line="183" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/backend/controllers/admin/collaborator.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="11" column="38" lean-forward="true" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/models/product.model.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/models/user.model.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="34" selection-start-column="26" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -46,50 +686,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/controllers/admin/dashboard.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+            <state relative-caret-position="221">
+              <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/style.css">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/views/admin/dashboard/index.ejs">
+        <entry file="file://$PROJECT_DIR$/backend/routes/admin/collaborator.route.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-658">
-              <caret line="158" column="43" selection-start-line="158" selection-start-column="43" selection-end-line="158" selection-end-column="43" />
+            <state relative-caret-position="221">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/app.js">
+        <entry file="file://$PROJECT_DIR$/backend/views/admin/collaborator/create.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+            <state relative-caret-position="3757">
+              <caret line="221" column="54" selection-start-line="221" selection-start-column="54" selection-end-line="221" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/bin/www">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/package.json">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/routes/product.route.js">
+        <entry file="file://$PROJECT_DIR$/backend/views/admin/collaborator/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+            <state relative-caret-position="2300">
+              <caret line="256" column="52" lean-forward="true" selection-start-line="256" selection-start-column="52" selection-end-line="256" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -107,6 +732,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>var</find>
+      <find>Dashboar</find>
+      <find>Dashboard\</find>
+      <find>Dashboard</find>
     </findStrings>
     <replaceStrings>
       <replace>let</replace>
@@ -114,6 +742,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -121,22 +754,19 @@
         <option value="$PROJECT_DIR$/backend/views/index.ejs" />
         <option value="$USER_HOME$/Desktop/Thanktriips Agency Admin.html" />
         <option value="$PROJECT_DIR$/backend/views/admin/dashboard/index.jade" />
-        <option value="$PROJECT_DIR$/backend/routes/admin/dashboard.route.js" />
+        <option value="$PROJECT_DIR$/backend/routes/admin/login.route.js" />
+        <option value="$PROJECT_DIR$/backend/views/admin/dashboard/login.ejs" />
+        <option value="$PROJECT_DIR$/backend/package.json" />
         <option value="$PROJECT_DIR$/backend/app.js" />
-        <option value="$PROJECT_DIR$/backend/controllers/admin/dashboard.controller.js" />
+        <option value="$PROJECT_DIR$/backend/routes/admin/dashboard.route.js" />
         <option value="$PROJECT_DIR$/backend/views/admin/dashboard/index.ejs" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/flight-ticket.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/dictionaries/vietlv.xml" />
-        <option value="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+        <option value="$PROJECT_DIR$/backend/models/collaborator.model.js" />
+        <option value="$PROJECT_DIR$/backend/routes/admin/collaborator.route.js" />
+        <option value="$PROJECT_DIR$/backend/models/user.model.js" />
+        <option value="$PROJECT_DIR$/backend/controllers/admin/dashboard.controller.js" />
+        <option value="$PROJECT_DIR$/backend/views/admin/collaborator/create.ejs" />
+        <option value="$PROJECT_DIR$/backend/controllers/admin/collaborator.controller.js" />
+        <option value="$PROJECT_DIR$/backend/views/admin/collaborator/index.ejs" />
       </list>
     </option>
   </component>
@@ -144,6 +774,9 @@
     <option name="x" value="950" />
     <option name="width" value="980" />
     <option name="height" value="1025" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -166,14 +799,33 @@
               <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
               <item name="flight-ticket" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
               <item name="flight-ticket" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flight-ticket" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flight-ticket" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flight-ticket" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
@@ -187,6 +839,14 @@
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flight-ticket" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="collaborator" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flight-ticket" type="b2602c69:ProjectViewProjectNode" />
@@ -205,17 +865,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="editor.config.ad.shown" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend/public/stylesheets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend/models" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\RedTiger\project-tigerweb\freelancer\backend\flight-ticket\backend\public\stylesheets" />
+      <recent name="E:\RedTiger\project-tigerweb\freelancer\backend\flight-ticket\backend\models" />
+      <recent name="E:\RedTiger\project-tigerweb\freelancer\backend\flight-ticket\backend\views\admin\collaborator" />
+      <recent name="E:\RedTiger\project-tigerweb\freelancer\backend\flight-ticket\backend\routes\admin" />
       <recent name="E:\RedTiger\project-tigerweb\freelancer\backend\flight-ticket\backend\controllers\admin" />
+      <recent name="E:\RedTiger\project-tigerweb\freelancer\backend\flight-ticket\backend\views\admin\dashboard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\RedTiger\project-tigerweb\freelancer\backend\flight-ticket\backend\views\admin" />
@@ -245,17 +911,23 @@
       <updated>1582129743049</updated>
       <workItem from="1582129744934" duration="590000" />
       <workItem from="1582130441035" duration="7130000" />
+      <workItem from="1582171587029" duration="1267000" />
+      <workItem from="1582427270937" duration="8978000" />
+      <workItem from="1582518197109" duration="3261000" />
+      <workItem from="1582643640028" duration="644000" />
+      <workItem from="1582701486194" duration="19045000" />
+      <workItem from="1582816745654" duration="300000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7720000" />
+    <option name="totallyTimeSpent" value="41215000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22147651" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.051677853" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -268,8 +940,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.5141643" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.76203966" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -280,22 +952,17 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/backend/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/Thanktriips Agency Admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="1203" column="40" selection-end-line="2114" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/package.json">
+    <entry file="file://$USER_HOME$/Desktop/Thanktriips Agency Admin.html" />
+    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons.css" />
+    <entry file="file://$PROJECT_DIR$/backend/routes/users.js">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="44" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="44" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/bin/www">
       <provider selected="true" editor-type-id="text-editor" />
@@ -307,49 +974,141 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Desktop/coreui-free-bootstrap-admin-template-master/coreui-free-bootstrap-admin-template-master/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="1374" column="31" selection-end-line="1391" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-969" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/font-awesome/css/font-awesome.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/flag-icon-css/css/flag-icon.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/pace.min.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons/css/simple-line-icons.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/routes/admin/login.route.js" />
+    <entry file="file://$PROJECT_DIR$/backend/views/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/product.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/node_modules/express-session/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+        <state relative-caret-position="298">
+          <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/collaborator.model.js" />
+    <entry file="file://$PROJECT_DIR$/backend/node_modules/mongoose/lib/connection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="302" selection-start-line="302" selection-end-line="302" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/routes/admin/dashboard.route.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/routes/index.js">
+    <entry file="file://$PROJECT_DIR$/backend/views/admin/dashboard/login.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="44" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="44" />
+        <state relative-caret-position="578">
+          <caret line="34" column="66" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/admin/dashboard/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3111">
+          <caret line="183" column="17" selection-start-line="183" selection-start-column="17" selection-end-line="183" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/product.model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/user.model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="34" selection-start-column="26" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/controllers/admin/dashboard.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+        <state relative-caret-position="221">
+          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/simple-line-icons.css">
+    <entry file="file://$PROJECT_DIR$/backend/routes/admin/collaborator.route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12687" />
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/public/stylesheets/style.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/admin/dashboard/index.ejs">
+    <entry file="file://$PROJECT_DIR$/backend/views/admin/collaborator/create.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-658">
-          <caret line="158" column="43" selection-start-line="158" selection-start-column="43" selection-end-line="158" selection-end-column="43" />
+        <state relative-caret-position="3757">
+          <caret line="221" column="54" selection-start-line="221" selection-start-column="54" selection-end-line="221" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/admin/collaborator/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2300">
+          <caret line="256" column="52" lean-forward="true" selection-start-line="256" selection-start-column="52" selection-end-line="256" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/admin/collaborator.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="11" column="38" lean-forward="true" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="50" />
         </state>
       </provider>
     </entry>
