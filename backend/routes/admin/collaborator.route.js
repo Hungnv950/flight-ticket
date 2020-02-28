@@ -4,6 +4,8 @@ const router = express.Router();
 
 const collaboratorCtrl = require('../../controllers/admin/collaborator.controller');
 
+router.get('/view/:id', collaboratorCtrl.view);
+
 router.get('/index', collaboratorCtrl.index);
 
 router.get('/create', collaboratorCtrl.create);

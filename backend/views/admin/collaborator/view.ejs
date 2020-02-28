@@ -40,6 +40,234 @@
         .table-responsive-sm a:hover {
             text-decoration: none;
         }
+
+    </style>
+    <style>
+        h2 {
+            line-height: 36px;
+            font-size: 20px;
+        }
+
+        .text-muted {
+            color: #99abb4 !important;
+        }
+
+        h5 {
+            line-height: 18px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .r4_counter h4 {
+            margin: 0;
+        }
+
+        .text-muted {
+            margin-bottom: 4px;
+        }
+
+        .panel_s .panel-body {
+            background: #fff;
+            border: 1px solid #dce1ef;
+            border-radius: 4px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .padding-10 {
+            padding: 10px !important;
+        }
+
+        .activity-feed {
+            padding: 15px;
+            word-wrap: break-word;
+        }
+
+        .activity-feed .feed-item {
+            position: relative;
+            padding-bottom: 15px;
+            padding-left: 30px;
+            border-left: 2px solid #84c529;
+        }
+
+        .activity-feed .feed-item .date {
+            position: relative;
+            top: -5px;
+            color: #4b5158;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .activity-feed .feed-item .text {
+            position: relative;
+            top: -3px;
+        }
+
+        .mtop5 {
+            margin-top: 5px;
+        }
+
+        .text-muted {
+            color: #777;
+        }
+
+        .activity-feed .feed-item:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: -6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 6px;
+            background: #fff;
+            border: 1px solid #4b5158;
+        }
+
+        .bold {
+            font-weight: 500;
+        }
+
+        .no-mbot {
+            margin-bottom: 0 !important;
+        }
+
+        a {
+            color: #008ece;
+            text-decoration: none !important;
+        }
+
+        .feed-item .text-has-action {
+            margin-bottom: 7px;
+            display: inline-block;
+        }
+
+        .text-has-action {
+            border-bottom: 1px dashed #bbb;
+            padding-bottom: 2px;
+        }
+
+        .activity-feed .feed-item .text {
+            font-size: 13px;
+        }
+
+        .ovh {
+            overflow: hidden !important;
+        }
+
+        .dashboardStatistic {
+            position: relative;
+        }
+
+        .dashboardStatistic .dashboardTitle {
+            padding-top: 19px;
+            margin-bottom: 5px;
+            padding-bottom: 6px;
+        }
+
+        .dashboardTitle {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 12px 10px 10px 20px;
+            overflow: hidden;
+        }
+
+        .boxFulfill h3, .dashboardTitle, .initialism {
+            text-transform: uppercase;
+        }
+
+        .pd0 {
+            padding: 0 !important;
+        }
+
+        .uln ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-custom .dashboardStatistic ul li {
+            max-width: calc(100% / 4);
+        }
+
+        .dashboardStatistic ul li {
+            position: relative;
+            color: #999;
+            font-size: 12px;
+            padding: 6px 0 6px 67px;
+            text-align: left;
+            display: inline-block;
+            height: auto;
+            vertical-align: middle;
+            min-height: 72px;
+            white-space: nowrap;
+            margin: 4px 25px 8px 0;
+            box-sizing: border-box;
+            width: 22%;
+        }
+
+        .dashboardStatistic ul li.total .dash_icon {
+            background: #0094da;
+        }
+
+        .dashboardStatistic ul li .dash_icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin: 0;
+            position: absolute;
+            top: 14px;
+            left: 25px;
+            background: #4bac4d;
+            text-align: center;
+            border-radius: 100% !important;
+            color: #fff;
+            line-height: 32px;
+        }
+
+        .dashboardStatistic ul li .dash_icon .fa {
+            font-size: 16px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+        }
+
+        .dashboardStatistic ul li .dash_title {
+            font-weight: 700;
+            color: #666;
+            margin: 0 0 0 2px;
+        }
+
+        .dashboardStatistic ul li.total span.number {
+            color: #0094da;
+        }
+
+        .dashboardStatistic ul li span.number {
+            display: block;
+            font-size: 22px;
+            line-height: 28px;
+        }
+
+        .dashboardStatistic ul li span.yesterday {
+            display: block;
+            margin: 0 0 0 2px;
+        }
+
+        .dashboardStatistic ul li + li {
+            border-left: 1px solid #d6d6d6;
+        }
+
+        .dropdown-menu {
+            right: 0;
+            left: unset;
+        }
+
+        .box-title {
+            text-transform: uppercase;
+        }
+
+        .btn-group-left a, .btn-group-left button {
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -299,6 +527,46 @@
                                         </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
+                                        <div class="dashboardBox dashboardStatistic ovh dashboard-top">
+                                            <div class="uln ovh pd0">
+                                                <ul>
+                                                    <li class="total">
+                                                        <label class="dash_icon">
+                                                            <i class="fa fa-usd"></i>
+                                                        </label>
+                                                        <label class="dash_title ng-binding">0 Doanh số</label>
+                                                        <span class="number">
+                                                            <span class="txt ng-binding">0</span>
+                                                        </span>
+                                                        <span class="yesterday ng-binding">Doanh thu thuần</span>
+                                                    </li>
+                                                    <li class="return">
+                                                        <label class="dash_icon">
+                                                            <i class="fa fa-reply-all"></i>
+                                                        </label>
+                                                        <label class="dash_title">0 Đơn hàng</label>
+                                                        <span class="number"><span class="txt">0</span></span>
+                                                        <span class="yesterday">Trả hàng</span>
+                                                    </li>
+                                                    <li class="customer">
+                                                        <label class="dash_icon">
+                                                            <i class="fa fa-spinner"></i>
+                                                        </label>
+                                                        <label class="dash_title">0 Đơn hàng hủy</label>
+                                                        <span class="number"><span class="txt">0</span></span>
+                                                        <span class="yesterday">Đơn hàng hủy</span>
+                                                    </li>
+                                                    <li class="customer down">
+                                                        <label class="dash_icon">
+                                                            <i class="fa fa-arrow-down"></i>
+                                                        </label>
+                                                        <label class="dash_title">Lợi nhuận gộp</label>
+                                                        <span class="number"><span class="txt">0</span></span>
+                                                        <span class="yesterday">Lợi nhuận gộp</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                         <table class="table table-responsive-sm table-striped"
                                                style="margin-bottom: 0;">
                                             <thead>
@@ -318,29 +586,6 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <% collaborators.forEach(function(collaborator, key) { %>
-                                                <tr>
-                                                    <td><%= key + 1 %></td>
-                                                    <td>
-                                                        <a class="btn btn-sm btn-outline-secondary active" href="">
-                                                            <%= collaborator.code %>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <%= collaborator.fullName %>
-                                                    </td>
-                                                    <td><span class="badge badge-success">Hoạt động</span></td>
-                                                    <td>
-                                                        <a class="btn btn-sm btn-outline-success" href="">
-                                                            <i class="nav-icon icon-pencil"></i>
-                                                        </a>
-                                                        <a class="btn btn-sm btn-outline-primary"
-                                                           href="view/<%= collaborator.id %>">
-                                                            <i class="nav-icon icon-eye"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            <% }); %>
                                             </tbody>
                                         </table>
                                     </div>
