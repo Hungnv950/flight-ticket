@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Thinkflight | CTV</title>
+    <title>CoreUI Free Bootstrap Admin Template</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
             <li class="breadcrumb-item">
                 <a href="/admin/dashboard">Trang chủ</a>
             </li>
-            <li class="breadcrumb-item active">Cộng tác viên</li>
+            <li class="breadcrumb-item active">Khách hàng</li>
         </ol>
         <div class="container-fluid">
             <div id="ui-view">
@@ -64,18 +64,13 @@
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
                                             Tìm kiếm
                                         </p>
-                                        <div class="card-header-actions">
-                                            <a href="create" class="btn btn-block btn-outline-dark">
-                                                <i class="nav-icon icon-plus"></i>
-                                            </a>
-                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input class="form-control" id="name" type="text"
-                                                           placeholder="Theo tên, mã CTV">
+                                                           placeholder="Theo tên, số điện thoại KH">
                                                 </div>
                                             </div>
                                         </div>
@@ -147,26 +142,20 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
-                                            Cộng tác viên
+                                            Khách hàng
                                         </p>
-                                        <div class="card-header-actions">
-                                            <a href="create" class="btn btn-block btn-success active">
-                                                <i class="nav-icon icon-plus"></i>
-                                                Thêm mới 1 CTV
-                                            </a>
-                                        </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
                                         <table class="table table-responsive-sm table-striped"
                                                style="margin-bottom: 0;">
                                             <thead>
                                             <tr>
-                                                <th style="width: 40px;">ID</th>
-                                                <th>Mã CTV</th>
+                                                <th style="width: 40px;">STT</th>
                                                 <th>Họ và tên</th>
-                                                <th>Số điện thoại</th>
+                                                <th>Số diện thoại</th>
                                                 <th>Email</th>
                                                 <th>Trạng thái</th>
+                                                <th>Hành động</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -178,24 +167,28 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <% collaborators.forEach(function(collaborator, key) { %>
+                                            <% users.forEach(function(user, key) { %>
                                                 <tr>
                                                     <td><%= key + 1 %></td>
                                                     <td>
-                                                        <a href="view/<%= collaborator.id %>">
-                                                            <%= collaborator.code %>
-                                                        </a>
+                                                        <%= user.fullName %>
                                                     </td>
                                                     <td>
-                                                        <%= collaborator.fullName %>
+                                                        <%= user.phone ? collaborator.phone : 'N/A' %>
                                                     </td>
                                                     <td>
-                                                        <%= collaborator.phone ? collaborator.phone : "N/A" %>
-                                                    </td>
-                                                    <td>
-                                                        <%= collaborator.email ? collaborator.email : "N/A" %>
+                                                        <%= user.email ? collaborator.email : 'N/A' %>
                                                     </td>
                                                     <td><span class="badge badge-success">Hoạt động</span></td>
+                                                    <td>
+                                                        <a class="btn btn-sm btn-outline-success" href="">
+                                                            <i class="nav-icon icon-pencil"></i>
+                                                        </a>
+                                                        <a class="btn btn-sm btn-outline-primary"
+                                                           href="view/<%= user.id %>">
+                                                            <i class="nav-icon icon-eye"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             <% }); %>
                                             </tbody>

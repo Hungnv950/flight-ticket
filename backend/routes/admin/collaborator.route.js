@@ -4,12 +4,16 @@ const router = express.Router();
 
 const collaboratorCtrl = require('../../controllers/admin/collaborator.controller');
 
-router.get('/view/:id', collaboratorCtrl.view);
-
 router.get('/index', collaboratorCtrl.index);
+
+router.get('/view/:id', collaboratorCtrl.view);
 
 router.get('/create', collaboratorCtrl.create);
 
+router.get('/update/:id', collaboratorCtrl.update);
+
 router.post('/create', collaboratorCtrl.createPost);
+
+router.post('/update/:id', collaboratorCtrl.updatePost);
 
 module.exports = router;

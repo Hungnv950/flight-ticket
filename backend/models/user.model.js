@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 const ROLE_CTV = 2;
+const ROLE_USER = 3;
 const ROLE_ADMIN = 1;
 
 const STATUS_ACTIVE = 10;
@@ -12,7 +13,6 @@ const STATUS_INACTIVE = 0;
 let UserSchema = new Schema({
     code: {
         type: String,
-        unique: true,
         required: true
     },
     username: {
@@ -38,7 +38,7 @@ let UserSchema = new Schema({
         type: String,
         required: true,
     },
-    roleID: {
+    roleId: {
         type: Number,
         required: true,
     },
@@ -109,7 +109,10 @@ UserSchema.pre('save', function (next) {
 
     let max = 10;
 
-    user.code = slug + getRandomIntInclusive(Math.pow(10, (max - slug.length)), Math.pow(10, (max - slug.length + 1)));
+    if (user.roleId === 2) {
+        user.code = slug + getRandomIntInclusive(Math.pow(10, (max - slug.length)), Math.pow(10, (max - slug.length + 1)));
+
+    }
 
     bcrypt.hash(user.password, 10, function (err, hash) {
         if (err) {

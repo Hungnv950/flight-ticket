@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Thinkflight | CTV</title>
+    <title>CoreUI Free Bootstrap Admin Template</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -40,6 +40,10 @@
         .table-responsive-sm a:hover {
             text-decoration: none;
         }
+
+        .th-text-right {
+            text-align: right;
+        }
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -51,7 +55,7 @@
             <li class="breadcrumb-item">
                 <a href="/admin/dashboard">Trang chủ</a>
             </li>
-            <li class="breadcrumb-item active">Cộng tác viên</li>
+            <li class="breadcrumb-item active">Chuyến bay</li>
         </ol>
         <div class="container-fluid">
             <div id="ui-view">
@@ -61,7 +65,7 @@
                             <div class="col-lg-3">
                                 <div class="card">
                                     <div class="card-header">
-                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
+                                        <p style="float: left;font-weight: bold;margin-bottom: 0;margin-top: 8px;">
                                             Tìm kiếm
                                         </p>
                                         <div class="card-header-actions">
@@ -75,7 +79,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input class="form-control" id="name" type="text"
-                                                           placeholder="Theo tên, mã CTV">
+                                                           placeholder="Theo tên, mã chuyến bay">
                                                 </div>
                                             </div>
                                         </div>
@@ -146,14 +150,17 @@
                             <div class="col-lg-9">
                                 <div class="card">
                                     <div class="card-header">
-                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
-                                            Cộng tác viên
+                                        <p style="float: left;font-weight: bold;margin-bottom: 0;margin-top: 8px;">
+                                            Chuyến bay
                                         </p>
                                         <div class="card-header-actions">
-                                            <a href="create" class="btn btn-block btn-success active">
-                                                <i class="nav-icon icon-plus"></i>
-                                                Thêm mới 1 CTV
-                                            </a>
+                                            <select class="form-control" id="ccmonth">
+                                                <option>Hôm nay</option>
+                                                <option>Hôm qua</option>
+                                                <option>7 ngày qua</option>
+                                                <option>Tháng này</option>
+                                                <option>Tháng trước</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
@@ -162,10 +169,11 @@
                                             <thead>
                                             <tr>
                                                 <th style="width: 40px;">ID</th>
-                                                <th>Mã CTV</th>
-                                                <th>Họ và tên</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Email</th>
+                                                <th>Mã đặt chỗ</th>
+                                                <th>Khách hàng</th>
+                                                <th>Thời gian</th>
+                                                <th class="th-text-right">Số chỗ đặt</th>
+                                                <th class="th-text-right">Tổng chi phí</th>
                                                 <th>Trạng thái</th>
                                             </tr>
                                             </thead>
@@ -177,25 +185,29 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
+                                                <td></td>
                                             </tr>
-                                            <% collaborators.forEach(function(collaborator, key) { %>
+                                            <% collaborators.forEach(function(flight, key) { %>
                                                 <tr>
                                                     <td><%= key + 1 %></td>
                                                     <td>
-                                                        <a href="view/<%= collaborator.id %>">
-                                                            <%= collaborator.code %>
+                                                        <a href="">
+                                                            <%= flight.code %>
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <%= collaborator.fullName %>
+                                                        <a href="/admin/user/view/<%= flight.userId %>">
+                                                            <%= flight.fullName %>
+                                                        </a>
                                                     </td>
                                                     <td>
-                                                        <%= collaborator.phone ? collaborator.phone : "N/A" %>
+                                                        10:10 28/2/2020
                                                     </td>
-                                                    <td>
-                                                        <%= collaborator.email ? collaborator.email : "N/A" %>
+                                                    <td class="th-text-right">10</td>
+                                                    <td class="th-text-right">
+                                                        <%= (1450000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') %>
                                                     </td>
-                                                    <td><span class="badge badge-success">Hoạt động</span></td>
+                                                    <td><span class="badge badge-success">Đặt chỗ</span></td>
                                                 </tr>
                                             <% }); %>
                                             </tbody>

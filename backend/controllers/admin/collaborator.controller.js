@@ -8,9 +8,8 @@ exports.index = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.find({roleID: 2}, function (err, collaborators) {
-                    console.log(collaborators);
-                    res.render('admin/collaborator/index', {title: 'Cộng tác viên', collaborators: collaborators});
+                User.find({roleId: 2}, function (err, collaborators) {
+                    res.render('admin/collaborator/index', {collaborators: collaborators});
                 });
             }
         }
@@ -63,7 +62,7 @@ exports.createPost = function (req, res, next) {
     });
 };
 
-exports.view = function (req, res) {
+exports.update = function (req, res, next) {
     User.findById(req.session.userid).exec(function (error, user) {
         if (error) {
             return next(error);
@@ -74,7 +73,51 @@ exports.view = function (req, res) {
                 User.findById(req.params.id, function (err, collaborator) {
                     if (err) return next(err);
 
-                    res.render('admin/collaborator/view', {title: collaborator.fullName, collaborator: collaborator});
+                    res.render('admin/collaborator/update', {collaborator: collaborator});
+                })
+            }
+        }
+    });
+};
+
+exports.updatePost = function (req, res, next) {
+    User.findById(req.session.userid).exec(function (error, user) {
+        if (error) {
+            return next(error);
+        } else {
+            if (user === null) {
+                return res.redirect('/admin/login');
+            } else {
+                User.findById(req.params.id, function (err, collaborator) {
+                    if (err) return next(err);
+
+                    collaborator.note = req.body.note;
+                    collaborator.address = req.body.address;
+                    collaborator.fullName = req.body.fullName;
+
+                    collaborator.update(function (err) {
+                        if (err) return console.error(err);
+
+                        return res.redirect('/admin/collaborator/index');
+                    });
+                });
+            }
+        }
+    });
+};
+
+exports.view = function (req, res, next) {
+    User.findById(req.session.userid).exec(function (err, user) {
+        if (err) {
+            return next(err);
+        } else {
+            if (user === null) {
+                return res.redirect('/admin/login');
+            } else {
+                User.findById(req.params.id, function (err, collaborator) {
+                    if (err) return next(err);
+
+                    res.render('admin/collaborator/view', {collaborator: collaborator});
                 })
             }
         }

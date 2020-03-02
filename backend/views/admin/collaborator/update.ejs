@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Thinkflight | CTV - Thêm mới</title>
+    <title>Thinkflight | CTV - <%= collaborator.fullName %> - Chỉnh sửa</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -50,9 +50,12 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Dashboard</li>
             <li class="breadcrumb-item">
-                <a href="index">Cộng tác viên</a>
+                <a href="/admin/collaborator/index">Cộng tác viên</a>
             </li>
-            <li class="breadcrumb-item active">Thêm mới</li>
+            <li class="breadcrumb-item">
+                <a href="/admin/collaborator/view/<%= collaborator.id %>"><%= collaborator.fullName %></a>
+            </li>
+            <li class="breadcrumb-item active">Cập nhật</li>
         </ol>
         <div class="container-fluid" data-select2-id="16">
             <div id="ui-view" data-select2-id="ui-view">
@@ -61,19 +64,36 @@
                         <div class="row">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-8">
-                                <form action="create" method="post">
+                                <form action="update" method="post">
                                     <div class="card">
                                         <div class="card-header"><strong>Cộng tác viên</strong>
                                             <small>Thêm mới</small>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="street">Số điện thoại <span
                                                                     class="required">(*)</span></label>
-                                                        <input name="username" class="form-control" type="text"
-                                                               placeholder="Nhập số điện thoại">
+                                                        <input class="form-control" type="text" disabled=""
+                                                               value="<%= collaborator.username %>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="street">Mã CTV <span
+                                                                    class="required">(*)</span></label>
+                                                        <div class="form-wrap form-control-static">
+                                                            <div class="input-group mb-3" id="product_coupon">
+                                                                <input type="text" class="form-control"
+                                                                       value="<%= collaborator.code %>" disabled="">
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text">
+                                                                    <i class="nav-icon icon-docs"></i>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

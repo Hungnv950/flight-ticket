@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 let session = require('express-session');
 let MongoStore = require('connect-mongo')(session);
 
-mongoose.connect('mongodb://localhost:27017/thinkflight', {
+mongoose.connect('mongodb://127.0.0.1:27017/thinkflight', {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -24,6 +24,24 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
 
+});
+
+const User = require('./models/user.model');
+
+User.find({username: 'admin@thinkflight.com'}, function (err, user) {
+    console.log(user);
+    if (user === []) {
+        let userNew = new User({
+            fullName: 'Admin',
+            username: 'admin@thinkflight.com',
+            password: '123456',
+            code: 'ADMIN',
+            roleID: 1,
+            status: 10
+        });
+
+        userNew.save();
+    }
 });
 
 app.use(session({
@@ -44,13 +62,22 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+let userRouter = require('./routes/admin/user.route');
+
+let flightRouter = require('./routes/admin/flight.route');
+
 let dashboardRouter = require('./routes/admin/dashboard.route');
 
 let collaboratorRouter = require('./routes/admin/collaborator.route');
 
 app.use('/admin', dashboardRouter);
 
+app.use('/admin/user', userRouter);
+
+app.use('/admin/flight', flightRouter);
+
 app.use('/admin/collaborator', collaboratorRouter);
+
 
 app.use(function (req, res, next) {
     next(createError(404));
