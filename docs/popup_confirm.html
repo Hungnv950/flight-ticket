@@ -486,7 +486,7 @@
                 </div>
               </div>
               <div class="card submit">
-                <input class="form-control border introduce" type="text" placeholder="ID giới thiệu"><a class="submit__btn btn btn--large btn--bg-linear" href="/thanh_toan_01.html"><span>Tiếp theo</span><svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13">
+                <input class="form-control border introduce" type="text" placeholder="ID giới thiệu"><a class="submit__btn btn btn--large btn--bg-linear js-toggle-modal" data-target="#modal-confirm"><span>Tiếp theo</span><svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13">
                     <g>
                       <g>
                         <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
@@ -532,6 +532,33 @@
         <p>© 2015 All rights reserved. THANKTRIPS</p>
       </div>
     </footer>
+    <div class="modal modal-confirm show" id="modal-confirm">
+      <div class="modal-content js-lazy-load" data-src="/images/bg-popup-confirm.png" data-type="background-image">
+        <div class="form-confirm">
+          <form>
+            <p class="form-confirm__title">Bạn có muốn kiểm tra lại thông tin đặt chỗ của mình một lần nữa không?</p><a class="form-confirm__back" href="#">
+              Tôi muốn kiểm tra lại<svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13">
+                <g>
+                  <g>
+                    <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
+                  </g>
+                </g>
+              </svg></a>
+            <div class="form-confirm__group">
+              <input class="form-control item" type="text" placeholder="Nhập ID giới thiệu"><a class="btn btn--large btn--bg-linear item" href="/thanh_toan_01.html">
+                Đặt chỗ<svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13">
+                  <g>
+                    <g>
+                      <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
+                    </g>
+                  </g>
+                </svg></a>
+            </div>
+            <div class="form-confirm__note">Nhập ID người giới thiệu để tiết kiệm ngay&nbsp;<span class="font-weight-bold text-blue-sky">30.000đ</span>&nbsp;cho chuyến đi này.</div>
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="modal modal-detail-flight" id="detail-flight">
       <div class="modal-content js-toggle show">
         <div class="d-flex">
