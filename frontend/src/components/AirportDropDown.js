@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 
 // const airports = [
-//   { key: 'Dave', name: "Ha Noi" },
-//   { key: 'Kellie', name: "TP Ho Chi Minh" },
-//   { key: 'Max', name: "Da Nang" },
-//   { key: 'Jack', name: "Viet Nam" }
+//   { key: 'Dave', airport: "Ha Noi" },
+//   { key: 'Kellie', airport: "TP Ho Chi Minh" },
+//   { key: 'Max', airport: "Da Nang" },
+//   { key: 'Jack', airport: "Viet Nam" }
 // ];
 
 
@@ -15,10 +15,51 @@ class AirportDropDown extends Component {
 
     this.state = {
       airports: [
-        { key: 'Dave', name: "Ha Noi" },
-        { key: 'Kellie', name: "TP Ho Chi Minh" },
-        { key: 'Max', name: "Da Nang" },
-        { key: 'Jack', name: "Viet Nam" }
+        { key: 'Dave', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Kellie', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Max', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
       ],
       suggestions: [],
       value: ""
@@ -27,12 +68,6 @@ class AirportDropDown extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
   }
-
-  selectAirport(airport) {
-    this.setState({
-      value: airport.name
-    })
-  };
 
   handleChange(event) {
     this.setState({ value: event.target.value });
@@ -50,19 +85,23 @@ class AirportDropDown extends Component {
     const inputLength = inputValue.length;
 
     return inputLength === 0 ? [] : this.state.airports.filter(lang =>
-      lang.name.toLowerCase().slice(0, inputLength) === inputValue
+      lang.airport.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
 
   // When suggestion is clicked, Autosuggest needs to populate the input
   // based on the clicked suggestion. Teach Autosuggest how to calculate the
   // input value for every given suggestion.
-  getSuggestionValue = suggestion => suggestion.name;
+  getSuggestionValue = suggestion => suggestion.airport;
 
   // Use your imagination to render suggestions.
-  renderSuggestion = suggestion => (
+  renderSuggestion = airport => (
     <div className="dropdown__item">
-      {suggestion.name}
+      <div className="city">
+        <span>{airport.airport}&nbsp;</span>
+        <span className="font-weight-bold">({airport.key})</span>
+      </div>
+      <span className="country">{airport.country}</span>
     </div>
   );
 
@@ -86,7 +125,7 @@ class AirportDropDown extends Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: 'hành phố - Quốc Gia - Sân Bay',
+      placeholder: 'Thành phố - Quốc Gia - Sân Bay',
       value,
       onChange: this.onChange,
       className: "form-control",
@@ -104,7 +143,7 @@ class AirportDropDown extends Component {
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
           />
-
+          {/* <input className="form-control" type="text" placeholder="Thành phố - Quốc Gia - Sân Bay" /> */}
           <div className="icon-search js-control-show-dropdown">
             <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 16 16">
               <g>
@@ -117,17 +156,6 @@ class AirportDropDown extends Component {
             </svg>
           </div>
         </div>
-        <ul className="dropdown__list">
-          {
-            this.state.airports.map((airport, key) => {
-              return (
-                <li key={key} onClick={this.selectAirport.bind(this, airport)} className="dropdown__item">
-                  <span>{airport.name}</span>
-                </li>
-              )
-            })
-          }
-        </ul>
       </React.Fragment>
     )
   }
