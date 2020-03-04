@@ -53,6 +53,23 @@ app.use(session({
     })
 }));
 
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const config = require('./db');
+
+const users = require('./routes/user'); 
+
+// Frontend
+let ticketsRouter = require("./routes/tickets");
+let searchRouter = require("./routes/search");
+
+app.use(passport.initialize());
+require('./passport')(passport);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use('/api/users', users);
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -78,6 +95,9 @@ app.use('/admin/flight', flightRouter);
 
 app.use('/admin/collaborator', collaboratorRouter);
 
+app.use("/tickets", ticketsRouter);
+
+app.use("/search", searchRouter);
 
 app.use(function (req, res, next) {
     next(createError(404));
