@@ -9,17 +9,19 @@
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^4.0.0",
     "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "^4.16.4",
-    "gravatar": "^1.8.0",
+    "express-session": "^1.17.0",
     "http-errors": "~1.6.3",
-    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.2",
-    "morgan": "~1.9.1",
+    "morgan": "~1.9.1"
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "react-isolated-scroll": "^0.1.1",

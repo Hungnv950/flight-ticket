@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>CoreUI Free Bootstrap Admin Template</title>
+    <!-- Icons-->
+    <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
+    <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+    <link href="/stylesheets/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="/stylesheets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/stylesheets/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/pace.min.css" rel="stylesheet">
+
+    <style>
+        .card-body table th {
+            text-transform: uppercase;
+        }
+
+        table tr th {
+            color: #000 !important;
+            border-top: 1px solid #c5e7f2 !important;
+            border-bottom: 1px solid #c5e7f2 !important;
+            background: url(https://cdn-app.kiotviet.vn/retailler/Content/thBg.png) right center no-repeat #dcf4fc !important;
+        }
+
+        .table th {
+            border-bottom: none !important;
+            font-weight: 400 !important;
+            font-size: 12px !important;
+            text-transform: uppercase;
+        }
+
+        .table-responsive-sm a:hover {
+            text-decoration: none;
+        }
+
+    </style>
+    <style>
+        h2 {
+            line-height: 36px;
+            font-size: 20px;
+        }
+
+        h5 {
+            line-height: 18px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .r4_counter h4 {
+            margin: 0;
+        }
+
+        a {
+            color: #008ece;
+            text-decoration: none !important;
+        }
+
+
+        .uln ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-custom .dashboardStatistic ul li {
+            max-width: calc(100% / 4);
+        }
+
+        .dashboardStatistic ul li {
+            position: relative;
+            color: #999;
+            font-size: 12px;
+            padding: 6px 0 6px 67px;
+            text-align: left;
+            display: inline-block;
+            height: auto;
+            vertical-align: middle;
+            min-height: 72px;
+            white-space: nowrap;
+            margin: 4px 25px 8px 0;
+            box-sizing: border-box;
+            width: 22%;
+        }
+
+        .dashboardStatistic ul li + li {
+            border-left: 1px solid #d6d6d6;
+        }
+
+        .btn-group-left a, .btn-group-left button {
+            text-transform: uppercase;
+        }
+
+        .content-list div[class*=col-md-] .form-group {
+            margin: 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .th-text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+<% include ../layouts/header.ejs %>
+<div class="app-body">
+    <% include ../layouts/sidebar.ejs %>
+    <main class="main">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/admin/dashboard">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/admin/collaborator/index">Chuyến bay</a>
+            </li>
+            <li class="breadcrumb-item active"><%= flight.flightCode %></li>
+        </ol>
+        <div class="container-fluid">
+            <div id="ui-view">
+                <div>
+                    <div class="fade-in">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;padding: 0.15rem 0;">
+                                            Tìm kiếm
+                                        </p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="name" type="text"
+                                                           placeholder="Theo tên, mã CTV">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="ccnumber" type="text"
+                                                           placeholder="0000 0000 0000 0000">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label for="ccmonth">Month</label>
+                                                <select class="form-control" id="ccmonth">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                    <option>11</option>
+                                                    <option>12</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label for="ccyear">Year</label>
+                                                <select class="form-control" id="ccyear">
+                                                    <option>2014</option>
+                                                    <option>2015</option>
+                                                    <option>2016</option>
+                                                    <option>2017</option>
+                                                    <option>2018</option>
+                                                    <option>2019</option>
+                                                    <option>2020</option>
+                                                    <option>2021</option>
+                                                    <option>2022</option>
+                                                    <option>2023</option>
+                                                    <option>2024</option>
+                                                    <option>2025</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="cvv">CVV/CVC</label>
+                                                    <input class="form-control" id="cvv" type="text" placeholder="123">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
+                                            <i class="nav-icon icon-check"></i>
+                                            Tìm kiếm
+                                        </button>
+                                        <button class="btn btn-sm btn-danger pull-left" type="reset">
+                                            <i class="nav-icon icon-close"></i>
+                                            Khôi phục
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;padding: 0.15rem 0;">
+                                            Chuyến bay
+                                        </p>
+                                    </div>
+                                    <div class="card-body" style="padding: 0;">
+                                        <div class="content-list row row-padding-15 mb15" style="padding: 15px 20px;">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label control-label">Mã chuyến bay:</label>
+                                                    <div class="form-wrap form-control-static">
+                                                        <div class="input-group mb-3" id="product_coupon">
+                                                            <input type="text" class="form-control"
+                                                                   value="<%= flight.flightCode %>" disabled="">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">
+                                                                    <i class="nav-icon icon-docs"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="form-label control-label">Trạng thái:</label>
+                                                    <div class="form-wrap form-control-static">
+                                                        <div class="input-group mb-3" id="product_coupon">
+                                                            <button class="btn btn-danger active" type="button">
+                                                                <i class="nav-icon icon-clock"></i>
+                                                                Đang đặt chỗ
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <br>
+                                                        <h6 class="text-uppercase">Thông tin liên hệ khách hàng</h6>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">Ông:</label>
+                                                            <strong><%= flight.fullName %></strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">
+                                                                Số điện thoại:
+                                                            </label>
+                                                            <%= flight.phone %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">Email:</label>
+                                                            <%= flight.email %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <br>
+                                            <h6 class="text-uppercase">Thông tin khách hàng và chuyến đi</h6>
+                                        </div>
+                                        <table class="table table-responsive-sm table-outline"
+                                               style="margin-bottom: 0;">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 40px;">STT</th>
+                                                <th>Họ và tên</th>
+                                                <th class="th-text-right">Giá vé</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <% flight.passengers.forEach(function(passenger, key) { %>
+                                                <tr>
+                                                    <td><%= key + 1 %></td>
+                                                    <td>
+                                                        <%= passenger.firstName + " " + passenger.lastName %>
+                                                    </td>
+                                                    <td class="th-text-right">
+                                                        <%= flight.totalMoney %>₫
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
+                                            <tr>
+                                                <td colspan="2">
+                                                    Giảm giá theo <span class="text-orange font-weight-regular">ID giới thiệu</span>
+                                                </td>
+                                                <td class="th-text-right">-30.000₫</td>
+                                            </tr>
+                                            <tr style="background-color: rgba(255, 219, 196, 0.46);">
+                                                <td colspan="2">
+                                                    <div>
+                                                        <strong>Tổng tiền thanh toán</strong>
+                                                    </div>
+                                                    <div class="small text-muted" style="font-size: 90%;">
+                                                        (Đã bao gồm thuế và phí)
+                                                    </div>
+                                                </td>
+                                                <td class="th-text-right">
+                                                    <span style="font-weight: 700;font-size: 18px;color: #00a6d1;white-space: nowrap;">3.170.000₫</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<footer class="app-footer">
+    <div>
+        <a href="#">ThinkFlight</a>
+        <span>&copy; 2020 creativeLabs.</span>
+    </div>
+    <div class="ml-auto">
+        <span>Powered by</span>
+        <a href="#">ThinkFlight</a>
+    </div>
+</footer>
+<!-- CoreUI and necessary plugins-->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="node_modules/pace-progress/pace.min.js"></script>
+<script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+<script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+<!-- Plugins and scripts required by this view-->
+<script src="node_modules/chart.js/dist/Chart.min.js"></script>
+<script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

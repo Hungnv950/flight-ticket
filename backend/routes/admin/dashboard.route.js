@@ -1,10 +1,15 @@
 const express = require('express');
+
 const router = express.Router();
 
-// Require the controllers WHICH WE DID NOT CREATE YET!!
-const dashboardController = require('../../controllers/admin/dashboard.controller');
+const dashboardCtrl = require('../../controllers/admin/dashboard.controller');
 
-// a simple test url to check that all of our files are communicating correctly.
-router.get('/dashboard', dashboardController.dashboard);
+router.get('/login', dashboardCtrl.login);
+
+router.post('/login', dashboardCtrl.loginPost);
+
+router.get('/logout', dashboardCtrl.logout);
+
+router.get('/dashboard', dashboardCtrl.dashboard);
 
 module.exports = router;
