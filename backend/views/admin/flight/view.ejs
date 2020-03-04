@@ -63,17 +63,6 @@
             text-decoration: none !important;
         }
 
-        .ovh {
-            overflow: hidden !important;
-        }
-
-        .dashboardStatistic {
-            position: relative;
-        }
-
-        .pd0 {
-            padding: 0 !important;
-        }
 
         .uln ul {
             list-style: none;
@@ -101,65 +90,12 @@
             width: 22%;
         }
 
-        .dashboardStatistic ul li.total .dash_icon {
-            background: #0094da;
-        }
-
-        .dashboardStatistic ul li .dash_icon {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            margin: 0;
-            position: absolute;
-            top: 14px;
-            left: 25px;
-            background: #4bac4d;
-            text-align: center;
-            border-radius: 100% !important;
-            color: #fff;
-            line-height: 32px;
-        }
-
-        .dashboardStatistic ul li .dash_title {
-            font-weight: 700;
-            color: #666;
-            margin: 0 0 0 2px;
-        }
-
-        .dashboardStatistic ul li.total span.number {
-            color: #0094da;
-        }
-
-        .dashboardStatistic ul li span.number {
-            display: block;
-            font-size: 22px;
-            line-height: 28px;
-        }
-
-        .dashboardStatistic ul li span.yesterday {
-            display: block;
-            margin: 0 0 0 2px;
-        }
-
         .dashboardStatistic ul li + li {
             border-left: 1px solid #d6d6d6;
         }
 
-        .dropdown-menu {
-            right: 0;
-            left: unset;
-        }
-
         .btn-group-left a, .btn-group-left button {
             text-transform: uppercase;
-        }
-
-        .dashboardStatistic ul li.return .dash_icon {
-            background: #ff8030;
-        }
-
-        .dashboardStatistic ul li.down .dash_icon {
-            background: #f94f5e;
         }
 
         .content-list div[class*=col-md-] .form-group {
@@ -174,162 +110,18 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<header class="app-header navbar">
-    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
-        <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
-    </a>
-    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#">
-                <i class="icon-bell"></i>
-                <span class="badge badge-pill badge-danger">5</span>
-            </a>
-        </li>
-        <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#">
-                <i class="icon-list"></i>
-            </a>
-        </li>
-        <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#">
-                <i class="icon-location-pin"></i>
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">
-                <img class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header text-center">
-                    <strong>Account</strong>
-                </div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-bell-o"></i> Updates
-                    <span class="badge badge-info">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-envelope-o"></i> Messages
-                    <span class="badge badge-success">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-tasks"></i> Tasks
-                    <span class="badge badge-danger">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-comments"></i> Comments
-                    <span class="badge badge-warning">42</span>
-                </a>
-                <div class="dropdown-header text-center">
-                    <strong>Settings</strong>
-                </div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-user"></i> Profile</a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-wrench"></i> Settings</a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-usd"></i> Payments
-                    <span class="badge badge-secondary">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-file"></i> Projects
-                    <span class="badge badge-primary">42</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-shield"></i> Lock Account</a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-lock"></i> Logout</a>
-            </div>
-        </li>
-    </ul>
-    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</header>
+<% include ../layouts/header.ejs %>
 <div class="app-body">
-    <div class="sidebar">
-        <nav class="sidebar-nav">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="nav-icon icon-speedometer"></i> Dashboard
-                        <span class="badge badge-primary">NEW</span>
-                    </a>
-                </li>
-                <li class="nav-title">Booking</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="colors.html">
-                        <i class="nav-icon icon-drop"></i> Colors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="typography.html">
-                        <i class="nav-icon icon-pencil"></i> Typography</a>
-                </li>
-                <li class="nav-title">Collaborators</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/collaborator">
-                        <i class="nav-icon icon-pie-chart"></i>
-                        List
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li class="nav-title">Extras</li>
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="nav-icon icon-star"></i> Pages</a>
-                    <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="register.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="404.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Error 404</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="500.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Error 500</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item mt-auto">
-                    <a class="nav-link nav-link-success" href="https://coreui.io" target="_top">
-                        <i class="nav-icon icon-cloud-download"></i> Download CoreUI</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-danger" href="https://coreui.io/pro/" target="_top">
-                        <i class="nav-icon icon-layers"></i> Try CoreUI
-                        <strong>PRO</strong>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
-    </div>
+    <% include ../layouts/sidebar.ejs %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/admin/dashboard">Trang chủ</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="/admin/collaborator/index">Cộng tác viên</a>
+                <a href="/admin/collaborator/index">Chuyến bay</a>
             </li>
-            <li class="breadcrumb-item active"><%= collaborator.fullName %></li>
+            <li class="breadcrumb-item active"><%= flight.flightCode %></li>
         </ol>
         <div class="container-fluid">
             <div id="ui-view">
@@ -339,14 +131,9 @@
                             <div class="col-lg-3">
                                 <div class="card">
                                     <div class="card-header">
-                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
+                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;padding: 0.15rem 0;">
                                             Tìm kiếm
                                         </p>
-                                        <div class="card-header-actions">
-                                            <a href="create" class="btn btn-block btn-outline-dark">
-                                                <i class="nav-icon icon-plus"></i>
-                                            </a>
-                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -424,72 +211,19 @@
                             <div class="col-lg-9">
                                 <div class="card">
                                     <div class="card-header">
-                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
-                                            Cộng tác viên
+                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;padding: 0.15rem 0;">
+                                            Chuyến bay
                                         </p>
-                                        <div class="card-header-actions">
-                                            <select class="form-control" id="ccmonth">
-                                                <option>Hôm nay</option>
-                                                <option>Hôm qua</option>
-                                                <option>7 ngày qua</option>
-                                                <option>Tháng này</option>
-                                                <option>Tháng trước</option>
-                                            </select>
-                                        </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
-                                        <div class="dashboardBox dashboardStatistic ovh dashboard-top">
-                                            <div class="uln ovh pd0" style="border-bottom: 1px solid #c8ced3;">
-                                                <ul>
-                                                    <li class="total">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-diamond"></i>
-                                                        </label>
-                                                        <label class="dash_title ng-binding">Doanh số</label>
-                                                        <span class="number">
-                                                            <span class="txt ng-binding">0</span>
-                                                        </span>
-                                                        <span class="yesterday ng-binding">Doanh thu thuần</span>
-                                                    </li>
-                                                    <li class="return">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-plane"></i>
-                                                        </label>
-                                                        <label class="dash_title">Khách đặt</label>
-                                                        <span class="number"><span class="txt">0</span></span>
-                                                        <span class="yesterday">Số lượng khách đặt</span>
-                                                    </li>
-                                                    <li class="customer">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-share"></i>
-                                                        </label>
-                                                        <label class="dash_title">Lượt truy cập</label>
-                                                        <span class="number"><span class="txt">0</span></span>
-                                                        <span class="yesterday">Số lượt truy cập vào</span>
-                                                    </li>
-                                                    <li class="customer down">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-badge"></i>
-                                                        </label>
-                                                        <label class="dash_title">Triết khấu</label>
-                                                        <span class="number"><span class="txt">0</span></span>
-                                                        <span class="yesterday">Lợi nhuận gộp</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
                                         <div class="content-list row row-padding-15 mb15" style="padding: 15px 20px;">
-                                            <div class="col-md-6 col-sm-6" style="text-align: center;padding: 35px;">
-                                                <img src="data:image/png;base64,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"
-                                                     alt="">
-                                            </div>
                                             <div class="col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-label control-label">Mã CTV:</label>
+                                                    <label class="form-label control-label">Mã chuyến bay:</label>
                                                     <div class="form-wrap form-control-static">
                                                         <div class="input-group mb-3" id="product_coupon">
                                                             <input type="text" class="form-control"
-                                                                   value="<%= collaborator.code %>" disabled="">
+                                                                   value="<%= flight.flightCode %>" disabled="">
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text">
                                                                     <i class="nav-icon icon-docs"></i>
@@ -498,65 +232,92 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="form-label control-label">Họ và tên:</label>
+                                                    <label class="form-label control-label">Trạng thái:</label>
                                                     <div class="form-wrap form-control-static">
-                                                        <strong><%= collaborator.fullName %></strong>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label control-label">
-                                                        Số điện thoại:
-                                                    </label>
-                                                    <div class="form-wrap form-control-static payOrder">
-                                                        <a href="javascript:void(0)"><%= collaborator.phone ? collaborator.phone : 'N\A' %></a>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label control-label">Email:</label>
-                                                    <div class="form-wrap form-control-static payOrder">
-                                                        <%= collaborator.email ? collaborator.email : 'N\A' %>
+                                                        <div class="input-group mb-3" id="product_coupon">
+                                                            <button class="btn btn-danger active" type="button">
+                                                                <i class="nav-icon icon-clock"></i>
+                                                                Đang đặt chỗ
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 col-sm-12">
-                                                <br>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12" style="text-align: right;">
-                                                <a href="/admin/collaborator/update/<%= collaborator.id %>"
-                                                   class="btn btn-success btn-sm">
-                                                    <i class="nav-icon icon-check"></i>
-                                                    Cập nhật
-                                                </a>
-                                                <a href="/admin/product/update?id=4" class="btn btn-primary btn-sm">
-                                                    <i class="nav-icon icon-key"></i>
-                                                    Đổi mật khẩu
-                                                </a>
-                                                <a class="btn btn-danger btn-sm"
-                                                   href="/admin/product/inactive?id=4">
-                                                    <i class="nav-icon icon-lock"></i>
-                                                    Ngừng hoạt động
-                                                </a>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <br>
+                                                        <h6 class="text-uppercase">Thông tin liên hệ khách hàng</h6>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">Ông:</label>
+                                                            <strong><%= flight.fullName %></strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">
+                                                                Số điện thoại:
+                                                            </label>
+                                                            <%= flight.phone %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">Email:</label>
+                                                            <%= flight.email %>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <table class="table table-responsive-sm table-striped"
+                                        <div class="col-md-12">
+                                            <br>
+                                            <h6 class="text-uppercase">Thông tin khách hàng và chuyến đi</h6>
+                                        </div>
+                                        <table class="table table-responsive-sm table-outline"
                                                style="margin-bottom: 0;">
                                             <thead>
                                             <tr>
-                                                <th style="width: 40px;">ID</th>
+                                                <th style="width: 40px;">STT</th>
                                                 <th>Họ và tên</th>
-                                                <th class="th-text-right">Số lượt đặt</th>
-                                                <th class="th-text-right">Tổng tiền</th>
-                                                <th class="th-text-right">Triết khấu</th>
+                                                <th class="th-text-right">Giá vé</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <% flight.passengers.forEach(function(passenger, key) { %>
+                                                <tr>
+                                                    <td><%= key + 1 %></td>
+                                                    <td>
+                                                        <%= passenger.firstName + " " + passenger.lastName %>
+                                                    </td>
+                                                    <td class="th-text-right">
+                                                        <%= flight.totalMoney %>₫
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="th-text-right">0</td>
-                                                <td class="th-text-right">0</td>
-                                                <td class="th-text-right">0</td>
+                                                <td colspan="2">
+                                                    Giảm giá theo <span class="text-orange font-weight-regular">ID giới thiệu</span>
+                                                </td>
+                                                <td class="th-text-right">-30.000₫</td>
+                                            </tr>
+                                            <tr style="background-color: rgba(255, 219, 196, 0.46);">
+                                                <td colspan="2">
+                                                    <div>
+                                                        <strong>Tổng tiền thanh toán</strong>
+                                                    </div>
+                                                    <div class="small text-muted" style="font-size: 90%;">
+                                                        (Đã bao gồm thuế và phí)
+                                                    </div>
+                                                </td>
+                                                <td class="th-text-right">
+                                                    <span style="font-weight: 700;font-size: 18px;color: #00a6d1;white-space: nowrap;">3.170.000₫</span>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>

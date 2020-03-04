@@ -164,12 +164,12 @@
                                         </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
-                                        <table class="table table-responsive-sm table-striped"
+                                        <table class="table table-responsive-sm table-striped table-outline"
                                                style="margin-bottom: 0;">
                                             <thead>
                                             <tr>
                                                 <th style="width: 40px;">ID</th>
-                                                <th>Mã đặt chỗ</th>
+                                                <th>Mã đơn hàng</th>
                                                 <th>Khách hàng</th>
                                                 <th>Thời gian</th>
                                                 <th class="th-text-right">Số chỗ đặt</th>
@@ -187,25 +187,33 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <% collaborators.forEach(function(flight, key) { %>
+                                            <% flights.forEach(function(flight, key) { %>
                                                 <tr>
                                                     <td><%= key + 1 %></td>
                                                     <td>
-                                                        <a href="">
-                                                            <%= flight.code %>
+                                                        <a href="view/<%= flight.id %>">
+                                                            <%= flight.flightCode %>
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="/admin/user/view/<%= flight.userId %>">
+                                                        <div>
                                                             <%= flight.fullName %>
-                                                        </a>
+                                                        </div>
+                                                        <div class="small text-muted" style="font-size: 90%;">
+                                                            <%= flight.phone %>
+                                                            <a href="/admin/user/view/<%= flight.userId %>">
+                                                                <i class="nav-icon icon-share"></i>
+                                                            </a>
+                                                        </div>
                                                     </td>
-                                                    <td>
-                                                        10:10 28/2/2020
+                                                    <td class="">
+                                                        10/3/2020
                                                     </td>
-                                                    <td class="th-text-right">10</td>
                                                     <td class="th-text-right">
-                                                        <%= (1450000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') %>
+                                                        <%= flight.passengers.length %>
+                                                    </td>
+                                                    <td class="th-text-right">
+                                                        <%= flight.totalMoney %>
                                                     </td>
                                                     <td><span class="badge badge-success">Đặt chỗ</span></td>
                                                 </tr>

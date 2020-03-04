@@ -1,4 +1,5 @@
 const User = require('../../models/user.model');
+const Flight = require('../../models/flight.model');
 
 exports.index = function (req, res, next) {
     User.findById(req.session.userid).exec(function (error, user) {
@@ -8,9 +9,8 @@ exports.index = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.find({roleID: 2}, function (err, collaborators) {
-                    console.log(collaborators);
-                    res.render('admin/flight/index', {title: 'Cộng tác viên', collaborators: collaborators});
+                Flight.find({}, function (err, flights) {
+                    res.render('admin/flight/index', {flights: flights});
                 });
             }
         }
@@ -57,10 +57,10 @@ exports.view = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
+                Flight.findById(req.params.id, function (err, flight) {
                     if (err) return next(err);
 
-                    res.render('admin/flight/view', {title: collaborator.fullName, collaborator: collaborator});
+                    res.render('admin/flight/view', {flight: flight});
                 })
             }
         }

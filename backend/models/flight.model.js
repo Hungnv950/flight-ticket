@@ -2,11 +2,37 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-let UserSchema = new Schema({
-    code: {
+const STATUS_BOOKING = 1;
+const STATUS_PAYMENT = 2;
+
+let FlightSchema = new Schema({
+    userId: {
+        type: String,
+        required: true
+    },
+    flightCode: {
         type: String,
         unique: true,
         required: true
+    },
+    gender: {
+        type: Number,
+        required: true
+    },
+    fullName: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    note: {
+        type: String
     },
     exportInvoice: {
         type: Boolean
@@ -24,13 +50,14 @@ let UserSchema = new Schema({
         type: String,
         trim: true
     },
-
+    passengers: Object,
+    totalMoney: {
+        type: Number,
+        default: 0
+    },
     status: {
         type: Number,
         required: true,
-    },
-    note: {
-        type: String
     },
     createdAt: {
         type: Date,
@@ -42,6 +69,13 @@ let UserSchema = new Schema({
     }
 });
 
-let User = mongoose.model('User', UserSchema);
+FlightSchema.convertDate = function () {
+    let date = new Date(this.createdAt),
+        month = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [day, month, date.getFullYear()].join("/");
+};
 
-module.exports = User;
+let Flight = mongoose.model('Flight', FlightSchema);
+
+module.exports = Flight;
