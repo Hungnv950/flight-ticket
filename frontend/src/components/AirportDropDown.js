@@ -1,68 +1,25 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 
-// const airports = [
-//   { key: 'Dave', airport: "Ha Noi" },
-//   { key: 'Kellie', airport: "TP Ho Chi Minh" },
-//   { key: 'Max', airport: "Da Nang" },
-//   { key: 'Jack', airport: "Viet Nam" }
-// ];
-
-
 class AirportDropDown extends Component {
   constructor() {
     super();
 
     this.state = {
       airports: [
-        { key: 'Dave', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Kellie', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Max', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'Jack', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" }
       ],
       suggestions: [],
-      value: ""
+      value: "",
+      key: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -75,7 +32,7 @@ class AirportDropDown extends Component {
 
   onChange = (event, { newValue }) => {
     this.setState({
-      value: newValue
+      value: newValue,
     });
   };
 
@@ -120,6 +77,21 @@ class AirportDropDown extends Component {
     });
   };
 
+  onSuggestionSelected = (event, {
+    suggestion,
+    suggestionValue,
+    suggestionIndex,
+    sectionIndex,
+    method
+  }) => {
+    //Here you do whatever you want with the values
+    this.props.onChangeStartPoint(this.getAirportKey(suggestionValue));
+  };
+
+  getAirportKey(value) {
+    return this.state.airports.find(element => element["airport"] === value)["key"]
+  }
+
   render() {
     const { value, suggestions } = this.state;
 
@@ -139,6 +111,7 @@ class AirportDropDown extends Component {
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            onSuggestionSelected={this.onSuggestionSelected}
             getSuggestionValue={this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
