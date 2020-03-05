@@ -17,6 +17,25 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/assests/css/index.css" />
     <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/assests/css/custom.css" />
+    <script type="text/javascript">
+      var IBEBasePath = ("https:" == document.location.protocol ? "https://" : "http://") +  "ibev3.maybay.net";
+      var IBEConfigs = {
+        languageCode: 'vi-VN',
+        //languageCode: 'en-US',
+        colorScheme: 'default',
+        productKey: '5zioj3rdw31d27 ',
+        searchForm: {
+          showHeader: true
+        }
+      };
+      (function () {
+        var ibe = document.createElement("script");
+        ibe.type = "text/javascript"; ibe.async = true;
+        ibe.src = IBEBasePath + "/embed.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(ibe, s);
+      })();
+    </script>
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

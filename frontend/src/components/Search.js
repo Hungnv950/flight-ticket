@@ -1,29 +1,97 @@
 import React, { Component } from 'react';
 import { imagesUrl } from '../consts/path';
 import AirportDropDown from './AirportDropDown';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import {
+	connect
+} from 'react-redux'
+import {submitSearchAction} from '../actions/search.action'
 
 class Search extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 
 		this.state = {
 			ViewMode: "",
-			Adt: "1",
-			Chd: "1",
-			Inf: "1",
+			Adt: "0",
+			Chd: "0",
+			Inf: "0",
+			StartPoint: "",
+			EndPoint: "",
+			StartDate: new Date(),
+			EndDate: new Date()
+		}
+	}
+
+	onChangeStartPoint(value, point){
+		if (value === "startPoint") {
+			this.setState({
+				StartPoint: point
+			})
+		} else {
+			this.setState({
+				EndPoint: point
+			})
+		}
+	};
+
+	onSelectAdt(Adt, e) {
+		this.setState({
+			Adt: Adt
+		})
+	};
+
+	onSelectChd(Chd, e) {
+		this.setState({
+			Chd: Chd
+		})
+	};
+
+	onSelectInf(Inf, e) {
+		this.setState({
+			Inf: Inf
+		})
+	};
+
+	onChangeDate = (date, sinceTime) => {
+		if(sinceTime === "StartDate") {
+			this.setState({
+				StartDate: date
+			})
+		} else {
+			this.setState({
+				EndDate: date
+			})
+		}
+	}
+
+	formatDatePost(date) {
+		let day = ("0" + date.getDate()).slice(-2);
+		let month = ("0" + (date.getMonth() + 1)).slice(-2)
+
+		return (day + month + date.getFullYear())
+	}
+
+	buildParam() {
+		let params = {
+			ViewMode: "",
+			Adt: this.state.Adt,
+			Chd: this.state.Chd,
+			Inf: this.state.Inf,
 			ListFlight: [
 				{
-					StartPoint: "SGN",
-					EndPoint: "HAN",
-					DepartDate: "25032020",
+					StartPoint: this.state.StartPoint,
+					EndPoint: this.state.EndPoint,
+					DepartDate: this.formatDatePost(this.state.StartDate),
 					Airline: "VN"
 				}
 			]
 		}
-	}
+	};
 
 	render() {
-
 		return (
 			<React.Fragment>
 				<header className="header header-search-page">
@@ -136,15 +204,20 @@ class Search extends Component {
 												<div className="form__address">
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm khởi hành</label>
-														<AirportDropDown />
+														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "startPoint")}/>
 													</div>
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm đến</label>
-														<AirportDropDown />
+														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "endPoint")} />
 													</div>
 													<div className="form-group form-group--datepicker">
 														<label className="form-title">Ngày đi</label>
-														<input className="form-control datepicker" type="text" defaultValue="14/03/2020" />
+														<DatePicker
+															selected={this.state.StartDate}
+															onChange={(value) => this.onChangeDate(value, "StartDate")}
+															className = "form-control"
+															dateFormat = "dd/MM/yyyy"
+														/>
 													</div>
 												</div>
 												<div className="form__passenger">
@@ -181,13 +254,11 @@ class Search extends Component {
 																	</span>
 																</p>
 															</li>
-															<li className="dropdown__item"><span>1</span></li>
-															<li className="dropdown__item"><span>2</span></li>
-															<li className="dropdown__item"><span>3</span></li>
-															<li className="dropdown__item"><span>4</span></li>
-															<li className="dropdown__item"><span>5</span></li>
-															<li className="dropdown__item"><span>6</span></li>
-															<li className="dropdown__item"><span>7</span></li>
+															{
+																Array.apply(null, { length: 7 }).map((e, i) => (
+																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectAdt.bind(this, i+1)}><span>{i+1}</span></li>
+																))
+															}
 														</ul>
 													</div>
 													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
@@ -223,13 +294,11 @@ class Search extends Component {
 																	</span>
 																</p>
 															</li>
-															<li className="dropdown__item"><span>1</span></li>
-															<li className="dropdown__item"><span>2</span></li>
-															<li className="dropdown__item"><span>3</span></li>
-															<li className="dropdown__item"><span>4</span></li>
-															<li className="dropdown__item"><span>5</span></li>
-															<li className="dropdown__item"><span>6</span></li>
-															<li className="dropdown__item"><span>7</span></li>
+															{
+																Array.apply(null, { length: 7 }).map((e, i) => (
+																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectChd.bind(this, i+1)}><span>{i+1}</span></li>
+																))
+															}
 														</ul>
 													</div>
 													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
@@ -265,17 +334,23 @@ class Search extends Component {
 																	</span>
 																</p>
 															</li>
-															<li className="dropdown__item"><span>1</span></li>
-															<li className="dropdown__item"><span>2</span></li>
-															<li className="dropdown__item"><span>3</span></li>
-															<li className="dropdown__item"><span>4</span></li>
-															<li className="dropdown__item"><span>5</span></li>
-															<li className="dropdown__item"><span>6</span></li>
-															<li className="dropdown__item"><span>7</span></li>
+															{
+																Array.apply(null, { length: 7 }).map((e, i) => (
+																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectInf.bind(this, i+1)}><span>{i+1}</span></li>
+																))
+															}
 														</ul>
 													</div>
 												</div>
-												<div className="form__btn-search"><a className="btn btn--large btn--bg-linear mx-auto" href="/ket_qua_tim_kiem.html">Tìm Kiếm</a></div>
+												<div className="form__btn-search">
+
+													<a className="btn btn--large btn--bg-linear mx-auto"
+ 														onClick={this.props.submitSearchAction(this.buildParam())}
+														href="# "
+													>
+														Tìm Kiếm
+													</a>
+												</div>
 											</div>
 										</div>
 										<div className="tab__content-item js-tab-content-item round-trip">
@@ -283,21 +358,31 @@ class Search extends Component {
 												<div className="form__address">
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm khởi hành</label>
-														<AirportDropDown />
+														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "startPoint")}/>
 													</div>
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm đến</label>
-														<AirportDropDown />
+														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "endPoint")}/>
 													</div>
 													<div className="form-group form-group--datepicker">
 														<label className="form-title">Ngày đi</label>
-														<input className="form-control datepicker" type="text" defaultValue="14/03/2020" />
+														<DatePicker
+															selected={this.state.StartDate}
+															onChange={(value) => this.onChangeDate(value, "StartDate")}
+															className = "form-control"
+															dateFormat = "dd/MM/yyyy"
+														/>
 													</div>
 													<div className="form-group d-none-lg" />
 													<div className="form-group d-none-lg" />
 													<div className="form-group form-group--datepicker">
 														<label className="form-title">Ngày về</label>
-														<input className="form-control datepicker" type="text" defaultValue="18/03/2020" />
+														<DatePicker
+															selected={this.state.EndDate}
+															onChange={(value) => this.onChangeDate(value, "EndDate")}
+															className = "form-control"
+															dateFormat = "dd/MM/yyyy"
+														/>
 													</div>
 												</div>
 												<div className="form__passenger">
@@ -334,13 +419,11 @@ class Search extends Component {
 																	</span>
 																</p>
 															</li>
-															<li className="dropdown__item"><span>1</span></li>
-															<li className="dropdown__item"><span>2</span></li>
-															<li className="dropdown__item"><span>3</span></li>
-															<li className="dropdown__item"><span>4</span></li>
-															<li className="dropdown__item"><span>5</span></li>
-															<li className="dropdown__item"><span>6</span></li>
-															<li className="dropdown__item"><span>7</span></li>
+															{
+																Array.apply(null, { length: 7 }).map((e, i) => (
+																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectAdt.bind(this, i+1)}><span>{i+1}</span></li>
+																))
+															}
 														</ul>
 													</div>
 													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
@@ -376,13 +459,11 @@ class Search extends Component {
 																	</span>
 																</p>
 															</li>
-															<li className="dropdown__item"><span>1</span></li>
-															<li className="dropdown__item"><span>2</span></li>
-															<li className="dropdown__item"><span>3</span></li>
-															<li className="dropdown__item"><span>4</span></li>
-															<li className="dropdown__item"><span>5</span></li>
-															<li className="dropdown__item"><span>6</span></li>
-															<li className="dropdown__item"><span>7</span></li>
+															{
+																Array.apply(null, { length: 7 }).map((e, i) => (
+																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectChd.bind(this, i+1)}><span>{i+1}</span></li>
+																))
+															}
 														</ul>
 													</div>
 													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
@@ -418,17 +499,21 @@ class Search extends Component {
 																	</span>
 																</p>
 															</li>
-															<li className="dropdown__item"><span>1</span></li>
-															<li className="dropdown__item"><span>2</span></li>
-															<li className="dropdown__item"><span>3</span></li>
-															<li className="dropdown__item"><span>4</span></li>
-															<li className="dropdown__item"><span>5</span></li>
-															<li className="dropdown__item"><span>6</span></li>
-															<li className="dropdown__item"><span>7</span></li>
+															{
+																Array.apply(null, { length: 7 }).map((e, i) => (
+																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectInf.bind(this, i+1)}><span>{i+1}</span></li>
+																))
+															}
 														</ul>
 													</div>
 												</div>
-												<div className="form__btn-search"><a className="btn btn--large btn--bg-linear mx-auto" href="/ket_qua_tim_kiem.html">Tìm Kiếm</a></div>
+												<div className="form__btn-search">
+												<a className="btn btn--large btn--bg-linear mx-auto" href="# "
+													onClick={this.props.submitSearchAction(this.buildParam())}
+												>
+													Tìm Kiếm
+												</a>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -518,4 +603,19 @@ class Search extends Component {
 		)
 	}
 }
-export default Search;
+
+console.log(submitSearchAction);
+
+const mapDispatchToProps = dispatch => {
+	return {
+		submitSearchAction: () => submitSearchAction(dispatch),
+	}
+}
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		// active: ownProps.filter === state.visibilityFilter
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
