@@ -74,7 +74,9 @@ class Search extends Component {
 		return (day + month + date.getFullYear())
 	}
 
-	buildParam() {
+	onSubmitSearch(e) {
+		e.preventDefault();
+
 		let params = {
 			ViewMode: "",
 			Adt: this.state.Adt,
@@ -84,11 +86,33 @@ class Search extends Component {
 				{
 					StartPoint: this.state.StartPoint,
 					EndPoint: this.state.EndPoint,
-					DepartDate: this.formatDatePost(this.state.StartDate),
-					Airline: "VN"
+					DepartDate: this.formatDatePost(this.state.StartDate)
 				}
 			]
 		}
+
+		if (this.state.EndDate !== "") {
+			params = {
+				ViewMode: "",
+				Adt: this.state.Adt,
+				Chd: this.state.Chd,
+				Inf: this.state.Inf,
+				ListFlight: [
+					{
+						StartPoint: this.state.StartPoint,
+						EndPoint: this.state.EndPoint,
+						DepartDate: this.formatDatePost(this.state.StartDate)
+					},
+					{
+						StartPoint: this.state.StartPoint,
+						EndPoint: this.state.EndPoint,
+						DepartDate: this.formatDatePost(this.state.EndDate)
+					}
+				]
+			}
+		}
+
+		this.props.submitSearchAction(params);
 	};
 
 	render() {
@@ -345,7 +369,7 @@ class Search extends Component {
 												<div className="form__btn-search">
 
 													<a className="btn btn--large btn--bg-linear mx-auto"
- 														onClick={this.props.submitSearchAction(this.buildParam())}
+ 														onClick={this.onSubmitSearch.bind(this)}
 														href="# "
 													>
 														Tìm Kiếm
@@ -509,7 +533,7 @@ class Search extends Component {
 												</div>
 												<div className="form__btn-search">
 												<a className="btn btn--large btn--bg-linear mx-auto" href="# "
-													onClick={this.props.submitSearchAction(this.buildParam())}
+													onClick={this.onSubmitSearch.bind(this)}
 												>
 													Tìm Kiếm
 												</a>
@@ -604,11 +628,9 @@ class Search extends Component {
 	}
 }
 
-console.log(submitSearchAction);
-
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, params) => {
 	return {
-		submitSearchAction: () => submitSearchAction(dispatch),
+		submitSearchAction: (params) => submitSearchAction(dispatch, params),
 	}
 }
 
