@@ -8,8 +8,7 @@ const params = {
   "ListFlight": [{
     "StartPoint": "SGN",
     "EndPoint": "HAN",
-    "DepartDate": "25032020",
-    "Airline": "VN"
+    "DepartDate": "25032020"
   }]
 }
 const search = (params) => {
@@ -24,24 +23,9 @@ const search = (params) => {
 }
 
 
-export const submitSearchAction = async dispatch => {
-    dispatch({
+export const submitSearchAction = (dispath, params) => {
+  dispath({
     type: 'START_SEARCH',
-    loading: true,
-  });
-
-  search(params).then(async(res) => {
-    console.log(res);
-    if (res.code === 200) {
-      dispatch({
-        type: 'SEARCH_SUCCESS',
-        res
-      });
-      return true;
-    }
-    dispatch({
-      type: 'SEARCH_FAIL',
-      res
-    })
-  });
+    payload: params
+  })
 };
