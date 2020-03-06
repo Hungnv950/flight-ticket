@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 
 const params = {
   "ViewMode": "",
@@ -11,7 +11,18 @@ const params = {
     "DepartDate": "25032020"
   }]
 }
-const search = (params) => {
+
+export const submitSearchAction = (dispath, params) => {
+  search(params);
+
+  dispath({
+    type: 'START_SEARCH',
+    payload: params
+  })
+};
+
+export function search(params) {
+  debugger
   let axiosConfig = {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -19,13 +30,13 @@ const search = (params) => {
     }
   };
 
-  return Axios.post('https://api.atrip.vn/v1/flights/search', params, axiosConfig)
+  return function (dispatch) {
+    debugger
+    return axios.post('https://api.atrip.vn/v1/flights/search', params, axiosConfig)
+      .then(({
+        data
+      }) => {
+        console.log(data)
+      });
+  };
 }
-
-
-export const submitSearchAction = (dispath, params) => {
-  dispath({
-    type: 'START_SEARCH',
-    payload: params
-  })
-};
