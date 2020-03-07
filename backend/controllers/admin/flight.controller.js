@@ -9,41 +9,43 @@ exports.index = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                Flight.find({}, function (err, flights) {
+                User.find({roleId: 3}, function (err, users) {
+                    users.forEach(function (user) {
+                        let flight = new Flight({
+                            user:user._id,
+                            flightCode: "FLIGHT"+Math.random(),
+                            fullName: user.fullName,
+                            phone: user.phone,
+                            email: user.phone+"@thinkflight.com",
+                            gender: 1,
+                            passengers:[
+                                {
+                                    firstName: "Lê",
+                                    lastName:"Văn Việt",
+                                    gender: 1
+                                },
+                                {
+                                    firstName: "Lê",
+                                    lastName:"Văn Việt",
+                                    gender: 1
+                                }
+                            ],
+                            totalMoney:1450000,
+                            status:1
+                        });
+
+                        flight.save(function (err) {
+                            if (err) return console.error(err);
+
+                            user.flights.push(flight);
+                            user.save();
+                        });
+                    })
+                });
+
+                Flight.find({}).exec(function (err, flights) {
                     res.render('admin/flight/index', {flights: flights});
                 });
-            }
-        }
-    });
-};
-
-exports.createPost = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                if (req.body.username && req.body.fullName) {
-                    let collaborator = new User({
-                        fullName: req.body.fullName,
-                        username: req.body.username,
-                        phone: req.body.username,
-                        password: req.body.username,
-                        code: req.body.username,
-                        address: req.body.address,
-                        note: req.body.note,
-                        roleID: 2,
-                        status: 10
-                    });
-
-                    collaborator.save(function (err) {
-                        if (err) return console.error(err);
-
-                        return res.redirect('/admin/flight/index');
-                    });
-                }
             }
         }
     });
@@ -57,7 +59,7 @@ exports.view = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                Flight.findById(req.params.id, function (err, flight) {
+                Flight.findById(req.params.id).populate('user').exec(function (err, flight) {
                     if (err) return next(err);
 
                     res.render('admin/flight/view', {flight: flight});

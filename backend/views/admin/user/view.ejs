@@ -114,162 +114,18 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<header class="app-header navbar">
-    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
-        <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
-    </a>
-    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#">
-                <i class="icon-bell"></i>
-                <span class="badge badge-pill badge-danger">5</span>
-            </a>
-        </li>
-        <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#">
-                <i class="icon-list"></i>
-            </a>
-        </li>
-        <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#">
-                <i class="icon-location-pin"></i>
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">
-                <img class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header text-center">
-                    <strong>Account</strong>
-                </div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-bell-o"></i> Updates
-                    <span class="badge badge-info">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-envelope-o"></i> Messages
-                    <span class="badge badge-success">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-tasks"></i> Tasks
-                    <span class="badge badge-danger">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-comments"></i> Comments
-                    <span class="badge badge-warning">42</span>
-                </a>
-                <div class="dropdown-header text-center">
-                    <strong>Settings</strong>
-                </div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-user"></i> Profile</a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-wrench"></i> Settings</a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-usd"></i> Payments
-                    <span class="badge badge-secondary">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-file"></i> Projects
-                    <span class="badge badge-primary">42</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-shield"></i> Lock Account</a>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-lock"></i> Logout</a>
-            </div>
-        </li>
-    </ul>
-    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</header>
+<% include ../layouts/header.ejs %>
 <div class="app-body">
-    <div class="sidebar">
-        <nav class="sidebar-nav">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="nav-icon icon-speedometer"></i> Dashboard
-                        <span class="badge badge-primary">NEW</span>
-                    </a>
-                </li>
-                <li class="nav-title">Booking</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="colors.html">
-                        <i class="nav-icon icon-drop"></i> Colors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="typography.html">
-                        <i class="nav-icon icon-pencil"></i> Typography</a>
-                </li>
-                <li class="nav-title">Collaborators</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/collaborator">
-                        <i class="nav-icon icon-pie-chart"></i>
-                        List
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li class="nav-title">Extras</li>
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="nav-icon icon-star"></i> Pages</a>
-                    <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="register.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="404.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Error 404</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="500.html" target="_top">
-                                <i class="nav-icon icon-star"></i> Error 500</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item mt-auto">
-                    <a class="nav-link nav-link-success" href="https://coreui.io" target="_top">
-                        <i class="nav-icon icon-cloud-download"></i> Download CoreUI</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-danger" href="https://coreui.io/pro/" target="_top">
-                        <i class="nav-icon icon-layers"></i> Try CoreUI
-                        <strong>PRO</strong>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
-    </div>
+    <% include ../layouts/sidebar.ejs %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/admin/dashboard">Trang chủ</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="/admin/collaborator/index">Cộng tác viên</a>
+                <a href="/admin/user/index">Khách hàng</a>
             </li>
-            <li class="breadcrumb-item active"><%= collaborator.fullName %></li>
+            <li class="breadcrumb-item active"><%= user.fullName %></li>
         </ol>
         <div class="container-fluid">
             <div id="ui-view">
@@ -282,11 +138,6 @@
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
                                             Tìm kiếm
                                         </p>
-                                        <div class="card-header-actions">
-                                            <a href="create" class="btn btn-block btn-outline-dark">
-                                                <i class="nav-icon icon-plus"></i>
-                                            </a>
-                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -302,49 +153,6 @@
                                                 <div class="form-group">
                                                     <input class="form-control" id="ccnumber" type="text"
                                                            placeholder="0000 0000 0000 0000">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-sm-4">
-                                                <label for="ccmonth">Month</label>
-                                                <select class="form-control" id="ccmonth">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                    <option>11</option>
-                                                    <option>12</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <label for="ccyear">Year</label>
-                                                <select class="form-control" id="ccyear">
-                                                    <option>2014</option>
-                                                    <option>2015</option>
-                                                    <option>2016</option>
-                                                    <option>2017</option>
-                                                    <option>2018</option>
-                                                    <option>2019</option>
-                                                    <option>2020</option>
-                                                    <option>2021</option>
-                                                    <option>2022</option>
-                                                    <option>2023</option>
-                                                    <option>2024</option>
-                                                    <option>2025</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="cvv">CVV/CVC</label>
-                                                    <input class="form-control" id="cvv" type="text" placeholder="123">
                                                 </div>
                                             </div>
                                         </div>
@@ -365,17 +173,8 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
-                                            Cộng tác viên
+                                            Khách hàng
                                         </p>
-                                        <div class="card-header-actions">
-                                            <select class="form-control" id="ccmonth">
-                                                <option>Hôm nay</option>
-                                                <option>Hôm qua</option>
-                                                <option>7 ngày qua</option>
-                                                <option>Tháng này</option>
-                                                <option>Tháng trước</option>
-                                            </select>
-                                        </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
                                         <div class="content-list row row-padding-15 mb15" style="padding: 15px 20px;">
@@ -385,7 +184,7 @@
                                                     <div class="form-wrap form-control-static">
                                                         <div class="input-group mb-3" id="product_coupon">
                                                             <input type="text" class="form-control"
-                                                                   value="<%= collaborator.code %>" disabled="">
+                                                                   value="<%= user.code %>" disabled="">
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text">
                                                                     <i class="nav-icon icon-docs"></i>
@@ -397,7 +196,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label control-label">Họ và tên:</label>
                                                     <div class="form-wrap form-control-static">
-                                                        <strong><%= collaborator.fullName %></strong>
+                                                        <strong><%= user.fullName %></strong>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -405,13 +204,13 @@
                                                         Số điện thoại:
                                                     </label>
                                                     <div class="form-wrap form-control-static payOrder">
-                                                        <a href="javascript:void(0)"><%= collaborator.phone ? collaborator.phone : 'N\A' %></a>
+                                                        <a href="javascript:void(0)"><%= user.phone ? user.phone : 'N\A' %></a>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-label control-label">Email:</label>
                                                     <div class="form-wrap form-control-static payOrder">
-                                                        <%= collaborator.email ? collaborator.email : 'N\A' %>
+                                                        <%= user.email ? user.email : 'N\A' %>
                                                     </div>
                                                 </div>
                                             </div>
@@ -419,7 +218,7 @@
                                                 <br>
                                             </div>
                                             <div class="col-md-12 col-sm-12" style="text-align: right;">
-                                                <a href="/admin/collaborator/update/<%= collaborator.id %>"
+                                                <a href="/admin/user/update/<%= user.id %>"
                                                    class="btn btn-success btn-sm">
                                                     <i class="nav-icon icon-check"></i>
                                                     Cập nhật
@@ -435,25 +234,60 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <table class="table table-responsive-sm table-striped"
+                                        <table class="table table-responsive-sm table-striped table-outline"
                                                style="margin-bottom: 0;">
                                             <thead>
                                             <tr>
                                                 <th style="width: 40px;">ID</th>
-                                                <th>Họ và tên</th>
-                                                <th class="th-text-right">Số lượt đặt</th>
-                                                <th class="th-text-right">Tổng tiền</th>
-                                                <th class="th-text-right">Triết khấu</th>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Khách hàng</th>
+                                                <th>Thời gian</th>
+                                                <th class="th-text-right">Số chỗ đặt</th>
+                                                <th class="th-text-right">Tổng chi phí</th>
+                                                <th>Trạng thái</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td></td>
                                                 <td></td>
-                                                <td class="th-text-right">0</td>
-                                                <td class="th-text-right">0</td>
-                                                <td class="th-text-right">0</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
+                                            <% user.flights.forEach(function(flight, key) { %>
+                                                <tr>
+                                                    <td><%= key + 1 %></td>
+                                                    <td>
+                                                        <a href="/admin/flight/view/<%= flight.id %>">
+                                                            <%= flight.flightCode %>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <%= flight.fullName %>
+                                                        </div>
+                                                        <div class="small text-muted" style="font-size: 90%;">
+                                                            <%= flight.phone %>
+                                                            <a href="/admin/user/view/<%= flight.user.id %>">
+                                                                <i class="nav-icon icon-share"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="">
+                                                        10/3/2020
+                                                    </td>
+                                                    <td class="th-text-right">
+                                                        <%= flight.passengers.length %>
+                                                    </td>
+                                                    <td class="th-text-right">
+                                                        <%= new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(flight.totalMoney) %>
+                                                    </td>
+                                                    <td><span class="badge badge-success">Đặt chỗ</span></td>
+                                                </tr>
+                                            <% }); %>
                                             </tbody>
                                         </table>
                                     </div>

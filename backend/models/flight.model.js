@@ -6,9 +6,9 @@ const STATUS_BOOKING = 1;
 const STATUS_PAYMENT = 2;
 
 let FlightSchema = new Schema({
-    userId: {
-        type: String,
-        required: true
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     flightCode: {
         type: String,
@@ -35,7 +35,8 @@ let FlightSchema = new Schema({
         type: String
     },
     exportInvoice: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     companyName: {
         type: String

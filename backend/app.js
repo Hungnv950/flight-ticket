@@ -28,19 +28,19 @@ db.once('open', function () {
 
 const User = require('./models/user.model');
 
-User.find({username: 'admin@thinkflight.com'}, function (err, user) {
-    console.log(user);
-    if (user === []) {
+User.find({username: 'admin@thinkflight.com'}, function (err, results) {
+    if (!results.length) {
         let userNew = new User({
             fullName: 'Admin',
             username: 'admin@thinkflight.com',
             password: '123456',
-            code: 'ADMIN',
-            roleID: 1,
+            roleId: 1,
             status: 10
         });
 
-        userNew.save();
+        userNew.save(function (err) {
+            if (err) return console.error(err);
+        });
     }
 });
 
@@ -53,23 +53,6 @@ app.use(session({
     })
 }));
 
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const config = require('./db');
-
-const users = require('./routes/user'); 
-
-// Frontend
-let ticketsRouter = require("./routes/tickets");
-let searchRouter = require("./routes/search");
-
-app.use(passport.initialize());
-require('./passport')(passport);
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use('/api/users', users);
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -79,6 +62,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+let apiRouter = require('./routes/api/api.route');
+
 let userRouter = require('./routes/admin/user.route');
 
 let flightRouter = require('./routes/admin/flight.route');
@@ -87,6 +72,8 @@ let dashboardRouter = require('./routes/admin/dashboard.route');
 
 let collaboratorRouter = require('./routes/admin/collaborator.route');
 
+app.use('/api', apiRouter);
+
 app.use('/admin', dashboardRouter);
 
 app.use('/admin/user', userRouter);
@@ -94,10 +81,6 @@ app.use('/admin/user', userRouter);
 app.use('/admin/flight', flightRouter);
 
 app.use('/admin/collaborator', collaboratorRouter);
-
-app.use("/tickets", ticketsRouter);
-
-app.use("/search", searchRouter);
 
 app.use(function (req, res, next) {
     next(createError(404));

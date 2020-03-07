@@ -12,8 +12,7 @@ const STATUS_INACTIVE = 0;
 
 let UserSchema = new Schema({
     code: {
-        type: String,
-        required: true
+        type: String
     },
     username: {
         type: String,
@@ -52,6 +51,7 @@ let UserSchema = new Schema({
     note: {
         type: String
     },
+    flights: [{ type: Schema.Types.ObjectId, ref: 'Flight' }],
     createdAt: {
         type: Date,
         default: Date.now()
@@ -111,7 +111,6 @@ UserSchema.pre('save', function (next) {
 
     if (user.roleId === 2) {
         user.code = slug + getRandomIntInclusive(Math.pow(10, (max - slug.length)), Math.pow(10, (max - slug.length + 1)));
-
     }
 
     bcrypt.hash(user.password, 10, function (err, hash) {
