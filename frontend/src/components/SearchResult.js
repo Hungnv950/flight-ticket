@@ -136,7 +136,9 @@ class SearchResult extends Component {
                 </div>
                 <div className="w-25 text-right">
                   <p className="mb-2 text-xs font-weight-bold">Giá gồm thuế phí</p>
-                  <p className="text-xs font-weight-bold"><span className="text-red-orange"></span><span>&nbsp;</span></p>
+                  <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareAdt) + parseInt(fare.TaxAdt) + parseInt(fare.FeeAdt)).toLocaleString()}</span><span>&nbsp;VND</span></p>
+                  <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareChd) + parseInt(fare.TaxChd) + parseInt(fare.FeeChd)).toLocaleString()}</span><span>&nbsp;VND</span></p>
+                  <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareInf) + parseInt(fare.TaxInf) + parseInt(fare.FeeInf)).toLocaleString()}</span><span>&nbsp;VND</span></p>
                 </div>
                 <div className="w-25 text-right">
                   <p className="mb-2 text-xs font-weight-bold">Tổng giá</p>
