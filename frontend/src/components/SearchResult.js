@@ -89,6 +89,12 @@ class SearchResult extends Component {
     };
   }
 
+  handleToggle = (e) => {
+    const parentToggle = e.target.closest('.js-toggle');
+    if (parentToggle.classList.contains('show')) return parentToggle.classList.remove('show')
+    parentToggle.classList.add('show')
+  }
+
   render() {
     const renderListFareData = this.state.listFareData.map((number) =>
       <div className="result-list-item js-toggle">
@@ -103,7 +109,7 @@ class SearchResult extends Component {
               +4</span><span>đã mua</span>
             </div>
           </div>
-          <p className="detail js-toggle-control" data-target=".toggle-content">
+          <p className="detail js-toggle-control" onClick={(e) => this.handleToggle(e)} data-target=".toggle-content">
             <span>Chi tiết chuyến bay</span>
             <svg xmlns="http://www.w3.org/2000/svg" width={13} height={7} viewBox="0 0 13 7">
               <g>
