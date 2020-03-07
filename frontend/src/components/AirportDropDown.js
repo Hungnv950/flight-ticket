@@ -7,15 +7,15 @@ class AirportDropDown extends Component {
 
     this.state = {
       airports: [
-        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'HN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SG', airport: "TP.HCM", country: "Viet Nam" }
+        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
+        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
+        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" }
       ],
       suggestions: [],
       value: "",
@@ -89,7 +89,7 @@ class AirportDropDown extends Component {
   };
 
   getAirportKey(value) {
-    return this.state.airports.find(element => element["airport"] === value)["key"]
+    return this.state.airports.find(element => element["airport"] === value)
   }
 
   render() {

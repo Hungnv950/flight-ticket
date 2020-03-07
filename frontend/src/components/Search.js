@@ -19,7 +19,9 @@ class Search extends Component {
 			Chd: "0",
 			Inf: "0",
 			StartPoint: "",
+			StartLocation: "",
 			EndPoint: "",
+			EndLocation: "",
 			StartDate: new Date(),
 			EndDate: new Date()
 		}
@@ -28,11 +30,13 @@ class Search extends Component {
 	onChangeStartPoint(value, point){
 		if (value === "startPoint") {
 			this.setState({
-				StartPoint: point
+				StartPoint: point["key"],
+				StartLocation: point["airport"] + ", " + point["country"] + "(" + point["key"] + ")"
 			})
 		} else {
 			this.setState({
-				EndPoint: point
+				EndPoint: point["key"],
+				EndLocation: point["airport"] + ", " + point["country"] + "(" + point["key"] + ")"
 			})
 		}
 	};
@@ -74,10 +78,10 @@ class Search extends Component {
 		return (day + month + date.getFullYear())
 	}
 
-	onSubmitSearch(e) {
+	onSubmitSearch(is_return, e) {
 		e.preventDefault();
 
-		let params = {
+		let searchParams = {
 			ViewMode: "",
 			Adt: this.state.Adt,
 			Chd: this.state.Chd,
@@ -91,8 +95,8 @@ class Search extends Component {
 			]
 		}
 
-		if (this.state.EndDate !== "") {
-			params = {
+		if (is_return) {
+			searchParams = {
 				ViewMode: "",
 				Adt: this.state.Adt,
 				Chd: this.state.Chd,
@@ -112,13 +116,18 @@ class Search extends Component {
 			}
 		}
 
-		this.props.submitSearchAction(params);
+		let location = {
+			StartLocation: this.state.StartLocation,
+			EndLocation: this.state.EndLocation
+		}
+
+		this.props.submitSearchAction(searchParams, location);
 	};
 
 	render() {
 		return (
 			<React.Fragment>
-				<header className="header header-search-page">
+				{/* <header className="header header-search-page">
 					<div className="header__menu js-menu-mobile">
 						<svg fill="#ff6200" height={24} stroke="currentColor" strokeLinecap="round" viewBox="0 0 24 24" width={24} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 							<g>
@@ -212,7 +221,7 @@ class Search extends Component {
 							</a>
 						</li>
 					</ul>
-				</header>
+				</header> */}
 				<main className="main main-search-page">
 					<div className="banner-search-page js-lazy-load" data-src={imagesUrl + "banner-search-page.png"} data-type="background-image">
 						<div className="form">
@@ -369,7 +378,7 @@ class Search extends Component {
 												<div className="form__btn-search">
 
 													<a className="btn btn--large btn--bg-linear mx-auto"
- 														onClick={this.onSubmitSearch.bind(this)}
+ 														onClick={this.onSubmitSearch.bind(this, false)}
 														href="# "
 													>
 														Tìm Kiếm
@@ -533,7 +542,7 @@ class Search extends Component {
 												</div>
 												<div className="form__btn-search">
 												<a className="btn btn--large btn--bg-linear mx-auto" href="# "
-													onClick={this.onSubmitSearch.bind(this)}
+													onClick={this.onSubmitSearch.bind(this, true)}
 												>
 													Tìm Kiếm
 												</a>
@@ -628,9 +637,9 @@ class Search extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch, params) => {
+const mapDispatchToProps = (dispatch, searchParams, location) => {
 	return {
-		submitSearchAction: (params) => submitSearchAction(dispatch, params),
+		submitSearchAction: (searchParams, location) => submitSearchAction(dispatch, searchParams, location),
 	}
 }
 

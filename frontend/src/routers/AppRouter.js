@@ -1,7 +1,6 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { createBrowserHistory } from "history";
-
+import history from '../history'
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import Search from "../components/Search";
@@ -11,8 +10,6 @@ import SearchResult from "../components/SearchResult";
 import Booking from "../components/Booking";
 import Register from "../components/Register";
 import Login from "../components/Login";
-
-const history = createBrowserHistory();
 
 const AppRouter = () => (
   <Router history={history}>
