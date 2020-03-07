@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {imagesUrl} from '../consts/path'
 import { connect } from 'react-redux';
 import Dropdown from './Dropdown';
+import formatHourMitues from '../helpers/formatDate';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class SearchResult extends Component {
   }
 
   render() {
-    const renderListFareData = this.props.listFareData.map((number) =>
+    const renderListFareData = this.props.listFareData.map((fare) =>
       <div className="result-list-item js-toggle">
         <div className="airline">
           <div className="logo"><img src={imagesUrl + "logo-jetstar.png"} alt="logo airlines" /></div>
@@ -44,11 +45,11 @@ class SearchResult extends Component {
         <div className="time">
           <div className="time__from">
             <p className="time__address">{this.props.startLocation}</p>
-            <p className="time__content">10 : 30</p>
+            <p className="time__content">{formatHourMitues(fare.ListFlight[0].StartDate)}</p>
           </div>
           <div className="time__to">
             <p className="time__address">{this.props.endLocation}</p>
-            <p className="time__content">23 : 30</p>
+            <p className="time__content">{formatHourMitues(fare.ListFlight[0].EndDate)}</p>
           </div>
         </div>
         <div className="price">
@@ -64,7 +65,7 @@ class SearchResult extends Component {
             </svg>
           </a>
         </div>
-        <div className="js-toggle-content">
+        <div className="-js-toggle-content">
           <div className="flight-detail">
             <div className="flight-detail__top">
               <div className="flight-detail__location text-right pr-3">
