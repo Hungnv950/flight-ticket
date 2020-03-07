@@ -122,7 +122,7 @@ class SearchResult extends Component {
             <p className="time__content">10 : 30</p>
           </div>
           <div className="time__to">
-            <p className="time__address">To {this.props.endLocation}</p>
+            <p className="time__address">{this.props.endLocation}</p>
             <p className="time__content">23 : 30</p>
           </div>
         </div>
