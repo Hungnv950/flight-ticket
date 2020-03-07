@@ -4,10 +4,10 @@ import { Route, Redirect } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
 
 let navbar = <Navbar />;
 if(window.location.pathname === "/" || window.location.pathname === "/search") {
-  navbar = null;
 }
 
 const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
@@ -20,6 +20,8 @@ const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
         <div>
           {navbar}
           <Component {...props} />
+          <Loading />
+
           <Footer />
         </div>
       )

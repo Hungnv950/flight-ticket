@@ -81,3 +81,6 @@
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
 }
+.form-group--datepicker .react-datepicker-wrapper {
+  width: 100%;
+}

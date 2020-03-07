@@ -1,31 +1,45 @@
-import Axios from "axios";
+import axios from "axios";
+import history from '../history'
 
-const params = {
-  "ViewMode": "",
-  "Adt": "1",
-  "Chd": "1",
-  "Inf": "1",
-  "ListFlight": [{
-    "StartPoint": "SGN",
-    "EndPoint": "HAN",
-    "DepartDate": "25032020"
-  }]
-}
-const search = (params) => {
-  let axiosConfig = {
+// const params = {
+//   "ViewMode": "",
+//   "Adt": "1",
+//   "Chd": "1",
+//   "Inf": "1",
+//   "ListFlight": [{
+//     "StartPoint": "SGN",
+//     "EndPoint": "HAN",
+//     "DepartDate": "12032020"
+//   }]
+// }
+
+export const submitSearchAction = (dispatch, params, location) => {
+  dispatch({
+    type: 'SET_LOCATION',
+    payload: location
+  });
+
+  dispatch({
+    type: 'LOADING',
+    payload: 'Hệ thống đang thực hiện tìm kiếm'
+  });
+
+  let optionAxios = {
     headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-      "Access-Control-Allow-Origin": "*",
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
-  };
+  }
 
-  return Axios.post('https://api.atrip.vn/v1/flights/search', params, axiosConfig)
-}
+  return axios.post('https://api.atrip.vn/v1/flights/search', params, optionAxios)
+    .then((result) => {
+      if(result.data.error !== 200){
+        alert(result.data.message)
+      } else {
+        dispatch({
+          type: 'LOADING_FINISHED'
+        });
 
-
-export const submitSearchAction = (dispath, params) => {
-  dispath({
-    type: 'START_SEARCH',
-    payload: params
-  })
+        history.push('/search/result')
+      }
+    });
 };

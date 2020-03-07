@@ -1,8 +1,3 @@
-import {
-  SET_CURRENT_USER
-} from '../actions/types';
-import isEmpty from '../helpers/isEmpty';
-
 const initialState = {
   params: {
     ViewMode: "",
@@ -16,7 +11,9 @@ const initialState = {
         Airline: ""
       }]
   },
-  loading: false
+  startLocation: "",
+  endLocation: "",
+  data: {},
 }
 
 export default function (state = initialState, action) {
@@ -24,11 +21,18 @@ export default function (state = initialState, action) {
     case 'START_SEARCH':
       return {
         ...state,
-        params: action.payload,
-        loading: true
+        params: action.payload
       };
-    case 'SEARCH_FINISHED':
-        return state;
+    case 'SET_LOCATION':
+      return {
+        ...state,
+        startLocation: action.payload.StartLocation,
+        endLocation: action.payload.EndLocation,
+      };
+    case 'SEARCH_SUCCESS':
+      return state;
+    case 'SEARCH_FAILED':
+      return state;
     default:
       return state;
   }
