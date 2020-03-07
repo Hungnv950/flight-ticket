@@ -2200,9 +2200,9 @@ $(document).ready(function() {
   });
 
   $('.js-toggle-control').on('click', function() {
-    var toggleWrap = $(this).closest('.js-toggle');
-    if (toggleWrap.hasClass('show')) return toggleWrap.removeClass('show');
-    toggleWrap.addClass('show');
+    // var toggleWrap = $(this).closest('.js-toggle');
+    // if (toggleWrap.hasClass('show')) return toggleWrap.removeClass('show');
+    // toggleWrap.addClass('show');
   });
 
   $('.js-tab').each(function() {
@@ -2314,8 +2314,8 @@ $(document).ready(function() {
   });
 
   $('.js-toggle-modal').on('click', function() {
-    $('body').addClass('show-modal');
-    $($(this).data('target')).addClass('show');
+    // $('body').addClass('show-modal');
+    // $($(this).data('target')).addClass('show');
   });
   $(document).on('click', function(e) {
     // if (!$(e.target).closest('.modal-content').length && !$(e.target).closest('.js-toggle-modal').length && !$(e.target).closest('.modal-popup').length) {
