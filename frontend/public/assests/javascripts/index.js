@@ -2318,10 +2318,10 @@ $(document).ready(function() {
     $($(this).data('target')).addClass('show');
   });
   $(document).on('click', function(e) {
-    if (!$(e.target).closest('.modal-content').length && !$(e.target).closest('.js-toggle-modal').length && !$(e.target).closest('.modal-popup').length) {
-      $('.modal').removeClass('show');
-      $('body').removeClass('show-modal');
-    }
+    // if (!$(e.target).closest('.modal-content').length && !$(e.target).closest('.js-toggle-modal').length && !$(e.target).closest('.modal-popup').length) {
+    //   $('.modal').removeClass('show');
+    //   $('body').removeClass('show-modal');
+    // }
   });
 
   $('select').on('mousedown', function(e) {

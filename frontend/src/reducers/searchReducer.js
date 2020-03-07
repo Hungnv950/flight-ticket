@@ -11,9 +11,9 @@ const initialState = {
         Airline: ""
       }]
   },
-  startLocation: "",
-  endLocation: "",
-  data: {},
+  startLocation: "Ha Noi, Viet Nam(HAN)",
+  endLocation: "To TP.HCM, Viet Nam(SGN)",
+  listFareData: [],
 }
 
 export default function (state = initialState, action) {
@@ -30,7 +30,10 @@ export default function (state = initialState, action) {
         endLocation: action.payload.EndLocation,
       };
     case 'SEARCH_SUCCESS':
-      return state;
+      return {
+        ...state,
+        listFareData: action.payload.ListFareData
+      }
     case 'SEARCH_FAILED':
       return state;
     default:
