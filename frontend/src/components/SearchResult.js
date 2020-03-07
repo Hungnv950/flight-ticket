@@ -2,6 +2,12 @@ import React, {Component} from 'react'
 import {imagesUrl} from '../consts/path'
 import { connect } from 'react-redux';
 import Dropdown from './Dropdown';
+import {
+  formatHourMitues,
+  formatHMDFlight,
+  intToTime
+} from '../helpers/formatFlighAPI';
+import history from '../history'
 
 class SearchResult extends Component {
   constructor(props) {
@@ -14,8 +20,12 @@ class SearchResult extends Component {
     parentToggle.classList.add('show')
   }
 
+  redirectToBooking = () => {
+    history.push(`/booking`)
+  }
+
   render() {
-    const renderListFareData = this.props.listFareData.map((number) =>
+    const renderListFareData = this.props.listFareData.map((fare) =>
       <div className="result-list-item js-toggle">
         <div className="airline">
           <div className="logo"><img src={imagesUrl + "logo-jetstar.png"} alt="logo airlines" /></div>
@@ -44,16 +54,16 @@ class SearchResult extends Component {
         <div className="time">
           <div className="time__from">
             <p className="time__address">{this.props.startLocation}</p>
-            <p className="time__content">10 : 30</p>
+            <p className="time__content">{formatHourMitues(fare.ListFlight[0].StartDate)}</p>
           </div>
           <div className="time__to">
             <p className="time__address">{this.props.endLocation}</p>
-            <p className="time__content">23 : 30</p>
+            <p className="time__content">{formatHourMitues(fare.ListFlight[0].EndDate)}</p>
           </div>
         </div>
         <div className="price">
           <div className="price__per-people"><span className="price__number">1.000.000</span><span className="price__unit">/khách</span></div>
-          <a className="price__btn btn btn--bg-linear btn--medium" href="/nhap_thong_tin_dat_cho.html">
+          <a className="price__btn btn btn--bg-linear btn--medium" href="# " onClick={this.redirectToBooking}>
             Chọn mua
             <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
               <g>
@@ -69,11 +79,11 @@ class SearchResult extends Component {
             <div className="flight-detail__top">
               <div className="flight-detail__location text-right pr-3">
                 <p className="text-smaller font-weight-bold mbpx-5 text-black">HỒ CHÍ MINH</p>
-                <p className="text-xs font-weight-light mbpx-3">Sân bay Tân Sơn Nhất</p>
-                <p className="text-xs font-weight-medium text-orange-medium">21h30 - 21/9/2020</p>
+                <p className="text-xs font-weight-light mbpx-3">Sân bay ..</p>
+                <p className="text-xs font-weight-medium text-orange-medium">{formatHMDFlight(fare.ListFlight[0]["StartDate"])}</p>
               </div>
               <div className="flight-detail__serial">
-                <div className="serial w-100"><span className="text-xs font-weight-light">Chuyến bay&nbsp;</span><span className="text-smaller font-weight-bold text-black">VN12545</span></div>
+                <div className="serial w-100"><span className="text-xs font-weight-light">Chuyến bay&nbsp;</span><span className="text-smaller font-weight-bold text-black">{fare.ListFlight[0]["FlightNumber"]}</span></div>
                 <div className="d-flex justify-content-center w-100">
                   <svg xmlns="http://www.w3.org/2000/svg" width={159} height={18} viewBox="0 0 159 18">
                     <defs>
@@ -97,42 +107,46 @@ class SearchResult extends Component {
                     </g>
                   </svg>
                 </div>
-                <div className="text-center w-100 line-height-1"><span className="text-tiny font-weight-light">Bay thẳng&nbsp;</span><span className="text-xs font-weight-bold text-black">2h40m</span></div>
+                <div className="text-center w-100 line-height-1"><span className="text-tiny font-weight-light">Bay thẳng&nbsp;</span><span className="text-xs font-weight-bold text-black">{intToTime(fare.ListFlight[0]["Duration"])}</span></div>
               </div>
               <div className="flight-detail__location text-left pl-3">
                 <p className="text-smaller font-weight-bold mbpx-5 text-black">HÀ NỘI</p>
-                <p className="text-xs font-weight-light mbpx-3">Sân bay Nội Bài</p>
-                <p className="text-xs font-weight-medium text-orange-medium">23h30 - 21/9/2020</p>
+                <p className="text-xs font-weight-light mbpx-3">Sân bay ..</p>
+                <p className="text-xs font-weight-medium text-orange-medium">{formatHMDFlight(fare.ListFlight[0]["EndDate"])}</p>
               </div>
             </div>
             <div className="flight-detail__note">
               <p className="text-xs font-weight-bold mbpx-3">Điều kiện vé &amp; hành lý</p>
-              <p className="text-xs font-weight-bold mbpx-3">Điều kiện vé Hạng chỗ Promo - Vietjet Air</p>
-              <p className="text-xs"><span className="font-weight-bold">Vé Promo</span><span className="font-weight-light">&nbsp;:&nbsp;</span><span className="font-weight-light">Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí Giá chưa bao gồm thuế phí</span></p>
+              <p className="text-xs font-weight-bold mbpx-3">Điều kiện vé Hạng chỗ Promo - {fare.Airline}</p>
+              <p className="text-xs"><span className="font-weight-bold">Vé Promo</span><span className="font-weight-light">&nbsp;:&nbsp;</span><span className="font-weight-light">Giá chưa bao gồm thuế phí</span></p>
             </div>
             <div className="flight-detail__passenger">
               <div className="flight-detail__passenger-wrap">
                 <div className="w-25 text-left">
                   <p className="mbpx-5 text-xs font-weight-bold">Hành khách</p>
                   <p className="text-xs font-weight-light">Người lớn</p>
+                  <p className="text-xs font-weight-light">Trẻ em từ 2 đến 11 tuổi</p>
+                  <p className="text-xs font-weight-light">Trẻ em dưới 2 tuổi</p>
                 </div>
                 <div className="w-25 text-left">
                   <p className="mbpx-5 text-xs font-weight-bold">Số lượng</p>
-                  <p className="text-xs font-weight-lighttext-xs">font-weight-light 1</p>
+                  <p className="text-xs font-weight-lighttext-xs">{fare.Adt}</p>
+                  <p className="text-xs font-weight-lighttext-xs">{fare.Chd}</p>
+                  <p className="text-xs font-weight-lighttext-xs">{fare.Inf}</p>
                 </div>
                 <div className="w-25 text-right">
                   <p className="mb-2 text-xs font-weight-bold">Giá gồm thuế phí</p>
-                  <p className="text-xs font-weight-bold"><span className="text-red-orange">774.000</span><span>&nbsp;VND</span></p>
+                  <p className="text-xs font-weight-bold"><span className="text-red-orange"></span><span>&nbsp;</span></p>
                 </div>
                 <div className="w-25 text-right">
                   <p className="mb-2 text-xs font-weight-bold">Tổng giá</p>
-                  <p className="text-xs font-weight-bold"><span className="text-red-orange">774.000</span><span>&nbsp;VND</span></p>
+                  <p className="text-xs font-weight-bold"><span className="text-red-orange">{fare.TotalNetPrice.toLocaleString()}</span><span>&nbsp;VND</span></p>
                 </div>
               </div>
             </div>
             <div className="flight-detail__total font-weight-bold">
               <p className="text-green text-uppercase text-xs">Tổng chi phí:&nbsp;</p>
-              <p className="font-weight-bold"><span className="text-orange">774.000</span><span className="text-xs">&nbsp;VND</span></p>
+              <p className="font-weight-bold"><span className="text-orange">{fare.TotalPrice.toLocaleString()}</span><span className="text-xs">&nbsp;VND</span></p>
             </div>
           </div>
           <div className="result-list-item__share">
