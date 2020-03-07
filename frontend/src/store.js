@@ -1,17 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
-import {
-        connectRouter
-} from 'connected-react-router'
-import history from './history'
 
 const inititalState = {};
 
-const store = createStore(connectRouter(history)(
+const store = createStore(
         rootReducer,
         inititalState,
         compose(applyMiddleware(thunk),
-                window.__REDUX_DEVTOOLS_EXTENSION__&& window.__REDUX_DEVTOOLS_EXTENSION__())));
+                window.__REDUX_DEVTOOLS_EXTENSION__&& window.__REDUX_DEVTOOLS_EXTENSION__()));
 
 export default store;

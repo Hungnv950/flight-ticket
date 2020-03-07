@@ -108,8 +108,8 @@ class Search extends Component {
 						DepartDate: this.formatDatePost(this.state.StartDate)
 					},
 					{
-						StartPoint: this.state.StartPoint,
-						EndPoint: this.state.EndPoint,
+						StartPoint: this.state.EndPoint,
+						EndPoint: this.state.StartPoint,
 						DepartDate: this.formatDatePost(this.state.EndDate)
 					}
 				]

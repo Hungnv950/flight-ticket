@@ -14,6 +14,7 @@ import history from '../history'
 // }
 
 export const submitSearchAction = (dispatch, params, location) => {
+  console.log(params)
   dispatch({
     type: 'SET_LOCATION',
     payload: location
@@ -32,12 +33,18 @@ export const submitSearchAction = (dispatch, params, location) => {
 
   return axios.post('https://api.atrip.vn/v1/flights/search', params, optionAxios)
     .then((result) => {
+
+      dispatch({
+        type: 'LOADING_FINISHED'
+      });
+
       if(result.data.error !== 200){
         alert(result.data.message)
       } else {
         dispatch({
-          type: 'LOADING_FINISHED'
-        });
+          type: 'SEARCH_SUCCESS',
+          payload: result.data.data
+        })
 
         history.push('/search/result')
       }
