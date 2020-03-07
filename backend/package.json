@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "frontend": "cd ../frontend && npm start",
+    "backend": "DEBUG=express:* node ./bin/www",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
     "bcrypt": "^4.0.0",
@@ -18,5 +21,15 @@
     "http-errors": "~1.6.3",
     "mongoose": "^5.9.2",
     "morgan": "~1.9.1"
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "react-isolated-scroll": "^0.1.1",
+    "validator": "^12.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
   }
 }
