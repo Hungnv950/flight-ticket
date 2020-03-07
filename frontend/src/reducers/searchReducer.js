@@ -11,9 +11,9 @@ const initialState = {
         Airline: ""
       }]
   },
-  startLocation: "",
-  endLocation: "",
-  listFareData: {},
+  startLocation: "Ha Noi, Viet Nam(HAN)",
+  endLocation: "To TP.HCM, Viet Nam(SGN)",
+  listFareData: [],
 }
 
 export default function (state = initialState, action) {
