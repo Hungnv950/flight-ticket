@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {imagesUrl} from '../consts/path'
 import { connect } from 'react-redux';
+import Dropdown from './Dropdown';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -556,6 +557,7 @@ class SearchResult extends Component {
                   <li className="dropdown__item"><span>2</span></li>
                 </ul>
               </div>
+              <Dropdown formTitle='Người lớn' list={[{value: 1, label: '1 hành khách'}, {value: 2, label:'2 hành khách'}]} />
               <div className="form-group form-group--number dropdown js-dropdown">
                 <label className="form-title">Trẻ em &lt;2 tuổi</label>
                 <input className="form-control" type="number" placeholder={0} />

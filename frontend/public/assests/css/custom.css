@@ -84,3 +84,7 @@
 .form-group--datepicker .react-datepicker-wrapper {
   width: 100%;
 }
+
+.dropdown__intro {
+  padding: 0 12px;
+}
