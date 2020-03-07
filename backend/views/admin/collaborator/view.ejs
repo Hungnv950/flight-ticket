@@ -167,6 +167,80 @@
             text-align: right;
         }
     </style>
+
+    <style type="text/css">
+        @keyframes spinner {
+            0% { opacity: 1 }
+            100% { opacity: 0 }
+        }
+        .spinner div {
+            left: 95px;
+            top: 75px;
+            position: absolute;
+            animation: spinner linear 1s infinite;
+            background: #1d3f72;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px / 5px;
+            transform-origin: 5px 25px;
+        }.spinner div:nth-child(1) {
+             transform: rotate(0deg);
+             animation-delay: -0.9s;
+             background: #1d3f72;
+         }.spinner div:nth-child(2) {
+              transform: rotate(36deg);
+              animation-delay: -0.8s;
+              background: #1d3f72;
+          }.spinner div:nth-child(3) {
+               transform: rotate(72deg);
+               animation-delay: -0.7s;
+               background: #1d3f72;
+           }.spinner div:nth-child(4) {
+                transform: rotate(108deg);
+                animation-delay: -0.6s;
+                background: #1d3f72;
+            }.spinner div:nth-child(5) {
+                 transform: rotate(144deg);
+                 animation-delay: -0.5s;
+                 background: #1d3f72;
+             }.spinner div:nth-child(6) {
+                  transform: rotate(180deg);
+                  animation-delay: -0.4s;
+                  background: #1d3f72;
+              }.spinner div:nth-child(7) {
+                   transform: rotate(216deg);
+                   animation-delay: -0.3s;
+                   background: #1d3f72;
+               }.spinner div:nth-child(8) {
+                    transform: rotate(252deg);
+                    animation-delay: -0.2s;
+                    background: #1d3f72;
+                }.spinner div:nth-child(9) {
+                     transform: rotate(288deg);
+                     animation-delay: -0.1s;
+                     background: #1d3f72;
+                 }.spinner div:nth-child(10) {
+                      transform: rotate(324deg);
+                      animation-delay: 0s;
+                      background: #1d3f72;
+                  }
+        .loading-io {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            overflow: hidden;
+        }
+        .spinner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform: translateZ(0) scale(1);
+            backface-visibility: hidden;
+            transform-origin: 0 0; /* see note above */
+        }
+        .spinner div { box-sizing: content-box; }
+    </style>
+
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 <% include ../layouts/header.ejs %>
@@ -182,8 +256,22 @@
             </li>
             <li class="breadcrumb-item active"><%= collaborator.fullName %></li>
         </ol>
-        <div class="container-fluid">
-            <div id="ui-view">
+        <div class="container-fluid" style="text-align: center;" data-ng-app="Application" data-ng-controller="collaboratorCtrl">
+            <div class="loading-io">
+                <div class="spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="ui-view" style="display: none;">
                 <div>
                     <div class="fade-in">
                         <div class="row">
@@ -432,16 +520,8 @@
         <a href="#">ThinkFlight</a>
     </div>
 </footer>
-<!-- CoreUI and necessary plugins-->
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
-<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="node_modules/pace-progress/pace.min.js"></script>
-<script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-<script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
 <!-- Plugins and scripts required by this view-->
-<script src="node_modules/chart.js/dist/Chart.min.js"></script>
-<script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/javascript/angular.min.js"></script>
+<script src="/javascript/collaborator.js"></script>
 </body>
 </html>

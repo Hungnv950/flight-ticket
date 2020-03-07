@@ -8,7 +8,7 @@ exports.index = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.find({roleId: 2}, function (err, collaborators) {
+                User.find({roleId: 2}).exec(function (err, collaborators) {
                     res.render('admin/collaborator/index', {collaborators: collaborators});
                 });
             }
@@ -44,15 +44,30 @@ exports.createPost = function (req, res, next) {
                         username: req.body.username,
                         phone: req.body.username,
                         password: req.body.username,
-                        code: req.body.username,
                         address: req.body.address,
                         note: req.body.note,
-                        roleID: 2,
+                        roleId: 2,
                         status: 10
                     });
 
                     collaborator.save(function (err) {
                         if (err) return console.error(err);
+
+                        let customer = new User({
+                            fullName: req.body.fullName+" KH",
+                            username: req.body.username+"1",
+                            phone: req.body.username+"1",
+                            password: req.body.username,
+                            address: req.body.address,
+                            note: req.body.note,
+                            code: collaborator.code,
+                            roleId: 3,
+                            status: 10
+                        });
+
+                        customer.save(function (err) {
+                            if (err) return console.error(err);
+                        });
 
                         return res.redirect('/admin/collaborator/index');
                     });
@@ -114,7 +129,7 @@ exports.view = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
+                User.findById(req.params.id).populate('customers').exec( function (err, collaborator) {
                     if (err) return next(err);
 
                     res.render('admin/collaborator/view', {collaborator: collaborator});
