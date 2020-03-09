@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {imagesUrl} from '../consts/path'
+import {imagesUrl} from '../constants/path'
 import { connect } from 'react-redux';
 import Dropdown from './Dropdown';
 import {
@@ -25,6 +25,10 @@ class SearchResult extends Component {
   }
 
   render() {
+    const airPortFulName = (airport) => {
+      return airport["airport"] + ", " + airport["country"] + "(" + airport["key"] + ")"
+    };
+
     const renderListFareData = this.props.listFareData.map((fare) =>
       <div className="result-list-item js-toggle">
         <div className="airline">
@@ -53,11 +57,11 @@ class SearchResult extends Component {
         </div>
         <div className="time">
           <div className="time__from">
-            <p className="time__address">{this.props.startLocation}</p>
+            <p className="time__address">{this.props.startAirport["airport"]}</p>
             <p className="time__content">{formatHourMitues(fare.ListFlight[0].StartDate)}</p>
           </div>
           <div className="time__to">
-            <p className="time__address">{this.props.endLocation}</p>
+            <p className="time__address">{this.props.endAirport["airport"]}</p>
             <p className="time__content">{formatHourMitues(fare.ListFlight[0].EndDate)}</p>
           </div>
         </div>
@@ -167,6 +171,8 @@ class SearchResult extends Component {
         </div>
       </div>
     );
+
+
   return (
     <main className="main main--phone-756">
       <div className="banner bg-img-base"
@@ -200,9 +206,9 @@ class SearchResult extends Component {
         </svg>
         <p>
           <span className="text-start">Khởi hành từ</span>
-          <span className="from">{this.props.startLocation}</span>
+          <span className="from">{airPortFulName(this.props.startAirport)}</span>
           <span className="text-to">đến</span>
-          <span className="to">{this.props.endLocation}</span>
+          <span className="to">{airPortFulName(this.props.endAirport)}</span>
         </p>
       </div>
       <div className="result-board__border" />
@@ -616,8 +622,8 @@ class SearchResult extends Component {
 
 
 const mapStateToProps = (state) => ({
-	startLocation: state.search.startLocation,
-  endLocation: state.search.endLocation,
+	startAirport: state.search.startAirport,
+  endAirport: state.search.endAirport,
   listFareData: state.search.listFareData
 });
 
