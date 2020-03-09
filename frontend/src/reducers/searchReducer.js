@@ -1,18 +1,22 @@
 const initialState = {
-  params: {
-    ViewMode: "",
-      Adt: 0,
-      Chd: 0,
-      Inf: 0,
-      ListFlight: [{
-        StartPoint: "",
-        EndPoint: "",
-        DepartDate: "",
-        Airline: ""
-      }]
+  adt: 0,
+  chd: 0,
+  inf: 0,
+  startAirport: {
+    key: 'HAN',
+    airport: "Ha Noi",
+    country: "Viet Nam"
   },
-  startLocation: "Ha Noi, Viet Nam(HAN)",
-  endLocation: "To TP.HCM, Viet Nam(SGN)",
+  endAirport: {
+    key: 'SGN',
+    airport: "TP.HCM",
+    country: "Viet Nam"
+  },
+  departDate: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  is_return: false,
+  error_message: "",
   listFareData: [
     {
       "FareDataId": 0,
@@ -169,29 +173,24 @@ const initialState = {
           "AllowanceBaggage": ""
         }]
       }]
-    }]
+    }
+  ]
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case 'START_SEARCH':
-      return {
-        ...state,
-        params: action.payload
-      };
-    case 'SET_LOCATION':
-      return {
-        ...state,
-        startLocation: action.payload.StartLocation,
-        endLocation: action.payload.EndLocation,
-      };
+      return action.payload;
     case 'SEARCH_SUCCESS':
       return {
         ...state,
         listFareData: action.payload.ListFareData
       }
     case 'SEARCH_FAILED':
-      return state;
+      return {
+        ...state,
+        error_message: action.payload
+      };
     default:
       return state;
   }

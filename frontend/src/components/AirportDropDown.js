@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
+import {airportConst} from '../constants/airport'
 
 class AirportDropDown extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     this.state = {
-      airports: [
-        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'HAN', airport: "Ha Noi", country: "Viet Nam" },
-        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" },
-        { key: 'SGN', airport: "TP.HCM", country: "Viet Nam" }
-      ],
+      airportConst: airportConst,
       suggestions: [],
-      value: "",
+      value: this.props.airport["airport"] || "",
       key: "",
     };
 
@@ -41,7 +31,7 @@ class AirportDropDown extends Component {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
-    return inputLength === 0 ? [] : this.state.airports.filter(lang =>
+    return inputLength === 0 ? [] : this.state.airportConst.filter(lang =>
       lang.airport.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
@@ -89,8 +79,18 @@ class AirportDropDown extends Component {
   };
 
   getAirportKey(value) {
-    return this.state.airports.find(element => element["airport"] === value)
+    return this.state.airportConst.find(element => element["airport"] === value)
   }
+
+  showDropdown = () => {
+    this.setState({ isOpen: true });
+    document.addEventListener("click", this.hideDropdown);
+  };
+
+  hideDropdown = () => {
+    this.setState({ isOpen: false });
+    document.removeEventListener("click", this.hideDropdown);
+  };
 
   render() {
     const { value, suggestions } = this.state;
@@ -117,7 +117,7 @@ class AirportDropDown extends Component {
             inputProps={inputProps}
           />
           {/* <input className="form-control" type="text" placeholder="Thành phố - Quốc Gia - Sân Bay" /> */}
-          <div className="icon-search js-control-show-dropdown">
+          <div className="icon-search js-control-show-dropdown" onClick={this.showDropdown}>
             <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 16 16">
               <g>
                 <g>
