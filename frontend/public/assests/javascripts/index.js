@@ -2199,12 +2199,6 @@ $(document).ready(function() {
     })
   });
 
-  $('.js-toggle-control').on('click', function() {
-    var toggleWrap = $(this).closest('.js-toggle');
-    if (toggleWrap.hasClass('show')) return toggleWrap.removeClass('show');
-    toggleWrap.addClass('show');
-  });
-
   $('.js-tab').each(function() {
     var tab = $(this);
     var tabNavItem = $(this).find('.js-tab-nav');
@@ -2305,13 +2299,13 @@ $(document).ready(function() {
   }
 
   slider($('.review .js-slider'));
-  slider($('.result-board__calendar .js-slider'), {
-    number: 5,
-    activeSlide: 7,
-    reponsive: {
-      desktop: 3
-    }
-  });
+  // slider($('.result-board__calendar .js-slider'), {
+  //   number: 5,
+  //   activeSlide: 7,
+  //   reponsive: {
+  //     desktop: 3
+  //   }
+  // });
 
   $('.js-toggle-modal').on('click', function() {
     $('body').addClass('show-modal');

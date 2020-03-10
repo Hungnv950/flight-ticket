@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {imagesUrl} from '../consts/path'
 import { connect } from 'react-redux';
 import Dropdown from './Dropdown';
+import Slider from './Slider';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -232,6 +233,42 @@ class SearchResult extends Component {
         </div>
       </div>
     );
+
+  var sliderItems = [
+    <div className="slider__item">
+      <p className="date">T2,14/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>,
+    <div className="slider__item">
+      <p className="date">T3,15/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>,
+    <div className="slider__item">
+      <p className="date">T4,16/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>,
+    <div className="slider__item">
+      <p className="date">T5,17/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>,
+    <div className="slider__item">
+      <p className="date">T6,17/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>,
+    <div className="slider__item">
+      <p className="date">T7,17/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>,
+    <div className="slider__item">
+      <p className="date">T8,17/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>,
+    <div className="slider__item">
+      <p className="date">T9,17/9/2020</p>
+      <p className="price">1.000.000đ</p>
+    </div>
+  ];
+
   return (
     <main className="main main--phone-756">
       <div className="banner bg-img-base"
@@ -255,107 +292,37 @@ class SearchResult extends Component {
       <div className="row-custom">
       <div className="col-lg-8 col-12 col-custom">
       <div className="result-board">
-      <div className="result-board__title">
-        <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 13 13">
-          <g>
+        <div className="result-board__title">
+          <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 13 13">
             <g>
-              <path fill="#818181" d="M1.811 11.19c-.13-.116-.123-.368.017-.658L0 9.34c.195-.197.39-.322.713-.364l2.124-.283c.16-.02.317-.033.463-.061.233-.355.955-1.254 1.315-1.733l.96-1.268L.932 4.232c-.484-.146.43-1.23.87-1.111l6.121.161L9.465 1.74c1.208-1.205 2.83-1.767 3.196-1.4.367.369-.195 1.988-1.4 3.196L9.718 5.078l.16 6.121c.12.44-.964 1.352-1.108.869l-1.4-4.643-1.27.96c-.476.36-1.377 1.082-1.732 1.317-.03.146-.041.3-.062.46l-.28 2.125A1.132 1.132 0 0 1 3.66 13L2.47 11.17c-.29.14-.543.15-.658.02z" />
+              <g>
+                <path fill="#818181" d="M1.811 11.19c-.13-.116-.123-.368.017-.658L0 9.34c.195-.197.39-.322.713-.364l2.124-.283c.16-.02.317-.033.463-.061.233-.355.955-1.254 1.315-1.733l.96-1.268L.932 4.232c-.484-.146.43-1.23.87-1.111l6.121.161L9.465 1.74c1.208-1.205 2.83-1.767 3.196-1.4.367.369-.195 1.988-1.4 3.196L9.718 5.078l.16 6.121c.12.44-.964 1.352-1.108.869l-1.4-4.643-1.27.96c-.476.36-1.377 1.082-1.732 1.317-.03.146-.041.3-.062.46l-.28 2.125A1.132 1.132 0 0 1 3.66 13L2.47 11.17c-.29.14-.543.15-.658.02z" />
+              </g>
             </g>
-          </g>
-        </svg>
-        <p>
-          <span className="text-start">Khởi hành từ</span>
-          <span className="from">{this.props.startLocation}</span>
-          <span className="text-to">đến</span>
-          <span className="to">{this.props.endLocation}</span>
-        </p>
-      </div>
-      <div className="result-board__border" />
-      <div className="result-board__calendar">
-        <div className="result-board__calendar-bg-white" />
-          <div className="result-board__calendar-wrap">
-            <div className="slider js-slider">
-              <div className="slider__list-wrap">
-                <div className="slider__list">
-                  <div className="slider__item">
-                    <p className="date">T2,14/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T3,15/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T4,16/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T5,17/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T6,18/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T7,19/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">CN,20/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T2,21/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T3,22/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T4,23/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T5,24/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T6,25/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                  <div className="slider__item">
-                    <p className="date">T7,26/9/2020</p>
-                    <p className="price">1.000.000đ</p>
-                  </div>
-                </div>
-              </div>
-              <div className="slider__control-btn slider__btn-prev js-prev-slide">
-                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
-                  <g>
-                    <g>
-                      <g>
-                        <path d="M.775 7.045l5.152 5.152a.839.839 0 1 0 1.187-1.186L2.555 6.45l4.559-4.558A.84.84 0 0 0 5.927.707L.775 5.859a.836.836 0 0 0 0 1.186z" />
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div className="slider__control-btn slider__btn-next js-next-slide">
-                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
-                  <g>
-                    <g>
-                      <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div className="result-board__calendar-bg-white" />
-          </div>
+          </svg>
+          <p>
+            <span className="text-start">Khởi hành từ</span>
+            <span className="from">{this.props.startLocation}</span>
+            <span className="text-to">đến</span>
+            <span className="to">{this.props.endLocation}</span>
+          </p>
         </div>
+        <div className="result-board__border"></div>
+        <div className="result-board__calendar">
+          <div className="result-board__calendar-bg-white"></div>
+          <div className="result-board__calendar-wrap">
+            <Slider
+              list={sliderItems}
+              active={6}
+              display={{
+                default: 5,
+                desktop: 3
+              }}
+            />
+          </div>
+          <div className="result-board__calendar-bg-white"></div>
+        </div>
+      </div>
         <h2 className="change-info-search js-change-info-search">
           <span>Thay đổi thông tin tìm kiếm</span>
           <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
