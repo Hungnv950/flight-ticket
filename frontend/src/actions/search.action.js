@@ -113,11 +113,6 @@ import {
 
 export const submitSearchAction = (dispatch, params) => {
   dispatch({
-    type: 'START_SEARCH',
-    payload: params
-  });
-
-  dispatch({
     type: 'LOADING',
     payload: 'Hệ thống đang thực hiện tìm kiếm'
   });
@@ -130,7 +125,6 @@ export const submitSearchAction = (dispatch, params) => {
 
   return axios.post('https://api.atrip.vn/v1/flights/search', buildSearchParams(params, params.is_return), optionAxios)
     .then((result) => {
-
       dispatch({
         type: 'LOADING_FINISHED'
       });
@@ -140,12 +134,12 @@ export const submitSearchAction = (dispatch, params) => {
           type: 'SEARCH_FAILED',
           payload: result.data.message
         })
-
       } else {
         dispatch({
           type: 'SEARCH_SUCCESS',
           payload: result.data.data
         })
+
         history.push('/search/result')
       }
     });
@@ -153,38 +147,37 @@ export const submitSearchAction = (dispatch, params) => {
 
 const buildSearchParams = (params, is_return) => {
   let searchParams = {
-    ViewMode: "",
-    Adt: params.adt,
-    Chd: params.chd,
-    Inf: params.inf,
-    ListFlight: [{
-      StartPoint: params.startAirport["key"],
-      EndPoint: params.endAirport["key"],
-      DepartDate: formatDatePost(params.startDate)
+    "ViewMode": "",
+    "Adt": params.adt,
+    "Chd": params.chd,
+    "Inf": params.inf,
+    "ListFlight": [{
+      "StartPoint": params.startAirport["key"],
+      "EndPoint": params.endAirport["key"],
+      "DepartDate": formatDatePost(params.startDate)
     }]
   }
 
   if (is_return) {
     searchParams = {
-      ViewMode: "",
-      Adt: params.adt,
-      Chd: params.chd,
-      Inf: params.inf,
-      ListFlight: [{
-          StartPoint: params.startAirport["key"],
-          EndPoint: params.endAirport["key"],
-          DepartDate: formatDatePost(params.startDate)
+      "ViewMode": "",
+      "Adt": params.adt,
+      "Chd": params.chd,
+      "Inf": params.inf,
+      "ListFlight": [
+        {
+          "StartPoint": params.startAirport["key"],
+          "EndPoint": params.endAirport["key"],
+          "DepartDate": formatDatePost(params.startDate)
         },
         {
-          StartPoint: params.endAirport["key"],
-          EndPoint: params.startAirport["key"],
-          DepartDate: formatDatePost(params.endDate)
+          "StartPoint": params.endAirport["key"],
+          "EndPoint": params.startAirport["key"],
+          "DepartDate": formatDatePost(params.endDate)
         }
       ]
     }
   }
-
-  console.log(searchParams)
 
   return searchParams;
 }

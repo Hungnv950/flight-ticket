@@ -4302,6 +4302,7 @@ a.ui-button:active,
 
 .result-list-item .time {
   max-width: calc(100% - 360px);
+  width: calc(100% / 3);
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
