@@ -10,7 +10,7 @@ class Dropdown extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { label } = this.props.list[0];
     let firstItem = null;
     if (typeof label != 'undefined') {
