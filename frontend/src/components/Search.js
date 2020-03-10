@@ -3,7 +3,6 @@ import { imagesUrl } from '../constants/path';
 import AirportDropDown from './AirportDropDown';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
 import {
 	connect
 } from 'react-redux'
@@ -258,7 +257,7 @@ class Search extends Component {
 															</li>
 															{
 																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectAdt.bind(this, i+1)}><span>{i+1}</span></li>
+																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectAdt.bind(this, i)}><span>{i}</span></li>
 																))
 															}
 														</ul>
@@ -298,7 +297,7 @@ class Search extends Component {
 															</li>
 															{
 																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectChd.bind(this, i+1)}><span>{i+1}</span></li>
+																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectChd.bind(this, i)}><span>{i}</span></li>
 																))
 															}
 														</ul>
@@ -338,7 +337,7 @@ class Search extends Component {
 															</li>
 															{
 																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectInf.bind(this, i+1)}><span>{i+1}</span></li>
+																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectInf.bind(this, i)}><span>{i}</span></li>
 																))
 															}
 														</ul>
@@ -429,7 +428,7 @@ class Search extends Component {
 															</li>
 															{
 																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectAdt.bind(this, i+1)}><span>{i+1}</span></li>
+																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectAdt.bind(this, i)}><span>{i}</span></li>
 																))
 															}
 														</ul>
@@ -469,7 +468,7 @@ class Search extends Component {
 															</li>
 															{
 																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectChd.bind(this, i+1)}><span>{i+1}</span></li>
+																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectChd.bind(this, i)}><span>{i}</span></li>
 																))
 															}
 														</ul>
@@ -509,7 +508,7 @@ class Search extends Component {
 															</li>
 															{
 																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectInf.bind(this, i+1)}><span>{i+1}</span></li>
+																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectInf.bind(this, i)}><span>{i}</span></li>
 																))
 															}
 														</ul>
@@ -613,9 +612,9 @@ class Search extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch, searchParams, location) => {
+const mapDispatchToProps = (dispatch, searchParams) => {
 	return {
-		submitSearchAction: (searchParams, location) => submitSearchAction(dispatch, searchParams, location),
+		submitSearchAction: (searchParams) => submitSearchAction(dispatch, searchParams),
 	}
 }
 
