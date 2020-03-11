@@ -117,6 +117,11 @@ export const submitSearchAction = (dispatch, params) => {
     payload: 'Hệ thống đang thực hiện tìm kiếm'
   });
 
+  dispatch({
+    type: 'START_SEARCH',
+    payload: params
+  });
+
   let optionAxios = {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'

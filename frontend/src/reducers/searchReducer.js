@@ -180,7 +180,18 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case 'START_SEARCH':
-      return action.payload;
+      return {
+        ...state,
+        adt: action.payload.adt,
+        chd: action.payload.chd,
+        inf: action.payload.inf,
+        startAirport: action.payload.startAirport,
+        endAirport: action.payload.endAirport,
+        departDate: action.payload.departDate,
+        startDate: action.payload.startDate,
+        endDate: action.payload.endDate,
+        is_return: action.payload.is_return
+      };
     case 'SEARCH_SUCCESS':
       return {
         ...state,
