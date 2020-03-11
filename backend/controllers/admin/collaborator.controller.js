@@ -138,3 +138,71 @@ exports.view = function (req, res, next) {
         }
     });
 };
+
+exports.changePassword = function (req, res, next) {
+    User.findById(req.session.userid).exec(function (error, user) {
+        if (error) {
+            return next(error);
+        } else {
+            if (user === null) {
+                return res.redirect('/admin/login');
+            } else {
+                User.findById(req.params.id, function (err, collaborator) {
+                    if (err) return next(err);
+
+                    res.render('admin/collaborator/change-password', {collaborator: collaborator});
+                })
+            }
+        }
+    });
+};
+
+exports.changePasswordPost = function (req, res, next) {
+    User.findById(req.session.userid).exec(function (error, user) {
+        if (error) {
+            return next(error);
+        } else {
+            if (user === null) {
+                return res.redirect('/admin/login');
+            } else {
+                User.findById(req.params.id, function (err, collaborator) {
+                    if (err) return next(err);
+
+                    collaborator.note = req.body.note;
+                    collaborator.address = req.body.address;
+                    collaborator.fullName = req.body.fullName;
+
+                    collaborator.update(function (err) {
+                        if (err) return console.error(err);
+
+                        return res.redirect('/admin/collaborator/view/'+req.params.id);
+                    });
+                });
+            }
+        }
+    });
+};
+
+exports.deActive = function (req, res, next) {
+    User.findById(req.session.userid).exec(function (error, user) {
+        if (error) {
+            return next(error);
+        } else {
+            if (user === null) {
+                return res.redirect('/admin/login');
+            } else {
+                User.findById(req.params.id, function (err, collaborator) {
+                    if (err) return next(err);
+
+                    collaborator.status = collaborator.status === 10 ? 0 : 10;
+
+                    collaborator.update(function (err) {
+                        if (err) return console.error(err);
+
+                        return res.redirect('/admin/collaborator/view/'+req.params.id);
+                    });
+                });
+            }
+        }
+    });
+};

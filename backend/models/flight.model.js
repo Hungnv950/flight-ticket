@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
@@ -62,20 +64,13 @@ let FlightSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
     },
     updatedAt: {
         type: Date,
-        default: Date.now()
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
     }
 });
-
-FlightSchema.convertDate = function () {
-    let date = new Date(this.createdAt),
-        month = ("0" + (date.getMonth() + 1)).slice(-2),
-        day = ("0" + date.getDate()).slice(-2);
-    return [day, month, date.getFullYear()].join("/");
-};
 
 let Flight = mongoose.model('Flight', FlightSchema);
 

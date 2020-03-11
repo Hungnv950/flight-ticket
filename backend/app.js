@@ -64,6 +64,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 let apiRouter = require('./routes/api/api.route');
 
+let bankRouter = require('./routes/admin/bank.route');
+
 let userRouter = require('./routes/admin/user.route');
 
 let flightRouter = require('./routes/admin/flight.route');
@@ -77,6 +79,8 @@ app.use('/api', apiRouter);
 app.use('/admin', dashboardRouter);
 
 app.use('/admin/user', userRouter);
+
+app.use('/admin/bank', bankRouter);
 
 app.use('/admin/flight', flightRouter);
 
