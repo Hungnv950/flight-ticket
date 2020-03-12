@@ -13,6 +13,7 @@ import DatePicker from 'react-datepicker';
 import {
   submitSearchAction
 } from '../actions/search.action'
+import { bookingAction } from '../actions/booking.action';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -35,10 +36,6 @@ class SearchResult extends Component {
     if (parentToggle.classList.contains('show')) return parentToggle.classList.remove('show')
     parentToggle.classList.add('show')
   }
-
-  redirectToBooking = () => {
-    history.push(`/booking`)
-  };
 
   onChangeStartPoint(value, airport) {
     if (value === "startPoint") {
@@ -99,6 +96,12 @@ onSubmitSearch(e) {
   }
 
   this.props.submitSearchAction(newState);
+};
+
+onSubmitBookingAction = (fare, e) => {
+  e.preventDefault();
+
+  this.props.submitBookingAction(fare);
 };
 
 onChangeDate = (date, sinceTime) => {
@@ -182,7 +185,7 @@ render() {
       </div>
       <div className="price">
         <div className="price__per-people"><span className="price__number">1.000.000</span><span className="price__unit">/khách</span></div>
-        <a className="price__btn btn btn--bg-linear btn--medium" href="# " onClick={this.redirectToBooking}>
+        <a className="price__btn btn btn--bg-linear btn--medium" href="# " onClick={this.onSubmitBookingAction.bind(this, fare)}>
           Chọn mua
           <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
             <g>
@@ -639,9 +642,10 @@ const mapStateToProps = (state) => ({
   listFareData: state.search.listFareData
 });
 
-const mapDispatchToProps = (dispatch, searchParams) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     submitSearchAction: (searchParams) => submitSearchAction(dispatch, searchParams),
+    submitBookingAction: (fare) => bookingAction(dispatch, fare)
   }
 }
 
