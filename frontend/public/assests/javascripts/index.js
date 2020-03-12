@@ -2305,13 +2305,6 @@ $(document).ready(function() {
   }
 
   slider($('.review .js-slider'));
-  slider($('.result-board__calendar .js-slider'), {
-    number: 5,
-    activeSlide: 7,
-    reponsive: {
-      desktop: 3
-    }
-  });
 
   $('.js-toggle-modal').on('click', function() {
     // $('body').addClass('show-modal');
