@@ -7,7 +7,7 @@ export const formatHourMitues = (value) => {
 export const formatHMDFlight = (value) => {
   let date = new Date(value);
 
-  return date.getHours() + "h" + date.getMinutes() + " - " + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+  return date.getHours() + "h" + date.getMinutes() + " - " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 }
 
 export const intToTime = value => {
