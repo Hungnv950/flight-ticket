@@ -7,9 +7,9 @@ const Schema = mongoose.Schema;
 const STATUS_ACTIVE = 10;
 const STATUS_INACTIVE = 0;
 
-let BankSchema = new Schema({
+let TransactionSchema = new Schema({
     name: {
-        type: String,
+        type: Number,
         required: true
     },
     branch: {
@@ -38,6 +38,6 @@ let BankSchema = new Schema({
     }
 });
 
-let Bank = mongoose.model('Bank', BankSchema);
+let Transaction = mongoose.model('Transaction', TransactionSchema);
 
-module.exports = Bank;
+module.exports = Transaction;

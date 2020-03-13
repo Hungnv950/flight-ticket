@@ -1,21 +1,21 @@
 const User = require('../../models/user.model');
 
 exports.dashboard = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
+    User.findById(req.session.userid).populate('customers').exec(function (error, user) {
         if (error) {
             return next(error);
         } else {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                res.render('admin/dashboard/index', {title: 'express'});
+                res.render('admin/dashboard/'+ (user.roleId === 1 ? 'index-admin':'index-collaborator'), {userLogin: user});
             }
         }
     });
 };
 
 exports.login = function (req, res) {
-    res.render('admin/dashboard/login', {title: 'thinkflight login'});
+    res.render('admin/dashboard/login');
 };
 
 exports.loginPost = function (req, res, next) {

@@ -12,6 +12,7 @@ const ROLE_ADMIN = 1;
 
 const STATUS_ACTIVE = 10;
 const STATUS_INACTIVE = 0;
+const STATUS_DELETED = -1;
 
 let UserSchema = new Schema({
     code: {
@@ -124,7 +125,7 @@ UserSchema.pre('save', function (next) {
 
     let max = 10;
 
-    if (user.roleId === 2) {
+    if (user.roleId === 2 || user.roleId === 4) {
         user.code = slug + getRandomIntInclusive(Math.pow(10, (max - slug.length)), Math.pow(10, (max - slug.length + 1)));
     }
 

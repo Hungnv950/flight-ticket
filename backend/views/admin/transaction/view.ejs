@@ -269,9 +269,9 @@
 
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<%- include('../layouts/header', {userLogin: userLogin}); %>
+<% include ../layouts/header.ejs %>
 <div class="app-body">
-    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
+    <% include ../layouts/sidebar.ejs %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -302,7 +302,41 @@
                 <div>
                     <div class="fade-in">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
+                                            Tìm kiếm
+                                        </p>
+                                        <div class="card-header-actions">
+                                            <a href="/admin/collaborator/create" class="btn btn-block btn-outline-dark">
+                                                <i class="nav-icon icon-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="name" type="text"
+                                                           placeholder="Theo tên, mã CTV">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
+                                            <i class="nav-icon icon-check"></i>
+                                            Tìm kiếm
+                                        </button>
+                                        <button class="btn btn-sm btn-danger pull-left" type="reset">
+                                            <i class="nav-icon icon-close"></i>
+                                            Khôi phục
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
@@ -325,19 +359,19 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab" aria-controls="home" aria-selected="true">
                                                         <i class="nav-icon icon-info"></i>
-                                                        Thông tin cá nhân
+                                                        Thông tin
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab" aria-controls="profile" aria-selected="false">
-                                                        <i class="nav-icon icon-calculator"></i>
-                                                        Tài khoản ngân hàng
+                                                        <i class="nav-icon icon-wallet"></i>
+                                                        Ngân hàng
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-toggle="tab" href="#messages-1" role="tab" aria-controls="messages" aria-selected="false">
-                                                        <i class="nav-icon icon-clock"></i>
-                                                        Lịch sử rút tiền
+                                                        <i class="nav-icon icon-layers"></i>
+                                                        Giao dịch
                                                     </a>
                                                 </li>
                                             </ul>
@@ -413,23 +447,9 @@
                                                                         <input type="text" class="form-control"
                                                                                value="<%= collaborator.code %>" disabled="">
                                                                         <div class="input-group-append">
-                                                                            <span class="input-group-text">
-                                                                                <i class="nav-icon icon-docs"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="form-label control-label">Link chia sẻ:</label>
-                                                                <div class="form-wrap form-control-static">
-                                                                    <div class="input-group mb-3" id="product_coupon">
-                                                                        <input type="text" class="form-control"
-                                                                               value="<%= collaborator.code %>" disabled="">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text">
-                                                                                <i class="nav-icon icon-docs"></i>
-                                                                            </span>
+                                                                <span class="input-group-text">
+                                                                    <i class="nav-icon icon-docs"></i>
+                                                                </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

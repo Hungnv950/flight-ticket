@@ -3,16 +3,14 @@ const Bank = require('../../models/bank.model');
 const User = require('../../models/user.model');
 
 exports.index = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
+    User.findById(req.session.userid).populate('banks').exec(function (error, user) {
         if (error) {
             return next(error);
         } else {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                Bank.find({roleId: 2}).exec(function (err, collaborators) {
-                    res.render('admin/bank/index', {collaborators: collaborators});
-                });
+                res.render('admin/bank/index', {banks: user.banks,userLogin:user});
             }
         }
     });
@@ -26,7 +24,7 @@ exports.create = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                res.render('admin/bank/create');
+                res.render('admin/bank/create',{userLogin:user});
             }
         }
     });
@@ -51,6 +49,9 @@ exports.createPost = function (req, res, next) {
                     bank.save(function (err) {
                         if (err) return console.error(err);
 
+                        user.banks.push(bank);
+                        user.save();
+
                         return res.redirect('/admin/bank/index');
                     });
                 }
@@ -70,7 +71,7 @@ exports.update = function (req, res, next) {
                 User.findById(req.params.id, function (err, collaborator) {
                     if (err) return next(err);
 
-                    res.render('admin/bank/update', {collaborator: collaborator});
+                    res.render('admin/bank/update', {collaborator: collaborator,userLogin:user});
                 })
             }
         }

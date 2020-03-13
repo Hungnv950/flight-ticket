@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Thinkflight | Tài khoản ngân hàng</title>
+    <title>Thinkflight | Lịch sử rút tiền</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -43,33 +43,71 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<% include ../layouts/header.ejs %>
+<%- include('../layouts/header', {userLogin: userLogin}); %>
 <div class="app-body">
-    <% include ../layouts/sidebar.ejs %>
+    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/admin/dashboard">Trang chủ</a>
             </li>
-            <li class="breadcrumb-item active">Cộng tác viên</li>
+            <li class="breadcrumb-item active">Lịch sử rút tiền</li>
         </ol>
         <div class="container-fluid">
             <div id="ui-view">
                 <div>
                     <div class="fade-in">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-3">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
-                                            Tài khoản ngân hàng
+                                            Tìm kiếm
                                         </p>
                                         <div class="card-header-actions">
-                                            <a href="create" class="btn btn-block btn-success active">
+                                            <a href="create" class="btn btn-block btn-outline-dark">
                                                 <i class="nav-icon icon-plus"></i>
-                                                Thêm mới tài khoản
                                             </a>
                                         </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="name" type="text"
+                                                           placeholder="Theo tên, mã CTV">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <select class="form-control" name="" id="">
+                                                        <option value="">Chọn trạng thái</option>
+                                                        <option value="">Tất cả</option>
+                                                        <option value="">Chờ xử lý</option>
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
+                                            <i class="nav-icon icon-check"></i>
+                                            Tìm kiếm
+                                        </button>
+                                        <button class="btn btn-sm btn-danger pull-left" type="reset">
+                                            <i class="nav-icon icon-close"></i>
+                                            Khôi phục
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
+                                            Lịch sử rút tiền
+                                        </p>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
                                         <table class="table table-responsive-sm table-striped"
@@ -77,30 +115,42 @@
                                             <thead>
                                             <tr>
                                                 <th style="width: 40px;">STT</th>
+                                                <th>Mã CTV</th>
+                                                <th>Họ và tên</th>
                                                 <th>Ngân hàng</th>
-                                                <th>Số tài khoản</th>
-                                                <th>Chủ tài khoản</th>
-                                                <th>Chi nhánh</th>
+                                                <th>Số tiền rút</th>
                                                 <th>Trạng thái</th>
+                                                <th>Thao tác</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <% banks.forEach(function(bank, key) { %>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <% transactions.forEach(function(transaction, key) { %>
                                                 <tr>
                                                     <td><%= key + 1 %></td>
                                                     <td>
-                                                        <%= bank.name %>
+                                                        <a href="view/<%= transaction.id %>">
+                                                            <%= transaction.code %>
+                                                        </a>
                                                     </td>
                                                     <td>
-                                                        <%= bank.accountNumber %>
+                                                        <%= transaction.fullName %>
                                                     </td>
                                                     <td>
-                                                        <%= bank.accountHolder %>
+                                                        <%= transaction.phone ? transaction.phone : "N/A" %>
                                                     </td>
                                                     <td>
-                                                        <%= bank.branch %>
+                                                        <%= transaction.email ? transaction.email : "N/A" %>
                                                     </td>
-                                                    <td><span class="badge badge-success">Hoạt động</span></td>
+                                                    <td><span class="badge badge-success">Chờ xử lý</span></td>
                                                 </tr>
                                             <% }); %>
                                             </tbody>

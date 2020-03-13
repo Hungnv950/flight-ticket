@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Thinkflight | CTV</title>
+    <title>Thinkflight | Cộng tác viên</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -43,9 +43,9 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<% include ../layouts/header.ejs %>
+<%- include('../layouts/header', {userLogin: userLogin}); %>
 <div class="app-body">
-    <% include ../layouts/sidebar.ejs %>
+    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -101,7 +101,7 @@
                                         <div class="card-header-actions">
                                             <a href="create" class="btn btn-block btn-success active">
                                                 <i class="nav-icon icon-plus"></i>
-                                                Thêm mới 1 CTV
+                                                Thêm mới cộng tác viên
                                             </a>
                                         </div>
                                     </div>

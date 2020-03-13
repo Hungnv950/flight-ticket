@@ -7,18 +7,11 @@
                     Trang chủ
                 </a>
             </li>
-            <li class="nav-title">Flight</li>
+            <li class="nav-title">Giao dịch</li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/flight/index">
                     <i class="nav-icon icon-plane"></i>
                     Chuyến bay
-                </a>
-            </li>
-            <li class="nav-title">Customer</li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/collaborator/index">
-                    <i class="nav-icon icon-shield"></i>
-                    Cộng tác viên
                 </a>
             </li>
             <li class="nav-item">
@@ -27,14 +20,20 @@
                     Khách hàng
                 </a>
             </li>
-            <li class="nav-title">Transaction</li>
+            <% if(userLogin.roleId === 1) { %>
+            <li class="nav-title">Cộng tác viên</li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/collaborator/index">
-                    <i class="nav-icon icon-wallet"></i>
-                    Giao dịch
+                    <i class="nav-icon icon-shield"></i>
+                    Danh sách CTV
                 </a>
             </li>
-            <li class="divider"></li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/transaction/index">
+                    <i class="nav-icon icon-calculator"></i>
+                    Lịch sử rút tiền
+                </a>
+            </li>
             <li class="nav-title">Permission</li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/employee/index">
@@ -42,6 +41,28 @@
                     Nhân viên
                 </a>
             </li>
+            <% } %>
+            <% if(userLogin.roleId === 2) { %>
+                <li class="nav-title">Thông tin tài khoản</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/collaborator/view/<%= userLogin.id %>">
+                        <i class="nav-icon icon-shield"></i>
+                        Thông tin cá nhân
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/bank/index">
+                        <i class="nav-icon icon-calculator"></i>
+                        Tài khoản ngân hàng
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/transaction/index">
+                        <i class="nav-icon icon-clock"></i>
+                        Lịch sử rút tiền
+                    </a>
+                </li>
+            <% } %>
         </ul>
     </nav>
     <a class="sidebar-minimizer brand-minimizer" href=""></a>
