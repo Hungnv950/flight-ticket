@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Thinkflight | CTV - <%= collaborator.fullName %> - Chỉnh sửa</title>
+    <title>Thinkflight | Tài khoản ngân hàng - Thêm mới</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -43,19 +43,16 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<%- include('../layouts/header', {userLogin: userLogin}); %>
+<% include ../layouts/header.ejs %>
 <div class="app-body">
-    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
+    <% include ../layouts/sidebar.ejs %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Dashboard</li>
             <li class="breadcrumb-item">
-                <a href="/admin/collaborator/index">Cộng tác viên</a>
+                <a href="index">Tài khoản ngân hàng</a>
             </li>
-            <li class="breadcrumb-item">
-                <a href="/admin/collaborator/view/<%= collaborator.id %>"><%= collaborator.fullName %></a>
-            </li>
-            <li class="breadcrumb-item active">Cập nhật</li>
+            <li class="breadcrumb-item active">Thêm mới</li>
         </ol>
         <div class="container-fluid" data-select2-id="16">
             <div id="ui-view" data-select2-id="ui-view">
@@ -64,64 +61,44 @@
                         <div class="row">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-8">
-                                <form action="update" method="post">
+                                <form action="create" method="post">
                                     <div class="card">
-                                        <div class="card-header"><strong>Cộng tác viên</strong>
+                                        <div class="card-header"><strong>Tài khoản ngân hàng</strong>
                                             <small>Thêm mới</small>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="street">Số điện thoại <span
-                                                                    class="required">(*)</span></label>
-                                                        <input class="form-control" type="text" disabled=""
-                                                               value="<%= collaborator.username %>">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="street">Mã CTV <span
-                                                                    class="required">(*)</span></label>
-                                                        <div class="form-wrap form-control-static">
-                                                            <div class="input-group mb-3" id="product_coupon">
-                                                                <input type="text" class="form-control"
-                                                                       value="<%= collaborator.code %>" disabled="">
-                                                                <div class="input-group-append">
-                                                                <span class="input-group-text">
-                                                                    <i class="nav-icon icon-docs"></i>
-                                                                </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <label for="street">
+                                                            Tên ngân hàng
+                                                            <span class="required">(*)</span>
+                                                        </label>
+                                                        <input name="name" class="form-control" type="text"
+                                                               placeholder="Nhập tên ngân hàng">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="company">Họ và tên <span class="required">(*)</span></label>
-                                                        <input name="fullName" class="form-control" type="text"
-                                                               placeholder="Nhập họ và tên">
+                                                        <label for="company">Số tài khoản <span class="required">(*)</span></label>
+                                                        <input name="accountNumber" class="form-control" type="text"
+                                                               placeholder="Ex: 9704 36 68 12345678 111">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="street">Email</label>
-                                                        <input name="email" class="form-control" type="text"
-                                                               placeholder="Ex: example@thinkflight.com">
+                                                        <label for="street">Chủ tài khoản <span class="required">(*)</span></label>
+                                                        <input name="accountHolder" class="form-control" type="text"
+                                                               placeholder="Ex: Nguyễn Văn A">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="country">Địa chỉ</label>
-                                                <input name="address" class="form-control" type="text"
-                                                       placeholder="Ex: Số 127 Yên Xá, Tân Triều, Thanh Trì, Hà Nội">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="country">Ghi chú</label>
-                                                <textarea class="form-control" name="note" cols="30"
-                                                          rows="3"></textarea>
+                                                <label for="country">Chi nhánh <span class="required">(*)</span></label>
+                                                <input name="branch" class="form-control" type="text"
+                                                       placeholder="Ex: Chi nhánh Thanh Xuân">
                                             </div>
                                         </div>
                                         <div class="card-footer">

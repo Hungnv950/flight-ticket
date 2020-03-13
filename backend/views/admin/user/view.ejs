@@ -114,9 +114,9 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<% include ../layouts/header.ejs %>
+<%- include('../layouts/header', {userLogin: userLogin}); %>
 <div class="app-body">
-    <% include ../layouts/sidebar.ejs %>
+    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">

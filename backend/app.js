@@ -58,17 +58,23 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 let apiRouter = require('./routes/api/api.route');
 
+let bankRouter = require('./routes/admin/bank.route');
+
 let userRouter = require('./routes/admin/user.route');
 
 let flightRouter = require('./routes/admin/flight.route');
 
+let employeeRouter = require('./routes/admin/employee.route');
+
 let dashboardRouter = require('./routes/admin/dashboard.route');
+
+let transactionRouter = require('./routes/admin/transaction.route');
 
 let collaboratorRouter = require('./routes/admin/collaborator.route');
 
@@ -78,7 +84,13 @@ app.use('/admin', dashboardRouter);
 
 app.use('/admin/user', userRouter);
 
+app.use('/admin/bank', bankRouter);
+
 app.use('/admin/flight', flightRouter);
+
+app.use('/admin/employee', employeeRouter);
+
+app.use('/admin/transaction', transactionRouter);
 
 app.use('/admin/collaborator', collaboratorRouter);
 

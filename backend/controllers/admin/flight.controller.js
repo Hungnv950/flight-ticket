@@ -13,7 +13,7 @@ exports.index = function (req, res, next) {
                     users.forEach(function (user) {
                         let flight = new Flight({
                             user:user._id,
-                            flightCode: "FLIGHT"+Math.random(),
+                            flightCode: "FLIGHT"+Math.floor(Math.random() * 100),
                             fullName: user.fullName,
                             phone: user.phone,
                             email: user.phone+"@thinkflight.com",

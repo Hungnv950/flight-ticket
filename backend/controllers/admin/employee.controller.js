@@ -8,8 +8,8 @@ exports.index = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.find({roleId: 2}).exec(function (err, collaborators) {
-                    res.render('admin/collaborator/index', {collaborators: collaborators,userLogin: user});
+                User.find({roleId: 4}).exec(function (err, employees) {
+                    res.render('admin/employee/index', {employees: employees});
                 });
             }
         }
@@ -24,7 +24,7 @@ exports.create = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                res.render('admin/collaborator/create', {userLogin: user});
+                res.render('admin/employee/create');
             }
         }
     });
@@ -39,22 +39,21 @@ exports.createPost = function (req, res, next) {
                 return res.redirect('/admin/login');
             } else {
                 if (req.body.username && req.body.fullName) {
-
-                    let collaborator = new User({
+                    let employee = new User({
                         fullName: req.body.fullName,
                         username: req.body.username,
                         phone: req.body.username,
                         password: req.body.username,
                         address: req.body.address,
                         note: req.body.note,
-                        roleId: 2,
+                        roleId: 4,
                         status: 10
                     });
 
-                    collaborator.save(function (err) {
+                    employee.save(function (err) {
                         if (err) return console.error(err);
 
-                        return res.redirect('/admin/collaborator/index');
+                        return res.redirect('/admin/user/index');
                     });
                 }
             }
@@ -70,10 +69,10 @@ exports.update = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
+                User.findById(req.params.id, function (err, employee) {
                     if (err) return next(err);
 
-                    res.render('admin/collaborator/update', {collaborator: collaborator,userLogin: user});
+                    res.render('admin/employee/update', {employee: employee});
                 })
             }
         }
@@ -88,17 +87,17 @@ exports.updatePost = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
+                User.findById(req.params.id, function (err, employee) {
                     if (err) return next(err);
 
-                    collaborator.note = req.body.note;
-                    collaborator.address = req.body.address;
-                    collaborator.fullName = req.body.fullName;
+                    employee.note = req.body.note;
+                    employee.address = req.body.address;
+                    employee.fullName = req.body.fullName;
 
-                    collaborator.update(function (err) {
+                    employee.update(function (err) {
                         if (err) return console.error(err);
 
-                        return res.redirect('/admin/collaborator/index');
+                        return res.redirect('/admin/employee/index');
                     });
                 });
             }
@@ -114,10 +113,10 @@ exports.view = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id).populate('customers').exec( function (err, collaborator) {
+                User.findById(req.params.id).populate('customers').exec( function (err, employee) {
                     if (err) return next(err);
 
-                    res.render('admin/collaborator/view', {collaborator: collaborator,userLogin: user});
+                    res.render('admin/employee/view', {employee: employee});
                 })
             }
         }
@@ -132,10 +131,10 @@ exports.changePassword = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
+                User.findById(req.params.id, function (err, employee) {
                     if (err) return next(err);
 
-                    res.render('admin/collaborator/change-password', {collaborator: collaborator,userLogin: user});
+                    res.render('admin/employee/change-password', {employee: employee});
                 })
             }
         }
@@ -176,15 +175,15 @@ exports.deActive = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
+                User.findById(req.params.id, function (err, employee) {
                     if (err) return next(err);
 
-                    collaborator.status = collaborator.status === 10 ? 0 : 10;
+                    employee.status = employee.status === 10 ? 0 : 10;
 
-                    collaborator.update(function (err) {
+                    employee.update(function (err) {
                         if (err) return console.error(err);
 
-                        return res.redirect('/admin/collaborator/view/'+req.params.id);
+                        return res.redirect('/admin/employee/view/'+req.params.id);
                     });
                 });
             }

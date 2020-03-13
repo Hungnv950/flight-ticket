@@ -1,14 +1,18 @@
+const moment = require('moment');
+
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
+const ROLE_NV = 4;
 const ROLE_CTV = 2;
 const ROLE_USER = 3;
 const ROLE_ADMIN = 1;
 
 const STATUS_ACTIVE = 10;
 const STATUS_INACTIVE = 0;
+const STATUS_DELETED = -1;
 
 let UserSchema = new Schema({
     code: {
@@ -19,6 +23,9 @@ let UserSchema = new Schema({
         unique: true,
         required: true,
         trim: true
+    },
+    avatar:{
+        type:String
     },
     fullName: {
         type: String,
@@ -51,14 +58,23 @@ let UserSchema = new Schema({
     note: {
         type: String
     },
+    commission:{
+        type:Number,
+        default:0
+    },
+    wallet:{
+        type:Number,
+        default:0
+    },
     flights: [{ type: Schema.Types.ObjectId, ref: 'Flight' }],
+    banks:[{ type: Schema.Types.ObjectId, ref: 'Bank' }],
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
     },
     updatedAt: {
         type: Date,
-        default: Date.now()
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
     }
 });
 
@@ -109,7 +125,7 @@ UserSchema.pre('save', function (next) {
 
     let max = 10;
 
-    if (user.roleId === 2) {
+    if (user.roleId === 2 || user.roleId === 4) {
         user.code = slug + getRandomIntInclusive(Math.pow(10, (max - slug.length)), Math.pow(10, (max - slug.length + 1)));
     }
 

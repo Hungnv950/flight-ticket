@@ -63,16 +63,8 @@
             text-decoration: none !important;
         }
 
-        .ovh {
-            overflow: hidden !important;
-        }
-
         .dashboardStatistic {
             position: relative;
-        }
-
-        .pd0 {
-            padding: 0 !important;
         }
 
         .uln ul {
@@ -98,21 +90,20 @@
             white-space: nowrap;
             margin: 4px 25px 8px 0;
             box-sizing: border-box;
-            width: 22%;
         }
 
-        .dashboardStatistic ul li.total .dash_icon {
+        .dashboardStatistic .total .dash_icon {
             background: #0094da;
         }
 
-        .dashboardStatistic ul li .dash_icon {
+        .dashboardStatistic .dash_icon {
             display: inline-block;
             width: 30px;
             height: 30px;
             margin: 0;
             position: absolute;
-            top: 14px;
-            left: 25px;
+            top: 25px;
+            left: 28px;
             background: #4bac4d;
             text-align: center;
             border-radius: 100% !important;
@@ -120,60 +111,60 @@
             line-height: 32px;
         }
 
-        .dashboardStatistic ul li .dash_title {
+        .dashboardStatistic .dash_title {
             font-weight: 700;
             color: #666;
             margin: 0 0 0 2px;
         }
 
-        .dashboardStatistic ul li.total span.number {
+        .c-callout {
+            padding: 6px 0 6px 60px;
+            border-top: 1px solid #d6d6d6;
+        }
+
+        .dashboardStatistic .total span.number {
             color: #0094da;
         }
 
-        .dashboardStatistic ul li span.number {
+        .dashboardStatistic span.number {
             display: block;
             font-size: 22px;
             line-height: 28px;
         }
 
-        .dashboardStatistic ul li span.yesterday {
+        span.yesterday {
+            color: #999;
             display: block;
+            font-size: 12px;
             margin: 0 0 0 2px;
-        }
-
-        .dashboardStatistic ul li + li {
-            border-left: 1px solid #d6d6d6;
         }
 
         .btn-group-left a, .btn-group-left button {
             text-transform: uppercase;
         }
 
-        .dashboardStatistic ul li.return .dash_icon {
+        .dashboardStatistic .return .dash_icon {
             background: #ff8030;
         }
 
-        .dashboardStatistic ul li.down .dash_icon {
+        .dashboardStatistic .down .dash_icon {
             background: #f94f5e;
         }
 
-        .content-list div[class*=col-md-] .form-group {
-            margin: 0;
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .th-text-right {
-            text-align: right;
+        @media (min-width: 768px){
+            .c-callout {
+                border-top: none;
+                border-left: 1px solid #d6d6d6;
+            }
         }
     </style>
 
     <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<% include ../layouts/header.ejs %>
+<%- include('../layouts/header', {userLogin: userLogin}); %>
 <div class="app-body">
-    <% include ../layouts/sidebar.ejs %>
+    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -188,12 +179,11 @@
                 <div>
                     <div class="fade-in">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
+                            <div class="col-lg-12"><div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
                                             <i class="nav-icon icon-pie-chart"></i>
-                                            KÊT QUẢ KINH DOANH
+                                            KẾT QUẢ KINH DOANH
                                         </p>
                                         <div class="card-header-actions">
                                             <select class="form-control" id="ccmonth">
@@ -205,45 +195,52 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="card-body" style="padding: 0;">
-                                        <div class="dashboardBox dashboardStatistic ovh dashboard-top">
-                                            <div class="uln ovh pd0" style="border-bottom: 1px solid #c8ced3;">
-                                                <ul>
-                                                    <li class="total">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-diamond"></i>
-                                                        </label>
-                                                        <label class="dash_title ng-binding">Doanh số</label>
-                                                        <span class="number">
-                                                            <span class="txt ng-binding">0</span>
-                                                        </span>
-                                                        <span class="yesterday ng-binding">Doanh thu thuần</span>
-                                                    </li>
-                                                    <li class="return">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-plane"></i>
-                                                        </label>
-                                                        <label class="dash_title">Khách đặt</label>
-                                                        <span class="number"><span class="txt">0</span></span>
-                                                        <span class="yesterday">Số lượng khách đặt</span>
-                                                    </li>
-                                                    <li class="customer">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-share"></i>
-                                                        </label>
-                                                        <label class="dash_title">Lượt truy cập</label>
-                                                        <span class="number"><span class="txt">0</span></span>
-                                                        <span class="yesterday">Số lượt truy cập vào</span>
-                                                    </li>
-                                                    <li class="customer down">
-                                                        <label class="dash_icon">
-                                                            <i class="nav-icon icon-bag"></i>
-                                                        </label>
-                                                        <label class="dash_title">Thành công</label>
-                                                        <span class="number"><span class="txt">0</span></span>
-                                                        <span class="yesterday">Số khách hàng thành công</span>
-                                                    </li>
-                                                </ul>
+                                    <div class="card-body dashboardStatistic">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="c-callout total" style="border:none;">
+                                                    <label class="dash_icon">
+                                                        <i class="nav-icon icon-diamond"></i>
+                                                    </label>
+                                                    <label class="dash_title">Doanh số</label>
+                                                    <span class="number">
+                                                                <span class="txt">0</span>
+                                                            </span>
+                                                    <span class="yesterday">Doanh thu thuần</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="c-callout return">
+                                                    <label class="dash_icon">
+                                                        <i class="nav-icon icon-plane"></i>
+                                                    </label>
+                                                    <label class="dash_title">Khách đặt</label>
+                                                    <span class="number"><span class="txt">0</span></span>
+                                                    <span class="yesterday">Số lượng khách đặt</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="c-callout">
+                                                    <label class="dash_icon">
+                                                        <i class="nav-icon icon-share"></i>
+                                                    </label>
+                                                    <label class="dash_title">Lượt truy cập</label>
+                                                    <span class="number"><span class="txt">0</span></span>
+                                                    <span class="yesterday">Số lượt truy cập vào</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="c-callout down">
+                                                    <label class="dash_icon">
+                                                        <i class="nav-icon icon-bag"></i>
+                                                    </label>
+                                                    <label class="dash_title">Thành công</label>
+                                                    <span class="number"><span class="txt">0</span></span>
+                                                    <span class="yesterday">Số khách hàng thành công</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -336,7 +333,8 @@
                                                     <h5 class="mb-1">List group item heading</h5><small class="text-muted">3 days ago</small>
                                                 </div>
                                                 <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p><small class="text-muted">Donec id elit non mi porta.</small>
-                                            </a></div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

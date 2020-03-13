@@ -40,72 +40,22 @@ collaboratorApp.controller('collaboratorCtrl', ['$scope', '$http', function ($sc
 
     $scope.pageLoading = true;
 
-    $scope.supplierId = 0;
+    $scope.responses = {};
 
-    $scope.suggestions = {};
+    $scope.filterDate = null;
 
-    $scope.variants = [];
-
-    $scope.modelQuantity = [];
-
-    $scope.totalQuantity = 0;
-
-    $scope.totalPrice = 0;
-
-    $scope.keyword = '';
-
-    $scope.getVariants = function ($supplier_id) {
+    $scope.getStatistical = function () {
         $scope.searching = true;
 
-        let data = $supplier_id ? $supplier_id:$("select option:selected").val();
-
-        $http.get('/admin/ajax/variant-by-supplier?supplier_id=' + data).success(function (response) {
-            $scope.suggestions = response;
-
-            angular.forEach($scope.suggestions, function (value) {
-                value.show = true;
-            });
+        $http.get('/api/collaborator/5e6138c8c766ec25b356d28c/'+ (!$('#filterDate').val() ? 'today' : $('#filterDate').val())).success(function (response) {
+            $scope.responses = response;
 
             $scope.searching = false;
             $scope.pageLoading = false;
         });
     };
 
-    $scope.itemClickedKeepCode = function (suggestion) {
-        suggestion.quantity = 1;
-
-        if (!(suggestion.id in $scope.modelQuantity)) {
-            $scope.variants.push(suggestion);
-            $scope.modelQuantity[suggestion.id] = 1;
-
-            $scope.totalQuantity += 1;
-        }
-    };
-
-    $scope.removeVariant = function (variant) {
-        let index = $scope.variants.indexOf(variant);
-        $scope.variants.splice(index, 1);
-
-        $scope.modelQuantity.splice($scope.modelQuantity.indexOf(variant.id), 1);
-    };
-
-    $scope.changePrice = function (dataItem) {
-        dataItem.price = parseFloat(dataItem.price.split(',').join(''));
-    };
-
-    $scope.submitForm = function () {
-        document.querySelector('#variants').value = JSON.stringify($scope.variants);
-    };
-
-    $scope.$watch('variants', function () {
-        $scope.totalPrice = 0;
-        $scope.totalQuantity = 0;
-
-        angular.forEach($scope.variants, function (value) {
-            $scope.totalQuantity += parseInt(value.quantity);
-            $scope.totalPrice += parseInt(value.quantity) * parseInt(value.price);
-        });
-    }, true);
+    $scope.getStatistical();
 
     $scope.$watch('pageLoading', function () {
         if (!$scope.pageLoading) {

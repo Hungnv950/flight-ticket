@@ -269,9 +269,9 @@
 
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<%- include('../layouts/header', {userLogin: userLogin}); %>
+<% include ../layouts/header.ejs %>
 <div class="app-body">
-    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
+    <% include ../layouts/sidebar.ejs %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -302,7 +302,41 @@
                 <div>
                     <div class="fade-in">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
+                                            Tìm kiếm
+                                        </p>
+                                        <div class="card-header-actions">
+                                            <a href="/admin/collaborator/create" class="btn btn-block btn-outline-dark">
+                                                <i class="nav-icon icon-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" id="name" type="text"
+                                                           placeholder="Theo tên, mã CTV">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
+                                            <i class="nav-icon icon-check"></i>
+                                            Tìm kiếm
+                                        </button>
+                                        <button class="btn btn-sm btn-danger pull-left" type="reset">
+                                            <i class="nav-icon icon-close"></i>
+                                            Khôi phục
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
@@ -323,26 +357,26 @@
                                         <div class="nav-tabs-boxed">
                                             <ul class="nav nav-tabs" role="tablist">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab" aria-controls="home" aria-selected="true">
+                                                    <a class="nav-link" data-toggle="tab" href="#home-1" role="tab" aria-controls="home" aria-selected="false">
                                                         <i class="nav-icon icon-info"></i>
-                                                        Thông tin cá nhân
+                                                        Thông tin
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab" aria-controls="profile" aria-selected="false">
-                                                        <i class="nav-icon icon-calculator"></i>
-                                                        Tài khoản ngân hàng
+                                                    <a class="nav-link active" data-toggle="tab" href="#profile-1" role="tab" aria-controls="profile" aria-selected="true">
+                                                        <i class="nav-icon icon-wallet"></i>
+                                                        Ngân hàng
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-toggle="tab" href="#messages-1" role="tab" aria-controls="messages" aria-selected="false">
-                                                        <i class="nav-icon icon-clock"></i>
-                                                        Lịch sử rút tiền
+                                                        <i class="nav-icon icon-layers"></i>
+                                                        Giao dịch
                                                     </a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content">
-                                                <div class="tab-pane active" id="home-1" role="tabpanel">
+                                                <div class="tab-pane" id="home-1" role="tabpanel">
                                                     <div class="dashboardBox dashboardStatistic ovh dashboard-top">
                                                         <div class="uln ovh pd0" style="border-bottom: 1px solid #c8ced3;">
                                                             <div class="row">
@@ -353,8 +387,8 @@
                                                                         </label>
                                                                         <label class="dash_title">Doanh số</label>
                                                                         <span class="number">
-                                                                            <span class="txt">{{ responses.revenue | number }}</span>
-                                                                        </span>
+                                                                <span class="txt">{{ responses.revenue | number }}</span>
+                                                            </span>
                                                                         <span class="yesterday">Doanh thu thuần</span>
                                                                     </div>
                                                                 </div>
@@ -366,8 +400,8 @@
                                                                         </label>
                                                                         <label class="dash_title">Khách đặt</label>
                                                                         <span class="number">
-                                                                            <span class="txt">{{ responses.guestsBooked }}</span>
-                                                                        </span>
+                                                                <span class="txt">{{ responses.guestsBooked }}</span>
+                                                            </span>
                                                                         <span class="yesterday">Số lượng khách đặt</span>
                                                                     </div>
                                                                 </div>
@@ -379,8 +413,8 @@
                                                                         </label>
                                                                         <label class="dash_title">Lượt truy cập</label>
                                                                         <span class="number">
-                                                                            <span class="txt">{{ responses.hits }}</span>
-                                                                        </span>
+                                                                <span class="txt">{{ responses.hits }}</span>
+                                                            </span>
                                                                         <span class="yesterday">Số lượt truy cập vào</span>
                                                                     </div>
                                                                 </div>
@@ -392,8 +426,8 @@
                                                                         </label>
                                                                         <label class="dash_title">Hoa hồng</label>
                                                                         <span class="number">
-                                                                            <span class="txt">{{ responses.profit | number }}</span>
-                                                                        </span>
+                                                                <span class="txt">{{ responses.profit | number }}</span>
+                                                            </span>
                                                                         <span class="yesterday">Tiền hoa hồng</span>
                                                                     </div>
                                                                 </div>
@@ -413,23 +447,9 @@
                                                                         <input type="text" class="form-control"
                                                                                value="<%= collaborator.code %>" disabled="">
                                                                         <div class="input-group-append">
-                                                                            <span class="input-group-text">
-                                                                                <i class="nav-icon icon-docs"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="form-label control-label">Link chia sẻ:</label>
-                                                                <div class="form-wrap form-control-static">
-                                                                    <div class="input-group mb-3" id="product_coupon">
-                                                                        <input type="text" class="form-control"
-                                                                               value="<%= collaborator.code %>" disabled="">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text">
-                                                                                <i class="nav-icon icon-docs"></i>
-                                                                            </span>
+                                                                <span class="input-group-text">
+                                                                    <i class="nav-icon icon-docs"></i>
+                                                                </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -464,7 +484,7 @@
                                                                 <i class="nav-icon icon-check"></i>
                                                                 Cập nhật
                                                             </a>
-                                                            <a href="/admin/collaborator/change-password/<%= collaborator.id %>" class="btn btn-primary btn-sm">
+                                                            <a href="/admin/product/update?id=4" class="btn btn-primary btn-sm">
                                                                 <i class="nav-icon icon-key"></i>
                                                                 Đổi mật khẩu
                                                             </a>
@@ -504,7 +524,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="tab-pane" id="profile-1" role="tabpanel">
+                                                <div class="tab-pane active" id="profile-1" role="tabpanel">
                                                     <table class="table table-responsive-sm table-striped"
                                                            style="margin-bottom: 0;">
                                                         <thead>
