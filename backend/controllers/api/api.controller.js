@@ -2,6 +2,7 @@ const moment = require('moment');
 
 const User = require('../../models/user.model');
 const Flight = require('../../models/flight.model');
+const Transaction = require('../../models/transaction.model');
 
 exports.collaborator = function (req, res, next) {
     User.findById(req.session.userid).exec(function (error, user) {
@@ -59,7 +60,8 @@ exports.collaborator = function (req, res, next) {
                             profit: 0,
                             revenue: 0,
                             guestsBooked: 0,
-                            flights: flights
+                            flights: flights,
+                            transactions:Object
                         };
 
                         flights.forEach(function (flight) {
@@ -68,7 +70,12 @@ exports.collaborator = function (req, res, next) {
                             data.guestsBooked++;
                         });
 
-                        res.json(data);
+                        Transaction.find({"createdAt": {"$gte": new Date(gte), "$lte": new Date(lte)}}).exec(function (err, transactions) {
+
+                            data.transactions = transactions;
+
+                            res.json(data);
+                        });
                     });
                 });
             }

@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Thinkflight | Chuyến bay</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -47,9 +47,9 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<% include ../layouts/header.ejs %>
+<%- include('../layouts/header', {userLogin: userLogin}); %>
 <div class="app-body">
-    <% include ../layouts/sidebar.ejs %>
+    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -86,51 +86,28 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input class="form-control" id="ccnumber" type="text"
-                                                           placeholder="0000 0000 0000 0000">
+                                                    <input class="form-control" id="name" type="text"
+                                                           placeholder="Theo mã CTV">
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <hr>
                                         <div class="row">
-                                            <div class="form-group col-sm-4">
-                                                <label for="ccmonth">Month</label>
-                                                <select class="form-control" id="ccmonth">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                    <option>11</option>
-                                                    <option>12</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <label for="ccyear">Year</label>
-                                                <select class="form-control" id="ccyear">
-                                                    <option>2014</option>
-                                                    <option>2015</option>
-                                                    <option>2016</option>
-                                                    <option>2017</option>
-                                                    <option>2018</option>
-                                                    <option>2019</option>
-                                                    <option>2020</option>
-                                                    <option>2021</option>
-                                                    <option>2022</option>
-                                                    <option>2023</option>
-                                                    <option>2024</option>
-                                                    <option>2025</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="cvv">CVV/CVC</label>
-                                                    <input class="form-control" id="cvv" type="text" placeholder="123">
+                                                    <label for="">Theo trạng thái</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="radio1" type="radio" value="radio1" name="radios">
+                                                        <label class="form-check-label" for="radio1">Tất cả</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="radio1" type="radio" value="radio1" name="radios">
+                                                        <label class="form-check-label" for="radio1">Chờ thanh toán</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="radio2" type="radio" value="radio2" name="radios">
+                                                        <label class="form-check-label" for="radio2">Đã thanh toán</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -171,6 +148,7 @@
                                                 <th style="width: 40px;">ID</th>
                                                 <th>Mã đơn hàng</th>
                                                 <th>Khách hàng</th>
+                                                <th>Mã CTV</th>
                                                 <th>Thời gian</th>
                                                 <th class="th-text-right">Số chỗ đặt</th>
                                                 <th class="th-text-right">Tổng chi phí</th>
@@ -179,6 +157,7 @@
                                             </thead>
                                             <tbody>
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -201,13 +180,16 @@
                                                         </div>
                                                         <div class="small text-muted" style="font-size: 90%;">
                                                             <%= flight.phone %>
-                                                            <a href="/admin/user/view/<%= flight.userId %>">
+                                                            <a href="/admin/user/view/<%= flight.user.id %>">
                                                                 <i class="nav-icon icon-share"></i>
                                                             </a>
                                                         </div>
                                                     </td>
-                                                    <td class="">
-                                                        10/3/2020
+                                                    <td>
+                                                        <%= flight.collaboratorCode ? flight.collaboratorCode:"N/A"  %>
+                                                    </td>
+                                                    <td>
+                                                        <%= _.convertDate(flight.createdAt) %>
                                                     </td>
                                                     <td class="th-text-right">
                                                         <%= flight.passengers.length %>

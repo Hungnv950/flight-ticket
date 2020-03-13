@@ -114,7 +114,7 @@ exports.view = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id).populate('customers').exec( function (err, collaborator) {
+                User.findById(req.params.id).populate('customers').populate('banks').populate('transactions').exec( function (err, collaborator) {
                     if (err) return next(err);
 
                     res.render('admin/collaborator/view', {collaborator: collaborator,userLogin: user});
@@ -176,6 +176,10 @@ exports.deActive = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
+                if(user.roleId !== 4){
+                    return res.redirect('/admin/dashboard');
+                }
+
                 User.findById(req.params.id, function (err, collaborator) {
                     if (err) return next(err);
 

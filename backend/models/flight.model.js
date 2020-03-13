@@ -12,6 +12,9 @@ let FlightSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    collaboratorCode:{
+        type: String
+    },
     flightCode: {
         type: String,
         unique: true,
