@@ -43,9 +43,9 @@
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<% include ../layouts/header.ejs %>
+<%- include('../layouts/header', {userLogin: userLogin}); %>
 <div class="app-body">
-    <% include ../layouts/sidebar.ejs %>
+    <%- include('../layouts/sidebar', {userLogin: userLogin}); %>
     <main class="main">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -75,7 +75,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input class="form-control" id="name" type="text"
-                                                           placeholder="Theo tên, mã CTV">
+                                                           placeholder="Theo tên, SĐT">
                                                 </div>
                                             </div>
                                         </div>

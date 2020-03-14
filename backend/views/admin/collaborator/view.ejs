@@ -265,6 +265,10 @@
         .th-text-right{
             text-align: right;
         }
+
+        .tab-content .tab-pane{
+            padding: 0 0 0;
+        }
     </style>
 
 </head>
@@ -319,7 +323,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="card-body" style="padding: 0;">
+                                    <div class="card-body">
                                         <div class="nav-tabs-boxed">
                                             <ul class="nav nav-tabs" role="tablist">
                                                 <li class="nav-item">
@@ -518,14 +522,16 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr ng-repeat="(key, flight) in responses.flights">
-                                                            <td>{{ key+1 }}</td>
-                                                            <td>{{ flight.flightCode }}</td>
-                                                            <td>{{ flight.fullName }}</td>
-                                                            <td>{{ flight.passengers.length }}</td>
-                                                            <td>{{ flight.totalMoney | number }}</td>
-                                                            <td></td>
+                                                        <% collaborator.banks.forEach(function(bank, key) { %>
+                                                        <tr>
+                                                            <td><%= key+1 %></td>
+                                                            <td><%= bank.name %></td>
+                                                            <td><%= bank.accountNumber %></td>
+                                                            <td><%= bank.accountHolder %></td>
+                                                            <td><%= bank.branch %></td>
+                                                            <td><span class="badge badge-success">Hoạt động</span></td>
                                                         </tr>
+                                                        <% }); %>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -549,10 +555,10 @@
                                                             <td class="th-text-right">0</td>
                                                             <td></td>
                                                         </tr>
-                                                        <tr ng-repeat="(key, flight) in responses.flights">
+                                                        <tr ng-repeat="(key, transaction) in responses.transactions">
                                                             <td>{{ key+1 }}</td>
-                                                            <td>{{ flight.flightCode }}</td>
-                                                            <td>{{ flight.fullName }}</td>
+                                                            <td>{{ transaction.flightCode }}</td>
+                                                            <td>{{ transaction.fullName }}</td>
                                                             <td class="th-text-right">{{ flight.passengers.length }}</td>
                                                             <td></td>
                                                         </tr>

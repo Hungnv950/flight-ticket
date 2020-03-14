@@ -68,6 +68,7 @@ let UserSchema = new Schema({
     },
     flights: [{ type: Schema.Types.ObjectId, ref: 'Flight' }],
     banks:[{ type: Schema.Types.ObjectId, ref: 'Bank' }],
+    transactions:[{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
     createdAt: {
         type: Date,
         default: new Date(moment().set({'hour': moment().hour()+7}).toDate())

@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>Thinkflight | CTV - <%= collaborator.fullName %></title>
+    <title>Thinkflight | Nhân viên - <%= employee.fullName %></title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -278,12 +278,12 @@
                 <a href="/admin/dashboard">Trang chủ</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="/admin/collaborator/index">Cộng tác viên</a>
+                <a href="/admin/collaborator/index">Nhân viên</a>
             </li>
-            <li class="breadcrumb-item active"><%= collaborator.fullName %></li>
+            <li class="breadcrumb-item active"><%= employee.fullName %></li>
         </ol>
         <div class="container-fluid" data-ng-app="Application" data-ng-controller="collaboratorCtrl">
-            <input id="collaboratorId" type="hidden" value="<%= collaborator.id %>">
+            <input id="collaboratorId" type="hidden" value="<%= employee.id %>">
             <div class="loading-io" ng-show="pageLoading">
                 <div class="spinner">
                     <div></div>
@@ -445,7 +445,7 @@
                                                                 <div class="form-wrap form-control-static">
                                                                     <div class="input-group mb-3" id="product_coupon">
                                                                         <input type="text" class="form-control"
-                                                                               value="<%= collaborator.code %>" disabled="">
+                                                                               value="<%= employee.code %>" disabled="">
                                                                         <div class="input-group-append">
                                                                 <span class="input-group-text">
                                                                     <i class="nav-icon icon-docs"></i>
@@ -457,7 +457,7 @@
                                                             <div class="form-group">
                                                                 <label class="form-label control-label">Họ và tên:</label>
                                                                 <div class="form-wrap form-control-static">
-                                                                    <strong><%= collaborator.fullName %></strong>
+                                                                    <strong><%= employee.fullName %></strong>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -465,13 +465,13 @@
                                                                     Số điện thoại:
                                                                 </label>
                                                                 <div class="form-wrap form-control-static payOrder">
-                                                                    <a href="javascript:void(0)"><%= collaborator.phone ? collaborator.phone : 'N\A' %></a>
+                                                                    <a href="javascript:void(0)"><%= employee.phone ? employee.phone : 'N\A' %></a>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="form-label control-label">Email:</label>
                                                                 <div class="form-wrap form-control-static payOrder">
-                                                                    <%= collaborator.email ? collaborator.email : 'N\A' %>
+                                                                    <%= employee.email ? employee.email : 'N\A' %>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -479,12 +479,12 @@
                                                             <br>
                                                         </div>
                                                         <div class="col-md-12 col-sm-12" style="text-align: right;">
-                                                            <a href="/admin/collaborator/update/<%= collaborator.id %>"
+                                                            <a href="/admin/collaborator/update/<%= employee.id %>"
                                                                class="btn btn-success btn-sm">
                                                                 <i class="nav-icon icon-check"></i>
                                                                 Cập nhật
                                                             </a>
-                                                            <a href="/admin/collaborator/change-password/<%= collaborator.id %>" class="btn btn-primary btn-sm">
+                                                            <a href="/admin/collaborator/change-password/<%= employee.id %>" class="btn btn-primary btn-sm">
                                                                 <i class="nav-icon icon-key"></i>
                                                                 Đổi mật khẩu
                                                             </a>

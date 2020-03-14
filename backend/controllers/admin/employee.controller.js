@@ -9,7 +9,7 @@ exports.index = function (req, res, next) {
                 return res.redirect('/admin/login');
             } else {
                 User.find({roleId: 4}).exec(function (err, employees) {
-                    res.render('admin/employee/index', {employees: employees});
+                    res.render('admin/employee/index', {employees: employees,userLogin: user});
                 });
             }
         }
@@ -24,7 +24,7 @@ exports.create = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                res.render('admin/employee/create');
+                res.render('admin/employee/create',{userLogin: user});
             }
         }
     });
@@ -53,7 +53,7 @@ exports.createPost = function (req, res, next) {
                     employee.save(function (err) {
                         if (err) return console.error(err);
 
-                        return res.redirect('/admin/user/index');
+                        return res.redirect('/admin/employee/index');
                     });
                 }
             }
@@ -72,7 +72,7 @@ exports.update = function (req, res, next) {
                 User.findById(req.params.id, function (err, employee) {
                     if (err) return next(err);
 
-                    res.render('admin/employee/update', {employee: employee});
+                    res.render('admin/employee/update', {employee: employee,userLogin: user});
                 })
             }
         }
@@ -116,7 +116,7 @@ exports.view = function (req, res, next) {
                 User.findById(req.params.id).populate('customers').exec( function (err, employee) {
                     if (err) return next(err);
 
-                    res.render('admin/employee/view', {employee: employee});
+                    res.render('admin/employee/view', {employee: employee,userLogin: user});
                 })
             }
         }

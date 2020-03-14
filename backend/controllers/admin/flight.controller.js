@@ -1,6 +1,8 @@
 const User = require('../../models/user.model');
 const Flight = require('../../models/flight.model');
 
+const ejsHelpers = require('../../helpers/ejs-helpers');
+
 exports.index = function (req, res, next) {
     User.findById(req.session.userid).exec(function (error, user) {
         if (error) {
@@ -43,8 +45,8 @@ exports.index = function (req, res, next) {
                     })
                 });
 
-                Flight.find({}).exec(function (err, flights) {
-                    res.render('admin/flight/index', {flights: flights});
+                Flight.find({}).populate('user').exec(function (err, flights) {
+                    res.render('admin/flight/index', {_ : ejsHelpers ,flights: flights,userLogin: user});
                 });
             }
         }
@@ -62,7 +64,7 @@ exports.view = function (req, res, next) {
                 Flight.findById(req.params.id).populate('user').exec(function (err, flight) {
                     if (err) return next(err);
 
-                    res.render('admin/flight/view', {flight: flight});
+                    res.render('admin/flight/view', {flight: flight,userLogin: user});
                 })
             }
         }

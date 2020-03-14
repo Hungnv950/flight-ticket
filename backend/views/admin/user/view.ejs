@@ -178,21 +178,10 @@
                                     </div>
                                     <div class="card-body" style="padding: 0;">
                                         <div class="content-list row row-padding-15 mb15" style="padding: 15px 20px;">
-                                            <div class="col-md-6 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label control-label">Mã CTV:</label>
-                                                    <div class="form-wrap form-control-static">
-                                                        <div class="input-group mb-3" id="product_coupon">
-                                                            <input type="text" class="form-control"
-                                                                   value="<%= user.code %>" disabled="">
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">
-                                                                    <i class="nav-icon icon-docs"></i>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="col-md-4 col-sm-6" style="text-align: center;">
+                                                <img src="https://ui-avatars.com/api/?size=192&name=<%= user.fullName %>" alt="">
+                                            </div>
+                                            <div class="col-md-8 col-sm-6">
                                                 <div class="form-group">
                                                     <label class="form-label control-label">Họ và tên:</label>
                                                     <div class="form-wrap form-control-static">
@@ -240,11 +229,11 @@
                                             <tr>
                                                 <th style="width: 40px;">ID</th>
                                                 <th>Mã đơn hàng</th>
-                                                <th>Khách hàng</th>
+                                                <th>Mã CTV</th>
                                                 <th>Thời gian</th>
+                                                <th>Trạng thái</th>
                                                 <th class="th-text-right">Số chỗ đặt</th>
                                                 <th class="th-text-right">Tổng chi phí</th>
-                                                <th>Trạng thái</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -254,8 +243,8 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="th-text-right"></td>
+                                                <td class="th-text-right"></td>
                                             </tr>
                                             <% user.flights.forEach(function(flight, key) { %>
                                                 <tr>
@@ -266,26 +255,23 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <div>
-                                                            <%= flight.fullName %>
-                                                        </div>
-                                                        <div class="small text-muted" style="font-size: 90%;">
-                                                            <%= flight.phone %>
-                                                            <a href="/admin/user/view/<%= flight.user.id %>">
-                                                                <i class="nav-icon icon-share"></i>
-                                                            </a>
-                                                        </div>
+                                                        <%= flight.collaboratorCode ? flight.collaboratorCode:"N/A"  %>
                                                     </td>
-                                                    <td class="">
-                                                        10/3/2020
+                                                    <td>
+                                                        <%= _.convertDate(flight.createdAt) %>
                                                     </td>
+                                                    <% if(flight.status === 1) { %>
+                                                    <td><span class="badge badge-primary">Chờ thanh toán</span></td>
+                                                    <% } %>
+                                                    <% if(flight.status === 2) { %>
+                                                        <td><span class="badge badge-success">Đã thanh toán</span></td>
+                                                    <% } %>
                                                     <td class="th-text-right">
                                                         <%= flight.passengers.length %>
                                                     </td>
                                                     <td class="th-text-right">
                                                         <%= new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(flight.totalMoney) %>
                                                     </td>
-                                                    <td><span class="badge badge-success">Đặt chỗ</span></td>
                                                 </tr>
                                             <% }); %>
                                             </tbody>
