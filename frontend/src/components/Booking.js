@@ -1,7 +1,43 @@
-import React from 'react'
+import React, {
+	Component
+} from 'react'
 import {imagesUrl} from '../constants/path'
+import {
+	connect
+} from 'react-redux';
+import {
+	formatHourMitues,
+	intToTime,
+	getAirportCity,
+	formatDDMY
+} from '../helpers/formatFlighAPI';
+import { airportConst } from '../constants/airport';
+import LuggageDropdown from './LuggageDropdown';
+class Booking extends Component {
+	constructor(props) {
+		super(props);
 
-const Booking = () => {
+		this.state = {
+			fare: this.props.fare,
+			luggage: 0,
+			luggage_money: 0,
+			is_return: this.props.is_return
+		}
+	}
+
+	onSelectLuggage(item) {
+		this.setState({
+			luggage: item.value,
+			luggage_money: item.price
+		})
+	}
+
+	render() {
+		let fare = this.state.fare;
+		let flight = fare.ListFlight;
+		let totalPrice = parseInt(fare.TotalPrice) + parseInt(this.state.luggage_money);
+		let totalCustomer = parseInt(fare.Adt) + parseInt(fare.Chd) + parseInt(fare.Inf);
+
     return (
 			<main className="main main--phone-821">
 				<div className="step">
@@ -128,34 +164,34 @@ const Booking = () => {
 				<div className="row row-small">
 					<div className="col-12 col-lg-8 col-small">
 						<div className="recommend-regis">
-							<img src={imagesUrl + "gift.png"} />
-							<p className="recommend-regis__content">Bạn chưa là thành viên.<br />Vui lòng&nbsp;<a href="#">đăng nhập</a>&nbsp;hoặc&nbsp;<a href="#">đăng kí</a>&nbsp;tài khoản để hưởng các ưu đãi đặc biệt cho thành viên từ ThankTrip</p>
+							<img src={imagesUrl + "gift.png"} alt="flight"/>
+							<p className="recommend-regis__content">Bạn chưa là thành viên.<br />Vui lòng&nbsp;<a href="# ">đăng nhập</a>&nbsp;hoặc&nbsp;<a href="# ">đăng kí</a>&nbsp;tài khoản để hưởng các ưu đãi đặc biệt cho thành viên từ ThankTrip</p>
 						</div>
 						<div className="card info-flight show-on-max-lg">
 							<div className="card__title">
-								<div className="info-flight__logo-airline"><img src={imagesUrl + "logo-vietnam-airlines.png"} /></div>
+								<div className="info-flight__logo-airline"><img src={imagesUrl + "logo-vietnam-airlines.png"} alt="logo"/></div>
 								<div className="type"><span>Ghế</span><strong>Phổ thông</strong></div>
 							</div>
 							<div className="info-flight__detail">
-								<div className="serial"><span className="serial__title">Chuyến bay</span><span className="serial__content">VN12545</span></div>
+								<div className="serial"><span className="serial__title">Chuyến bay</span><span className="serial__content">{flight[0].FlightNumber}</span></div>
 								<span className="detail js-toggle-modal" data-target="#detail-flight">Chi tiết</span>
 							</div>
 							<div className="info-flight__location">
 								<div className="d-flex justify-content-between">
-									<span className="location">SGN</span>
-									<div className="img"><img src={imagesUrl + "img-flight-between-2-location.svg"} /></div>
-									<span className="location">HNN</span>
+									<span className="location">{flight[0].StartPoint}</span>
+									<div className="img"><img src={imagesUrl + "img-flight-between-2-location.svg"} alt="img"/></div>
+									<span className="location">{flight[0].EndPoint}</span>
 								</div>
-								<div className="d-flex justify-content-between"><span className="location-full">TP Hồ Chí Minh</span><span className="location-full">Hà Nội</span></div>
+								<div className="d-flex justify-content-between"><span className="location-full">{airportConst[flight[0].StartPoint]}</span><span className="location-full">{airportConst[flight[0].EndPoint]}</span></div>
 							</div>
 							<div className="info-flight__time">
 								<div className="d-flex justify-content-between">
-									<div className="start"><span className="time-title">KHỞI HÀNH</span><span className="time-content">23:30</span></div>
+									<div className="start"><span className="time-title">KHỞI HÀNH</span><span className="time-content">{formatHourMitues(flight[0].StartDate)}</span></div>
 									<div className="time">
-										<img src={imagesUrl + "logo-vietnam-airlines-short.png"} />
-										<div className="time-spent">2h40m</div>
+										<img src={imagesUrl + "logo-vietnam-airlines-short.png"} alt="logo"/>
+										<div className="time-spent">{intToTime(flight[0].Duration)}</div>
 									</div>
-									<div className="arrivals"><span className="time-title">ĐẾN NƠI</span><span className="time-content">23:30</span></div>
+									<div className="arrivals"><span className="time-title">ĐẾN NƠI</span><span className="time-content">{formatHourMitues(flight[0].EndDate)}</span></div>
 								</div>
 								<div className="d-flex justify-content-between date"><span className="text-blue-sky">T2, 21/9/2020</span><span className="text-smoke-dark">Bay thẳng</span><span className="text-blue-sky">T3, 22/9/2020</span></div>
 							</div>
@@ -234,170 +270,86 @@ const Booking = () => {
 						<div className="card passenger">
 							<h2 className="card__title text-uppercase">DANH SÁCH KHÁCH HÀNG</h2>
 							<div className="card__content">
-								<div className="passenger__item">
-									<p className="passenger__title">Khách hàng thứ 1</p>
-									<div className="passenger__row">
-										<div className="passenger__col-6">
-											<div className="passenger__row-sm">
-												<div className="form-group">
-													<label className="form-title required">Danh xưng</label>
-													<select className="form-control">
-														<option>Quý Ông</option>
-														<option>Quý Bà</option>
-													</select>
-												</div>
-												<div className="form-group">
-													<label className="form-title required">Họ</label>
-													<input className="form-control text-uppercase" type="text" />
-												</div>
-											</div>
-										</div>
-										<div className="passenger__col-6">
-											<div className="form-group">
-												<label className="form-title required">Tên và tên đệm</label>
-												<input className="text-uppercase form-control" type="text" />
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className="separator-round">
-									<svg className="separator-round__left" xmlns="http://www.w3.org/2000/svg" width={25} height={49} viewBox="0 0 25 49">
-										<g>
-											<g>
-												<path fill="#f5f5f5" d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z" />
-											</g>
-										</g>
-									</svg>
-									<div className="separator-round__dashed" />
-										<svg className="separator-round__right" xmlns="http://www.w3.org/2000/svg" width={24} height={49} viewBox="0 0 24 49">
-											<g>
-												<g>
-													<path fill="#f5f5f5" d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z" />
-												</g>
-											</g>
-										</svg>
-									</div>
-									<div className="passenger__item">
-										<p className="passenger__title">Khách hàng thứ 2</p>
-										<div className="passenger__row">
-											<div className="passenger__col-6">
-												<div className="passenger__row-sm">
-													<div className="form-group">
-														<label className="form-title required">Danh xưng</label>
-														<select className="form-control">
-															<option>Quý Ông</option>
-															<option>Quý Bà</option>
-														</select>
+								{
+									[...Array(totalCustomer)].map((e, i) => {
+										return <React.Fragment>
+											<div className="passenger__item">
+												<p className="passenger__title">Khách hàng thứ {i + 1}</p>
+												<div className="passenger__row">
+													<div className="passenger__col-6">
+														<div className="passenger__row-sm">
+															<div className="form-group">
+																<label className="form-title required">Danh xưng</label>
+																<input className="form-control" type="text" placeholder="Quý Ông" />
+															</div>
+															<div className="form-group">
+																<label className="form-title required">Họ</label>
+																<input className="form-control text-uppercase" type="text" />
+															</div>
+														</div>
 													</div>
-													<div className="form-group">
-														<label className="form-title required">Họ</label>
-														<input className="form-control text-uppercase" type="text" />
+													<div className="passenger__col-6">
+														<div className="form-group">
+															<label className="form-title required">Tên và tên đệm</label>
+															<input className="text-uppercase form-control" type="text" />
+														</div>
 													</div>
 												</div>
 											</div>
-											<div className="passenger__col-6">
-												<div className="form-group">
-													<label className="form-title required">Tên và tên đệm</label>
-													<input className="text-uppercase form-control" type="text" />
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className="separator-round">
-										<svg className="separator-round__left" xmlns="http://www.w3.org/2000/svg" width={25} height={49} viewBox="0 0 25 49">
-											<g>
-												<g>
-													<path fill="#f5f5f5" d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z" />
-												</g>
-											</g>
-										</svg>
-										<div className="separator-round__dashed" />
-											<svg className="separator-round__right" xmlns="http://www.w3.org/2000/svg" width={24} height={49} viewBox="0 0 24 49">
-												<g>
+											<div className="separator-round">
+												<svg className="separator-round__left" xmlns="http://www.w3.org/2000/svg" width={25} height={49} viewBox="0 0 25 49">
 													<g>
-														<path fill="#f5f5f5" d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z" />
+														<g>
+															<path fill="#f5f5f5" d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z" />
+														</g>
 													</g>
-												</g>
-											</svg>
-										</div>
-										<div className="regis-luggage">
-											<p className="regis-luggage__title">Mua hành lý kí gửi</p>
-											<div className="js-dropdown dropdown">
-												<div className="js-control-show-dropdown regis-luggage__display">
-													<div className="form-control"><span className="title">Không, cảm ơn</span><span className="price">0đ</span></div>
-													<svg xmlns="http://www.w3.org/2000/svg" width={13} height={7} viewBox="0 0 13 7">
+												</svg>
+												<div className="separator-round__dashed" />
+													<svg className="separator-round__right" xmlns="http://www.w3.org/2000/svg" width={24} height={49} viewBox="0 0 24 49">
 														<g>
 															<g>
-																<g>
-																	<path fill="#919191" d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z" />
-																</g>
+																<path fill="#f5f5f5" d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z" />
 															</g>
 														</g>
 													</svg>
 												</div>
-												<ul className="dropdown__list form-group-radio">
-													<li className="dropdown__intro">
-														<p>
-															Mua thêm hành lý kí gửi
-															<span className="js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																	<g>
-																		<g>
-																			<g>
-																				<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																			</g>
-																		</g>
-																	</g>
-																</svg>
-															</span>
-														</p>
-													</li>
-													<li className="dropdown__item">
-														<input type="radio" id="0kg" name="radio-luggage" defaultChecked />
-														<label htmlFor="0kg"><span>Không, cảm ơn</span><span className="text-blue-sky">0đ</span></label>
-													</li>
-													<li className="dropdown__item">
-														<input type="radio" id="15kg" name="radio-luggage" />
-														<label htmlFor="15kg"><span>15kg</span><span className="text-blue-sky">200.000đ</span></label>
-													</li>
-													<li className="dropdown__item">
-														<input type="radio" id="20kg" name="radio-luggage" />
-														<label htmlFor="20kg"><span>20kg</span><span className="text-blue-sky">300.000đ</span></label>
-													</li>
-												</ul>
-											</div>
-										</div>
+											</React.Fragment>
+										})
+									}
+									<LuggageDropdown
+										onSelectLuggage={this.onSelectLuggage.bind(this)}
+									/>
 									</div>
 								</div>
 							</div>
 							<div className="col-12 col-lg-4 col-small">
 								<div className="card info-flight hide-on-max-lg">
 									<div className="card__title">
-										<div className="info-flight__logo-airline"><img src={imagesUrl + "logo-vietnam-airlines.png"} /></div>
+										<div className="info-flight__logo-airline"><img src={imagesUrl + "logo-vietnam-airlines.png"} alt="logo"/></div>
 										<div className="type"><span>Ghế</span><strong>Phổ thông</strong></div>
 									</div>
 									<div className="info-flight__detail">
-										<div className="serial"><span className="serial__title">Chuyến bay</span><span className="serial__content">VN12545</span></div>
+										<div className="serial"><span className="serial__title">Chuyến bay</span><span className="serial__content">{flight[0].FlightNumber}</span></div>
 										<span className="detail js-toggle-modal" data-target="#detail-flight">Chi tiết</span>
 									</div>
 									<div className="info-flight__location">
 										<div className="d-flex justify-content-between">
-											<span className="location">SGN</span>
-											<div className="img"><img src={imagesUrl + "img-flight-between-2-location.svg"} /></div>
-											<span className="location">HNN</span>
+											<span className="location">{flight[0].StartPoint}</span>
+											<div className="img"><img src={imagesUrl + "img-flight-between-2-location.svg"} alt="flight"/></div>
+											<span className="location">{flight[0].EndPoint}</span>
 										</div>
-										<div className="d-flex justify-content-between"><span className="location-full">TP Hồ Chí Minh</span><span className="location-full">Hà Nội</span></div>
+										<div className="d-flex justify-content-between"><span className="location-full">{getAirportCity(flight[0].StartPoint)}</span><span className="location-full">{getAirportCity(flight[0].EndPoint)}</span></div>
 									</div>
 									<div className="info-flight__time">
 										<div className="d-flex justify-content-between">
-											<div className="start"><span className="time-title">KHỞI HÀNH</span><span className="time-content">23:30</span></div>
+											<div className="start"><span className="time-title">KHỞI HÀNH</span><span className="time-content">{formatHourMitues(flight[0].StartDate)}</span></div>
 											<div className="time">
-												<img src={imagesUrl + "logo-vietnam-airlines-short.png"} />
-												<div className="time-spent">2h40m</div>
+												<img src={imagesUrl + "logo-vietnam-airlines-short.png"} alt="logo"/>
+												<div className="time-spent">{intToTime(flight[0].Duration)}</div>
 											</div>
-											<div className="arrivals"><span className="time-title">ĐẾN NƠI</span><span className="time-content">23:30</span></div>
+											<div className="arrivals"><span className="time-title">ĐẾN NƠI</span><span className="time-content">{formatHourMitues(flight[0].EndDate)}</span></div>
 										</div>
-										<div className="d-flex justify-content-between date"><span className="text-blue-sky">T2, 21/9/2020</span><span className="text-smoke-dark">Bay thẳng</span><span className="text-blue-sky">T3, 22/9/2020</span></div>
+										<div className="d-flex justify-content-between date"><span className="text-blue-sky">{formatDDMY(flight[0].StartDate)}</span><span className="text-smoke-dark">Bay thẳng</span><span className="text-blue-sky">{formatDDMY(flight[0].EndDate)}</span></div>
 									</div>
 								</div>
 								<div className="card compendious">
@@ -405,38 +357,38 @@ const Booking = () => {
 									<div className="compendious__wrap">
 										<div className="form-control">
 											<div className="d-flex justify-content-between align-items-center">
-												<div className="number-passenger active"><span className="number-passenger__content">2</span><span className="number-passenger__title">người lớn</span></div>
-												<span className="price">3.000.000đ</span>
+												<div className="number-passenger active"><span className="number-passenger__content">{fare.Adt}</span><span className="number-passenger__title">người lớn</span></div>
+												<span className="price">{((parseInt(fare.FareAdt) + parseInt(fare.TaxAdt) + parseInt(fare.FeeAdt)) * fare.Adt).toLocaleString()}đ</span>
 											</div>
 										</div>
 										<div className="form-control">
 											<div className="d-flex justify-content-between align-items-center">
-												<div className="number-passenger"><span className="number-passenger__content">0</span><span className="number-passenger__title">trẻ em 2 - 11 tuổi</span></div>
-												<span className="price">0đ</span>
+												<div className="number-passenger active"><span className="number-passenger__content">{fare.Chd}</span><span className="number-passenger__title">trẻ em 2 - 11 tuổi</span></div>
+												<span className="price">{((parseInt(fare.FareChd) + parseInt(fare.TaxChd) + parseInt(fare.FeeChd)) * fare.Chd).toLocaleString()}đ</span>
 											</div>
 										</div>
 										<div className="form-control">
 											<div className="d-flex justify-content-between align-items-center">
-												<div className="number-passenger"><span className="number-passenger__content">0</span><span className="number-passenger__title">trẻ em &lt; 2 tuổi</span>
+												<div className="number-passenger active"><span className="number-passenger__content">{fare.Inf}</span><span className="number-passenger__title">trẻ em &lt; 2 tuổi</span>
 												</div>
-												<span className="price">0đ</span>
+												<span className="price">{((parseInt(fare.FareInf) + parseInt(fare.TaxInf) + parseInt(fare.FeeInf)) * fare.Inf).toLocaleString()}đ</span>
 											</div>
 										</div>
 										<div className="form-control">
 											<div className="d-flex justify-content-between align-items-center">
-												<div className="luggage active"><span className="luggage__number">20kg</span><span className="luggage__title">hành lý kí gửi</span></div>
-												<span className="price">200.000đ</span>
+												<div className="luggage active"><span className="luggage__number">{this.state.luggage}</span><span className="luggage__title">hành lý kí gửi</span></div>
+												<span className="price">{this.state.luggage_money}đ</span>
 											</div>
 										</div>
 										<div className="compendious__total">
 											<span className="compendious__total-title">Tổng tiền</span>
-											<div className="compendious__total-price"><span className="price">3.200.000 đ</span><span className="note">(Đã bao gồm thuế và phí)</span></div>
+											<div className="compendious__total-price"><span className="price">{totalPrice.toLocaleString()} đ</span><span className="note">(Đã bao gồm thuế và phí)</span></div>
 										</div>
 									</div>
 								</div>
 								<div className="card submit">
 									<input className="form-control border introduce" type="text" placeholder="ID giới thiệu" />
-									<a className="submit__btn btn btn--large btn--bg-linear" href="/thanh_toan_01.html">
+									<a className="submit__btn btn btn--large btn--bg-linear" href="# ">
 										<span>Tiếp theo</span>
 										<svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
 											<g>
@@ -454,6 +406,16 @@ const Booking = () => {
 				</div>
 			</main>
 		)
+	}
+};
+
+const mapStateToProps = (state) => ({
+	fare: state.booking.fareData
+});
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+	}
 }
 
-export default Booking;
+export default connect(mapStateToProps, mapDispatchToProps)(Booking);

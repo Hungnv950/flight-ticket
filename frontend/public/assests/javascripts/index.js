@@ -2188,15 +2188,15 @@ $(document).ready(function() {
 
   $('.js-dropdown').each(function() {
     var dropdown = $(this);
-    dropdown.find('.js-control-show-dropdown').on('click', function() {
-      if (dropdown.hasClass('show')) return dropdown.removeClass('show');
-      dropdown.addClass('show');
-    });
-    $(document).on('click', function(e) {
-      if (!$(e.target).closest(dropdown).length) {
-        dropdown.removeClass('show')
-      }
-    })
+    // dropdown.find('.js-control-show-dropdown').on('click', function() {
+    //   if (dropdown.hasClass('show')) return dropdown.removeClass('show');
+    //   dropdown.addClass('show');
+    // });
+    // $(document).on('click', function(e) {
+    //   if (!$(e.target).closest(dropdown).length) {
+    //     dropdown.removeClass('show')
+    //   }
+    // })
   });
 
   $('.js-toggle-control').on('click', function() {

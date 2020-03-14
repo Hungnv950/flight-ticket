@@ -7,6 +7,7 @@ import {
 	connect
 } from 'react-redux'
 import {submitSearchAction} from '../actions/search.action'
+import ListCustomerDropdown from './ListCustomerDropdown';
 
 class Search extends Component {
 	constructor(props) {
@@ -36,22 +37,26 @@ class Search extends Component {
 		}
 	};
 
-	onSelectAdt(adt, e) {
-		this.setState({
-			adt: adt
-		})
-	};
-
-	onSelectChd(chd, e) {
-		this.setState({
-			chd: chd
-		})
-	};
-
-	onSelectInf(inf, e) {
-		this.setState({
-			inf: inf
-		})
+	onSelectCustomer(type, value) {
+		switch (type){
+			case "Adt":
+				this.setState({
+					adt: value
+				});
+				break;
+			case "Chd":
+				this.setState({
+					chd: value
+				})
+				break;
+			case "Inf":
+				this.setState({
+				inf: value
+				})
+				break;
+			default:
+				return
+		}
 	};
 
 	onChangeDate = (date, sinceTime) => {
@@ -222,126 +227,18 @@ class Search extends Component {
 													</div>
 												</div>
 												<div className="form__passenger">
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Số hành khách người lớn</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.adt} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-											<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectAdt.bind(this, i)}><span>{i}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em từ 2 đến 11 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.chd} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-											<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectChd.bind(this, i)}><span>{i}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em dưới 2 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.inf} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-											<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectInf.bind(this, i)}><span>{i}</span></li>
-																))
-															}
-														</ul>
-													</div>
+													<ListCustomerDropdown
+														title="Số hành khách người lớn"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Adt")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em từ 2 đến 11 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Chd")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em dưới 2 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Inf")}
+													/>
 												</div>
 												<div className="form__btn-search">
 													<a className="btn btn--large btn--bg-linear mx-auto"
@@ -393,126 +290,18 @@ class Search extends Component {
 													</div>
 												</div>
 												<div className="form__passenger">
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Số hành khách người lớn</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.adt} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-													<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectAdt.bind(this, i)}><span>{i}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em từ 2 đến 11 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.chd} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-													<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectChd.bind(this, i)}><span>{i}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em dưới 2 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.inf} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-													<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i} key={i} onClick={this.onSelectInf.bind(this, i)}><span>{i}</span></li>
-																))
-															}
-														</ul>
-													</div>
+													<ListCustomerDropdown
+														title="Số hành khách người lớn"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Adt")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em từ 2 đến 11 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Chd")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em dưới 2 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Inf")}
+													/>
 												</div>
 												<div className="form__btn-search">
 													<a className="btn btn--large btn--bg-linear mx-auto" href="# "
