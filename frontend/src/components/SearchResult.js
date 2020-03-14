@@ -7,9 +7,9 @@ import AirportDropDown from './AirportDropDown';
 import {
   formatHourMitues,
   formatHMDFlight,
-  intToTime
+  intToTime,
+  getAirportCity
 } from '../helpers/formatFlighAPI';
-import history from '../history'
 import DatePicker from 'react-datepicker';
 import {
   submitSearchAction
@@ -116,6 +116,148 @@ onChangeDate = (date, sinceTime) => {
     })
   }
 };
+renderListFareData = ((fare, index) =>
+  <div className="result-list-item js-toggle" key={index}>
+    <div className="airline">
+      <div className="logo"><img src={imagesUrl + "logo-jetstar.png"} alt="logo airlines" /></div>
+      <div className="number-bought">
+        <div className="group-people">
+          <div className="img-wrap group-people__item"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} alt="avatar" /></div>
+          <div className="img-wrap group-people__item"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} alt="avatar" /></div>
+          <div className="img-wrap group-people__item"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} alt="avatar" /></div>
+          <span className="plus">
+          +4</span><span>đã mua</span>
+        </div>
+      </div>
+      <p className="detail js-toggle-control" onClick={(e) => this.handleToggle(e)} data-target=".toggle-content">
+        <span>Chi tiết chuyến bay</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width={13} height={7} viewBox="0 0 13 7">
+          <g>
+            <g>
+              <g>
+                <path fill="#919191" d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z" />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </p>
+    </div>
+    <div className="time">
+      <div className="time__from">
+        <p className="time__address">{this.state.startAirport["airport"]}</p>
+        <p className="time__content">{formatHourMitues(fare.ListFlight[0].StartDate)}</p>
+      </div>
+      <div className="time__to">
+        <p className="time__address">{this.state.endAirport["airport"]}</p>
+        <p className="time__content">{formatHourMitues(fare.ListFlight[0].EndDate)}</p>
+      </div>
+    </div>
+    <div className="price">
+      <div className="price__per-people"><span className="price__number">{(parseInt(fare.TotalPrice)/(parseInt(this.state.adt) + parseInt(this.state.chd) + parseInt(this.state.inf))).toLocaleString()}</span><span className="price__unit">/khách</span></div>
+      <a className="price__btn btn btn--bg-linear btn--medium" href="# " onClick={this.onSubmitBookingAction.bind(this, fare)}>
+        Chọn mua
+        <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
+          <g>
+            <g>
+              <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
+            </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+    <div className="js-toggle-content">
+      <div className="flight-detail">
+        <div className="flight-detail__top">
+          <div className="flight-detail__location text-right pr-3">
+            <p className="text-smaller font-weight-bold mbpx-5 text-black">{getAirportCity(fare.ListFlight[0].StartPoint)}</p>
+            <p className="text-xs font-weight-light mbpx-3">Sân bay ..</p>
+            <p className="text-xs font-weight-medium text-orange-medium">{formatHMDFlight(fare.ListFlight[0]["StartDate"])}</p>
+          </div>
+          <div className="flight-detail__serial">
+            <div className="serial w-100"><span className="text-xs font-weight-light">Chuyến bay&nbsp;</span><span className="text-smaller font-weight-bold text-black">{fare.ListFlight[0]["FlightNumber"]}</span></div>
+            <div className="d-flex justify-content-center w-100">
+              <svg xmlns="http://www.w3.org/2000/svg" width={159} height={18} viewBox="0 0 159 18">
+                <defs>
+                  <clipPath id="tvrsa">
+                    <path fill="#fff" d="M0 16V1h15v15zm7.5-4a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                  </clipPath>
+                </defs>
+                <g>
+                  <g>
+                    <g>
+                      <path fill="#ff5111" d="M137.292 8.664c-.017-.248.244-.494.679-.644l-.656-3.052c.396 0 .72.071 1.09.357l2.438 1.869c.182.143.354.288.53.408.594-.12 2.23-.294 3.077-.41l2.249-.302-3.303-6.116c-.343-.637 1.673-.801 2-.236l6.044 6.37 3.117.012c2.436.011 4.645 1.09 4.648 1.831.001.744-2.197 1.803-4.634 1.795l-3.116-.012-5.995 6.319c-.321.564-2.337.382-1.997-.25l3.25-6.09-2.251-.32c-.846-.121-2.486-.309-3.082-.432-.177.117-.345.26-.527.4l-2.42 1.852c-.37.282-.693.35-1.088.347l.633-3.049c-.437-.152-.701-.4-.686-.647z" />
+                    </g>
+                    <g>
+                      <path fill="none" stroke="#ff5111" strokeMiterlimit={50} strokeWidth={2} d="M10.273 8.718h138.809" />
+                    </g>
+                    <g>
+                      <path fill="#fff" d="M4 8.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                      <path fill="none" stroke="#ff5111" strokeMiterlimit={50} strokeWidth={8} d="M4 8.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" clipPath="url(&quot;#tvrsa&quot;)" />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div className="text-center w-100 line-height-1"><span className="text-tiny font-weight-light">Bay thẳng&nbsp;</span><span className="text-xs font-weight-bold text-black">{intToTime(fare.ListFlight[0]["Duration"])}</span></div>
+          </div>
+          <div className="flight-detail__location text-left pl-3">
+            <p className="text-smaller font-weight-bold mbpx-5 text-black">{getAirportCity(fare.ListFlight[0].EndPoint)}</p>
+            <p className="text-xs font-weight-light mbpx-3">Sân bay ..</p>
+            <p className="text-xs font-weight-medium text-orange-medium">{formatHMDFlight(fare.ListFlight[0]["EndDate"])}</p>
+          </div>
+        </div>
+        <div className="flight-detail__note">
+          <p className="text-xs font-weight-bold mbpx-3">Điều kiện vé &amp; hành lý</p>
+          <p className="text-xs font-weight-bold mbpx-3">Điều kiện vé Hạng chỗ Promo - {fare.Airline}</p>
+          <p className="text-xs"><span className="font-weight-bold">Vé Promo</span><span className="font-weight-light">&nbsp;:&nbsp;</span><span className="font-weight-light">Giá chưa bao gồm thuế phí</span></p>
+        </div>
+        <div className="flight-detail__passenger">
+          <div className="flight-detail__passenger-wrap">
+            <div className="w-25 text-left">
+              <p className="mbpx-5 text-xs font-weight-bold">Hành khách</p>
+              <p className="text-xs font-weight-light">Người lớn</p>
+              <p className="text-xs font-weight-light">Trẻ em từ 2 đến 11 tuổi</p>
+              <p className="text-xs font-weight-light">Trẻ em dưới 2 tuổi</p>
+            </div>
+            <div className="w-25 text-left">
+              <p className="mbpx-5 text-xs font-weight-bold">Số lượng</p>
+              <p className="text-xs font-weight-lighttext-xs">{fare.Adt}</p>
+              <p className="text-xs font-weight-lighttext-xs">{fare.Chd}</p>
+              <p className="text-xs font-weight-lighttext-xs">{fare.Inf}</p>
+            </div>
+            <div className="w-25 text-right">
+              <p className="mb-2 text-xs font-weight-bold">Giá gồm thuế phí</p>
+              <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareAdt) + parseInt(fare.TaxAdt) + parseInt(fare.FeeAdt)).toLocaleString()}</span><span>&nbsp;VND</span></p>
+              <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareChd) + parseInt(fare.TaxChd) + parseInt(fare.FeeChd)).toLocaleString()}</span><span>&nbsp;VND</span></p>
+              <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareInf) + parseInt(fare.TaxInf) + parseInt(fare.FeeInf)).toLocaleString()}</span><span>&nbsp;VND</span></p>
+            </div>
+            <div className="w-25 text-right">
+              <p className="mb-2 text-xs font-weight-bold">Tổng giá</p>
+              <p className="text-xs font-weight-bold"><span className="text-red-orange">{fare.TotalNetPrice.toLocaleString()}</span><span>&nbsp;VND</span></p>
+            </div>
+          </div>
+        </div>
+        <div className="flight-detail__total font-weight-bold">
+          <p className="text-green text-uppercase text-xs">Tổng chi phí:&nbsp;</p>
+          <p className="font-weight-bold"><span className="text-orange">{fare.TotalPrice.toLocaleString()}</span><span className="text-xs">&nbsp;VND</span></p>
+        </div>
+      </div>
+      <div className="result-list-item__share">
+        <p className="info">Chia sẻ link mời bạn bè và nhận&nbsp;<a className="preference link" href="# ">nhiều ưu đãi</a>&nbsp;tuyệt vời từ ThankTrip</p>
+        <a className="btn-share js-toggle-modal" href="# " data-target="#modal-share-tour">
+          <svg xmlns="http://www.w3.org/2000/svg" width={18} height={16} viewBox="0 0 18 16">
+            <g>
+              <g>
+                <path fill="#ff6200" d="M17.824 5.274L12.75.2a.61.61 0 0 0-.446-.189.61.61 0 0 0-.445.189.61.61 0 0 0-.189.445v2.537H9.45c-4.71 0-7.6 1.331-8.67 3.993-.35.885-.525 1.985-.525 3.3 0 1.096.42 2.586 1.259 4.469a23.402 23.402 0 0 0 .237.535c.04.085.083.158.13.217.079.113.171.17.277.17a.29.29 0 0 0 .233-.1.37.37 0 0 0 .084-.247c0-.06-.008-.147-.025-.263a2.05 2.05 0 0 1-.025-.233c-.033-.449-.05-.856-.05-1.219 0-.667.059-1.265.174-1.793.116-.529.276-.986.48-1.372.206-.387.47-.72.793-1.001.324-.28.672-.51 1.046-.689a5.667 5.667 0 0 1 1.318-.42 12.565 12.565 0 0 1 1.526-.214c.512-.04 1.091-.06 1.739-.06h2.22v2.537c0 .172.062.32.187.446a.61.61 0 0 0 .446.188.61.61 0 0 0 .446-.188l5.073-5.073a.61.61 0 0 0 .189-.446.61.61 0 0 0-.188-.446z" />
+              </g>
+            </g>
+          </svg>
+          <span>Share link</span>
+        </a>
+      </div>
+    </div>
+  </div>
+);
 
 render() {
   const airPortFulName = (airport) => {
@@ -148,148 +290,6 @@ render() {
       label: '7 hành khách'
     }
   ];
-  const renderListFareData = this.props.listFareData.map((fare, index) =>
-    <div className="result-list-item js-toggle" key={index}>
-      <div className="airline">
-        <div className="logo"><img src={imagesUrl + "logo-jetstar.png"} alt="logo airlines" /></div>
-        <div className="number-bought">
-          <div className="group-people">
-            <div className="img-wrap group-people__item"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} alt="avatar" /></div>
-            <div className="img-wrap group-people__item"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} alt="avatar" /></div>
-            <div className="img-wrap group-people__item"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} alt="avatar" /></div>
-            <span className="plus">
-            +4</span><span>đã mua</span>
-          </div>
-        </div>
-        <p className="detail js-toggle-control" onClick={(e) => this.handleToggle(e)} data-target=".toggle-content">
-          <span>Chi tiết chuyến bay</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width={13} height={7} viewBox="0 0 13 7">
-            <g>
-              <g>
-                <g>
-                  <path fill="#919191" d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z" />
-                </g>
-              </g>
-            </g>
-          </svg>
-        </p>
-      </div>
-      <div className="time">
-        <div className="time__from">
-          <p className="time__address">{this.state.startAirport["airport"]}</p>
-          <p className="time__content">{formatHourMitues(fare.ListFlight[0].StartDate)}</p>
-        </div>
-        <div className="time__to">
-          <p className="time__address">{this.state.endAirport["airport"]}</p>
-          <p className="time__content">{formatHourMitues(fare.ListFlight[0].EndDate)}</p>
-        </div>
-      </div>
-      <div className="price">
-        <div className="price__per-people"><span className="price__number">1.000.000</span><span className="price__unit">/khách</span></div>
-        <a className="price__btn btn btn--bg-linear btn--medium" href="# " onClick={this.onSubmitBookingAction.bind(this, fare)}>
-          Chọn mua
-          <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
-            <g>
-              <g>
-                <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
-              </g>
-            </g>
-          </svg>
-        </a>
-      </div>
-      <div className="js-toggle-content">
-        <div className="flight-detail">
-          <div className="flight-detail__top">
-            <div className="flight-detail__location text-right pr-3">
-              <p className="text-smaller font-weight-bold mbpx-5 text-black">HỒ CHÍ MINH</p>
-              <p className="text-xs font-weight-light mbpx-3">Sân bay ..</p>
-              <p className="text-xs font-weight-medium text-orange-medium">{formatHMDFlight(fare.ListFlight[0]["StartDate"])}</p>
-            </div>
-            <div className="flight-detail__serial">
-              <div className="serial w-100"><span className="text-xs font-weight-light">Chuyến bay&nbsp;</span><span className="text-smaller font-weight-bold text-black">{fare.ListFlight[0]["FlightNumber"]}</span></div>
-              <div className="d-flex justify-content-center w-100">
-                <svg xmlns="http://www.w3.org/2000/svg" width={159} height={18} viewBox="0 0 159 18">
-                  <defs>
-                    <clipPath id="tvrsa">
-                      <path fill="#fff" d="M0 16V1h15v15zm7.5-4a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                    </clipPath>
-                  </defs>
-                  <g>
-                    <g>
-                      <g>
-                        <path fill="#ff5111" d="M137.292 8.664c-.017-.248.244-.494.679-.644l-.656-3.052c.396 0 .72.071 1.09.357l2.438 1.869c.182.143.354.288.53.408.594-.12 2.23-.294 3.077-.41l2.249-.302-3.303-6.116c-.343-.637 1.673-.801 2-.236l6.044 6.37 3.117.012c2.436.011 4.645 1.09 4.648 1.831.001.744-2.197 1.803-4.634 1.795l-3.116-.012-5.995 6.319c-.321.564-2.337.382-1.997-.25l3.25-6.09-2.251-.32c-.846-.121-2.486-.309-3.082-.432-.177.117-.345.26-.527.4l-2.42 1.852c-.37.282-.693.35-1.088.347l.633-3.049c-.437-.152-.701-.4-.686-.647z" />
-                      </g>
-                      <g>
-                        <path fill="none" stroke="#ff5111" strokeMiterlimit={50} strokeWidth={2} d="M10.273 8.718h138.809" />
-                      </g>
-                      <g>
-                        <path fill="#fff" d="M4 8.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                        <path fill="none" stroke="#ff5111" strokeMiterlimit={50} strokeWidth={8} d="M4 8.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" clipPath="url(&quot;#tvrsa&quot;)" />
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div className="text-center w-100 line-height-1"><span className="text-tiny font-weight-light">Bay thẳng&nbsp;</span><span className="text-xs font-weight-bold text-black">{intToTime(fare.ListFlight[0]["Duration"])}</span></div>
-            </div>
-            <div className="flight-detail__location text-left pl-3">
-              <p className="text-smaller font-weight-bold mbpx-5 text-black">HÀ NỘI</p>
-              <p className="text-xs font-weight-light mbpx-3">Sân bay ..</p>
-              <p className="text-xs font-weight-medium text-orange-medium">{formatHMDFlight(fare.ListFlight[0]["EndDate"])}</p>
-            </div>
-          </div>
-          <div className="flight-detail__note">
-            <p className="text-xs font-weight-bold mbpx-3">Điều kiện vé &amp; hành lý</p>
-            <p className="text-xs font-weight-bold mbpx-3">Điều kiện vé Hạng chỗ Promo - {fare.Airline}</p>
-            <p className="text-xs"><span className="font-weight-bold">Vé Promo</span><span className="font-weight-light">&nbsp;:&nbsp;</span><span className="font-weight-light">Giá chưa bao gồm thuế phí</span></p>
-          </div>
-          <div className="flight-detail__passenger">
-            <div className="flight-detail__passenger-wrap">
-              <div className="w-25 text-left">
-                <p className="mbpx-5 text-xs font-weight-bold">Hành khách</p>
-                <p className="text-xs font-weight-light">Người lớn</p>
-                <p className="text-xs font-weight-light">Trẻ em từ 2 đến 11 tuổi</p>
-                <p className="text-xs font-weight-light">Trẻ em dưới 2 tuổi</p>
-              </div>
-              <div className="w-25 text-left">
-                <p className="mbpx-5 text-xs font-weight-bold">Số lượng</p>
-                <p className="text-xs font-weight-lighttext-xs">{fare.Adt}</p>
-                <p className="text-xs font-weight-lighttext-xs">{fare.Chd}</p>
-                <p className="text-xs font-weight-lighttext-xs">{fare.Inf}</p>
-              </div>
-              <div className="w-25 text-right">
-                <p className="mb-2 text-xs font-weight-bold">Giá gồm thuế phí</p>
-                <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareAdt) + parseInt(fare.TaxAdt) + parseInt(fare.FeeAdt)).toLocaleString()}</span><span>&nbsp;VND</span></p>
-                <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareChd) + parseInt(fare.TaxChd) + parseInt(fare.FeeChd)).toLocaleString()}</span><span>&nbsp;VND</span></p>
-                <p className="text-xs font-weight-bold"><span className="text-red-orange">{(parseInt(fare.FareInf) + parseInt(fare.TaxInf) + parseInt(fare.FeeInf)).toLocaleString()}</span><span>&nbsp;VND</span></p>
-              </div>
-              <div className="w-25 text-right">
-                <p className="mb-2 text-xs font-weight-bold">Tổng giá</p>
-                <p className="text-xs font-weight-bold"><span className="text-red-orange">{fare.TotalNetPrice.toLocaleString()}</span><span>&nbsp;VND</span></p>
-              </div>
-            </div>
-          </div>
-          <div className="flight-detail__total font-weight-bold">
-            <p className="text-green text-uppercase text-xs">Tổng chi phí:&nbsp;</p>
-            <p className="font-weight-bold"><span className="text-orange">{fare.TotalPrice.toLocaleString()}</span><span className="text-xs">&nbsp;VND</span></p>
-          </div>
-        </div>
-        <div className="result-list-item__share">
-          <p className="info">Chia sẻ link mời bạn bè và nhận&nbsp;<a className="preference link" href="# ">nhiều ưu đãi</a>&nbsp;tuyệt vời từ ThankTrip</p>
-          <a className="btn-share js-toggle-modal" href="# " data-target="#modal-share-tour">
-            <svg xmlns="http://www.w3.org/2000/svg" width={18} height={16} viewBox="0 0 18 16">
-              <g>
-                <g>
-                  <path fill="#ff6200" d="M17.824 5.274L12.75.2a.61.61 0 0 0-.446-.189.61.61 0 0 0-.445.189.61.61 0 0 0-.189.445v2.537H9.45c-4.71 0-7.6 1.331-8.67 3.993-.35.885-.525 1.985-.525 3.3 0 1.096.42 2.586 1.259 4.469a23.402 23.402 0 0 0 .237.535c.04.085.083.158.13.217.079.113.171.17.277.17a.29.29 0 0 0 .233-.1.37.37 0 0 0 .084-.247c0-.06-.008-.147-.025-.263a2.05 2.05 0 0 1-.025-.233c-.033-.449-.05-.856-.05-1.219 0-.667.059-1.265.174-1.793.116-.529.276-.986.48-1.372.206-.387.47-.72.793-1.001.324-.28.672-.51 1.046-.689a5.667 5.667 0 0 1 1.318-.42 12.565 12.565 0 0 1 1.526-.214c.512-.04 1.091-.06 1.739-.06h2.22v2.537c0 .172.062.32.187.446a.61.61 0 0 0 .446.188.61.61 0 0 0 .446-.188l5.073-5.073a.61.61 0 0 0 .189-.446.61.61 0 0 0-.188-.446z" />
-                </g>
-              </g>
-            </svg>
-            <span>Share link</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  );
 
   let isShowReturn = this.state.is_return ? "" : "hidden";
 
@@ -538,7 +538,9 @@ render() {
                     </div>
                   </div>
                 <div className="result-list__content">
-                  {renderListFareData}
+                  {
+                    this.props.listFareData.map(this.renderListFareData)
+                  }
                 </div>
               </div>
               </div>
