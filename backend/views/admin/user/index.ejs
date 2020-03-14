@@ -151,16 +151,14 @@
                                             <thead>
                                             <tr>
                                                 <th style="width: 40px;">STT</th>
-                                                <th>Họ và tên</th>
                                                 <th>Số diện thoại</th>
+                                                <th>Họ và tên</th>
                                                 <th>Email</th>
                                                 <th>Trạng thái</th>
-                                                <th>Hành động</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -171,24 +169,18 @@
                                                 <tr>
                                                     <td><%= key + 1 %></td>
                                                     <td>
-                                                        <%= user.fullName %>
+                                                        <a href="view/<%= user.id %>">
+                                                            <%= user.phone ? user.phone : 'N/A' %>
+                                                        </a>
                                                     </td>
                                                     <td>
-                                                        <%= user.phone ? user.phone : 'N/A' %>
+                                                        <%= user.fullName %>
                                                     </td>
+
                                                     <td>
                                                         <%= user.email ? user.email : 'N/A' %>
                                                     </td>
                                                     <td><span class="badge badge-success">Hoạt động</span></td>
-                                                    <td>
-                                                        <a class="btn btn-sm btn-outline-success" href="">
-                                                            <i class="nav-icon icon-pencil"></i>
-                                                        </a>
-                                                        <a class="btn btn-sm btn-outline-primary"
-                                                           href="view/<%= user.id %>">
-                                                            <i class="nav-icon icon-eye"></i>
-                                                        </a>
-                                                    </td>
                                                 </tr>
                                             <% }); %>
                                             </tbody>
