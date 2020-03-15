@@ -536,7 +536,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="tab-pane" id="messages-1" role="tabpanel">
-                                                    <table class="table table-responsive-sm table-striped"
+                                                    <table class="table table-responsive-sm table-striped table-outline"
                                                            style="margin-bottom: 0;">
                                                         <thead>
                                                         <tr>
@@ -557,10 +557,24 @@
                                                         </tr>
                                                         <tr ng-repeat="(key, transaction) in responses.transactions">
                                                             <td>{{ key+1 }}</td>
-                                                            <td>{{ transaction.flightCode }}</td>
-                                                            <td>{{ transaction.fullName }}</td>
-                                                            <td class="th-text-right">{{ flight.passengers.length }}</td>
-                                                            <td></td>
+                                                            <td>
+                                                                <div>
+                                                                    {{ transaction.bank.name }}
+                                                                </div>
+                                                                <div class="small text-muted" style="font-size: 90%;">
+                                                                    <strong>{{ transaction.bank.accountNumber }}</strong> - {{ transaction.bank.accountHolder }}
+                                                                </div>
+                                                                <div class="small text-muted" style="font-size: 90%;">
+                                                                    Chi nhánh: {{ transaction.bank.branch }}
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                {{ transaction.createdAt }}
+                                                            </td>
+                                                            <td class="th-text-right">
+                                                                <strong>₫</strong>{{ transaction.amount }}
+                                                            </td>
+                                                            <td><span class="badge badge-success">Chờ xử lý</span></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>

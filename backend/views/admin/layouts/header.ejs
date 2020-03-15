@@ -1,3 +1,25 @@
+<style>
+    .dropdown-item {
+        border-bottom: none;
+    }
+
+    .c-avatar {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50em;
+        width: 36px;
+        height: 36px;
+        font-size: 14.4px;
+    }
+
+    .c-avatar-img {
+        width: 100%;
+        height: auto;
+        border-radius: 50em;
+    }
+</style>
 <header class="app-header navbar">
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
@@ -27,5 +49,37 @@
                 <i class="icon-location-pin"></i>
             </a>
         </li>
+        <li class="c-header-nav-item dropdown">
+            <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <div class="c-avatar">
+                    <img class="c-avatar-img" style="width: 100%;" src="https://coreui.io/demo/3.0.0/assets/img/avatars/6.jpg" alt="user@email.com">
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right pt-0">
+                <div class="dropdown-header bg-light py-2">
+                    <strong>Account</strong>
+                </div>
+                <a class="dropdown-item" href="/">
+                    <i class="nav-icon icon-info"></i>
+                    Thông tin tài khoản
+                </a>
+                <a class="dropdown-item" href="/admin/bank/index">
+                    <i class="nav-icon icon-calculator"></i>
+                    Tài khoản ngân hàng
+                </a>
+                <a class="dropdown-item" href="/admin/transaction/index">
+                    <i class="nav-icon icon-clock"></i>
+                    Lịch sử rút tiền
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/admin/logout">
+                    <i class="nav-icon icon-logout"></i>
+                    Đăng xuất
+                </a>
+            </div>
+        </li>
+        <li style="min-width: 50px;"></li>
     </ul>
 </header>
+
+<script src="/javascript/coreui.bundle.js"></script>

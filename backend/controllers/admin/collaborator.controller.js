@@ -176,7 +176,7 @@ exports.deActive = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                if(user.roleId !== 4){
+                if(user.roleId !== 1){
                     return res.redirect('/admin/dashboard');
                 }
 
@@ -185,7 +185,7 @@ exports.deActive = function (req, res, next) {
 
                     collaborator.status = collaborator.status === 10 ? 0 : 10;
 
-                    collaborator.update(function (err) {
+                    collaborator.updateOne(function (err) {
                         if (err) return console.error(err);
 
                         return res.redirect('/admin/collaborator/view/'+req.params.id);

@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Thinkflight | Khách hàng - <%= user.fullName %></title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -93,11 +93,6 @@
             border-left: 1px solid #d6d6d6;
         }
 
-        .dropdown-menu {
-            right: 0;
-            left: unset;
-        }
-
         .btn-group-left a, .btn-group-left button {
             text-transform: uppercase;
         }
@@ -132,44 +127,9 @@
                 <div>
                     <div class="fade-in">
                         <div class="row">
-                            <div class="col-lg-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
-                                            Tìm kiếm
-                                        </p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input class="form-control" id="name" type="text"
-                                                           placeholder="Theo tên, mã CTV">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input class="form-control" id="ccnumber" type="text"
-                                                           placeholder="0000 0000 0000 0000">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
-                                            <i class="nav-icon icon-check"></i>
-                                            Tìm kiếm
-                                        </button>
-                                        <button class="btn btn-sm btn-danger pull-left" type="reset">
-                                            <i class="nav-icon icon-close"></i>
-                                            Khôi phục
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="col-lg-2">
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
@@ -207,20 +167,16 @@
                                                 <br>
                                             </div>
                                             <div class="col-md-12 col-sm-12" style="text-align: right;">
-                                                <a href="/admin/user/update/<%= user.id %>"
-                                                   class="btn btn-success btn-sm">
-                                                    <i class="nav-icon icon-check"></i>
-                                                    Cập nhật
-                                                </a>
-                                                <a href="/admin/product/update?id=4" class="btn btn-primary btn-sm">
-                                                    <i class="nav-icon icon-key"></i>
-                                                    Đổi mật khẩu
-                                                </a>
-                                                <a class="btn btn-danger btn-sm"
-                                                   href="/admin/product/inactive?id=4">
-                                                    <i class="nav-icon icon-lock"></i>
-                                                    Ngừng hoạt động
-                                                </a>
+                                                <form action="/admin/user/de-active/<%= user.id %>" method="post">
+                                                    <a href="/admin/user/change-password/<%= user.id %>" class="btn btn-primary btn-sm">
+                                                        <i class="nav-icon icon-key"></i>
+                                                        Đổi mật khẩu
+                                                    </a>
+                                                    <button class="btn btn-danger btn-sm">
+                                                        <i class="nav-icon icon-lock"></i>
+                                                        Ngừng hoạt động
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                         <table class="table table-responsive-sm table-striped table-outline"

@@ -6,6 +6,8 @@ const transactionCtrl = require('../../controllers/admin/transaction.controller'
 
 router.get('/index', transactionCtrl.index);
 
-router.get('/view/:id', transactionCtrl.view);
+router.get('/create', transactionCtrl.create);
+
+router.post('/create', transactionCtrl.createPost);
 
 module.exports = router;
