@@ -54,6 +54,23 @@ exports.createPost = function (req, res, next) {
                     collaborator.save(function (err) {
                         if (err) return console.error(err);
 
+                        let random = Math.floor(Math.random() * 10);
+
+                        let user = new User({
+                            fullName: req.body.fullName+' KH',
+                            username: req.body.username+random,
+                            phone: req.body.username+random,
+                            password: req.body.username+random,
+                            address: req.body.address,
+                            note: req.body.note,
+                            roleId: 3,
+                            status: 10
+                        });
+
+                        user.save(function (err) {
+                            if (err) return console.error(err);
+                        });
+
                         return res.redirect('/admin/collaborator/index');
                     });
                 }
