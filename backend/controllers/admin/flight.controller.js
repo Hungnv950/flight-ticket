@@ -12,37 +12,42 @@ exports.index = function (req, res, next) {
                 return res.redirect('/admin/login');
             } else {
                 User.find({roleId: 3}, function (err, users) {
-                    users.forEach(function (user) {
-                        let flight = new Flight({
-                            user:user._id,
-                            flightCode: "FLIGHT"+Math.floor(Math.random() * 100),
-                            fullName: user.fullName,
-                            phone: user.phone,
-                            email: user.phone+"@thinkflight.com",
-                            gender: 1,
-                            passengers:[
-                                {
-                                    firstName: "Lê",
-                                    lastName:"Văn Việt",
-                                    gender: 1
-                                },
-                                {
-                                    firstName: "Lê",
-                                    lastName:"Văn Việt",
-                                    gender: 1
-                                }
-                            ],
-                            totalMoney:1450000,
-                            status:1
-                        });
+                    User.find({roleId: 2}, function (err, collaborators) {
+                        users.forEach(function (user) {
+                            collaborators.forEach(function (collaborator) {
+                                let flight = new Flight({
+                                    user:user._id,
+                                    collaboratorCode:collaborator.code,
+                                    flightCode: "FLIGHT"+Math.floor(Math.random() * 100),
+                                    fullName: user.fullName,
+                                    phone: user.phone,
+                                    email: user.phone+"@thinkflight.com",
+                                    gender: 1,
+                                    passengers:[
+                                        {
+                                            firstName: "Lê",
+                                            lastName:"Văn Việt",
+                                            gender: 1
+                                        },
+                                        {
+                                            firstName: "Lê",
+                                            lastName:"Văn Việt",
+                                            gender: 1
+                                        }
+                                    ],
+                                    totalMoney:1450000,
+                                    status:1
+                                });
 
-                        flight.save(function (err) {
-                            if (err) return console.error(err);
+                                flight.save(function (err) {
+                                    if (err) return console.error(err);
 
-                            user.flights.push(flight);
-                            user.save();
+                                    user.flights.push(flight);
+                                    user.save();
+                                });
+                            });
                         });
-                    })
+                    });
                 });
 
                 Flight.find({}).populate('user').exec(function (err, flights) {
