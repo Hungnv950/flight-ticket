@@ -15,6 +15,8 @@ exports.collaborator = function (req, res, next) {
                 User.findById(req.params.id).exec(function (err, collaborator) {
                     if (err) return next(err);
 
+                    console.log(collaborator);
+
                     let gte = null;
                     let lte = null;
 
