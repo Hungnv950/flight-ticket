@@ -4,25 +4,24 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const STATUS_ACTIVE = 10;
-const STATUS_INACTIVE = 0;
+const STATUS_FINISH = 2;
+const STATUS_WAITING = 1;
 
 let TransactionSchema = new Schema({
-    name: {
-        type: Number,
-        required: true
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
-    branch: {
+    bank: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bank'
+    },
+    amount: {
         type: String,
         required: true
     },
-    accountHolder:{
-        type: String,
-        required: true
-    },
-    accountNumber: {
-        type: String,
-        required: true
+    note:{
+        type: String
     },
     status: {
         type: Number,

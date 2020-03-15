@@ -16,6 +16,8 @@ router.post('/create', collaboratorCtrl.createPost);
 
 router.post('/update/:id', collaboratorCtrl.updatePost);
 
+router.post('/de-active/:id', collaboratorCtrl.deActive);
+
 router.get('/change-password/:id', collaboratorCtrl.changePassword);
 
 router.post('/change-password/:id', collaboratorCtrl.changePasswordPost);

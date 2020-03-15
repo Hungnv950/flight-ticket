@@ -40,6 +40,10 @@
         .table-responsive-sm a:hover {
             text-decoration: none;
         }
+
+        .th-text-right {
+            text-align: right;
+        }
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -73,14 +77,24 @@
                                                            placeholder="Theo tên, mã CTV">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <select class="form-control" name="" id="">
-                                                        <option value="">Chọn trạng thái</option>
-                                                        <option value="">Tất cả</option>
-                                                        <option value="">Chờ xử lý</option>
-                                                        <option value=""></option>
-                                                    </select>
+                                                    <label for="">Theo trạng thái</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="radio1" type="radio" value="radio1" name="radios">
+                                                        <label class="form-check-label" for="radio1">Tất cả</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="radio1" type="radio" value="radio1" name="radios">
+                                                        <label class="form-check-label" for="radio1">Chờ xử lý</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="radio2" type="radio" value="radio2" name="radios">
+                                                        <label class="form-check-label" for="radio2">Đã xử lý</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,9 +117,15 @@
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
                                             Lịch sử rút tiền
                                         </p>
+                                        <div class="card-header-actions">
+                                            <a href="create" class="btn btn-block btn-success active">
+                                                <i class="nav-icon icon-plus"></i>
+                                                Yêu cầu rút tiền
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
-                                        <table class="table table-responsive-sm table-striped"
+                                        <table class="table table-responsive-sm table-striped table-outline"
                                                style="margin-bottom: 0;">
                                             <thead>
                                             <tr>
@@ -113,9 +133,9 @@
                                                 <th>Mã CTV</th>
                                                 <th>Họ và tên</th>
                                                 <th>Ngân hàng</th>
-                                                <th>Số tiền rút</th>
+                                                <th class="th-text-right">Số tiền rút</th>
                                                 <th>Trạng thái</th>
-                                                <th>Thao tác</th>
+                                                <th>Xử lý</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -132,20 +152,34 @@
                                                 <tr>
                                                     <td><%= key + 1 %></td>
                                                     <td>
-                                                        <a href="view/<%= transaction.id %>">
-                                                            <%= transaction.code %>
+                                                        <a href="/admin/collaborator/view/<%= transaction.user.id %>">
+                                                            <%= transaction.user.code %>
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <%= transaction.fullName %>
+                                                        <%= transaction.user.fullName %>
                                                     </td>
                                                     <td>
-                                                        <%= transaction.phone ? transaction.phone : "N/A" %>
+                                                        <div>
+                                                            <%= transaction.bank.name %>
+                                                        </div>
+                                                        <div class="small text-muted" style="font-size: 90%;">
+                                                            <strong><%= transaction.bank.accountNumber %></strong> - <%= transaction.bank.accountHolder %>
+                                                        </div>
+                                                        <div class="small text-muted" style="font-size: 90%;">
+                                                            Chi nhánh: <%= transaction.bank.branch %>
+                                                        </div>
                                                     </td>
-                                                    <td>
-                                                        <%= transaction.email ? transaction.email : "N/A" %>
+                                                    <td class="th-text-right">
+                                                        <strong>₫</strong><%= transaction.amount %>
                                                     </td>
                                                     <td><span class="badge badge-success">Chờ xử lý</span></td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-sm">
+                                                            <i class="nav-icon icon-printer"></i>
+                                                            Xử lý
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             <% }); %>
                                             </tbody>

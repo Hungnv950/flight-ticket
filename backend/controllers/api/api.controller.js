@@ -15,8 +15,6 @@ exports.collaborator = function (req, res, next) {
                 User.findById(req.params.id).exec(function (err, collaborator) {
                     if (err) return next(err);
 
-                    let now = new Date();
-
                     let gte = null;
                     let lte = null;
 
@@ -54,7 +52,7 @@ exports.collaborator = function (req, res, next) {
                             break;
                     }
 
-                    Flight.find({"createdAt": {"$gte": new Date(gte), "$lte": new Date(lte)}}).exec(function (err, flights) {
+                    Flight.find({"createdAt": {"$gte": new Date(gte), "$lte": new Date(lte)},"collaboratorCode":collaborator.code}).exec(function (err, flights) {
                         let data = {
                             hits: Math.floor(Math.random() * 100),
                             profit: 0,
@@ -70,7 +68,7 @@ exports.collaborator = function (req, res, next) {
                             data.guestsBooked++;
                         });
 
-                        Transaction.find({"createdAt": {"$gte": new Date(gte), "$lte": new Date(lte)}}).exec(function (err, transactions) {
+                        Transaction.find({"createdAt": {"$gte": new Date(gte), "$lte": new Date(lte)}}).populate('bank').exec(function (err, transactions) {
 
                             data.transactions = transactions;
 
