@@ -2,6 +2,8 @@ const User = require('../../models/user.model');
 
 const Transaction = require('../../models/transaction.model');
 
+const ejsHelpers = require('../../helpers/ejs-helpers');
+
 exports.index = function (req, res, next) {
     User.findById(req.session.userid).exec(function (error, user) {
         if (error) {
@@ -14,7 +16,7 @@ exports.index = function (req, res, next) {
                 let query = user.roleId === 1 ? {}:{user:user.id};
 
                 Transaction.find(query).populate('user').populate('bank').exec(function (err, transactions) {
-                    res.render('admin/transaction/index', {transactions: transactions,userLogin:user});
+                    res.render('admin/transaction/index', {_ : ejsHelpers,transactions: transactions,userLogin:user});
                 });
             }
         }

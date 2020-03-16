@@ -20,6 +20,27 @@ let FlightSchema = new Schema({
         unique: true,
         required: true
     },
+    airline:{
+        type: String,
+        required: true
+    },
+    seatType:{
+        type: String
+    },
+    hoursAway:{
+        type: Date,
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
+    },
+    arrivalTime:{
+        type: Date,
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
+    },
+    departure:{
+        type: String
+    },
+    destinations:{
+        type: String
+    },
     gender: {
         type: Number,
         required: true

@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const User = require('../../models/user.model');
 const Flight = require('../../models/flight.model');
 
@@ -19,6 +21,12 @@ exports.index = function (req, res, next) {
                                     user:user._id,
                                     collaboratorCode:collaborator.code,
                                     flightCode: "FLIGHT"+Math.floor(Math.random() * 100),
+                                    airline:"Vietnam Airlines‎",
+                                    seatType:"Hạng thương gia",
+                                    hoursAway:new Date(moment().set({'hour': moment().hour()+7+24}).toDate()),
+                                    arrivalTime:new Date(moment().set({'hour': moment().hour()+7+26}).toDate()),
+                                    departure:"HAN - Hà Nội",
+                                    destinations:"SGN - Thành phố Hồ Chí Minh",
                                     fullName: user.fullName,
                                     phone: user.phone,
                                     email: user.phone+"@thinkflight.com",
@@ -51,7 +59,7 @@ exports.index = function (req, res, next) {
                 });
 
                 Flight.find({}).populate('user').exec(function (err, flights) {
-                    res.render('admin/flight/index', {_ : ejsHelpers ,flights: flights,userLogin: user});
+                    res.render('admin/flight/index', {_ : ejsHelpers,flights: flights,userLogin: user});
                 });
             }
         }
@@ -69,7 +77,7 @@ exports.view = function (req, res, next) {
                 Flight.findById(req.params.id).populate('user').exec(function (err, flight) {
                     if (err) return next(err);
 
-                    res.render('admin/flight/view', {flight: flight,userLogin: user});
+                    res.render('admin/flight/view', {_ : ejsHelpers,flight: flight,userLogin: user});
                 })
             }
         }
