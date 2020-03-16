@@ -241,15 +241,15 @@
                                                                             <%= flight.departure %>
                                                                         </div>
                                                                         <div class="small text-muted">
-                                                                           <strong> <%= _.convertDate(flight.hoursAway) %></strong>
+                                                                           <strong> <%= _.convertTime(flight.hoursAway) %> <%= _.convertDate(flight.hoursAway) %></strong>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div>
-                                                                            <%= flight.departure %>
+                                                                            <%= flight.destinations %>
                                                                         </div>
                                                                         <div class="small text-muted">
-                                                                            <strong><%= _.convertDate(flight.arrivalTime) %></strong>
+                                                                            <strong><%=_.convertTime(flight.arrivalTime) %> _.convertDate(flight.arrivalTime) %></strong>
                                                                         </div>
                                                                     </div>
                                                                 </div>
