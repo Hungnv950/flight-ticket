@@ -62,17 +62,12 @@
                 <div>
                     <div class="fade-in">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-bottom: 0;margin-top: 8px;">
                                             Tìm kiếm
                                         </p>
-                                        <div class="card-header-actions">
-                                            <a href="/" class="btn btn-block btn-outline-dark">
-                                                <i class="nav-icon icon-plus"></i>
-                                            </a>
-                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -90,12 +85,59 @@
                                                            placeholder="Theo tên, SĐT khách hàng">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input class="form-control" id="name" type="text"
                                                            placeholder="Theo mã CTV">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label for="">Thời gian đặt vé</label>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <select class="form-control" id="ccmonth">
+                                                                <option>Hôm nay</option>
+                                                                <option>Hôm qua</option>
+                                                                <option>7 ngày qua</option>
+                                                                <option>Tháng này</option>
+                                                                <option>Tháng trước</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label for="">Từ ngày</label>
+                                                            <input class="form-control" id="name" type="date">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="">Đến ngày</label>
+                                                            <input class="form-control" id="name" type="date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="">Thời gian bay</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label for="">Từ ngày</label>
+                                                            <input class="form-control" id="name" type="date">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="">Đến ngày</label>
+                                                            <input class="form-control" id="name" type="date">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,21 +174,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-bottom: 0;margin-top: 8px;">
                                             Chuyến bay
                                         </p>
-                                        <div class="card-header-actions">
-                                            <select class="form-control" id="ccmonth">
-                                                <option>Hôm nay</option>
-                                                <option>Hôm qua</option>
-                                                <option>7 ngày qua</option>
-                                                <option>Tháng này</option>
-                                                <option>Tháng trước</option>
-                                            </select>
-                                        </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
                                         <table class="table table-responsive-sm table-striped table-outline"
@@ -158,14 +191,12 @@
                                                 <th>Khách hàng</th>
                                                 <th>Mã CTV</th>
                                                 <th>Thời gian</th>
-                                                <th class="th-text-right">Số chỗ đặt</th>
                                                 <th class="th-text-right">Tổng chi phí</th>
                                                 <th>Trạng thái</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -184,26 +215,32 @@
                                                     </td>
                                                     <td>
                                                         <div>
-                                                            <%= flight.fullName %>
+                                                            <a href="/admin/user/view/<%= flight.user.id %>">
+                                                                <%= flight.fullName %>
+                                                            </a>
                                                         </div>
                                                         <div class="small text-muted" style="font-size: 90%;">
                                                             <%= flight.phone %>
-                                                            <a href="/admin/user/view/<%= flight.user.id %>">
-                                                                <i class="nav-icon icon-share"></i>
-                                                            </a>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <%= flight.collaboratorCode ? flight.collaboratorCode:"N/A"  %>
                                                     </td>
                                                     <td>
-                                                        <%= _.convertDate(flight.createdAt) %>
+                                                        <div>
+                                                            <%= _.convertDate(flight.createdAt) %>
+                                                        </div>
+                                                        <div class="small text-muted">
+                                                            <strong><%= _.convertTime(flight.createdAt) %></strong>
+                                                        </div>
                                                     </td>
                                                     <td class="th-text-right">
-                                                        <%= flight.passengers.length %>
-                                                    </td>
-                                                    <td class="th-text-right">
-                                                        <%= flight.totalMoney %>
+                                                        <div>
+                                                            ₫<strong><%= _.formatNumber(flight.totalMoney) %></strong>
+                                                        </div>
+                                                        <div class="small text-muted">
+                                                            <strong>Số chỗ đặt: <%= flight.passengers.length %></strong>
+                                                        </div>
                                                     </td>
                                                     <td><span class="badge badge-success">Đặt chỗ</span></td>
                                                 </tr>

@@ -1,6 +1,5 @@
 exports = module.exports = {};
 
-
 exports.convertDate = function(str){
     let months = {
         Jan: "01",
@@ -20,4 +19,14 @@ exports.convertDate = function(str){
     let date = (str+"").split(" ");
 
     return [date[2], months[date[1]], date[3]].join("/");
+};
+
+exports.convertTime = function(str){
+    let date = (str+"").split(" ");
+
+    return date[4];
+};
+
+exports.formatNumber = function(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 };

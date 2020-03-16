@@ -218,6 +218,44 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">Hãng hàng không:</label>
+                                                            <div class="form-wrap form-control-static">
+                                                                <div>
+                                                                    <strong><%= flight.airline %></strong>
+                                                                </div>
+                                                                <div class="small text-muted">
+                                                                    <strong><%= flight.seatType %></strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label class="form-label control-label">Lịch trình:</label>
+                                                            <div class="form-wrap form-control-static">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div>
+                                                                            <%= flight.departure %>
+                                                                        </div>
+                                                                        <div class="small text-muted">
+                                                                           <strong> <%= _.convertDate(flight.hoursAway) %></strong>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div>
+                                                                            <%= flight.departure %>
+                                                                        </div>
+                                                                        <div class="small text-muted">
+                                                                            <strong><%= _.convertDate(flight.arrivalTime) %></strong>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
