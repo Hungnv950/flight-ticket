@@ -266,58 +266,58 @@
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
                                             Lịch sử rút tiền
                                         </p>
-                                        <div class="card-header-actions">
-                                            <a href="create" class="btn btn-block btn-success active">
-                                                <i class="nav-icon icon-plus"></i>
-                                                Yêu cầu rút tiền
-                                            </a>
-                                        </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
-                                        <div class="dashboardBox dashboardStatistic ovh dashboard-top">
-                                            <div class="uln ovh pd0" style="border-bottom: 1px solid #c8ced3;">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="c-callout total" style="border:none;">
-                                                            <label class="dash_icon">
-                                                                <i class="nav-icon icon-diamond"></i>
-                                                            </label>
-                                                            <label class="dash_title">Thu nhập</label>
-                                                            <span class="number">
-                                                                <strong class="txt">₫0</strong>
-                                                            </span>
-                                                            <span class="yesterday">Thu nhập từ hoa hồng</span>
+                                        <% if(userLogin.roleId != 1){ %>
+                                            <div class="dashboardBox dashboardStatistic ovh dashboard-top">
+                                                <div class="uln ovh pd0" style="border-bottom: 1px solid #c8ced3;">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="c-callout total" style="border:none;">
+                                                                <label class="dash_icon">
+                                                                    <i class="nav-icon icon-diamond"></i>
+                                                                </label>
+                                                                <label class="dash_title">Thu nhập</label>
+                                                                <span class="number">
+                                                                    <strong class="txt">₫0</strong>
+                                                                </span>
+                                                                <span class="yesterday">Thu nhập từ hoa hồng</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="col-md-4">
-                                                        <div class="c-callout return">
-                                                            <label class="dash_icon">
-                                                                <i class="nav-icon icon-plane"></i>
-                                                            </label>
-                                                            <label class="dash_title">Đã rút</label>
-                                                            <span class="number">
+                                                        <div class="col-md-4">
+                                                            <div class="c-callout return">
+                                                                <label class="dash_icon">
+                                                                    <i class="nav-icon icon-plane"></i>
+                                                                </label>
+                                                                <label class="dash_title">Đã rút</label>
+                                                                <span class="number">
                                                                 <strong class="txt">₫0</strong>
                                                             </span>
-                                                            <span class="yesterday">Số tiền đã rút</span>
+                                                                <span class="yesterday">Số tiền đã rút</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="col-md-4">
-                                                        <div class="c-callout">
-                                                            <label class="dash_icon">
-                                                                <i class="nav-icon icon-share"></i>
-                                                            </label>
-                                                            <label class="dash_title">Số dư</label>
-                                                            <span class="number">
-                                                                <strong class="txt">₫0</strong>
-                                                            </span>
-                                                            <span class="yesterday">Số tiền còn lại</span>
+                                                        <div class="col-md-4">
+                                                            <div class="c-callout">
+                                                                <label class="dash_icon">
+                                                                    <i class="nav-icon icon-share"></i>
+                                                                </label>
+                                                                <label class="dash_title">Số dư</label>
+                                                                <span class="number">
+                                                                    <strong class="txt">₫0</strong>
+                                                                    <a class="btn btn-sm btn-danger" href="/admin/transaction/create">
+                                                                        <i class="nav-icon icon-wallet"></i>
+                                                                        Rút tiền
+                                                                    </a>
+                                                                </span>
+                                                                <span class="yesterday">Số tiền còn lại</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <% } %>
                                         <table class="table table-responsive-sm table-striped table-outline"
                                                style="margin-bottom: 0;">
                                             <thead>
@@ -368,7 +368,7 @@
                                                         <%= _.convertDate(transaction.createdAt) %>
                                                     </td>
                                                     <td class="th-text-right">
-                                                        <strong>₫</strong><%= transaction.amount %>
+                                                        ₫<strong><%= _.formatNumber(transaction.amount) %></strong>
                                                     </td>
                                                     <td><span class="badge badge-success">Chờ xử lý</span></td>
                                                     <td>

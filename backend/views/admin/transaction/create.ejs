@@ -73,9 +73,21 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="alert alert-warning" role="alert">
-                                                <i class="nav-icon icon-bell"></i>
-                                                Số lần rút tiền miễn phí còn lại tuần này: 1
+                                                <i class="nav-icon icon-bulb"></i>
+                                                Giới hạn số lần rút trong ngày: <strong>1 LƯỢT RÚT</strong>
                                             </div>
+                                            <% if(typeof validateFormError !== "undefined") {%>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <i class="nav-icon icon-bell"></i>
+                                                    <%- validateFormError %>
+                                                </div>
+                                            <% } %>
+                                            <% if(typeof notEnoughMoney !== "undefined") {%>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <i class="nav-icon icon-bell"></i>
+                                                    <%- notEnoughMoney %>
+                                                </div>
+                                            <% } %>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">

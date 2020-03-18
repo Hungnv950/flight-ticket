@@ -24,7 +24,7 @@ exports.create = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                res.render('admin/bank/create',{userLogin:user});
+                res.render('admin/bank/create',{userLogin:user,createBankFirst: req.flash('createBankFirst'),validateFormError: req.flash('validateFormError')});
             }
         }
     });
@@ -54,6 +54,11 @@ exports.createPost = function (req, res, next) {
 
                         return res.redirect('/admin/bank/index');
                     });
+                }
+                else {
+                    req.flash('validateFormError', 'Vui lòng điền đẩy đủ các thông tin có dấu (*)');
+
+                    res.redirect('/admin/bank/create');
                 }
             }
         }

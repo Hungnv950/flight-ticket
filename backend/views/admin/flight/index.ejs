@@ -57,7 +57,7 @@
             </li>
             <li class="breadcrumb-item active">Chuyến bay</li>
         </ol>
-        <div class="container-fluid">
+        <div class="container-fluid" data-ng-app="flightApp" data-ng-controller="flightCtrl">
             <div id="ui-view">
                 <div>
                     <div class="fade-in">
@@ -73,21 +73,13 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input class="form-control" id="name" type="text"
-                                                           placeholder="Theo tên, mã chuyến bay">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <input class="form-control" id="name" type="text"
-                                                           placeholder="Theo tên, SĐT khách hàng">
+                                                    <input ng-model="queries.flightSearch" ng-enter="getStatistical()" class="form-control" id="flightSearcg" type="text"
+                                                           placeholder="Theo mã chuyến bay, SĐT khách hàng">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input class="form-control" id="name" type="text"
+                                                    <input ng-model="queries.collaboratorCode" ng-enter="getStatistical()" class="form-control" id="collaboratorCode" type="text"
                                                            placeholder="Theo mã CTV">
                                                 </div>
                                             </div>
@@ -106,36 +98,6 @@
                                                                 <option>Tháng này</option>
                                                                 <option>Tháng trước</option>
                                                             </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label for="">Từ ngày</label>
-                                                            <input class="form-control" id="name" type="date">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="">Đến ngày</label>
-                                                            <input class="form-control" id="name" type="date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="">Thời gian bay</label>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label for="">Từ ngày</label>
-                                                            <input class="form-control" id="name" type="date">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="">Đến ngày</label>
-                                                            <input class="form-control" id="name" type="date">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,46 +167,44 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <% flights.forEach(function(flight, key) { %>
-                                                <tr>
-                                                    <td><%= key + 1 %></td>
-                                                    <td>
-                                                        <a href="view/<%= flight.id %>">
-                                                            <%= flight.flightCode %>
+                                            <tr ng-repeat="(key,flight) in responses">
+                                                <td>{{ key+1 }}</td>
+                                                <td>
+                                                    <a href="view/{{ flight.id }}">
+                                                        {{ flight.flightCode }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <a href="/admin/user/view/{{ flight.user.id }}">
+                                                            {{ flight.fullName }}
                                                         </a>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <a href="/admin/user/view/<%= flight.user.id %>">
-                                                                <%= flight.fullName %>
-                                                            </a>
-                                                        </div>
-                                                        <div class="small text-muted" style="font-size: 90%;">
-                                                            <%= flight.phone %>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <%= flight.collaboratorCode ? flight.collaboratorCode:"N/A"  %>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <%= _.convertDate(flight.createdAt) %>
-                                                        </div>
-                                                        <div class="small text-muted">
-                                                            <strong><%= _.convertTime(flight.createdAt) %></strong>
-                                                        </div>
-                                                    </td>
-                                                    <td class="th-text-right">
-                                                        <div>
-                                                            ₫<strong><%= _.formatNumber(flight.totalMoney) %></strong>
-                                                        </div>
-                                                        <div class="small text-muted">
-                                                            <strong>Số chỗ đặt: <%= flight.passengers.length %></strong>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge badge-success">Đặt chỗ</span></td>
-                                                </tr>
-                                            <% }); %>
+                                                    </div>
+                                                    <div class="small text-muted" style="font-size: 90%;">
+                                                        {{ flight.phone }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{ flight.collaboratorCode ? flight.collaboratorCode : "---" }}
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        {{ flight.phone | date: 'dd/MM/yy' }}
+                                                    </div>
+                                                    <div class="small text-muted">
+                                                        <strong>{{ flight.phone | date: 'HH:mm' }}</strong>
+                                                    </div>
+                                                </td>
+                                                <td class="th-text-right">
+                                                    <div>
+                                                        ₫<strong>{{ flight.totalMoney | number }}</strong>
+                                                    </div>
+                                                    <div class="small text-muted">
+                                                        <strong>Số chỗ đặt: {{ flight.passengers.length }}</strong>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge badge-success">Đặt chỗ</span></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -267,16 +227,10 @@
         <a href="#">ThinkFlight</a>
     </div>
 </footer>
-<!-- CoreUI and necessary plugins-->
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
-<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="node_modules/pace-progress/pace.min.js"></script>
-<script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-<script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
 <!-- Plugins and scripts required by this view-->
-<script src="node_modules/chart.js/dist/Chart.min.js"></script>
-<script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/javascript/jquery.js"></script>
+<script src="/javascript/coreui.bundle.js"></script>
+<script src="/javascript/angular.min.js"></script>
+<script src="/javascript/flight.js"></script>
 </body>
 </html>

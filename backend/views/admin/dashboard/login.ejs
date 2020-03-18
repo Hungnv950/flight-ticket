@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Thinkflight | Đăng nhập</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -32,8 +32,14 @@
             <div class="card-group">
                 <div class="card p-4">
                     <div class="card-body">
+                        <% if(typeof error !== "undefined") {%>
+                        <div class="alert alert-danger" role="alert">
+                            <i class="nav-icon icon-bell"></i>
+                            <%= error %>
+                        </div>
+                        <% } %>
                         <form action="/admin/login" method="post">
-                            <h1>Login</h1>
+                            <h1>Đăng nhập</h1>
                             <p class="text-muted">Sign In to your account</p>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -41,7 +47,7 @@
                                   <i class="icon-user"></i>
                                 </span>
                                 </div>
-                                <input name="username" class="form-control" type="text" placeholder="Username">
+                                <input name="username" class="form-control" type="text" placeholder="Tên đăng nhập">
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -49,14 +55,17 @@
                                   <i class="icon-lock"></i>
                                 </span>
                                 </div>
-                                <input name="password" class="form-control" type="password" placeholder="Password">
+                                <input name="password" class="form-control" type="password" placeholder="Mật khẩu">
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <button class="btn btn-primary px-4" type="submit">Login</button>
+                                    <button class="btn btn-primary px-4" type="submit">
+                                        <i class="nav-icon icon-login"></i>
+                                        Đăng nhập
+                                    </button>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <button class="btn btn-link px-0" type="button">Forgot password?</button>
+                                    <button class="btn btn-link px-0" type="button">Quên mật khẩu?</button>
                                 </div>
                             </div>
                         </form>

@@ -106,11 +106,12 @@
                                         </div>
                                     </div>
                                     <div class="card-body" style="padding: 0;">
-                                        <table class="table table-responsive-sm table-striped"
+                                        <table class="table table-responsive-sm table-striped table-outline"
                                                style="margin-bottom: 0;">
                                             <thead>
                                             <tr>
                                                 <th style="width: 40px;">ID</th>
+                                                <th>Hình ảnh</th>
                                                 <th>Mã CTV</th>
                                                 <th>Họ và tên</th>
                                                 <th>Số điện thoại</th>
@@ -126,10 +127,14 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
+                                                <td></td>
                                             </tr>
                                             <% collaborators.forEach(function(collaborator, key) { %>
                                                 <tr>
                                                     <td><%= key + 1 %></td>
+                                                    <td>
+                                                        <img src="https://ui-avatars.com/api/?size=50&name=<%= collaborator.fullName %>" alt="">
+                                                    </td>
                                                     <td>
                                                         <a href="view/<%= collaborator.id %>">
                                                             <%= collaborator.code %>
@@ -139,12 +144,18 @@
                                                         <%= collaborator.fullName %>
                                                     </td>
                                                     <td>
-                                                        <%= collaborator.phone ? collaborator.phone : "N/A" %>
+                                                        <%= collaborator.phone ? collaborator.phone : "---" %>
                                                     </td>
                                                     <td>
-                                                        <%= collaborator.email ? collaborator.email : "N/A" %>
+                                                        <%= collaborator.email ? collaborator.email : "---" %>
                                                     </td>
-                                                    <td><span class="badge badge-success">Hoạt động</span></td>
+                                                    <td>
+                                                        <% if(collaborator.status == 10){ %>
+                                                            <span class="badge badge-success">Hoạt động</span>
+                                                        <% } else {%>
+                                                            <span class="badge badge-danger">Ngừng hoạt động</span>
+                                                        <% } %>
+                                                    </td>
                                                 </tr>
                                             <% }); %>
                                             </tbody>
