@@ -78,7 +78,7 @@ exports.index = async function (req, res, next) {
                 const resPerPage = 15;
                 const page = req.query.page || 1;
 
-                Flight.find(conditions).skip((resPerPage * page) - resPerPage).limit(resPerPage)populate('bank').populate('user').exec(function (err, flights) {
+                Flight.find(conditions).skip((resPerPage * page) - resPerPage).limit(resPerPage).populate('user').exec(function (err, flights) {
                     if (err) return next(err);
 
                     Flight.count(conditions).exec(function (err, numOfFlights) {
