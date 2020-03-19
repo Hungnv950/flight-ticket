@@ -325,6 +325,12 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
+                                        <% if(typeof changePasswordSuccess !== "undefined") {%>
+                                            <div class="alert alert-success" role="alert">
+                                                <i class="nav-icon icon-bell"></i>
+                                                <%- changePasswordSuccess %>
+                                            </div>
+                                        <% } %>
                                         <div class="nav-tabs-boxed">
                                             <ul class="nav nav-tabs" role="tablist">
                                                 <li class="nav-item">
