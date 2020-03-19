@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Thinkflight | Chuyến bay <%= flight.flightCode %></title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -107,6 +107,155 @@
         .th-text-right {
             text-align: right;
         }
+
+        .info-flight {
+            padding: 25px 0 22px;
+        }
+        .mt-1 {
+            margin-top: .25rem;
+        }
+
+        .info-flight .card__title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .card__title {
+            padding: 0 25px 0 19px;
+            line-height: 28px;
+            font-weight: 700;
+            border-left: 6px solid #ff4827;
+        }
+
+        .info-flight__logo-airline {
+            max-width: 120px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-flight .type {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-grow: 1;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        .info-flight__detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 25px;
+            margin-bottom: 14px;
+        }
+
+        .info-flight .serial__title {
+            color: #919191;
+            font-weight: 300;
+            margin-right: 4px;
+        }
+
+        .info-flight .serial__content {
+            color: #00a6d1;
+            font-weight: 500;
+        }
+
+        .info-flight__location {
+            background-color: rgba(255, 98, 0, 0.24);
+            padding: 20px 25px;
+        }
+
+        .justify-content-between {
+            justify-content: space-between !important;
+        }
+
+        .d-flex {
+            display: flex !important;
+        }
+
+        .info-flight__location .location {
+            font-family: Anton, sans-serif;
+            font-size: 33px;
+            text-transform: uppercase;
+            color: #898989;
+            white-space: nowrap;
+        }
+
+        .info-flight__location .img {
+            margin: 14px 15px 0;
+        }
+
+        .info-flight__time {
+            padding: 12px 25px 0;
+        }
+
+        .info-flight__time .date {
+            margin-top: 20px;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+        .text-blue-sky {
+            color: #00a6d1;
+        }
+
+        .text-smoke-dark {
+            color: #919191;
+        }
+
+        .info-flight__time .start {
+            text-align: left;
+        }
+
+        .info-flight .time-title {
+            font-size: 12px;
+            font-weight: 300;
+            text-transform: uppercase;
+            line-height: 15px;
+            color: #919191;
+        }
+
+        .info-flight .time-content {
+            display: block;
+            font-family: Anton, sans-serif;
+            font-size: 25px;
+            line-height: 38px;
+            margin-top: 7px;
+        }
+
+        .info-flight .time {
+            text-align: center;
+            transform: translateY(14px);
+        }
+
+        .info-flight__time .arrivals {
+            text-align: right;
+            padding-left: 8px;
+        }
+
+        .info-flight .time-spent {
+            color: #919191;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19px;
+            width: 158px;
+            padding: 2px 20px;
+            background-image: url(/images/frame-time.svg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .info-flight .time img {
+            display: block;
+            margin-bottom: 5px;
+            max-height: 30px;
+            max-width: 158px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -187,7 +336,57 @@
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <br>
+                                                        <div class="info-flight mt-1">
+                                                            <div class="card__title">
+                                                                <div class="info-flight__logo-airline">
+                                                                    <img src="/images/logo-vietnam-airlines.png">
+                                                                </div>
+                                                                <div class="type">
+                                                                    <label><span class="serial__title">Ghế</span> <strong><%= flight.seatType %></strong></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="info-flight__detail">
+                                                                <div class="serial">
+                                                                    <span class="serial__title">Chuyến bay</span>
+                                                                    <span class="serial__content"><%= flight.flightCode %></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="info-flight__location">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <span class="location"><%= flight.departure.code %></span>
+                                                                    <div class="img">
+                                                                        <img src="/images/img-flight-between-2-location.svg">
+                                                                    </div>
+                                                                    <span class="location"><%= flight.destinations.code %></span>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <span class="location-full"><%= flight.departure.name %></span>
+                                                                    <span class="location-full"><%= flight.destinations.name %></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="info-flight__time">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="start">
+                                                                        <span class="time-title">KHỞI HÀNH</span>
+                                                                        <span class="time-content"><%= _.convertTime(flight.hoursAway) %></span>
+                                                                    </div>
+                                                                    <div class="time">
+                                                                        <img src="/images/logo-vietnam-airlines-short.png">
+                                                                        <div class="time-spent">2h40m</div>
+                                                                    </div>
+                                                                    <div class="arrivals">
+                                                                        <span class="time-title">ĐẾN NƠI</span>
+                                                                        <span class="time-content"><%=_.convertTime(flight.arrivalTime) %></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between date">
+                                                                    <span class="text-blue-sky"><%= _.convertDate(flight.hoursAway) %></span>
+                                                                    <span class="text-smoke-dark">Bay thẳng</span>
+                                                                    <span class="text-blue-sky"><%=_.convertDate(flight.arrivalTime) %></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
                                                         <h6 class="text-uppercase">Thông tin liên hệ khách hàng</h6>
                                                     </div>
                                                     <div class="col-md-4">
@@ -215,44 +414,6 @@
                                                             <label class="form-label control-label">Email:</label>
                                                             <div class="form-wrap form-control-static">
                                                                 <%= flight.email %>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="form-label control-label">Hãng hàng không:</label>
-                                                            <div class="form-wrap form-control-static">
-                                                                <div>
-                                                                    <strong><%= flight.airline %></strong>
-                                                                </div>
-                                                                <div class="small text-muted">
-                                                                    <strong><%= flight.seatType %></strong>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group">
-                                                            <label class="form-label control-label">Lịch trình:</label>
-                                                            <div class="form-wrap form-control-static">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div>
-                                                                            <%= flight.departure %>
-                                                                        </div>
-                                                                        <div class="small text-muted">
-                                                                           <strong> <%= _.convertTime(flight.hoursAway) %> <%= _.convertDate(flight.hoursAway) %></strong>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div>
-                                                                            <%= flight.destinations %>
-                                                                        </div>
-                                                                        <div class="small text-muted">
-                                                                            <strong><%=_.convertTime(flight.arrivalTime) %> <%=_.convertDate(flight.arrivalTime) %></strong>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

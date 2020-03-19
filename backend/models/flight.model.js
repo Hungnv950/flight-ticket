@@ -36,10 +36,10 @@ let FlightSchema = new Schema({
         default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
     },
     departure:{
-        type: String
+        type: Object
     },
     destinations:{
-        type: String
+        type: Object
     },
     gender: {
         type: Number,
@@ -79,6 +79,10 @@ let FlightSchema = new Schema({
     },
     passengers: Object,
     totalMoney: {
+        type: Number,
+        default: 0
+    },
+    discount: {
         type: Number,
         default: 0
     },

@@ -1,5 +1,7 @@
 const User = require('../../models/user.model');
 
+const ejsHelpers = require('../../helpers/ejs-helpers');
+
 exports.index = function (req, res, next) {
     User.findById(req.session.userid).exec(function (error, user) {
         if (error) {
@@ -47,6 +49,8 @@ exports.createPost = function (req, res, next) {
                         password: req.body.username,
                         address: req.body.address,
                         note: req.body.note,
+                        discount:req.body.discount ? req.body.discount : 0,
+                        commission:req.body.commission ? req.body.commission : 0,
                         roleId: 2,
                         status: 10
                     });
@@ -105,18 +109,18 @@ exports.updatePost = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
-                    if (err) return next(err);
+                let queries = {
+                    note:req.body.note,
+                    address:req.body.address,
+                    fullName:req.body.fullName,
+                    discount:req.body.discount ? req.body.discount : 0,
+                    commission:req.body.commission ? req.body.commission : 0
+                };
 
-                    collaborator.note = req.body.note;
-                    collaborator.address = req.body.address;
-                    collaborator.fullName = req.body.fullName;
+                User.updateOne({_id: req.params.id}, {$set: queries},function (err) {
+                    if (err) return console.error(err);
 
-                    collaborator.update(function (err) {
-                        if (err) return console.error(err);
-
-                        return res.redirect('/admin/collaborator/index');
-                    });
+                    return res.redirect('/admin/collaborator/view/'+req.params.id);
                 });
             }
         }
@@ -134,7 +138,7 @@ exports.view = function (req, res, next) {
                 User.findById(req.params.id).populate('customers').populate('banks').populate('transactions').exec( function (err, collaborator) {
                     if (err) return next(err);
 
-                    res.render('admin/collaborator/view', {collaborator: collaborator,userLogin: user});
+                    res.render('admin/collaborator/view', {_ : ejsHelpers, collaborator: collaborator,userLogin: user,changePasswordSuccess: req.flash('changePasswordSuccess')});
                 })
             }
         }
@@ -152,7 +156,7 @@ exports.changePassword = function (req, res, next) {
                 User.findById(req.params.id, function (err, collaborator) {
                     if (err) return next(err);
 
-                    res.render('admin/collaborator/change-password', {collaborator: collaborator,userLogin: user});
+                    res.render('admin/collaborator/change-password', {collaborator: collaborator,userLogin: user,validateFormError: req.flash('validateFormError')});
                 })
             }
         }
@@ -167,19 +171,33 @@ exports.changePasswordPost = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
-                User.findById(req.params.id, function (err, collaborator) {
-                    if (err) return next(err);
+                if (req.body.password && req.body.rePassword) {
 
-                    collaborator.note = req.body.note;
-                    collaborator.address = req.body.address;
-                    collaborator.fullName = req.body.fullName;
+                    if(req.body.password.length < 6){
+                        req.flash('validateFormError', 'Vui lòng nhập mật khẩu tối thiểu 6 kí tự!');
 
-                    collaborator.update(function (err) {
+                        res.redirect('/admin/collaborator/change-password/'+req.params.id);
+                    }
+
+                    if(req.body.password !== req.body.rePassword){
+                        req.flash('validateFormError', 'Mật khẩu không giống nhau!');
+
+                        res.redirect('/admin/collaborator/change-password/'+req.params.id);
+                    }
+
+                    User.updateOne({_id: req.params.id}, {$set:{ password: req.body.password }},function (err) {
                         if (err) return console.error(err);
+
+                        req.flash('changePasswordSuccess', 'Đổi mật khẩu thành công!');
 
                         return res.redirect('/admin/collaborator/view/'+req.params.id);
                     });
-                });
+                }
+                else{
+                    req.flash('validateFormError', 'Vui lòng nhập đầy đủ thông tin có dấu (*)!');
+
+                    res.redirect('/admin/collaborator/change-password/'+req.params.id);
+                }
             }
         }
     });
@@ -199,8 +217,6 @@ exports.deActive = function (req, res, next) {
 
                 User.findById(req.params.id, function (err, user) {
                     if (err) return next(err);
-
-                    console.log(user);
 
                     User.updateOne({_id:user._id}, {$set:{ status: (user.status === 10 ? 0 : 10) }},function (err) {
                         if (err) return console.error(err);

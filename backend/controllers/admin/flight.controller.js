@@ -25,8 +25,14 @@ exports.index = function (req, res, next) {
                                     seatType:"Hạng thương gia",
                                     hoursAway:new Date(moment().set({'hour': moment().hour()+7+24}).toDate()),
                                     arrivalTime:new Date(moment().set({'hour': moment().hour()+7+26}).toDate()),
-                                    departure:"HAN - Hà Nội",
-                                    destinations:"SGN - Thành phố Hồ Chí Minh",
+                                    departure:{
+                                        code:"SGN",
+                                        name:"TP Hồ Chí Minh"
+                                    },
+                                    destinations:{
+                                        code:"HNN",
+                                        name:"Hà Nội"
+                                    },
                                     fullName: user.fullName,
                                     phone: user.phone,
                                     email: user.phone+"@thinkflight.com",
@@ -35,20 +41,26 @@ exports.index = function (req, res, next) {
                                         {
                                             firstName: "Lê",
                                             lastName:"Văn Việt",
-                                            gender: 1
+                                            gender: 1,
+                                            price:1450000,
                                         },
                                         {
                                             firstName: "Lê",
                                             lastName:"Văn Việt",
-                                            gender: 1
+                                            gender: 1,
+                                            price:1450000,
                                         }
                                     ],
-                                    totalMoney:1450000,
-                                    status:1
+                                    totalMoney:2900000-collaborator.discount,
+                                    discount:collaborator.discount,
+                                    status:2
                                 });
 
                                 flight.save(function (err) {
                                     if (err) return console.error(err);
+
+                                    collaborator.wallet+=collaborator.commission;
+                                    collaborator.save();
 
                                     user.flights.push(flight);
                                     user.save();
@@ -59,7 +71,7 @@ exports.index = function (req, res, next) {
                 });
 
                 Flight.find({}).populate('user').exec(function (err, flights) {
-                    res.render('admin/flight/index', {_ : ejsHelpers,flights: flights,userLogin: user});
+                    res.render('admin/flight/index', {_ : ejsHelpers, flights: flights,userLogin: user});
                 });
             }
         }

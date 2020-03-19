@@ -7,7 +7,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Thinkflight | Khách hàng</title>
     <!-- Icons-->
     <link rel="icon" type="image/ico" href="./img/favicon.ico" sizes="any"/>
     <link href="/stylesheets/coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -53,7 +53,7 @@
             </li>
             <li class="breadcrumb-item active">Khách hàng</li>
         </ol>
-        <div class="container-fluid">
+        <div class="container-fluid" data-ng-app="userApp" data-ng-controller="userCtrl">
             <div id="ui-view">
                 <div>
                     <div class="fade-in">
@@ -69,8 +69,8 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input class="form-control" id="name" type="text"
-                                                           placeholder="Theo tên, số điện thoại KH">
+                                                    <input ng-model="userSearch" ng-enter="getStatistical()" class="form-control" id="name" type="text"
+                                                           placeholder="Theo tên, SĐT khách hàng">
                                                 </div>
                                             </div>
                                         </div>
@@ -79,31 +79,27 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="">Theo trạng thái</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" id="radio1" type="radio" value="radio1" name="radios">
-                                                        <label class="form-check-label" for="radio1">Tất cả</label>
+                                                    <div class="form-group">
+                                                        <div class="form-check">
+                                                            <input ng-model="queries.status" ng-change="getStatistical()" class="form-check-input" id="radio1" type="radio" value="all" name="status">
+                                                            <label class="form-check-label" for="radio1">Tất cả</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" id="radio1" type="radio" value="radio1" name="radios">
-                                                        <label class="form-check-label" for="radio1">Hoạt động</label>
+                                                    <div class="form-group">
+                                                        <div class="form-check">
+                                                            <input ng-model="queries.status" ng-change="getStatistical()" class="form-check-input" id="radio1" type="radio" value="10" name="status">
+                                                            <label class="form-check-label" for="radio1">Đang hoạt động</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" id="radio2" type="radio" value="radio2" name="radios">
-                                                        <label class="form-check-label" for="radio2">Ngừng hoạt động</label>
+                                                    <div class="form-group">
+                                                        <div class="form-check">
+                                                            <input ng-model="queries.status" ng-change="getStatistical()" class="form-check-input" id="radio2" type="radio" value="0" name="status">
+                                                            <label class="form-check-label" for="radio2">Ngừng hoạt động</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
-                                            <i class="nav-icon icon-check"></i>
-                                            Tìm kiếm
-                                        </button>
-                                        <button class="btn btn-sm btn-danger pull-left" type="reset">
-                                            <i class="nav-icon icon-close"></i>
-                                            Khôi phục
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -134,24 +130,21 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <% users.forEach(function(user, key) { %>
-                                                <tr>
-                                                    <td><%= key + 1 %></td>
-                                                    <td>
-                                                        <a href="view/<%= user.id %>">
-                                                            <%= user.phone ? user.phone : 'N/A' %>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <%= user.fullName %>
-                                                    </td>
-
-                                                    <td>
-                                                        <%= user.email ? user.email : 'N/A' %>
-                                                    </td>
-                                                    <td><span class="badge badge-success">Hoạt động</span></td>
-                                                </tr>
-                                            <% }); %>
+                                            <tr ng-repeat="(key,user) in responses.users">
+                                                <td>{{key+1}}</td>
+                                                <td>
+                                                    <a href="view/{{ user._id }}">
+                                                        {{ user.phone }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    {{ user.fullName }}
+                                                </td>
+                                                <td>
+                                                    {{ user.email ? user.email : '---' }}
+                                                </td>
+                                                <td><span class="badge badge-success">Hoạt động</span></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -174,16 +167,10 @@
         <a href="#">ThinkFlight</a>
     </div>
 </footer>
-<!-- CoreUI and necessary plugins-->
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
-<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="node_modules/pace-progress/pace.min.js"></script>
-<script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-<script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
 <!-- Plugins and scripts required by this view-->
-<script src="node_modules/chart.js/dist/Chart.min.js"></script>
-<script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/javascript/jquery.js"></script>
+<script src="/javascript/coreui.bundle.js"></script>
+<script src="/javascript/angular.min.js"></script>
+<script src="/javascript/user.js"></script>
 </body>
 </html>

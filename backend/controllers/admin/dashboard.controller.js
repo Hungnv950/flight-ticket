@@ -19,7 +19,7 @@ exports.login = function (req, res) {
 };
 
 exports.loginPost = function (req, res) {
-    if (req.body.username && req.body.username) {
+    if (req.body.username && req.body.password) {
         User.authenticate(req.body.username, req.body.password, function (error, user) {
             if (error || !user) {
                 res.render('admin/dashboard/login',{error: 'Sai tên đăng nhập hoặc mật khẩu!'});
