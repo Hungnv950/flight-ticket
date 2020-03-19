@@ -51,9 +51,13 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer', fu
     $scope.responses = {};
 
     $scope.queries = {
-        status:null,
+        status:0,
         flightSearch:null,
-        collaboratorCode:null
+        collaboratorCode:null,
+        dateQuick:"all",
+        startDay:null,
+        endDay:null,
+        page:1
     };
 
     $scope.searching = false;
@@ -78,4 +82,10 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer', fu
             $('#ui-view').css('display', 'block');
         }
     });
+
+    $scope.changePageActive = function (page) {
+        $scope.queries.page = page;
+
+        $scope.getStatistical();
+    };
 }]);
