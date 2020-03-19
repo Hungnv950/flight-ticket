@@ -139,7 +139,7 @@ exports.deActive = function (req, res, next) {
                 User.findById(req.params.id, function (err, user) {
                     if (err) return next(err);
 
-                    User.updateOne({id:user.id}, { status: user.status === 10 ? 0 : 10 },function (err) {
+                    User.updateOne({_id:user._id}, {$set:{ status: (user.status === 10 ? 0 : 10) }},function (err) {
                         if (err) return console.error(err);
 
                         return res.redirect('/admin/user/view/'+req.params.id);

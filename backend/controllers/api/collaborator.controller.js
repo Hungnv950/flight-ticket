@@ -4,7 +4,7 @@ const User = require('../../models/user.model');
 const Flight = require('../../models/flight.model');
 const Transaction = require('../../models/transaction.model');
 
-exports.collaborator = function (req, res, next) {
+exports.index = function (req, res, next) {
     User.findById(req.session.userid).exec(function (error, user) {
         if (error) {
             return next(error);

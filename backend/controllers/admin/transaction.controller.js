@@ -35,7 +35,14 @@ exports.create = function (req, res, next) {
                     return res.redirect('/admin/dashboard');
                 }
 
-                res.render('admin/transaction/create', {userLogin: user});
+                if(!user.banks.length){
+                    req.flash('createBankFirst', 'Vui lòng thêm tài khoản ngân hàng trước khi thực hiện rút tiền!');
+
+                    res.redirect('/admin/bank/create');
+
+                }
+
+                res.render('admin/transaction/create', {userLogin: user,notEnoughMoney: req.flash('notEnoughMoney'),validateFormError: req.flash('validateFormError')});
             }
         }
     });
@@ -53,22 +60,35 @@ exports.createPost = function (req, res, next) {
                     return res.redirect('/admin/dashboard');
                 }
 
-                if (req.body.bankId && req.body.amount) {
+                if (req.body.bankId && req.body.amount > 0) {
+                    if(req.body.amount <= user.wallet){
+                        let transaction = new Transaction({
+                            user:user._id,
+                            bank:req.body.bankId,
+                            amount:req.body.amount
+                        });
 
-                    let transaction = new Transaction({
-                        user:user._id,
-                        bank:req.body.bankId,
-                        amount:req.body.amount
-                    });
 
-                    transaction.save(function (err) {
-                        if (err) return console.error(err);
+                        transaction.save(function (err) {
+                            if (err) return console.error(err);
 
-                        user.transactions.push(transaction);
-                        user.save();
+                            user.transactions.push(transaction);
+                            user.save();
 
-                        return res.redirect('/admin/transaction/index');
-                    });
+                            return res.redirect('/admin/transaction/index');
+                        });
+                    }
+                    else{
+                        req.flash('notEnoughMoney', 'Bạn rút số tiền ₫<strong>'+ejsHelpers.formatNumber(req.body.amount)+'</strong> vượt quá số dư cho phép ₫<strong>'+ejsHelpers.formatNumber(user.wallet)+'</strong>');
+
+                        res.redirect('/admin/transaction/create');
+                    }
+
+                }
+                else{
+                    req.flash('validateFormError', 'Vui lòng nhập số tiền bạn muốn rút!');
+
+                    res.redirect('/admin/transaction/create');
                 }
             }
         }
