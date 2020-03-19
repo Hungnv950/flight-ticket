@@ -82,6 +82,10 @@ let FlightSchema = new Schema({
         type: Number,
         default: 0
     },
+    discount: {
+        type: Number,
+        default: 0
+    },
     status: {
         type: Number,
         required: true,

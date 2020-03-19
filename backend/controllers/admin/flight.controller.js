@@ -43,12 +43,16 @@ exports.index = function (req, res, next) {
                                             gender: 1
                                         }
                                     ],
-                                    totalMoney:1450000,
-                                    status:1
+                                    totalMoney:2900000,
+                                    discount:collaborator.discount,
+                                    status:2
                                 });
 
                                 flight.save(function (err) {
                                     if (err) return console.error(err);
+
+                                    collaborator.wallet+=collaborator.commission;
+                                    collaborator.save();
 
                                     user.flights.push(flight);
                                     user.save();
@@ -59,7 +63,7 @@ exports.index = function (req, res, next) {
                 });
 
                 Flight.find({}).populate('user').exec(function (err, flights) {
-                    res.render('admin/flight/index', {_ : ejsHelpers,flights: flights,userLogin: user});
+                    res.render('admin/flight/index', {_ : ejsHelpers, flights: flights,userLogin: user});
                 });
             }
         }

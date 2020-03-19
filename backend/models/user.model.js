@@ -66,6 +66,10 @@ let UserSchema = new Schema({
         type:Number,
         default:0
     },
+    discount:{
+        type:Number,
+        default:0
+    },
     flights: [{ type: Schema.Types.ObjectId, ref: 'Flight' }],
     banks:[{ type: Schema.Types.ObjectId, ref: 'Bank' }],
     transactions:[{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
