@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div id="sidebar" class="sidebar">
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-item">
@@ -67,3 +67,23 @@
     </nav>
     <a class="sidebar-minimizer brand-minimizer" href=""></a>
 </div>
+
+<style>
+    .is-active{
+        margin-left: 0!important;
+    }
+</style>
+
+<script>
+    const $menu = $('#sidebar');
+
+    $(document).mouseup(e => {
+        if (!$menu.is(e.target) && $menu.has(e.target).length === 0) {
+            $menu.removeClass('is-active');
+        }
+    });
+
+    $('#sidebar-toggler').on('click', () => {
+        $menu.toggleClass('is-active');
+    });
+</script>
