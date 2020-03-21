@@ -91,6 +91,6 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$f
     };
 
     $scope.showAndHideSearchDate = function () {
-        $scope.searchDateAdvanced = !$scope.searchDateAdvanced;
+        $scope.queries.searchDateAdvanced = !$scope.queries.searchDateAdvanced;
     };
 }]);

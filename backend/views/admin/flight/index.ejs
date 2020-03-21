@@ -98,7 +98,7 @@
                                                         Tìm tùy chọn
                                                     </a>
                                                 </label>
-                                                <div class="form-group" ng-show="!searchDateAdvanced">
+                                                <div class="form-group" ng-show="!queries.searchDateAdvanced">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <select ng-model="queries.dateQuick" ng-change="getStatistical()" class="form-control" id="dateQuick">
@@ -112,7 +112,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group" ng-show="searchDateAdvanced">
+                                                <div class="form-group" ng-show="queries.searchDateAdvanced">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
