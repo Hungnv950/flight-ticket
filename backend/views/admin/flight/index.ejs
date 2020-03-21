@@ -48,6 +48,10 @@
         .btn-search-date-advanced:hover{
             text-decoration: none;
         }
+
+        .highlightedText {
+            background: yellow;
+        }
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -199,9 +203,7 @@
                                             <tr ng-repeat="(key,flight) in responses.flights">
                                                 <td>{{ key+1 }}</td>
                                                 <td>
-                                                    <a href="view/{{ flight._id }}">
-                                                        {{ flight.flightCode }}
-                                                    </a>
+                                                    <a href="view/{{ flight._id }}" ng-bind-html="highlight(flight.flightCode, queries.flightSearch)"></a>
                                                 </td>
                                                 <td>
                                                     <div>
@@ -209,9 +211,7 @@
                                                             {{ flight.fullName }}
                                                         </a>
                                                     </div>
-                                                    <div class="small text-muted" style="font-size: 90%;">
-                                                        {{ flight.phone }}
-                                                    </div>
+                                                    <div class="small text-muted" style="font-size: 90%;" ng-bind-html="highlight(flight.phone, queries.flightSearch)"></div>
                                                 </td>
                                                 <td>
                                                     {{ flight.collaboratorCode ? flight.collaboratorCode : "---" }}
