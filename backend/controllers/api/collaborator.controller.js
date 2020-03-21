@@ -38,19 +38,23 @@ exports.index = function (req, res, next) {
 
                             break;
                         case "month":
-                            gte = moment().set({'day':moment().day() - moment().days(),'hour': 7, 'minute': 0,'second':0}).toDate();
+                            gte = moment().startOf('month').set({'hour': 7}).toDate();
 
-                            lte = moment().set({'day':moment().day()-1,'hour': 30, 'minute': 59,'second':59}).toDate();
+                            lte = moment().set({'day':moment().day(),'hour': 30, 'minute': 59,'second':59}).toDate();
 
                             break;
                         case "last-month":
-                            gte = moment().set({'day':moment().day() - moment().days(),'hour': 7, 'minute': 0,'second':0}).toDate();
+                            gte = moment().subtract(1,'months').startOf('month').set({'hour': 7}).toDate();
 
-                            lte = moment().set({'day':moment().day()-1,'hour': 30, 'minute': 59,'second':59}).toDate();
+                            lte = moment().subtract(1,'months').endOf('month').set({'hour': 30, 'minute': 59,'second':59}).toDate();
+
                             break;
                         default:
                             break;
                     }
+
+                    console.log(gte);
+                    console.log(lte);
 
                     Flight.find({"createdAt": {"$gte": new Date(gte), "$lte": new Date(lte)},"collaboratorCode":collaborator.code}).exec(function (err, flights) {
                         let data = {

@@ -609,8 +609,8 @@
                                                             <th style="width: 40px;">STT</th>
                                                             <th>Thông tin giao dịch</th>
                                                             <th>Ngày giao dịch</th>
-                                                            <th class="th-text-right">Tổng tiền</th>
                                                             <th>Trạng thái</th>
+                                                            <th class="th-text-right">Tổng tiền</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -618,29 +618,26 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
-                                                            <td class="th-text-right">0</td>
                                                             <td></td>
+                                                            <td class="th-text-right">0</td>
                                                         </tr>
                                                         <tr ng-repeat="(key, transaction) in responses.transactions">
                                                             <td>{{ key+1 }}</td>
                                                             <td>
                                                                 <div>
-                                                                    {{ transaction.bank.name }}
+                                                                    {{ transaction.bank.name }} - {{ transaction.bank.branch }}
                                                                 </div>
                                                                 <div class="small text-muted" style="font-size: 90%;">
                                                                     <strong>{{ transaction.bank.accountNumber }}</strong> - {{ transaction.bank.accountHolder }}
-                                                                </div>
-                                                                <div class="small text-muted" style="font-size: 90%;">
-                                                                    Chi nhánh: {{ transaction.bank.branch }}
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 {{ transaction.createdAt }}
                                                             </td>
-                                                            <td class="th-text-right">
-                                                                <strong>₫</strong>{{ transaction.amount }}
-                                                            </td>
                                                             <td><span class="badge badge-success">Chờ xử lý</span></td>
+                                                            <td class="th-text-right">
+                                                                ₫ <strong>{{ transaction.amount | number }}</strong>
+                                                            </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
