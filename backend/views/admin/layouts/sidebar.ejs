@@ -68,14 +68,22 @@
     <a class="sidebar-minimizer brand-minimizer" href=""></a>
 </div>
 
-<script>
-    let isShow = false;
-
-    function showAndHideMenu() {
-        document.getElementById("sidebar").style.marginLeft = (isShow ? "0px" : "-200px");
-
-        isShow = !isShow;
+<style>
+    .is-active{
+        margin-left: 0!important;
     }
+</style>
 
+<script>
+    const $menu = $('#sidebar');
 
+    $(document).mouseup(e => {
+        if (!$menu.is(e.target) && $menu.has(e.target).length === 0) {
+            $menu.removeClass('is-active');
+        }
+    });
+
+    $('#sidebar-toggler').on('click', () => {
+        $menu.toggleClass('is-active');
+    });
 </script>
