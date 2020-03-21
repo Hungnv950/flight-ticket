@@ -46,7 +46,7 @@ let flightApp = angular.module('flightApp', []).run(function ($rootScope) {
     };
 });
 
-flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$filter', function ($scope, $http, $httpParamSerializer, $filter) {
+flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$sce', function ($scope, $http, $httpParamSerializer, $sce) {
 
     $scope.responses = {};
 
@@ -58,7 +58,7 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$f
         dateQuick: "all",
         flightSearch: null,
         collaboratorCode: null,
-        searchDateAdvanced: false
+        searchDateAdvanced: 0
     };
 
     $scope.searching = false;
@@ -91,6 +91,13 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$f
     };
 
     $scope.showAndHideSearchDate = function () {
-        $scope.queries.searchDateAdvanced = !$scope.queries.searchDateAdvanced;
+        $scope.queries.searchDateAdvanced = $scope.queries.searchDateAdvanced === 1 ? 0 : 1;
+    };
+
+    $scope.highlight = function(text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
     };
 }]);

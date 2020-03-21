@@ -32,7 +32,7 @@ exports.index = async function (req, res, next) {
                     conditions.status = query.status;
                 }
 
-                if(query.searchDateAdvanced){
+                if(parseInt(query.searchDateAdvanced)){
                     conditions.createdAt = {"$gte": new Date(query.startDate), "$lte": new Date(query.endDate)};
                 }
                 else{
