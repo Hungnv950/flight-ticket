@@ -53,8 +53,8 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$f
     $scope.queries = {
         page: 1,
         status: 0,
-        endDay: null,
-        startDay: null,
+        endDate: null,
+        startDate: null,
         dateQuick: "all",
         flightSearch: null,
         collaboratorCode: null,
