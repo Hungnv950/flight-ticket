@@ -116,7 +116,6 @@
         }
 
         .info-flight .card__title {
-            display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
         }
@@ -137,11 +136,9 @@
 
         .info-flight .type {
             display: flex;
-            justify-content: flex-end;
             align-items: center;
             flex-grow: 1;
             white-space: nowrap;
-            margin-left: 10px;
         }
 
         .info-flight__detail {
@@ -240,9 +237,8 @@
             font-size: 16px;
             font-weight: 700;
             line-height: 19px;
-            width: 158px;
+            margin: 18px;
             padding: 2px 20px;
-            background-image: url(/images/frame-time.svg);
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
@@ -256,6 +252,48 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .info-flight__location .col-md-4, .info-flight__time .col-md-4{
+            text-align: center;
+        }
+
+        .info-flight__time .col-md-4 .img{
+            padding: 1rem 0;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px){
+            .info-flight .type {
+                margin-left: 10px;
+                justify-content: flex-end;
+            }
+
+            .info-flight__location .col-md-4:first-child{
+                text-align: left;
+            }
+
+            .info-flight__location .col-md-4:last-child{
+                text-align: right;
+            }
+
+            .info-flight__time .col-md-4:first-child{
+                text-align: left;
+            }
+
+            .info-flight__time .col-md-4:last-child{
+                text-align: right;
+            }
+
+            .info-flight__time .col-md-4 .img{
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+        }
+
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -325,7 +363,7 @@
                                                     <label class="form-label control-label">Trạng thái:</label>
                                                     <div class="form-wrap form-control-static">
                                                         <div class="input-group mb-3" id="product_coupon">
-                                                            <button class="btn btn-danger active" type="button">
+                                                            <button class="btn btn-block btn-danger" type="button">
                                                                 <i class="nav-icon icon-clock"></i>
                                                                 Đang đặt chỗ
                                                             </button>
@@ -338,11 +376,17 @@
                                                     <div class="col-md-12">
                                                         <div class="info-flight mt-1">
                                                             <div class="card__title">
-                                                                <div class="info-flight__logo-airline">
-                                                                    <img src="/images/logo-vietnam-airlines.png">
-                                                                </div>
-                                                                <div class="type">
-                                                                    <label><span class="serial__title">Ghế</span> <strong><%= flight.seatType %></strong></label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="info-flight__logo-airline">
+                                                                            <img src="/images/logo-vietnam-airlines.png">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="type">
+                                                                            <label><span class="serial__title">Ghế</span> <strong><%= flight.seatType %></strong></label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="info-flight__detail">
@@ -352,37 +396,47 @@
                                                                 </div>
                                                             </div>
                                                             <div class="info-flight__location">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <span class="location"><%= flight.departure.code %></span>
-                                                                    <div class="img">
-                                                                        <img src="/images/img-flight-between-2-location.svg">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <span class="location"><%= flight.departure.code %></span>
+                                                                        <br>
+                                                                        <span class="location-full"><%= flight.departure.name %></span>
                                                                     </div>
-                                                                    <span class="location"><%= flight.destinations.code %></span>
-                                                                </div>
-                                                                <div class="d-flex justify-content-between">
-                                                                    <span class="location-full"><%= flight.departure.name %></span>
-                                                                    <span class="location-full"><%= flight.destinations.name %></span>
+                                                                    <div class="col-md-4">
+                                                                        <div class="img">
+                                                                            <img src="/images/img-flight-between-2-location.svg">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <span class="location"><%= flight.destinations.code %></span>
+                                                                        <br>
+                                                                        <span class="location-full"><%= flight.destinations.name %></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="info-flight__time">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <div class="start">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
                                                                         <span class="time-title">KHỞI HÀNH</span>
                                                                         <span class="time-content"><%= _.convertTime(flight.hoursAway) %></span>
+                                                                        <br>
+                                                                        <span class="text-blue-sky"><%= _.convertDate(flight.hoursAway) %></span>
                                                                     </div>
-                                                                    <div class="time">
-                                                                        <img src="/images/logo-vietnam-airlines-short.png">
-                                                                        <div class="time-spent">2h40m</div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="img">
+                                                                            <img src="/images/logo-vietnam-airlines-short.png">
+                                                                            <div class="time-spent">
+                                                                                <span class="badge badge-danger">2h40m</span>
+                                                                            </div>
+                                                                            <span class="text-smoke-dark">Bay thẳng</span>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="arrivals">
+                                                                    <div class="col-md-4">
                                                                         <span class="time-title">ĐẾN NƠI</span>
                                                                         <span class="time-content"><%=_.convertTime(flight.arrivalTime) %></span>
+                                                                        <br>
+                                                                        <span class="text-blue-sky"><%=_.convertDate(flight.arrivalTime) %></span>
                                                                     </div>
-                                                                </div>
-                                                                <div class="d-flex justify-content-between date">
-                                                                    <span class="text-blue-sky"><%= _.convertDate(flight.hoursAway) %></span>
-                                                                    <span class="text-smoke-dark">Bay thẳng</span>
-                                                                    <span class="text-blue-sky"><%=_.convertDate(flight.arrivalTime) %></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -441,15 +495,18 @@
                                                         <%= passenger.firstName + " " + passenger.lastName %>
                                                     </td>
                                                     <td class="th-text-right">
-                                                        ₫<%= _.formatNumber(passenger.price) %>
+                                                        ₫ <strong><%= _.formatNumber(passenger.price) %></strong>
                                                     </td>
                                                 </tr>
                                             <% }); %>
                                             <tr>
                                                 <td colspan="2">
-                                                    Giảm giá theo <span class="text-orange font-weight-regular">ID giới thiệu <strong><%= flight.collaboratorCode %></strong></span>
+                                                    Giảm giá theo <span class="text-orange font-weight-regular">
+                                                        ID giới thiệu
+                                                        <strong style="color: #e55353;"><%= flight.collaboratorCode %></strong>
+                                                    </span>
                                                 </td>
-                                                <td class="th-text-right">-₫<%= _.formatNumber(flight.discount) %></td>
+                                                <td class="th-text-right">-₫ <strong><%= _.formatNumber(flight.discount) %></strong></td>
                                             </tr>
                                             <tr style="background-color: rgba(255, 219, 196, 0.46);">
                                                 <td colspan="2">
@@ -461,7 +518,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="th-text-right">
-                                                    <span style="font-weight: 700;font-size: 18px;color: #00a6d1;white-space: nowrap;">₫<%= _.formatNumber(flight.totalMoney) %></span>
+                                                    <span style="font-weight: 700;font-size: 18px;color: #00a6d1;white-space: nowrap;">₫ <%= _.formatNumber(flight.totalMoney) %></span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -476,15 +533,6 @@
         </div>
     </main>
 </div>
-<footer class="app-footer">
-    <div>
-        <a href="#">ThinkFlight</a>
-        <span>&copy; 2020 creativeLabs.</span>
-    </div>
-    <div class="ml-auto">
-        <span>Powered by</span>
-        <a href="#">ThinkFlight</a>
-    </div>
-</footer>
+<% include ../layouts/footer %>
 </body>
 </html>
