@@ -46,17 +46,19 @@ let flightApp = angular.module('flightApp', []).run(function ($rootScope) {
     };
 });
 
-flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer', function ($scope, $http,$httpParamSerializer) {
+flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$filter', function ($scope, $http, $httpParamSerializer, $filter) {
 
     $scope.responses = {};
+
+    $scope.searchDateAdvanced = false;
 
     $scope.queries = {
         status:0,
         flightSearch:null,
         collaboratorCode:null,
         dateQuick:"all",
-        startDay:null,
-        endDay:null,
+        startDay: null,
+        endDay: null,
         page:1
     };
 

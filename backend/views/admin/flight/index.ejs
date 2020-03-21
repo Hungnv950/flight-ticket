@@ -44,6 +44,10 @@
         .th-text-right {
             text-align: right;
         }
+
+        .btn-search-date-advanced:hover{
+            text-decoration: none;
+        }
     </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -87,8 +91,14 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <label for=""><strong>Thời gian đặt vé</strong></label>
-                                                <div class="form-group">
+                                                <label style="width: 100%;">
+                                                    <strong>Thời gian đặt vé</strong>
+                                                    <a class="pull-right btn-search-date-advanced" href="javascript:void(0)">
+                                                        <span class="nav-icon icon-calendar"></span>
+                                                        Tìm nâng cao
+                                                    </a>
+                                                </label>
+                                                <div class="form-group" ng-show="!searchDateAdvanced">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <select ng-model="queries.dateQuick" ng-change="getStatistical()" class="form-control" id="dateQuick">
@@ -102,15 +112,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group" ng-show="searchDateAdvanced">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label for="">Từ ngày</label>
-                                                            <input type="date" class="form-control">
+                                                            <input ng-model="queries.startDate" ng-change="getStatistical()" type="date" class="form-control">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="">Đến ngày</label>
-                                                            <input type="date" class="form-control">
+                                                            <input ng-model="queries.endDate" ng-change="getStatistical()" type="date" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -259,7 +269,6 @@
 </footer>
 <!-- Plugins and scripts required by this view-->
 <script src="/javascript/jquery.js"></script>
-<script src="/javascript/coreui.bundle.js"></script>
 <script src="/javascript/angular.min.js"></script>
 <script src="/javascript/flight.js"></script>
 </body>
