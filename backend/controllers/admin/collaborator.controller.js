@@ -50,6 +50,7 @@ exports.createPost = function (req, res, next) {
                     username: req.body.username,
                     phone: req.body.username,
                     password: req.body.username,
+                    email: req.body.email,
                     address: req.body.address,
                     note: req.body.note,
                     discount: req.body.discount ? req.body.discount : 0,
