@@ -57,8 +57,8 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$s
         startDate: null,
         dateQuick: "all",
         flightSearch: null,
-        collaboratorCode: null,
-        searchDateAdvanced: 0
+        searchDateAdvanced: 0,
+        collaboratorCode: null
     };
 
     $scope.searching = false;
@@ -66,6 +66,10 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$s
     $scope.pageLoading = true;
 
     $scope.getStatistical = function () {
+        if($scope.queries.searchDateAdvanced && (!$scope.queries.startDate || !$scope.queries.endDate)){
+            return;
+        }
+
         $scope.searching = true;
         $scope.pageLoading = true;
 
