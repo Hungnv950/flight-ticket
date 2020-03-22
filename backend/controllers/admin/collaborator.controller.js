@@ -69,10 +69,8 @@ exports.createPost = function (req, res, next) {
                 });
 
                 let mailOptions = {
-                    from: 'vietlv173@gmail.com',
-                    to: 'levanviet_t58@hus.edu.vn',
-                    subject: 'Test Mail',
-                    text: 'Hello',
+                    to: collaborator.email,
+                    subject: '[ThankTrip] Thông tin đăng nhập',
                     html: ejs.render('<table border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse:collapse">\n' +
                         '    <tbody>\n' +
                         '    <tr>\n' +
