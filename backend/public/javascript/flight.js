@@ -67,6 +67,7 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$s
 
     $scope.getStatistical = function () {
         $scope.searching = true;
+        $scope.pageLoading = true;
 
         $http.get('/api/flight/?'+$httpParamSerializer($scope.queries)).success(function (response) {
             $scope.responses = response;
@@ -80,7 +81,10 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$s
 
     $scope.$watch('pageLoading', function () {
         if (!$scope.pageLoading) {
-            $('#ui-view').css('display', 'block');
+            $('#res-view').css('display', 'block');
+        }
+        else{
+            $('#res-view').css('display', 'none');
         }
     });
 
