@@ -51,9 +51,9 @@ exports.index = function (req, res, next) {
                                             price:1450000,
                                         }
                                     ],
-                                    totalMoney:2900000-collaborator.discount,
-                                    discount:collaborator.discount,
-                                    status:2
+                                    totalMoney: 2900000-collaborator.discount,
+                                    discount: collaborator.discount,
+                                    status: Math.floor(Math.random() * Math.floor(2))+1
                                 });
 
                                 flight.save(function (err) {

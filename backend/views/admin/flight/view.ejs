@@ -363,10 +363,17 @@
                                                     <label class="form-label control-label">Trạng thái:</label>
                                                     <div class="form-wrap form-control-static">
                                                         <div class="input-group mb-3" id="product_coupon">
-                                                            <button class="btn btn-block btn-danger" type="button">
-                                                                <i class="nav-icon icon-clock"></i>
-                                                                Đang đặt chỗ
-                                                            </button>
+                                                            <% if(flight.status == 1){ %>
+                                                                <button class="btn btn-block btn-danger" type="button">
+                                                                    <i class="nav-icon icon-clock"></i>
+                                                                    Đang đặt chỗ
+                                                                </button>
+                                                            <% } else {%>
+                                                                <button class="btn btn-block btn-success" type="button">
+                                                                    <i class="nav-icon icon-check"></i>
+                                                                    Đã thanh toán
+                                                                </button>
+                                                            <% } %>
                                                         </div>
                                                     </div>
                                                 </div>

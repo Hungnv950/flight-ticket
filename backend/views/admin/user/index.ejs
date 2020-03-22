@@ -41,6 +41,117 @@
             text-decoration: none;
         }
     </style>
+
+    <style type="text/css">
+        @keyframes spinner {
+            0% {
+                opacity: 1
+            }
+            100% {
+                opacity: 0
+            }
+        }
+
+        .spinner div {
+            left: 95px;
+            top: 75px;
+            position: absolute;
+            animation: spinner linear 1s infinite;
+            background: #1d3f72;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px / 5px;
+            transform-origin: 5px 25px;
+        }
+
+        .spinner div:nth-child(1) {
+            transform: rotate(0deg);
+            animation-delay: -0.9s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(2) {
+            transform: rotate(36deg);
+            animation-delay: -0.8s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(3) {
+            transform: rotate(72deg);
+            animation-delay: -0.7s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(4) {
+            transform: rotate(108deg);
+            animation-delay: -0.6s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(5) {
+            transform: rotate(144deg);
+            animation-delay: -0.5s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(6) {
+            transform: rotate(180deg);
+            animation-delay: -0.4s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(7) {
+            transform: rotate(216deg);
+            animation-delay: -0.3s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(8) {
+            transform: rotate(252deg);
+            animation-delay: -0.2s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(9) {
+            transform: rotate(288deg);
+            animation-delay: -0.1s;
+            background: #1d3f72;
+        }
+
+        .spinner div:nth-child(10) {
+            transform: rotate(324deg);
+            animation-delay: 0s;
+            background: #1d3f72;
+        }
+
+        .loading-io {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .spinner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform: translateZ(0) scale(1);
+            backface-visibility: hidden;
+            transform-origin: 0 0; /* see note above */
+        }
+
+        .spinner div {
+            box-sizing: content-box;
+        }
+
+        .th-text-right{
+            text-align: right;
+        }
+
+        .tab-content .tab-pane{
+            padding: 0 0 0;
+        }
+    </style>
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 <%- include('../layouts/header', {userLogin: userLogin}); %>
@@ -58,7 +169,7 @@
                 <div>
                     <div class="fade-in">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
@@ -69,8 +180,56 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input ng-model="userSearch" ng-enter="getStatistical()" class="form-control" id="name" type="text"
+                                                    <input ng-model="queries.userSearch" ng-enter="getStatistical()" class="form-control" id="name" type="text"
                                                            placeholder="Theo tên, SĐT khách hàng">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label style="width: 100%;">
+                                                    <strong>Thời gian đăng ký</strong>
+                                                    <a data-ng-click="showAndHideSearchDate()" class="pull-right btn-search-date-advanced" href="javascript:void(0)">
+                                                        <span class="nav-icon icon-calendar"></span>
+                                                        Tìm tùy chọn
+                                                    </a>
+                                                </label>
+                                                <div class="form-group" ng-show="!queries.searchDateAdvanced">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <select ng-model="queries.dateQuick" ng-change="getStatistical()" class="form-control" id="dateQuick">
+                                                                <option value="all">Toàn thời gian</option>
+                                                                <option value="today">Hôm nay</option>
+                                                                <option value="yesterday">Hôm qua</option>
+                                                                <option value="seven-day-ago">7 ngày qua</option>
+                                                                <option value="month">Tháng này</option>
+                                                                <option value="last-month">Tháng trước</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-show="queries.searchDateAdvanced">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="">Từ ngày</label>
+                                                                <input ng-model="queries.startDate" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="">Đến ngày</label>
+                                                                <input ng-model="queries.endDate" type="date" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <button class="btn btn-primary pull-right" data-ng-click="getStatistical()">
+                                                                <i class="nav-icon icon-refresh"></i>
+                                                                Tìm kiếm
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,15 +262,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header">
                                         <p style="float: left;font-weight: bold;margin-top: 8px;margin-bottom: 0;">
                                             Khách hàng
                                         </p>
                                     </div>
-                                    <div class="card-body" style="padding: 0;">
-                                        <table class="table table-responsive-sm table-striped"
+                                    <div class="card-body" style="padding: 0;text-align: center;">
+                                        <div class="loading-io" ng-show="pageLoading">
+                                            <div class="spinner">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                        <div id="res-view" style="text-align: left;">
+                                            <table class="table table-responsive-sm table-striped"
                                                style="margin-bottom: 0;">
                                             <thead>
                                             <tr>
@@ -147,6 +321,7 @@
                                             </tr>
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

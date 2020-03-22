@@ -57,8 +57,8 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$s
         startDate: null,
         dateQuick: "all",
         flightSearch: null,
-        collaboratorCode: null,
-        searchDateAdvanced: 0
+        searchDateAdvanced: 0,
+        collaboratorCode: null
     };
 
     $scope.searching = false;
@@ -66,7 +66,12 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$s
     $scope.pageLoading = true;
 
     $scope.getStatistical = function () {
+        if($scope.queries.searchDateAdvanced && (!$scope.queries.startDate || !$scope.queries.endDate)){
+            return;
+        }
+
         $scope.searching = true;
+        $scope.pageLoading = true;
 
         $http.get('/api/flight/?'+$httpParamSerializer($scope.queries)).success(function (response) {
             $scope.responses = response;
@@ -80,7 +85,10 @@ flightApp.controller('flightCtrl', ['$scope', '$http','$httpParamSerializer','$s
 
     $scope.$watch('pageLoading', function () {
         if (!$scope.pageLoading) {
-            $('#ui-view').css('display', 'block');
+            $('#res-view').css('display', 'block');
+        }
+        else{
+            $('#res-view').css('display', 'none');
         }
     });
 

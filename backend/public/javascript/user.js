@@ -46,14 +46,18 @@ let userApp = angular.module('userApp', []).run(function ($rootScope) {
     };
 });
 
-userApp.controller('userCtrl', ['$scope', '$http','$httpParamSerializer', function ($scope, $http,$httpParamSerializer) {
+userApp.controller('userCtrl', ['$scope', '$http','$httpParamSerializer','$sce', function ($scope, $http,$httpParamSerializer,$sce) {
 
     $scope.responses = {};
 
     $scope.queries = {
-        status:"all",
-        userSearch:null,
-        page:1
+        page: 1,
+        status: 0,
+        endDate: null,
+        startDate: null,
+        dateQuick: "all",
+        userSearch: null,
+        searchDateAdvanced: 0
     };
 
     $scope.searching = false;
@@ -61,7 +65,12 @@ userApp.controller('userCtrl', ['$scope', '$http','$httpParamSerializer', functi
     $scope.pageLoading = true;
 
     $scope.getStatistical = function () {
+        if($scope.queries.searchDateAdvanced && (!$scope.queries.startDate || !$scope.queries.endDate)){
+            return;
+        }
+
         $scope.searching = true;
+        $scope.pageLoading = true;
 
         $http.get('/api/user/?'+$httpParamSerializer($scope.queries)).success(function (response) {
             $scope.responses = response;
@@ -75,7 +84,10 @@ userApp.controller('userCtrl', ['$scope', '$http','$httpParamSerializer', functi
 
     $scope.$watch('pageLoading', function () {
         if (!$scope.pageLoading) {
-            $('#ui-view').css('display', 'block');
+            $('#res-view').css('display', 'block');
+        }
+        else{
+            $('#res-view').css('display', 'none');
         }
     });
 
@@ -83,5 +95,22 @@ userApp.controller('userCtrl', ['$scope', '$http','$httpParamSerializer', functi
         $scope.queries.page = page;
 
         $scope.getStatistical();
+    };
+
+    $scope.showAndHideSearchDate = function () {
+        $scope.queries.searchDateAdvanced = $scope.queries.searchDateAdvanced === 1 ? 0 : 1;
+    };
+
+    $scope.changePageActive = function (page) {
+        $scope.queries.page = page;
+
+        $scope.getStatistical();
+    };
+
+    $scope.highlight = function(text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
     };
 }]);
