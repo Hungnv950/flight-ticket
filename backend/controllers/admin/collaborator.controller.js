@@ -353,7 +353,7 @@ exports.view = function (req, res, next) {
 
                     let transporter = nodeMailer.createTransport({
                         host: 'smtp.gmail.com',
-                        port: 465,
+                        port: 587,
                         secure: true,
                         auth: {
                             user: 'levanviet_t58@hus.edu.vn',
