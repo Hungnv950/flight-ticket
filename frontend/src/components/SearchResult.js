@@ -28,7 +28,8 @@ class SearchResult extends Component {
       endDate: this.props.endDate,
       startAirport: this.props.startAirport,
       endAirport: this.props.endAirport,
-      is_return: this.props.is_return
+      is_return: this.props.is_return,
+      isShowBoardCalendar: false
     }
   }
 
@@ -355,6 +356,37 @@ render() {
     ]
   };
 
+  const boardCalendar = [];
+  for (let i = 0; i < 35; i++) {
+    if (i === 0 || (i >= 32)) {
+      boardCalendar.push(
+        <div className="board-calendar__item">
+        </div>
+      )
+    } else if (i === 21 - 7) { //select day above day.active
+      boardCalendar.push(
+        <div className="board-calendar__item border-bottom-none">
+          <p className="date">{i}</p>
+          <p className="price">900.000đ</p>
+        </div>
+      )
+    } else if (i === 21) {
+      boardCalendar.push(
+        <div className="board-calendar__item active">
+          <p className="date">{i}</p>
+          <p className="price">900.000đ</p>
+        </div>
+      )
+    } else {
+      boardCalendar.push(
+        <div className="board-calendar__item">
+          <p className="date">{i}</p>
+          <p className="price">900.000đ</p>
+        </div>
+      )
+    }
+  }
+
   return (
     <main className="main main--phone-756">
       <div className="banner bg-img-base"
@@ -393,10 +425,10 @@ render() {
                     <span className="to">{airPortFulName(this.state.endAirport)}</span>
                   </p>
                 </div>
-                <div className="result-board__border" />
+                <div className="result-board__border"></div>
                 <div className="result-board__calendar">
-                  <div className="result-board__calendar-bg-white" />
-                    <div className="result-board__calendar-wrap">
+                  <div className="result-board__calendar-bg-white"></div>
+                  <div className="result-board__calendar-wrap">
                     <Slider
                       list={sliderItems}
                       display={{
@@ -405,20 +437,38 @@ render() {
                         phone: 1
                       }}
                     />
-                    </div>
-                    <div className="result-board__calendar-bg-white" />
-                    </div>
+                  </div>
+                  <div className="result-board__calendar-bg-white"></div>
                 </div>
+              </div>
+              <div className={"board-calendar__control mt-2" + (this.state.isShowBoardCalendar ? " hide" : "")}>
+                <img src="/assests/images/icon-slide.png" onClick={() => this.setState({isShowBoardCalendar: true})} />
+              </div>
+              <div className={"board-calendar" + (this.state.isShowBoardCalendar ? " show" : "")}>
+                <div className="board-calendar__wrap">
+                  <div className="board-calendar__wrap-content">
+                    <div className="board-calendar__day-of-the-week">
+                      <p>CN</p><p>T.2</p><p>T.3</p><p>T.4</p><p>T.5</p><p>T.6</p><p>T.7</p>
+                    </div>
+                    <div className="board-calendar__content">
+                      { boardCalendar.map(item => item) }
+                    </div>
+                  </div>
+                </div>
+                <div className="board-calendar__control">
+                  <img src="/assests/images/icon-slide.png" onClick={() => this.setState({isShowBoardCalendar: false})} />
+                </div>
+              </div>
               <h2 className="change-info-search js-change-info-search">
-                    <span>Thay đổi thông tin tìm kiếm</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
-                      <g>
-                        <g>
-                          <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
-                        </g>
-                      </g>
-                    </svg>
-                  </h2>
+                <span>Thay đổi thông tin tìm kiếm</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
+                  <g>
+                    <g>
+                      <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z" />
+                    </g>
+                  </g>
+                </svg>
+              </h2>
               <div className="result-list">
                 <div className="result-list__filter">
                     <div className="d-flex">
