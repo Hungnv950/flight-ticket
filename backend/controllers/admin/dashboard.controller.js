@@ -8,6 +8,7 @@ exports.dashboard = function (req, res, next) {
             if (user === null) {
                 return res.redirect('/admin/login');
             } else {
+                // res.render('emails/template');
                 res.render('admin/dashboard/'+ (user.roleId === 1 ? 'index-admin':'index-collaborator'), {userLogin: user});
             }
         }
