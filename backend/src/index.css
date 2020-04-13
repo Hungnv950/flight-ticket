@@ -1,0 +1,17 @@
+table tr th {
+    color: #000 !important;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    border-top: 1px solid #c5e7f2 !important;
+    border-bottom: 1px solid #c5e7f2 !important;
+    background: url(https://cdn-app.kiotviet.vn/retailler/Content/thBg.png) right center no-repeat #dcf4fc !important;
+}
+
+table tr th:last-child {
+    background: #dcf4fc !important;
+}
+
+.nav-icon{
+    margin-right: 5px;
+}

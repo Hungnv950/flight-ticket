@@ -1,39 +1,74 @@
 {
-  "name": "backend",
-  "version": "0.0.0",
+  "name": "@coreui/coreui-free-react-admin-template",
+  "version": "2.6.0",
+  "description": "CoreUI React Open Source Bootstrap 4 Admin Template",
+  "author": "Łukasz Holeczek",
+  "homepage": "https://coreui.io",
+  "copyright": "Copyright 2017-2019 creativeLabs Łukasz Holeczek",
+  "license": "MIT",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "frontend": "cd ../frontend && npm start",
-    "backend": "DEBUG=express:* node ./bin/www",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:coreui/coreui-free-react-admin-template.git"
   },
   "dependencies": {
-    "bcrypt": "^4.0.0",
-    "body-parser": "^1.19.0",
-    "connect-mongo": "^3.2.0",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^8.2.0",
-    "ejs": "~2.6.1",
-    "express": "^4.16.4",
-    "express-session": "^1.17.0",
-    "gravatar": "^1.8.0",
-    "http-errors": "~1.6.3",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
-    "mongoose": "^5.9.2",
-    "morgan": "~1.9.1",
-    "multer": "^1.4.2",
-    "nodemailer": "^6.4.6",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "react-isolated-scroll": "^0.1.1",
-    "req-flash": "0.0.3",
-    "validator": "^12.2.0"
+    "@coreui/coreui": "^2.1.16",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.1",
+    "@coreui/icons": "0.3.0",
+    "@coreui/react": "^2.5.7",
+    "bootstrap": "^4.4.1",
+    "chart.js": "^2.9.3",
+    "classnames": "^2.2.6",
+    "core-js": "^3.6.4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "flag-icon-css": "^3.4.6",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^4.13.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.13.1",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.1.2",
+    "react-test-renderer": "^16.13.1",
+    "reactstrap": "^8.4.1",
+    "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
-    "concurrently": "^5.1.0",
-    "nodemon": "^2.0.2"
+    "react-scripts": "^3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:cov": "npm test -- --coverage --watchAll=false",
+    "test:debug": "react-scripts --inspect-brk test --runInBand",
+    "eject": "react-scripts eject"
+  },
+  "bugs": {
+    "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 9",
+    "not op_mini all"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/*index.js",
+      "!src/serviceWorker.js",
+      "!src/polyfill.js"
+    ]
+  },
+  "engines": {
+    "node": ">=8.10",
+    "npm": ">=6"
   }
 }
