@@ -27,7 +27,7 @@ exports.create = async function(req, res) {
 
 exports.update =  async function(req, res) {
     try {
-        const user = await Collaborator.findById(req.user._id);
+        const user = await View.findById(req.user._id);
 
         await updateOne({_id: req.params.id}, {$set: req.body});
 

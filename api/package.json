@@ -1,12 +1,12 @@
 {
-  "name": "backend",
+  "name": "api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "frontend": "cd ../frontend && npm start",
-    "backend": "DEBUG=express:* node ./bin/www",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+    "backend": "cd ../backend && npm start",
+    "api": "DEBUG=express:* node ./bin/www",
+    "dev": "concurrently \"npm run api\" \"npm run backend\""
   },
   "dependencies": {
     "bcrypt": "^4.0.0",

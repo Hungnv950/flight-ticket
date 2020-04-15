@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import axios from "axios";
+import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import {
   Badge,
   Card,
@@ -13,46 +15,85 @@ import {
   Label,
 } from 'reactstrap';
 
-import flightsData from './FlightsData'
-
 function FlightRow(props) {
-  const user = props.user;
-  const userLink = `/users/${user.id}`;
+  const stt = props.stt;
+  const flight = props.flight;
+  const flightLink = `/flight/${flight._id}`;
+  const userLink = `/flight/${flight._id}`;
 
   const getBadge = (status) => {
-    return status === 'Active' ? 'success' :
-      status === 'Inactive' ? 'secondary' :
-        status === 'Pending' ? 'warning' :
-          status === 'Banned' ? 'danger' :
-            'primary'
+    return status === 1 ? 'danger' : 'success'
+  };
+
+  const getStatusLabel = (status) => {
+    return status === 1 ? 'Đang đặt hàng' : 'Đã thanh toán'
   };
 
   return (
-    <tr key={user.id.toString()}>
-      <td><Link to={userLink}>{user.id}</Link></td>
+    <tr key={stt+1}>
+      <td>{stt+1}</td>
+      <td><Link to={flightLink}>{flight.flightCode}</Link></td>
       <td>
         <div>
-          <a href="/admin/user/view/5e7bb53191354b79ba1c1665">
-            Võ Thanh Sơn KH
+          <a href={userLink}>
+            {flight.fullName}
           </a>
         </div>
         <div className="small text-muted">
-          <span className="ng-binding">09667845762</span>
+          <span>{flight.phone}</span>
         </div>
       </td>
-      <td><Link to={userLink}>{user.name}</Link></td>
-      <td>{user.registered}</td>
-      <td>{user.role}</td>
-      <td><Link to={userLink}><Badge color={getBadge(user.status)}>{user.status}</Badge></Link></td>
+      <td>{flight.collaboratorCode}</td>
+      <td>
+        <div>
+          <span>
+            <Moment format="DD/MM/Y">
+                {flight.createdAt}
+            </Moment>
+          </span>
+        </div>
+        <div className="small text-muted">
+          <strong>
+            <Moment format="HH:mm">
+              {flight.createdAt}
+            </Moment>
+          </strong>
+        </div>
+      </td>
+      <td style={{textAlign: 'right'}}>
+        <div>
+          <strong>{ flight.totalMoney }</strong>
+        </div>
+        <div className="small text-muted">
+          <strong>Số chỗ đặt: { flight.passengers.length }</strong>
+        </div>
+      </td>
+      <td><Link to={flightLink}><Badge color={getBadge(flight.status)}>{getStatusLabel(flight.status)}</Badge></Link></td>
     </tr>
   )
 }
 
-class Collaborators extends Component {
+class Index extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      flights: []
+    };
+  }
+
+  componentDidMount(){
+    axios.get("/api/admin/flights",{headers: {
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTczOGVmNWViNDRmNjdkNTIyNmRjMzEiLCJpYXQiOjE1ODU0ODAxMjl9.rcAwD9hC53iqMfXdJyj8X7grB5Z9bybX19Usahg5YFM`
+      }}).then(response => {
+      this.setState({ flights: response.data });
+    }).catch(function (error) {
+      console.log(error);
+    })
+  }
   render() {
 
-    const flightList = flightsData.filter((flight) => flight.id < 10);
+    const { flights } = this.state;
 
     return (
       <div className="animated fadeIn">
@@ -60,7 +101,7 @@ class Collaborators extends Component {
           <Col xl={4}>
             <Card>
               <CardHeader>
-                <i className="fa fa-search"></i> Search
+                <strong>Tìm kiếm</strong>
               </CardHeader>
               <CardBody>
                 <Row>
@@ -124,27 +165,19 @@ class Collaborators extends Component {
           <Col xl={8}>
             <Card>
               <CardHeader>
-                <p style={{float: 'left',fontWeight: 'bold',marginTop: '8px',marginBottom: 0}}>
-                  Collaborators
-                </p>
-                <div className="card-header-actions">
-                  <a href="/#/collaborator/create" className="btn btn-block btn-success active">
-                    <i className="nav-icon icon-plus"></i>
-                    Create new collaborator
-                  </a>
-                </div>
+                <strong>Chuyến bay</strong>
               </CardHeader>
               <CardBody style={{padding:0}}>
                 <Table responsive striped>
                   <thead>
                     <tr>
                       <th scope="col">stt</th>
-                      <th scope="col">code</th>
-                      <th scope="col">customer</th>
-                      <th scope="col">ctv code</th>
-                      <th scope="col">time</th>
-                      <th scope="col">cost</th>
-                      <th scope="col">status</th>
+                      <th scope="col">mã đơn hàng</th>
+                      <th scope="col">khách hàng</th>
+                      <th scope="col">mã ctv</th>
+                      <th scope="col">thời gian</th>
+                      <th scope="col">tổng chi phí</th>
+                      <th scope="col">trạng thái</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -157,8 +190,8 @@ class Collaborators extends Component {
                       <td></td>
                       <td></td>
                     </tr>
-                    {flightList.map((flight, index) =>
-                      <FlightRow key={index} user={flight}/>
+                    {flights.map((flight, index) =>
+                      <FlightRow stt={index} key={index} flight={flight}/>
                     )}
                   </tbody>
                 </Table>
@@ -171,4 +204,4 @@ class Collaborators extends Component {
   }
 }
 
-export default Collaborators;
+export default Index;

@@ -1,5 +1,5 @@
-const flightsData = [
+const transactionsData = [
   {id: 0, name: 'John Doe', registered: '2018/01/01', role: 'Guest', status: 'Pending'}
 ];
 
-export default flightsData
+export default transactionsData

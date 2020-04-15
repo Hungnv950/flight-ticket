@@ -26,7 +26,7 @@ exports.view = async function(req, res) {
 
         if(req.user.roleId === User.role_ctv){
             if(req.user.code !== flight.collaboratorCode){
-                res.status(201).send({});
+                res.status(200).send({});
             }
         }
 

@@ -44,4 +44,4 @@ export const setCurrentUser = decoded => {
     type: SET_CURRENT_USER,
     payload: decoded
   }
-}
+};
