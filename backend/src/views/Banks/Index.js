@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+
 import {
   Badge,
   Card,
@@ -13,46 +15,54 @@ import {
   Label,
 } from 'reactstrap';
 
-import flightsData from './FlightsData'
-
-function FlightRow(props) {
-  const user = props.user;
-  const userLink = `/users/${user.id}`;
+function BankRow(props) {
+  const stt = props.stt;
+  const collaborator = props.bank;
+  const collaboratorLink = `/collaborator/${collaborator._id}`;
 
   const getBadge = (status) => {
-    return status === 'Active' ? 'success' :
-      status === 'Inactive' ? 'secondary' :
-        status === 'Pending' ? 'warning' :
-          status === 'Banned' ? 'danger' :
-            'primary'
+    return status === 10 ? 'success' : 'danger'
+  };
+
+  const getStatusLabel = (status) => {
+    return status === 10 ? 'Đang hoạt động' : 'Ngừng hoạt động'
   };
 
   return (
-    <tr key={user.id.toString()}>
-      <td><Link to={userLink}>{user.id}</Link></td>
-      <td>
-        <div>
-          <a href="/admin/user/view/5e7bb53191354b79ba1c1665">
-            Võ Thanh Sơn KH
-          </a>
-        </div>
-        <div className="small text-muted">
-          <span className="ng-binding">09667845762</span>
-        </div>
-      </td>
-      <td><Link to={userLink}>{user.name}</Link></td>
-      <td>{user.registered}</td>
-      <td>{user.role}</td>
-      <td><Link to={userLink}><Badge color={getBadge(user.status)}>{user.status}</Badge></Link></td>
+    <tr key={collaborator._id}>
+      <td>{stt+1}</td>
+      <td><img src="https://ui-avatars.com/api/?size=50&name=V%C3%B5%20Thanh%20S%C6%A1n" alt=""/></td>
+      <td><Link to={collaboratorLink}>{collaborator.code}</Link></td>
+      <td>{collaborator.fullName}</td>
+      <td>{collaborator.phone}</td>
+      <td>{collaborator.email}</td>
+      <td><Badge color={getBadge(collaborator.status)}>{getStatusLabel(collaborator.status)}</Badge></td>
     </tr>
   )
 }
 
-class Flights extends Component {
+class Index extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      banks: []
+    };
+  }
+
+  componentDidMount(){
+    axios.get("/api/admin/banks",{headers: {
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTczOGVmNWViNDRmNjdkNTIyNmRjMzEiLCJpYXQiOjE1ODU0ODAxMjl9.rcAwD9hC53iqMfXdJyj8X7grB5Z9bybX19Usahg5YFM`
+    }}).then(response => {
+      this.setState({ banks: response.data });
+    }).catch(function (error) {
+      console.log(error);
+    })
+  }
 
   render() {
 
-    const flightList = flightsData.filter((flight) => flight.id < 10);
+    const {banks} = this.state;
 
     return (
       <div className="animated fadeIn">
@@ -124,19 +134,27 @@ class Flights extends Component {
           <Col xl={8}>
             <Card>
               <CardHeader>
-                <i className="fa fa-plane"></i> Flights <small className="text-muted">list</small>
+                <p style={{float: 'left',fontWeight: 'bold',marginTop: '8px',marginBottom: 0}}>
+                  Banks
+                </p>
+                <div className="card-header-actions">
+                  <a href="/#/collaborator/create" className="btn btn-block btn-success active">
+                    <i className="nav-icon icon-plus"></i>
+                    Create new collaborator
+                  </a>
+                </div>
               </CardHeader>
               <CardBody style={{padding:0}}>
                 <Table responsive striped>
                   <thead>
                     <tr>
                       <th scope="col">stt</th>
-                      <th scope="col">code</th>
-                      <th scope="col">customer</th>
-                      <th scope="col">ctv code</th>
-                      <th scope="col">time</th>
-                      <th scope="col">cost</th>
-                      <th scope="col">status</th>
+                      <th scope="col">hình ảnh</th>
+                      <th scope="col">mã ctv</th>
+                      <th scope="col">họ và tên</th>
+                      <th scope="col">số điện thoại</th>
+                      <th scope="col">emal</th>
+                      <th scope="col">trạng thái</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -149,8 +167,8 @@ class Flights extends Component {
                       <td></td>
                       <td></td>
                     </tr>
-                    {flightList.map((flight, index) =>
-                      <FlightRow key={index} user={flight}/>
+                    {banks.map((bank, index) =>
+                      <BankRow stt={index} key={index} bank={bank}/>
                     )}
                   </tbody>
                 </Table>
@@ -163,4 +181,4 @@ class Flights extends Component {
   }
 }
 
-export default Flights;
+export default Index;

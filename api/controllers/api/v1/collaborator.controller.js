@@ -53,9 +53,6 @@ exports.index = function (req, res, next) {
                             break;
                     }
 
-                    console.log(gte);
-                    console.log(lte);
-
                     Flight.find({"createdAt": {"$gte": new Date(gte), "$lte": new Date(lte)},"collaboratorCode":collaborator.code}).exec(function (err, flights) {
                         let data = {
                             hits: Math.floor(Math.random() * 100),

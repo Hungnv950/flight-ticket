@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 
-import flightsData from './FlightsData'
+import transactionsData from './TransactionsData'
 
-class Flight extends Component {
+class Transaction extends Component {
 
   render() {
 
-    const user = flightsData.find(user => user.id.toString() === this.props.match.params.id);
+    const user = transactionsData.find(user => user.id.toString() === this.props.match.params.id);
 
     const userDetails = user ? Object.entries(user) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]];
 
@@ -43,4 +43,4 @@ class Flight extends Component {
   }
 }
 
-export default Flight;
+export default Transaction;

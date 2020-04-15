@@ -32,6 +32,8 @@ router.post('/collaborator/:id/update', auth, collaboratorCtrl.update);
 
 router.get('/flights', auth, flightCtrl.index);
 
+router.get('/flight/:id', auth, flightCtrl.view);
+
 router.get('/tours', auth, tourCtrl.index);
 
 router.get('/tour/:id', auth, tourCtrl.view);
