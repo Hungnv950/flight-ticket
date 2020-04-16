@@ -2,6 +2,9 @@ import axios from "axios";
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+
+import { authHeader } from "../../helpers/authHeaders";
+
 import {
   Badge,
   Card,
@@ -83,9 +86,7 @@ class Index extends Component {
   }
 
   componentDidMount(){
-    axios.get("/api/admin/flights",{headers: {
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTczOGVmNWViNDRmNjdkNTIyNmRjMzEiLCJpYXQiOjE1ODU0ODAxMjl9.rcAwD9hC53iqMfXdJyj8X7grB5Z9bybX19Usahg5YFM`
-      }}).then(response => {
+    axios.get("/api/admin/flights",{headers: authHeader()}).then(response => {
       this.setState({ flights: response.data });
     }).catch(function (error) {
       console.log(error);

@@ -59,9 +59,7 @@ class Collaborator extends Component {
   };
 
   componentDidMount(){
-    axios.get("/api/admin/collaborator/"+this.props.match.params.id,{headers: {
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTczOGVmNWViNDRmNjdkNTIyNmRjMzEiLCJpYXQiOjE1ODU0ODAxMjl9.rcAwD9hC53iqMfXdJyj8X7grB5Z9bybX19Usahg5YFM`
-      }}).then(response => {
+    axios.get("/api/admin/collaborator/"+this.props.match.params.id).then(response => {
         const collaborator = response.data.collaborator;
 
         this.setState({

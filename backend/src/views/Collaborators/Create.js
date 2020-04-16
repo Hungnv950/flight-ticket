@@ -16,6 +16,8 @@ import {
   InputGroupText, InputGroup
 } from 'reactstrap';
 
+import {authHeader} from "../../helpers/authHeaders";
+
 class Collaborator extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +46,7 @@ class Collaborator extends Component {
       username,
       discount,
       commission
-    },{headers: {
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTczOGVmNWViNDRmNjdkNTIyNmRjMzEiLCJpYXQiOjE1ODU0ODAxMjl9.rcAwD9hC53iqMfXdJyj8X7grB5Z9bybX19Usahg5YFM`
-    }}).then(res => {
+    },{headers:authHeader()}).then(res => {
       this.setState({ redirect: true })
     });
   };
