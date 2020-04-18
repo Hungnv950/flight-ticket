@@ -13,6 +13,11 @@ const CollaboratorCreate = React.lazy(() => import('./views/Collaborators/Create
 const CollaboratorUpdate = React.lazy(() => import('./views/Collaborators/Update'));
 const CollaboratorChangePassword = React.lazy(() => import('./views/Collaborators/ChangePassword'));
 
+const Tour = React.lazy(() => import('./views/Tours/View'));
+const Tours = React.lazy(() => import('./views/Tours/Index'));
+const TourCreate = React.lazy(() => import('./views/Tours/Create'));
+const TourUpdate = React.lazy(() => import('./views/Tours/Update'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -26,6 +31,10 @@ const routes = [
   { path: '/collaborator/:id', exact: true, name: 'Collaborator Details', component: Collaborator },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/tours', exact: true,  name: 'Tour du lịch', component: Tours },
+  { path: '/tour/:id', exact: true, name: 'Chi tiết tour', component: Tour },
+  { path: '/abc/create', exact: true, name: 'Thêm mới tour', component: TourCreate },
+  { path: '/tour/:id/update', exact: true, name: 'Chỉnh sửa tour', component: TourUpdate },
 ];
 
 export default routes;

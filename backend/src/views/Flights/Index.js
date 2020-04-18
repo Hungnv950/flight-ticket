@@ -15,7 +15,7 @@ import {
   Table,
   FormGroup,
   Input,
-  Label,
+  Label
 } from 'reactstrap';
 
 function FlightRow(props) {
