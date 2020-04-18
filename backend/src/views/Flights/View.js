@@ -1,6 +1,8 @@
+import axios from "axios";
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
-import axios from "axios";
+
+import { authHeader } from "../../helpers/authHeaders";
 
 class View extends Component {
   constructor(props) {
@@ -12,9 +14,7 @@ class View extends Component {
   };
 
   componentDidMount(){
-    axios.get("/api/admin/flight/"+this.props.match.params.id,{headers: {
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTczOGVmNWViNDRmNjdkNTIyNmRjMzEiLCJpYXQiOjE1ODU0ODAxMjl9.rcAwD9hC53iqMfXdJyj8X7grB5Z9bybX19Usahg5YFM`
-      }}).then(response => {
+    axios.get("/api/admin/flight/"+this.props.match.params.id,{headers: authHeader()}).then(response => {
       const flight = response.data;
 
       this.setState({

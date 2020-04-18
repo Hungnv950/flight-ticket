@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import  { Redirect } from 'react-router-dom';
 
 import {
   Card,
@@ -16,20 +15,18 @@ import {
   InputGroupText, InputGroup
 } from 'reactstrap';
 
-import {authHeader} from "../../helpers/authHeaders";
-
 class Collaborator extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: String,
-      phone: String,
       address: String,
       fullName: String,
       discount: 0,
       commission: 0,
-      redirect: false
+      redirect: false,
+      collaborator: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,17 +34,20 @@ class Collaborator extends Component {
   };
 
   handleSubmit() {
-    const { email, username, address, fullName, discount, commission } = this.state;
+    const { email, address, fullName, discount, commission } = this.state;
 
-    axios.post('/api/admin/collaborator/create', {
+    axios.post(`/api/admin/collaborator/${this.props.match.params.id}/update`, {
       email,
       address,
       fullName,
-      username,
       discount,
       commission
-    },{headers:authHeader()}).then(res => {
-      this.setState({ redirect: true })
+    },{headers: {
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTczOGVmNWViNDRmNjdkNTIyNmRjMzEiLCJpYXQiOjE1ODU0ODAxMjl9.rcAwD9hC53iqMfXdJyj8X7grB5Z9bybX19Usahg5YFM`
+    }}).then(res => {
+      if(res.status === 200){
+        this.setState({ redirect: true })
+      }
     });
   };
 
@@ -57,12 +57,25 @@ class Collaborator extends Component {
     });
   };
 
-  render() {
-    const { email, username, address, fullName, discount, commission, redirect } = this.state;
+  componentDidMount(){
+    axios.get("/api/admin/collaborator/"+this.props.match.params.id).then(response => {
+        const collaborator = response.data.collaborator;
 
-    if (redirect) {
-      return <Redirect to='/collaborators'/>;
-    }
+        this.setState({
+          email: collaborator.email,
+          address: collaborator.address,
+          fullName: collaborator.fullName,
+          discount: collaborator.discount,
+          commission: collaborator.commission,
+          collaborator: collaborator
+        });
+    }).catch(function (error) {
+      console.log(error);
+    })
+  }
+
+  render() {
+    const { email, address, fullName, discount, commission, collaborator } = this.state;
 
     return (
       <div className="animated fadeIn">
@@ -92,11 +105,20 @@ class Collaborator extends Component {
                     </div>
                   </Col>
                   <Col lg={8}>
-                    <FormGroup>
-                      <Label>Số điện thoại: <span className="required">(*)</span></Label>
-                      <Input type="text" id="username" onChange={(ev) => this.handleChangeField('username', ev)}
-                             value={username} placeholder="Nhập số điện thoại" required />
-                    </FormGroup>
+                    <Row>
+                      <Col lg={6}>
+                        <FormGroup>
+                          <Label>Số điện thoại:</Label>
+                          <Input value={collaborator.phone} type="text" id="fullName" disabled />
+                        </FormGroup>
+                      </Col>
+                      <Col lg={6}>
+                        <FormGroup>
+                          <Label>Email:</Label>
+                          <Input value={collaborator.code} type="text" id="email" disabled />
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <Row>
                       <Col lg={6}>
                         <FormGroup>

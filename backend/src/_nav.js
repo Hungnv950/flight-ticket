@@ -1,47 +1,53 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
+      name: 'Trang chủ',
       url: '/dashboard',
       icon: 'icon-speedometer'
     },
     {
       title: true,
-      name: 'Transaction'
+      name: 'Giao dịch'
     },
     {
-      name: 'Flights',
+      name: 'Chuyến bay',
       url: '/flights',
       icon: 'icon-plane'
     },
     {
-      name: 'Customers',
+      name: 'Khách hàng',
       url: '/customers',
       icon: 'icon-people'
     },
     {
-      divider: true,
+      title: true,
+      name: 'Tour du lịch'
+    },
+    {
+      name: 'Tour du lịch',
+      url: '/tours',
+      icon: 'icon-people'
     },
     {
       title: true,
-      name: 'Collaborators'
+      name: 'Cộng tác viên'
     },
     {
-      name: 'Collaborators',
+      name: 'Cộng tác viên',
       url: '/collaborators',
       icon: 'icon-shield'
     },
     {
-      name: 'Withdrawal History',
+      name: 'Lịch sử rút tiền',
       url: '/transactions',
       icon: 'icon-calculator'
     },
     {
       title: true,
-      name: 'Permissions'
+      name: 'Nhóm và phân quyền'
     },
     {
-      name: 'Employee',
+      name: 'Nhân viên',
       url: '/employees',
       icon: 'icon-user'
     }

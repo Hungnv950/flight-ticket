@@ -84,6 +84,20 @@ let TourSchema = new Schema({
             default: 0
         },
     },
+    faresByPeople:{
+        from10To20: {
+            type: Number,
+            default: 0
+        },
+        from20To30:{
+            type: Number,
+            default: 0
+        },
+        from30: {
+            type: Number,
+            default: 0
+        },
+    },
     faresByTime:{
         normalDay: {
             type: Number,

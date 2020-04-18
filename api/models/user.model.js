@@ -103,6 +103,8 @@ UserSchema.methods.generateAuthToken = async function() {
 
     user.tokens = user.tokens.concat({token});
 
+    user.email = 'admin@thanktrip.com';
+
     await user.save();
 
     return token;
