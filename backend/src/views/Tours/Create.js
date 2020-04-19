@@ -1,6 +1,17 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import {Card, CardBody, CardHeader, Collapse, Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
+import {
+  Button, ButtonGroup,
+  Card,
+  CardBody,
+  CardHeader,
+  Collapse,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
+} from "reactstrap";
 
 import Todos from "./Todos";
 import AddTodo from "./AddTodo";
@@ -56,17 +67,12 @@ class Create extends Component {
           }]
         }]
       }],
+      avatar: '',
       description: '',
-      avatar: {
-        type: String,
-        required: true
-      },
-      departureSchedule:{
-        type: {
-          type: Number,
-          required: true,
-          default: 0
-        },
+      departureSchedule: {
+        tpe: 1,
+        days: [],
+        allDays: false
       },
       faresByAge:{
         adult: 0,
@@ -86,18 +92,9 @@ class Create extends Component {
         toDate: Date
       },
       refundCancel:{
-        before20Days: {
-          type: Number,
-          default: 0
-        },
-        before15Days:{
-          type: Number,
-          default: 0
-        },
-        before7Days: {
-          type: Number,
-          default: 0
-        }
+        before20Days: 0,
+        before15Days: 0,
+        before7Days: 0
       },
       priceIncluded:{
         transport:{
@@ -146,15 +143,34 @@ class Create extends Component {
   };
 
   handleSubmit() {
-    const { email, username, address, fullName, discount, commission } = this.state;
+    const { title, estimateDays, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers } = this.state;
+
+    console.log({
+      title,
+      estimateDays,
+      tpe,
+      description,
+      faresByAge,
+      faresByPeople,
+      faresByTime,
+      refundCancel,
+      priceNotIncluded,
+      cancelTour,
+      boardOthers
+    });
 
     axios.post('/api/admin/tour/create', {
-      email,
-      address,
-      fullName,
-      username,
-      discount,
-      commission
+      title,
+      estimateDays,
+      tpe,
+      description,
+      faresByAge,
+      faresByPeople,
+      faresByTime,
+      refundCancel,
+      priceNotIncluded,
+      cancelTour,
+      boardOthers
     },{headers:authHeader()}).then(() => {
       this.setState({ redirect: true })
     });
@@ -183,6 +199,8 @@ class Create extends Component {
     const keyArray = key.split('.');
 
     const value = event.target.value;
+
+    console.log(value);
 
     if(value > 100 || value < 0){
       return;
@@ -257,7 +275,6 @@ class Create extends Component {
   }
 
   addTodo(key,title) {
-
     const keyArray = key.split('.');
 
     if(keyArray.length === 2){
@@ -331,7 +348,7 @@ class Create extends Component {
 
   render() {
 
-    const { title, estimateDays, description, faresByAge, faresByPeople, faresByTime, step } = this.state;
+    const { title, tpe, estimateDays, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, step } = this.state;
 
     return (
       <div className="animated fadeIn">
@@ -377,7 +394,7 @@ class Create extends Component {
                       <div className="rc-steps-item-title">Thông tin và điều khoản tour</div>
                     </div>
                   </div>
-                  <div className="rc-steps-item rc-steps-item-wait">
+                  <div className={step === 5 ? 'rc-steps-item rc-steps-item-process' : step > 5 ? 'rc-steps-item rc-steps-item-finish' : 'rc-steps-item rc-steps-item-wait'}>
                     <div className="rc-steps-item-tail"></div>
                     <div className="rc-steps-item-icon"><span className="rc-steps-icon">5</span></div>
                     <div className="rc-steps-item-content">
@@ -427,13 +444,13 @@ class Create extends Component {
                                 <div className="col-md-6">
                                   <div className="d-flex align-items-center justify-content-end">
                                     <div className="custom-control custom-radio custom-control-inline">
-                                      <input type="radio" id="customRadioInline1" name="type" className="custom-control-input" required=""
-                                             onChange={(ev) => this.handleChangeField('tpe', ev)} value="1" checked/>
+                                      <input type="radio" id="customRadioInline1" name="tpe" className="custom-control-input" required=""
+                                             onChange={(ev) => this.handleChangeField('tpe', ev)} value="1" checked={tpe === 1}/>
                                         <label className="custom-control-label" htmlFor="customRadioInline1">Tour nội địa</label>
                                     </div>
                                     <div className="custom-control custom-radio custom-control-inline">
-                                      <input type="radio" id="customRadioInline2" name="type" className="custom-control-input" required=""
-                                             onChange={(ev) => this.handleChangeField('tpe', ev)} value="2"/>
+                                      <input type="radio" id="customRadioInline2" name="tpe" className="custom-control-input" required=""
+                                             onChange={(ev) => this.handleChangeField('tpe', ev)} value="2" checked={tpe === 2}/>
                                       <label className="custom-control-label" htmlFor="customRadioInline2">Tour quốc tế</label>
                                     </div>
                                   </div>
@@ -545,25 +562,60 @@ class Create extends Component {
                         <div className="collapse show">
                           <div className="rct-block-content"><h4>Lịch khởi hành</h4>
                             <hr/>
-                              <form>
-                                <div className="custom-control custom-radio"><input type="radio" id="option_1"
-                                                                                    name="option"
-                                                                                    className="custom-control-input"
-                                                                                    value="1" checked=""/><label
-                                    className="custom-control-label" htmlFor="option_1">Hằng ngày</label></div>
-                                <div className="custom-control custom-radio"><input type="radio" id="option_2"
-                                                                                    name="option"
-                                                                                    className="custom-control-input"
-                                                                                    value="2"/><label
-                                    className="custom-control-label" htmlFor="option_2">Các ngày cố định trong
-                                  tuần</label></div>
-                                <div className="custom-control custom-radio"><input type="radio" id="option_3"
-                                                                                    name="option"
-                                                                                    className="custom-control-input"
-                                                                                    value="3"/><label
-                                    className="custom-control-label" htmlFor="option_3">Các ngày cố định trong
-                                  tháng</label></div>
-                              </form>
+                            <div className="custom-control custom-radio">
+                              <input type="radio" className="custom-control-input" value="1" checked={departureSchedule.tpe === 1}
+                                     onChange={(ev) => this.handleChangeObjectField('departureSchedule.tpe', ev)}/>
+                              <label className="custom-control-label" htmlFor="option_1">
+                                Hằng ngày
+                              </label>
+                            </div>
+                            <div className="custom-control custom-radio">
+                              <input type="radio" className="custom-control-input" value="2" checked={departureSchedule.tpe === 2}
+                                     onClick={(ev) => this.handleChangeObjectField('departureSchedule.tpe', ev)}/>
+                              <label className="custom-control-label" htmlFor="option_2">
+                                Các ngày cố định trong tuần
+                              </label>
+                            </div>
+                            <div className="mt-2 mb-4 ml-4" style={{display: departureSchedule.tpe === 2 ? 'block': 'none' }}>
+                              <ButtonGroup>
+                                <Button>2</Button>
+                                <Button>3</Button>
+                                <Button>4</Button>
+                                <Button>5</Button>
+                                <Button>6</Button>
+                                <Button>7</Button>
+                                <Button>CN</Button>
+                              </ButtonGroup>
+                              <div className="custom-control custom-checkbox">
+                                <input type="checkbox" className="custom-control-input" id="customCheck1"/>
+                                <label className="custom-control-label" htmlFor="customCheck1">Tất cả các ngày lễ tết</label>
+                              </div>
+                            </div>
+                            <div className="custom-control custom-radio">
+                              <input type="radio" className="custom-control-input" value="3"
+                                     onChange={(ev) => this.handleChangeObjectField('departureSchedule.tpe', ev)}/>
+                              <label className="custom-control-label" htmlFor="option_3">
+                                Các ngày cố định trong tháng
+                              </label>
+                            </div>
+                            <div className="mt-2 mb-4 ml-4" style={{display: departureSchedule.tpe === 3 ? 'block': 'none' }}>
+                              <div className="css-1pcexqc-container" id="date-selector">
+                                <InputGroup>
+                                  <Input type="select" name="ccmonth" id="ccmonth">
+                                    <option value="">Chọn điểm đi</option>
+                                    <option value="1">Hà Nội</option>
+                                    <option value="2">Hải Phòng</option>
+                                    <option value="3">Quảng Ninh</option>
+                                    <option value="4">Nha Trang</option>
+                                    <option value="5">TP. Hồ Chí Minh</option>
+                                  </Input>
+                                </InputGroup>
+                              </div>
+                              <div className="custom-control custom-checkbox">
+                                <input type="checkbox" className="custom-control-input" id="customCheck2"/>
+                                <label className="custom-control-label" htmlFor="customCheck2">Tất cả các ngày lễ tết</label>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -886,41 +938,59 @@ class Create extends Component {
                             <h4>Phí hoàn hủy Tour (đối với Tour cách ngày khởi hàng > 15 ngày)</h4>
                             <hr/>
                               <div>
-                                <table>
+                                <table style={{width: '100%'}}>
                                   <thead>
                                   <tr>
-                                    <td className="table-head-label table-custom-cell" width="30%">Ngày khởi hành</td>
-                                    <td className="table-head-label table-custom-cell">Phí phạt % / Giá tour</td>
-                                    <td className="table-head-label table-custom-cell">Thành tiền</td>
+                                    <td className="table-head-label table-custom-cell" width="30%">NGÀY KHỞI HÀNH</td>
+                                    <td className="table-head-label table-custom-cell">PHÍ PHẠT %/ GIÁ TOUR</td>
+                                    <td className="table-head-label table-custom-cell">THÀNH TIỀN</td>
                                   </tr>
                                   </thead>
                                   <tbody>
                                   <tr>
                                     <td className="table-custom-cell">Trước 20 ngày</td>
-                                    <td className="table-custom-cell"><input type="text"
-                                                                             className="form-control text-right"
-                                                                             value="30 %"/></td>
-                                    <td className="table-custom-cell"><input type="text"
-                                                                             className="form-control text-right readonly"
-                                                                             name="refunds_0" value="3,000,000 đ"/></td>
+                                    <td className="table-custom-cell">
+                                      <InputGroup>
+                                        <Input type="number" onChange={(ev) => this.handleChangeObjectField('refundCancel.before20Days', ev)}
+                                               value={refundCancel.before20Days} className="text-right" />
+                                        <InputGroupAddon addonType="append">
+                                          <InputGroupText>đ</InputGroupText>
+                                        </InputGroupAddon>
+                                      </InputGroup>
+                                    </td>
+                                    <td className="table-custom-cell table-text-right">
+                                      {10000000*(100 - refundCancel.before20Days)/100} đ
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td className="table-custom-cell">Trước 15 ngày</td>
-                                    <td className="table-custom-cell"><input type="text"
-                                                                             className="form-control text-right"
-                                                                             value="50 %"/></td>
-                                    <td className="table-custom-cell"><input type="text"
-                                                                             className="form-control text-right readonly"
-                                                                             name="refunds_1" value="5,000,000 đ"/></td>
+                                    <td className="table-custom-cell">
+                                      <InputGroup>
+                                        <Input type="number" onChange={(ev) => this.handleChangeObjectField('refundCancel.before15Days', ev)}
+                                               value={refundCancel.before15Days} className="text-right" />
+                                        <InputGroupAddon addonType="append">
+                                          <InputGroupText>đ</InputGroupText>
+                                        </InputGroupAddon>
+                                      </InputGroup>
+                                    </td>
+                                    <td className="table-custom-cell table-text-right">
+                                      {10000000*(100 - refundCancel.before15Days)/100} đ
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td className="table-custom-cell">Trước 7 ngày</td>
-                                    <td className="table-custom-cell"><input type="text"
-                                                                             className="form-control text-right"
-                                                                             value="70 %"/></td>
-                                    <td className="table-custom-cell"><input type="text"
-                                                                             className="form-control text-right readonly"
-                                                                             name="refunds_2" value="7,000,000 đ"/></td>
+                                    <td className="table-custom-cell">
+                                      <InputGroup>
+                                        <Input type="number" onChange={(ev) => this.handleChangeObjectField('refundCancel.before7Days', ev)}
+                                               value={refundCancel.before7Days} className="text-right" />
+                                        <InputGroupAddon addonType="append">
+                                          <InputGroupText>đ</InputGroupText>
+                                        </InputGroupAddon>
+                                      </InputGroup>
+                                    </td>
+                                    <td className="table-custom-cell table-text-right">
+                                      {10000000*(100 - refundCancel.before7Days)/100} đ
+                                    </td>
                                   </tr>
                                   </tbody>
                                 </table>
@@ -966,57 +1036,70 @@ class Create extends Component {
                                   <label>Phương tiện di chuyển</label>
                                   <div className="row">
                                     <div className="col-md-6">
-                                      <div className="css-1pcexqc-container">
-                                        <div className="css-bg1rzq-control">
-                                          <div className="css-1hwfws3">
-                                            <div className="css-151xaom-placeholder">Chọn phương tiện</div>
-                                            <div className="css-1g6gooi">
-                                              <select className="form-control" name="" id="">
-                                                <option value="">Máy bay</option>
-                                              </select>
-                                            </div>
-                                          </div>
-                                          <div className="css-1wy0on6">
-                                            <span className="css-bgvzuu-indicatorSeparator"></span>
-                                            <div aria-hidden="true" className="css-16pqwjk-indicatorContainer">
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
+                                      <FormGroup>
+                                        <Input type="select" name="ccmonth" id="ccmonth">
+                                          <option value="">Chọn phương tiện</option>
+                                          <option value="1">Ô tô</option>
+                                          <option value="2">Xe khách</option>
+                                          <option value="3">Tàu hỏa</option>
+                                          <option value="4">Máy bay</option>
+                                          <option value="5">Ca nô</option>
+                                        </Input>
+                                      </FormGroup>
                                     </div>
                                     <div className="col-md-6">
-                                      <div className="css-1pcexqc-container">
-                                        <div className="css-bg1rzq-control">
-                                          <div className="css-1hwfws3">
-                                            <div className="css-151xaom-placeholder">Hãng phương tiện</div>
-                                            <div className="css-1g6gooi">
-                                              <select className="form-control" name="" id="">
-                                                <option value="">Máy bay</option>
-                                              </select>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
+                                      <FormGroup>
+                                        <Input type="select" name="ccmonth" id="ccmonth">
+                                          <option value="">Hãng phương tiện</option>
+                                          <option value="1">Văn Minh</option>
+                                          <option value="2">Đường sắt Việt Nam</option>
+                                          <option value="3">Vietnam Airlines</option>
+                                          <option value="4">VietJet Air</option>
+                                          <option value="5">Bambo Airways</option>
+                                        </Input>
+                                      </FormGroup>
                                     </div>
                                   </div>
                                 </div>
                                 <div className="form-group row">
-                                  <div className="col-md-3">Khởi hành</div>
-                                  <div className="col-md-4">
-                                    <select className="form-control" name="" id="">
-                                      <option value="">Máy bay</option>
-                                    </select>
+                                  <div className="col-md-2">
+                                    <label htmlFor="" style={{marginTop: '6px'}}>Khởi hành</label>
                                   </div>
-                                  <div className="col-md-1">
+                                  <div className="col-md-4">
+                                    <Input type="select" name="ccmonth" id="ccmonth">
+                                      <option value="">Chọn điểm đi</option>
+                                      <option value="1">Hà Nội</option>
+                                      <option value="2">Hải Phòng</option>
+                                      <option value="3">Quảng Ninh</option>
+                                      <option value="4">Nha Trang</option>
+                                      <option value="5">TP. Hồ Chí Minh</option>
+                                    </Input>
+                                  </div>
+                                  <div className="col-md-2">
                                     <i className="fa fa-exchange fa-2x text-primary"></i>
                                   </div>
                                   <div className="col-md-4">
-                                    <select className="form-control" name="" id="">
-                                      <option value="">Máy bay</option>
-                                    </select>
+                                    <Input type="select" name="ccmonth" id="ccmonth">
+                                      <option value="">Chọn điểm đến</option>
+                                      <option value="1">Seoul</option>
+                                      <option value="2">Bắc Kinh</option>
+                                      <option value="3">Bangkok</option>
+                                      <option value="4">Tokyo</option>
+                                      <option value="5">Kyoto</option>
+                                    </Input>
                                   </div>
                                 </div>
                                 <div className="mb-3">Hành lý mang theo (Miễn phí)</div>
+                                <div className="form-group row">
+                                  <div className="col-md-2 align-self-center">Xách tay</div>
+                                  <div className="col-md-4">
+                                    <input type="text" className="form-control text-right" name="luggage_weight_1" value="0.0 kg"/>
+                                  </div>
+                                  <div className="col-md-2 align-self-center">Kí gửi</div>
+                                  <div className="col-md-4">
+                                    <input type="text" className="form-control text-right" name="luggage_weight_2" value="0.0 kg"/>
+                                  </div>
+                                </div>
                               </form>
                               <div>
                                 <div>Chi phí khác</div>
@@ -1092,6 +1175,37 @@ class Create extends Component {
                               <AddTodo keyObject="cancelTour" addTodo={this.addTodo} />
                             </div>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style={{display: 'none'}} className={step === 5 ? 'mt-4 step-active' : 'mt-4'}>
+              <div className="clearfix mb-4">
+                <div className="float-left">
+                  <h4>Submit for Review</h4>
+                  <small>Tour du lịch 1 ngày</small>
+                </div>
+                <div className="float-right">
+                  <button className="btn btn-white btn-rounded mr-2" onClick={this.handleBackStep}>
+                    <i className="fa fa-arrow-left"></i> Back
+                  </button>
+                </div>
+              </div>
+              <div id="form-step-5">
+                <div className="">
+                  <div className="rct-block">
+                    <div className="collapse show">
+                      <div className="rct-block-content">
+                        <div className="text-center">
+                          <h3><b>CONGRATULATION</b></h3>
+                          <div className="mb-4">Bạn đã tạo tour du lịch thành công</div>
+                          <button onClick={this.handleSubmit} type="button" className="btn btn-rounded btn-custom">Submit for Review</button>
+                          <p className="mt-4">
+                            <img src={'assets/img/congratulation.svg'} alt="congratulation-img"/>
+                          </p>
                         </div>
                       </div>
                     </div>
