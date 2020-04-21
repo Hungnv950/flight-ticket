@@ -26,6 +26,10 @@ let TourSchema = new Schema({
             default: 1 // 1 => Điểm khởi hảnh && 2 => Các ngày tiếp theo
         },
         places:[{
+            id: { // Id địa chỉ lấy từ API về
+                type: Number,
+                required: true
+            },
             name:{ // Tên địa điểm
                 type: String,
                 required: true
@@ -35,23 +39,26 @@ let TourSchema = new Schema({
                 required: true
             },
             avatar:{ // Ảnh đại diển
-                type: Number,
-                default: 0
+                type: String,
+                required: true
             },
             latLong:{ // Địa chỉ latlong gg map
-                type: String
+                type: String,
+                default: 0
             },
             checkInTime:{ // Thời gian checkin. Theo theo giờ (ví dụ 7:30)
-                type: String
+                type: String,
+                default: '7:30'
             },
             description:{ // Mô tả địa điểm
-                type: String
+                type: String,
+                required: true
             },
             images:[{ // Danh sách ảnh địa điểm
                 path: { // Đường dẫn ảnh
                     type: String,
                     required: true
-                },
+                }
             }]
         }]
     }],

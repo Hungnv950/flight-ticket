@@ -10,17 +10,22 @@ import {
   Input,
   InputGroup,
   InputGroupAddon,
-  InputGroupText
+  InputGroupText, Modal, ModalBody, ModalFooter, ModalHeader
 } from "reactstrap";
 
 import Todos from "./Todos";
+import Places from "./Places";
 import AddTodo from "./AddTodo";
+import PlaceDetail from "./PlaceDetail";
 
 import {authHeader} from "../../helpers/authHeaders";
 
 class Create extends Component {
   constructor(props) {
     super(props);
+
+    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleModalMore = this.toggleModalMore.bind(this);
 
     this.onEntering = this.onEntering.bind(this);
     this.onEntered = this.onEntered.bind(this);
@@ -37,36 +42,12 @@ class Create extends Component {
       tpe: 1,
       schedule:[{
         tpe:1,
-        places:[{
-          name:{
-            type: String,
-            required: true
-          },
-          rateAvg:{
-            type: String,
-            required: true
-          },
-          avatar:{
-            type: Number,
-            default: 0
-          },
-          latLong:{
-            type: String
-          },
-          checkInTime:{
-            type: String
-          },
-          description:{
-            type: String
-          },
-          images:[{
-            path: {
-              type: String,
-              required: true
-            },
-          }]
-        }]
-      }],
+        places:[]
+      },
+        {
+          tpe:2,
+          places:[]
+        }],
       avatar: '',
       description: '',
       departureSchedule: {
@@ -115,16 +96,26 @@ class Create extends Component {
       cancelTour:[],
       boardOthers:[],
       collapse: false,
+      model: false,
       accordion: [true, false, false],
       custom: [true, false],
       status: 'Closed',
       fadeIn: true,
       timeout: 300,
-      step: 1
+      step: 1,
+      dayActive: 0,
+      placeActive: 0,
+      placeDetailActive:{
+        images:[],
+        description: '',
+        checkInTime: '7:30'
+      }
     };
 
     this.addTodo = this.addTodo.bind(this);
     this.delTodo = this.delTodo.bind(this);
+
+    this.addPlace = this.addPlace.bind(this);
 
     this.addBoard = this.addBoard.bind(this);
     this.delBoard = this.delBoard.bind(this);
@@ -137,32 +128,23 @@ class Create extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeField = this.handleChangeField.bind(this);
+    this.handleChangePlaceDetail = this.handleChangePlaceDetail.bind(this);
+    this.handleChangeEstimateDays = this.handleChangeEstimateDays.bind(this);
 
     this.handleUpInputNumberField = this.handleUpInputNumberField.bind(this);
     this.handleDownInputNumberField = this.handleDownInputNumberField.bind(this);
   };
 
   handleSubmit() {
-    const { title, estimateDays, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers } = this.state;
+    const { title, estimateDays, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers, schedule } = this.state;
 
-    console.log({
-      title,
-      estimateDays,
-      tpe,
-      description,
-      faresByAge,
-      faresByPeople,
-      faresByTime,
-      refundCancel,
-      priceNotIncluded,
-      cancelTour,
-      boardOthers
-    });
+    const avatar = 'https://duybnd-1659.github.io/images/tour-place.png';
 
     axios.post('/api/admin/tour/create', {
       title,
       estimateDays,
       tpe,
+      avatar,
       description,
       faresByAge,
       faresByPeople,
@@ -170,7 +152,8 @@ class Create extends Component {
       refundCancel,
       priceNotIncluded,
       cancelTour,
-      boardOthers
+      boardOthers,
+      schedule
     },{headers:authHeader()}).then(() => {
       this.setState({ redirect: true })
     });
@@ -181,6 +164,33 @@ class Create extends Component {
       [key]: event.target.value
     });
   };
+
+  handleChangeEstimateDays(event){
+    const value = event.target.value;
+
+    this.setState(prevState => ({
+      estimateDays: value,
+      schedule: [...prevState.schedule, {tpe:2, places: []}]
+    }));
+  }
+
+  handleChangePlaceDetail(key,event){
+    const value = event.target.value;
+
+    let schedule = this.state.schedule;
+
+    const {dayActive, placeActive} = this.state;
+
+    schedule[dayActive]['places'][placeActive][key] = value;
+
+    this.setState(prevState => ({
+      placeDetailActive: {
+        ...prevState.placeDetailActive,
+        [key]: value
+      },
+      schedule: schedule
+    }));
+  }
 
   handleNextStep(e) {
     e.preventDefault();
@@ -199,8 +209,6 @@ class Create extends Component {
     const keyArray = key.split('.');
 
     const value = event.target.value;
-
-    console.log(value);
 
     if(value > 100 || value < 0){
       return;
@@ -228,6 +236,29 @@ class Create extends Component {
 
   onExited() {
     this.setState({ status: 'Closed' });
+  }
+
+  toggleModal(index) {
+    this.setState({
+      dayActive: index,
+      modal: !this.state.modal
+    });
+  }
+
+  toggleModalMore(indexPlace) {
+    const {dayActive} = this.state;
+
+    let place = this.state.schedule[dayActive]['places'][indexPlace];
+
+    this.setState(prevState => ({
+      placeActive: indexPlace,
+      placeDetailActive: {
+        ...prevState.placeDetailActive,
+        checkInTime: place.checkInTime,
+        description: place.description
+      },
+      modalMore: !this.state.modalMore
+    }));
   }
 
   toggle() {
@@ -304,6 +335,21 @@ class Create extends Component {
     }));
   };
 
+  addPlace(key,place,action) {
+    const scheduleOld = this.state.schedule;
+
+    if(action){
+      scheduleOld[key].places.push(place);
+    }
+    else{
+      scheduleOld[key].places = scheduleOld[key].places.filter(item => item.id !== place.id);
+    }
+
+    this.setState({
+      schedule: scheduleOld
+    });
+  };
+
   delTodoFromBoard(key,id) {
     this.setState(prevState => ({
       boardN: {
@@ -348,7 +394,7 @@ class Create extends Component {
 
   render() {
 
-    const { title, tpe, estimateDays, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, step } = this.state;
+    const { title, tpe, estimateDays, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, schedule, step, placeDetailActive } = this.state;
 
     return (
       <div className="animated fadeIn">
@@ -434,7 +480,7 @@ class Create extends Component {
                                     <div className="input-group-prepend">
                                       <button className="btn btn-beside-input btn-beside-left" type="button">-</button>
                                     </div>
-                                    <input type="number" name="numDays" className="form-control" onChange={(ev) => this.handleChangeField('estimateDays', ev)}
+                                    <input type="number" name="numDays" className="form-control" onChange={(ev) => this.handleChangeEstimateDays(ev)}
                                            value={estimateDays} required=""/>
                                     <div className="input-group-prepend">
                                       <button className="btn btn-beside-input btn-beside-right" type="button">+</button>
@@ -489,7 +535,7 @@ class Create extends Component {
               <div className="clearfix mb-4">
                 <div className="float-left">
                   <h4 className="mb-1">Địa điểm du lịch</h4>
-                  <small>Tour du lịch 1 ngày
+                  <small>Tour du lịch {estimateDays} ngày
                 </small>
                 </div>
                 <div className="float-right">
@@ -501,49 +547,116 @@ class Create extends Component {
                   </button>
                 </div>
               </div>
-              <Card>
-                <CardHeader className="rct-block">
-                  <i className="fa fa-arrow-right"></i><strong onClick={this.toggle}>Điểm khởi hành</strong>
-                  <div className="card-header-actions">
-                    <a href="/" rel="noreferrer noopener" target="_blank" className="card-header-action" style={{color: '#FF4827 !important'}}>
-                      <i className="fa fa-plus"></i> Thêm địa điểm
-                    </a>
-                  </div>
-                </CardHeader>
-                <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
-                  <CardBody>
-                    <div className="tour-schedule-items"></div>
-                  </CardBody>
-                </Collapse>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <i className="fa fa-arrow-right"></i><strong onClick={this.toggle}>Ngày thứ 1</strong>
-                  <div className="card-header-actions">
-                    <a href="/" rel="noreferrer noopener" target="_blank" className="card-header-action" style={{color: '#FF4827 !important'}}>
-                      <i className="fa fa-plus"></i> Thêm địa điểm
-                    </a>
-                  </div>
-                </CardHeader>
-                <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
-                  <CardBody>
-                    <div className="tour-schedule-items">
-                      <div className="row">
-                        <div className="col-md-8">
-                          <ul></ul>
+              {schedule.map((day, indexDay) =>
+                  <Card>
+                    <CardHeader className="rct-block">
+                      <i className="fa fa-arrow-right"></i>
+                      <strong onClick={this.toggle}>
+                        {indexDay === 0 ? 'Điểm khởi hành' : 'Ngày thứ '+indexDay}
+                      </strong>
+                      <div className="card-header-actions">
+                        <a onClick={() => this.toggleModal(indexDay)} className="card-header-action" style={{color: '#FF4827 !important'}}>
+                          <i className="fa fa-plus"></i> Thêm địa điểm
+                        </a>
+                      </div>
+                    </CardHeader>
+                    <Collapse isOpen={this.state.collapse} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
+                      <CardBody>
+                        <div className="tour-schedule-items">
+                          <div className="row">
+                            <div className="col-md-8">
+                              <ul>
+                                {day.places.map((place,indexPlace) =>
+                                    <PlaceDetail toggleModalMore={this.toggleModalMore} place={place} indexDay={indexDay} indexPlace={indexPlace}/>
+                                )}
+                              </ul>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="map-wrapper">
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="col-md-4"></div>
+                      </CardBody>
+                    </Collapse>
+                  </Card>
+              )}
+              <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader toggle={() => this.toggleModal(this.state.dayActive)}>
+                  Thêm địa điểm
+                </ModalHeader>
+                <ModalBody>
+                  <div>
+                    <InputGroup>
+                      <Input type="text" placeholder="Nhập tên địa điểm tìm kiếm"/>
+                      <InputGroupAddon addonType="append">
+                        <InputGroupText><i className="fa fa-search"></i></InputGroupText>
+                      </InputGroupAddon>
+                    </InputGroup>
+                    <Places addPlace={this.addPlace} index={this.state.dayActive}/>
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="success">
+                    <i className="fa fa-check"></i> Hoàn thành
+                  </Button>
+                </ModalFooter>
+              </Modal>
+              <Modal isOpen={this.state.modalMore} toggle={this.toggle} className="modal-lg">
+                <ModalHeader toggle={() => this.toggleModalMore(this.state.placeActive)}>
+                  Thêm thông tin chi tiết
+                </ModalHeader>
+                <ModalBody>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div>
+                        <div className="form-group">
+                          <label>Thời gian check-in địa điểm này:</label>
+                          <FormGroup>
+                            <Input type="select" name="ccmonth" id="ccmonth" onChange={(ev) => this.handleChangePlaceDetail('checkInTime', ev)}
+                                   value={placeDetailActive.checkInTime}>
+                              <option value="7:30">7:30</option>
+                              <option value="7:45">7:45</option>
+                              <option value="8:00">8:00</option>
+                              <option value="8:15">8:15</option>
+                            </Input>
+                          </FormGroup>
+                        </div>
+                        <div className="form-group">
+                          <label>Mô tả hoạt động tại địa điểm:</label>
+                          <textarea name="description" className="form-control tour-description-textarea" placeholder="Thêm mô tả" required="" onChange={(ev) => this.handleChangePlaceDetail('description', ev)}
+                                    value={placeDetailActive.description}></textarea>
+                        </div>
                       </div>
                     </div>
-                  </CardBody>
-                </Collapse>
-              </Card>
+                    <div className="col-md-6">
+                      <div>
+                        <div className="container">
+                          <div tabIndex="0" className="dropzone">
+                            <input multiple="" type="file" autoComplete="off" tabIndex="-1" style={{display: 'none'}}/>
+                            <div className="text-center dropzone-placeholder-md">
+                              <i className="fa fa-cloud-upload fa-5x"></i>
+                              <h6 className="mt-2 mb-4">Drag and drop a file here, or click to select file</h6>
+                              <small>Lưu ý: Hình ảnh có độ phân giải cao và kích thước nhỏ hơn 2MB</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="success">
+                    <i className="fa fa-check"></i> Hoàn thành
+                  </Button>
+                </ModalFooter>
+              </Modal>
             </div>
             <div style={{display: 'none'}} className={step === 3 ? 'mt-4 step-active' : 'mt-4'}>
               <div className="clearfix mb-4">
                 <div className="float-left">
                   <h4 className="mb-1">Thêm lịch khởi hành và giá tour</h4>
-                  <small>Tour du lịch 1 ngày</small>
+                  <small>Tour du lịch {estimateDays} ngày</small>
                 </div>
                 <div className="float-right">
                   <button className="btn btn-white btn-rounded mr-2" onClick={this.handleBackStep}>

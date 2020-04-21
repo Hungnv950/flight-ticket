@@ -33,7 +33,7 @@ const routes = [
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/tours', exact: true,  name: 'Tour du lịch', component: Tours },
   { path: '/tour/:id', exact: true, name: 'Chi tiết tour', component: Tour },
-  { path: '/abc/create', exact: true, name: 'Thêm mới tour', component: TourCreate },
+  { path: '/tours/create', exact: true, name: 'Thêm mới tour', component: TourCreate },
   { path: '/tour/:id/update', exact: true, name: 'Chỉnh sửa tour', component: TourUpdate },
 ];
 
