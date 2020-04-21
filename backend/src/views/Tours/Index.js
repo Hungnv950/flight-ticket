@@ -1,46 +1,54 @@
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import { authHeader } from "../../helpers/authHeaders";
 
 import {
-  Badge,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  FormGroup,
-  Input,
-  Label,
+    Card,
+    CardBody,
+    CardHeader, Input, InputGroup
 } from 'reactstrap';
 
-function CollaboratorRow(props) {
-  const stt = props.stt;
-  const collaborator = props.collaborator;
-  const collaboratorLink = `/collaborator/${collaborator._id}`;
+function TourRow(props) {
+  const tour = props.tour;
+  const viewMode = props.viewMode;
 
-  const getBadge = (status) => {
-    return status === 10 ? 'success' : 'danger'
-  };
-
-  const getStatusLabel = (status) => {
-    return status === 10 ? 'Đang hoạt động' : 'Ngừng hoạt động'
-  };
-
-  return (
-    <tr key={collaborator._id}>
-      <td>{stt+1}</td>
-      <td><img src="https://ui-avatars.com/api/?size=50&name=V%C3%B5%20Thanh%20S%C6%A1n" alt=""/></td>
-      <td><Link to={collaboratorLink}>{collaborator.code}</Link></td>
-      <td>{collaborator.fullName}</td>
-      <td>{collaborator.phone}</td>
-      <td>{collaborator.email}</td>
-      <td><Badge color={getBadge(collaborator.status)}>{getStatusLabel(collaborator.status)}</Badge></td>
-    </tr>
-  )
+  if(viewMode){
+    return (
+        <div className="tour-list-items">
+          <img src={tour.avatar} className="tour-item-img-lg mb-2" alt={tour.title}/>
+          <h5><b>{tour.title}</b></h5>
+          <div className="clearfix">
+            <div className="float-left">
+              <div className="tour-price text-bold text-orange">1.200.000 đ</div>
+            </div>
+            <div className="float-right">
+              <i className="fa fa-calendar"></i> <span> {tour.estimateDays} days</span>
+            </div>
+          </div>
+        </div>
+    )
+  }
+  else{
+    return (
+        <div className="tour-list-items row">
+            <div className="col-md-3">
+                <img src={tour.avatar} className="tour-item-img-sm" alt={tour.title}/>
+            </div>
+            <div className="col-md-9">
+                <h5><b>{tour.title}</b></h5>
+                <div className="clearfix">
+                    <div className="float-left">
+                        <div className="tour-price text-bold text-orange">1.200.000 đ</div>
+                    </div>
+                    <div className="float-right">
+                        <i className="fa fa-calendar"></i> <span> {tour.estimateDays} days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+  }
 }
 
 class Index extends Component {
@@ -48,19 +56,31 @@ class Index extends Component {
     super(props);
 
     this.state = {
-      collaborators: []
+      tours: [],
+        viewMode: true
     };
+
+    this.handleViewMode = this.handleViewMode.bind(this);
   }
 
   componentDidMount(){
-    axios.get("/api/admin/collaborators",{headers: authHeader()}).then(response => {
-      this.setState({ collaborators: response.data });
+    axios.get("/api/admin/tours",{headers: authHeader()}).then(response => {
+      this.setState({ tours: response.data.tours });
     }).catch(function (error) {
       console.log(error);
     })
   }
 
+  handleViewMode(){
+      this.setState({
+        viewMode: !this.state.viewMode
+      })
+  }
+
   render() {
+
+    const { tours, viewMode } = this.state;
+
     return (
       <div className="animated fadeIn">
         <div className="rct-page-content">
@@ -69,9 +89,12 @@ class Index extends Component {
               <div>
                 <div>
                   <div className="clearfix mb-4">
-                    <div className="float-left"><h1>My Tours</h1><small>There are <span>4</span> tours</small></div>
-                    <div className="float-right"><a href="/thanktriips/tours/create">
-                      <button className="btn btn-rounded btn-custom">Create new</button>
+                    <div className="float-left">
+                      <h1>My Tours</h1>
+                      <small>There are <span>4</span> tours</small>
+                    </div>
+                    <div className="float-right"><a href="#/tours/create">
+                      <button className="btn btn-rounded btn-custom">Tạo mới</button>
                     </a></div>
                   </div>
                 </div>
@@ -79,93 +102,34 @@ class Index extends Component {
                   <div className="bd-highlight align-self-center w-70">
                     <div className="css-1pcexqc-container">
                       <div className="css-bg1rzq-control">
-                        <div className="css-1hwfws3">
-                          <div className="css-151xaom-placeholder">Chọn loại tour...</div>
-                          <div className="css-1g6gooi">
-                            <div className="" style={{display: 'inline-block'}}>
-                              <input autoCapitalize="none"
-                                     autoComplete="off" autoCorrect="off"
-                                     id="react-select-3-input"
-                                     spellCheck="false" tabIndex="0"
-                                     type="text" aria-autocomplete="list"
-                                     value=""/>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="css-1wy0on6"><span className="css-bgvzuu-indicatorSeparator"></span>
-                          <div aria-hidden="true" className="css-16pqwjk-indicatorContainer">
-                            <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"
-                                 className="css-19bqh2r">
-                              <path
-                                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
-                            </svg>
-                          </div>
-                        </div>
+                          <InputGroup>
+                              <Input type="select" name="ccmonth" id="ccmonth">
+                                  <option value="">Chọn điểm đi</option>
+                                  <option value="1">Hà Nội</option>
+                                  <option value="2">Hải Phòng</option>
+                                  <option value="3">Quảng Ninh</option>
+                                  <option value="4">Nha Trang</option>
+                                  <option value="5">TP. Hồ Chí Minh</option>
+                              </Input>
+                          </InputGroup>
                       </div>
                     </div>
                   </div>
                   <div className="bd-highlight align-self-center">
-                    <button className="btn btn-display "><img
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMC4wMjIiIGhlaWdodD0iMTcuNjY1IiB2aWV3Qm94PSIwIDAgMjAuMDIyIDE3LjY2NSI+DQogIDxnIGlkPSJHcm91cF80ODUiIGRhdGEtbmFtZT0iR3JvdXAgNDg1IiBvcGFjaXR5PSIwLjYzNyI+DQogICAgPHJlY3QgaWQ9IlJlY3RhbmdsZV81ODMiIGRhdGEtbmFtZT0iUmVjdGFuZ2xlIDU4MyIgd2lkdGg9IjEzLjE0MyIgaGVpZ2h0PSIxLjA0OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNi44NzkgMCkiIGZpbGw9IiMyMzFmMjAiLz4NCiAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlXzU4NCIgZGF0YS1uYW1lPSJSZWN0YW5nbGUgNTg0IiB3aWR0aD0iOS42NTIiIGhlaWdodD0iMS4wNDkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYuODc5IDQuNzk5KSIgZmlsbD0iIzIzMWYyMCIvPg0KICAgIDxyZWN0IGlkPSJSZWN0YW5nbGVfNTg1IiBkYXRhLW5hbWU9IlJlY3RhbmdsZSA1ODUiIHdpZHRoPSI1Ljc1MyIgaGVpZ2h0PSIxLjA0OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNi44NzkgOS41OTgpIiBmaWxsPSIjMjMxZjIwIi8+DQogICAgPHBhdGggaWQ9IlBhdGhfNDY2IiBkYXRhLW5hbWU9IlBhdGggNDY2IiBkPSJNMTQyLjMzMiw0OGEuNDIzLjQyMywwLDAsMC0uNTk1LS42bC0zLjA0NiwzLjA0NnYtMTUuOGEuNDE5LjQxOSwwLDAsMC0uNDIxLS40MjEuNDIzLjQyMywwLDAsMC0uNDI3LjQyMXYxNS44TDEzNC44LDQ3LjRhLjQzMS40MzEsMCwwLDAtLjYsMCwuNDIxLjQyMSwwLDAsMCwwLC42bDMuNzY3LDMuNzY3YS40MTQuNDE0LDAsMCwwLC41OTUsMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMzQuMDc3IC0zNC4yMjQpIiBmaWxsPSIjMWUyMDFkIi8+DQogIDwvZz4NCjwvc3ZnPg0K"
-                        alt="list"/></button>
-                    <button className="btn btn-display active"><img
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNy4yMDgiIGhlaWdodD0iMTcuODA0IiB2aWV3Qm94PSIwIDAgMTcuMjA4IDE3LjgwNCI+DQogIDxwYXRoIGlkPSJQYXRoXzQ2NyIgZGF0YS1uYW1lPSJQYXRoIDQ2NyIgZD0iTTE1Mi4wNTcsMjY2LjM3OEgxMzkuNjM5YTIuNCwyLjQsMCwwLDEtMi4zOTUtMi4zOTV2LTcuNWEyLjQsMi40LDAsMCwxLDIuMzk1LTIuMzk1aDEyLjQxOGEyLjQsMi40LDAsMCwxLDIuMzk1LDIuMzk1djcuNUEyLjQsMi40LDAsMCwxLDE1Mi4wNTcsMjY2LjM3OFptLS4wMDgsMS43NjdoLTEyLjR2Ljk5aDEyLjRaTTE1MC40LDI3MC45aC05LjEwOHYuOTlIMTUwLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTM3LjI0NCAtMjU0LjA4NykiIGZpbGw9IiMyMzFmMjAiIG9wYWNpdHk9IjAuNjEzIi8+DQo8L3N2Zz4NCg=="
-                        alt="list"/></button>
+                    <button className={viewMode ? 'btn btn-display' : 'btn btn-display active'} onClick={this.handleViewMode}>
+                      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMC4wMjIiIGhlaWdodD0iMTcuNjY1IiB2aWV3Qm94PSIwIDAgMjAuMDIyIDE3LjY2NSI+DQogIDxnIGlkPSJHcm91cF80ODUiIGRhdGEtbmFtZT0iR3JvdXAgNDg1IiBvcGFjaXR5PSIwLjYzNyI+DQogICAgPHJlY3QgaWQ9IlJlY3RhbmdsZV81ODMiIGRhdGEtbmFtZT0iUmVjdGFuZ2xlIDU4MyIgd2lkdGg9IjEzLjE0MyIgaGVpZ2h0PSIxLjA0OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNi44NzkgMCkiIGZpbGw9IiMyMzFmMjAiLz4NCiAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlXzU4NCIgZGF0YS1uYW1lPSJSZWN0YW5nbGUgNTg0IiB3aWR0aD0iOS42NTIiIGhlaWdodD0iMS4wNDkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYuODc5IDQuNzk5KSIgZmlsbD0iIzIzMWYyMCIvPg0KICAgIDxyZWN0IGlkPSJSZWN0YW5nbGVfNTg1IiBkYXRhLW5hbWU9IlJlY3RhbmdsZSA1ODUiIHdpZHRoPSI1Ljc1MyIgaGVpZ2h0PSIxLjA0OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNi44NzkgOS41OTgpIiBmaWxsPSIjMjMxZjIwIi8+DQogICAgPHBhdGggaWQ9IlBhdGhfNDY2IiBkYXRhLW5hbWU9IlBhdGggNDY2IiBkPSJNMTQyLjMzMiw0OGEuNDIzLjQyMywwLDAsMC0uNTk1LS42bC0zLjA0NiwzLjA0NnYtMTUuOGEuNDE5LjQxOSwwLDAsMC0uNDIxLS40MjEuNDIzLjQyMywwLDAsMC0uNDI3LjQyMXYxNS44TDEzNC44LDQ3LjRhLjQzMS40MzEsMCwwLDAtLjYsMCwuNDIxLjQyMSwwLDAsMCwwLC42bDMuNzY3LDMuNzY3YS40MTQuNDE0LDAsMCwwLC41OTUsMFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMzQuMDc3IC0zNC4yMjQpIiBmaWxsPSIjMWUyMDFkIi8+DQogIDwvZz4NCjwvc3ZnPg0K"
+                        alt="list"/>
+                    </button>
+                    <button className={viewMode ? 'btn btn-display active' : 'btn btn-display'} onClick={this.handleViewMode}>
+                      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNy4yMDgiIGhlaWdodD0iMTcuODA0IiB2aWV3Qm94PSIwIDAgMTcuMjA4IDE3LjgwNCI+DQogIDxwYXRoIGlkPSJQYXRoXzQ2NyIgZGF0YS1uYW1lPSJQYXRoIDQ2NyIgZD0iTTE1Mi4wNTcsMjY2LjM3OEgxMzkuNjM5YTIuNCwyLjQsMCwwLDEtMi4zOTUtMi4zOTV2LTcuNWEyLjQsMi40LDAsMCwxLDIuMzk1LTIuMzk1aDEyLjQxOGEyLjQsMi40LDAsMCwxLDIuMzk1LDIuMzk1djcuNUEyLjQsMi40LDAsMCwxLDE1Mi4wNTcsMjY2LjM3OFptLS4wMDgsMS43NjdoLTEyLjR2Ljk5aDEyLjRaTTE1MC40LDI3MC45aC05LjEwOHYuOTlIMTUwLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTM3LjI0NCAtMjU0LjA4NykiIGZpbGw9IiMyMzFmMjAiIG9wYWNpdHk9IjAuNjEzIi8+DQo8L3N2Zz4NCg=="
+                        alt="list"/>
+                    </button>
                   </div>
                 </div>
                 <div>
-                  <div className="tour-list-items"><img
-                      src="https://mytourcdn.com/upload_images/Image/Location/13_5_2015/Chup-anh-dep-o-ly-son-mytour-2.jpg"
-                      className="tour-item-img-lg mb-2" alt="Tour"/><h4><b>Tour khám phá Vũng Tàu 3 ngày 2 đêm</b></h4>
-                    <div className="clearfix">
-                      <div className="float-left">
-                        <div className="tour-price text-bold text-orange">1.200.000 đ</div>
-                      </div>
-                      <div className="float-right"><i className="far fa-calendar-alt"></i> <span> 5 days</span></div>
-                    </div>
-                    <div className="tour-grid-item-options"><span className="menu-icon"><i
-                        className="fas fa-ellipsis-v"></i></span>
-                      <div className="menu-dropdown-wrapper tour-option-menu"></div>
-                    </div></div>
-                  <div className="tour-list-items"><img
-                      src="https://media.worldnomads.com/Travel-Safety/france/womenssafetyfranace-fancyyan.jpg"
-                      className="tour-item-img-lg mb-2" alt="Tour"/><h4><b>Tour khám phá Vũng Tàu 3 ngày 2 đêm</b></h4>
-                    <div className="clearfix">
-                      <div className="float-left">
-                        <div className="tour-price text-bold text-orange">1.200.000 đ</div>
-                      </div>
-                      <div className="float-right"><i className="far fa-calendar-alt"></i> <span> 5 days</span></div>
-                    </div>
-                    <div className="tour-grid-item-options"><span className="menu-icon"><i
-                        className="fas fa-ellipsis-v"></i></span>
-                      <div className="menu-dropdown-wrapper tour-option-menu"></div>
-                    </div></div>
-                  <div className="tour-list-items"><img
-                      src="http://topsvietnam.com/wp-content/uploads/2018/10/cauvang-650x487.jpg"
-                      className="tour-item-img-lg mb-2" alt="Tour"/><h4><b>Tour khám phá Vũng Tàu 3 ngày 2 đêm</b></h4>
-                    <div className="clearfix">
-                      <div className="float-left">
-                        <div className="tour-price text-bold text-orange">1.200.000 đ</div>
-                      </div>
-                      <div className="float-right"><i className="far fa-calendar-alt"></i> <span> 5 days</span></div>
-                    </div>
-                    <div className="tour-grid-item-options"><span className="menu-icon"><i
-                        className="fas fa-ellipsis-v"></i></span>
-                      <div className="menu-dropdown-wrapper tour-option-menu"></div>
-                    </div></div>
-                  <div className="tour-list-items"><img
-                      src="https://s23407.pcdn.co/wp-content/uploads/2017/09/Sapa-Vietnam-Travel-Blog.jpg"
-                      className="tour-item-img-lg mb-2" alt="Tour"/><h4><b>Tour khám phá Vũng Tàu 3 ngày 2 đêm</b></h4>
-                    <div className="clearfix">
-                      <div className="float-left">
-                        <div className="tour-price text-bold text-orange">1.200.000 đ</div>
-                      </div>
-                      <div className="float-right"><i className="far fa-calendar-alt"></i> <span> 5 days</span></div>
-                    </div>
-                    <div className="tour-grid-item-options"><span className="menu-icon"><i
-                        className="fas fa-ellipsis-v"></i></span>
-                      <div className="menu-dropdown-wrapper tour-option-menu"></div>
-                    </div></div>
+                  {tours.map((tour,index) =>
+                    <TourRow tour={tour} key={index} viewMode={viewMode} />
+                  )}
                 </div>
               </div>
             </div>
@@ -178,9 +142,7 @@ class Index extends Component {
                   </div>
                 </CardHeader>
                 <CardBody>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                  laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                  ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+
                 </CardBody>
               </Card>
               <Card>
