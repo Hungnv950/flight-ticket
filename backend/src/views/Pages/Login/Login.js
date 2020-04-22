@@ -23,12 +23,10 @@ class Login extends Component {
   handleSubmit() {
     const { username, password } = this.state;
 
-    authenticationService.login(username, password)
-        .then(user => {
-              const { from } = this.props.location.state || { from: { pathname: "/" } };
-              this.props.history.push(from);
-            }
-        );
+    authenticationService.login(username, password).then(() => {
+      const { from } = this.props.location.state || { from: { pathname: "/" } };
+      this.props.history.push(from);
+    });
   };
 
   handleChangeField(key, event) {

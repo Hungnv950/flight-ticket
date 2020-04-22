@@ -13,10 +13,12 @@ const CollaboratorCreate = React.lazy(() => import('./views/Collaborators/Create
 const CollaboratorUpdate = React.lazy(() => import('./views/Collaborators/Update'));
 const CollaboratorChangePassword = React.lazy(() => import('./views/Collaborators/ChangePassword'));
 
-const Tour = React.lazy(() => import('./views/Tours/View'));
 const Tours = React.lazy(() => import('./views/Tours/Index'));
+const TourChat = React.lazy(() => import('./views/Tours/Chat'));
 const TourCreate = React.lazy(() => import('./views/Tours/Create'));
 const TourUpdate = React.lazy(() => import('./views/Tours/Update'));
+const TourGeneral = React.lazy(() => import('./views/Tours/General'));
+const TourSupport = React.lazy(() => import('./views/Tours/Support'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -32,7 +34,9 @@ const routes = [
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/tours', exact: true,  name: 'Tour du lịch', component: Tours },
-  { path: '/tour/:id', exact: true, name: 'Chi tiết tour', component: Tour },
+  { path: '/tour/:id/general', exact: true, name: 'Chi tiết tour', component: TourGeneral },
+  { path: '/tour/:id/chat', exact: true, name: 'Chi tiết tour', component: TourChat },
+  { path: '/tour/:id/support', exact: true, name: 'Chi tiết tour', component: TourSupport },
   { path: '/tours/create', exact: true, name: 'Thêm mới tour', component: TourCreate },
   { path: '/tour/:id/update', exact: true, name: 'Chỉnh sửa tour', component: TourUpdate },
 ];
