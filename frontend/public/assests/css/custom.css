@@ -207,3 +207,43 @@
   display: block;
   margin: 0 auto;
 }
+
+.d-none {
+  display: none !important;
+}
+
+/* Tour detail slider */
+.sc-AxjAm.rec-arrow {
+  z-index: 9999;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  min-width: 30px;
+  background-color: white;
+  font-size: 15px;
+}
+
+.sc-AxjAm.rec-arrow:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+.other-day-start .days {
+  padding: 10px 25px;
+  position: relative;
+}
+
+.other-day-start .days__wrap {
+  display: -ms-flexbox;
+  display: flex;
+  width: 500px;
+}
+
+.sc-Axmtr.rec-pagination {
+  display: none;
+}

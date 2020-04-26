@@ -25,6 +25,13 @@ class Booking extends Component {
 		}
 	}
 
+	componentDidMount() {
+		if (_.isEmpty(this.props.tour)) {
+			let id = this.props.match.params.id;
+			this.props.getTour(id);
+		}
+	}
+
 	onSelectLuggage(item) {
 		this.setState({
 			luggage: item.value,
@@ -410,7 +417,8 @@ class Booking extends Component {
 };
 
 const mapStateToProps = (state) => ({
-	fare: state.booking.fareData
+	fare: state.booking.fareData,
+	tour: state.tour.tour,
 });
 
 const mapDispatchToProps = (dispatch) => {
