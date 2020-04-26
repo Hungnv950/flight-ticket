@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {AppSwitch} from "@coreui/react";
 import React, { Component } from 'react';
 
-import {Badge, Input, InputGroup, Table} from 'reactstrap';
+import {Input, InputGroup, InputGroupAddon, InputGroupText, Modal, ModalBody, Table} from 'reactstrap';
 
 import { authHeader } from "../../helpers/authHeaders";
 
@@ -58,10 +58,12 @@ class Index extends Component {
 
     this.state = {
       tours: [],
+      modal: false,
       viewMode: false,
-      tourSelected:{}
+      tourSelected: {}
     };
 
+    this.toggleModal = this.toggleModal.bind(this);
     this.handleViewMode = this.handleViewMode.bind(this);
   }
 
@@ -85,12 +87,19 @@ class Index extends Component {
     });
   }
 
+  toggleModal() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+
   render() {
     const tourId = this.props.match.params.id;
 
     const { tours, viewMode } = this.state;
 
     const linkChat = `/#/tour/${tourId}/chat`;
+    const linkUpdate = `/#/tours/${tourId}/update`;
     const linkGeneral = `/#/tour/${tourId}/general`;
     const linkSupport = `/#/tour/${tourId}/support`;
 
@@ -100,13 +109,19 @@ class Index extends Component {
             <div className="row">
               <div className="col-md-4 my-tours" style={{position: 'unset'}}>
                 <div className="clearfix mb-4">
-                  <div className="float-left">
-                    <h1>My Tours</h1>
-                    <small>There are <span>4</span> tours</small>
+                  <div>
+                    <div className="float-left">
+                      <h1>My Tours</h1>
+                      <small>There are <span>{tours.length}</span> tours</small>
+                    </div>
+                    <div className="float-right">
+                      <a href="#/tours/create">
+                        <button className="btn btn-rounded btn-custom btn-linear" style={{width: '100px'}}>
+                          <i className="fa fa-plus"></i> Tạo mới
+                        </button>
+                      </a>
+                    </div>
                   </div>
-                  <div className="float-right"><a href="#/tours/create">
-                    <button className="btn btn-rounded btn-custom">Tạo mới</button>
-                  </a></div>
                 </div>
                 <div className="d-flex justify-content-between mb-4">
                   <div className="bd-highlight align-self-center w-70">
@@ -163,7 +178,9 @@ class Index extends Component {
                             <i className="fa fa-info-circle"></i> <span> Thông tin về chuyến đi</span>
                           </div>
                           <div className="float-right text-primary">
-                            <i className="fa fa-edit"></i> <span> Cập nhật</span>
+                            <a href={linkUpdate}>
+                              <i className="fa fa-edit"></i> <span> Cập nhật</span>
+                            </a>
                           </div>
                         </div>
                         <hr/>
@@ -172,13 +189,13 @@ class Index extends Component {
                               <div className="">Tổng doanh số</div>
                             </div>
                             <div className="col-md-3 col-sm-6">
-                              <div className=""><b>20.000.000đ</b></div>
+                              <div className=""><b>0 đ</b></div>
                             </div>
                             <div className="col-md-3 col-sm-6">
                               <div className="">Tổng khách hàng</div>
                             </div>
                             <div className="col-md-3 col-sm-6">
-                              <div className=""><b>10.000</b></div>
+                              <div className=""><b>0</b></div>
                             </div>
                           </div>
                           <div className="row mb-2">
@@ -186,13 +203,13 @@ class Index extends Component {
                               <div className="">Đã hoàn thành</div>
                             </div>
                             <div className="col-md-3 col-sm-6">
-                              <div className="text-primary"><b>10.000.000đ</b></div>
+                              <div className="text-primary"><b>0 đ</b></div>
                             </div>
                             <div className="col-md-3 col-sm-6">
                               <div className="">Đã hoàn thành</div>
                             </div>
                             <div className="col-md-3 col-sm-6">
-                              <div className="text-primary"><b>7.000</b></div>
+                              <div className="text-primary"><b>0</b></div>
                             </div>
                           </div>
                           <div className="row mb-2">
@@ -200,13 +217,13 @@ class Index extends Component {
                               <div className="">Chưa hoàn thành</div>
                             </div>
                             <div className="col-md-3 col-sm-6">
-                              <div className=" text-danger"><b>10.000.000đ</b></div>
+                              <div className=" text-danger"><b>0 đ</b></div>
                             </div>
                             <div className="col-md-3 col-sm-6">
                               <div className="">Chưa hoàn thành</div>
                             </div>
                             <div className="col-md-3 col-sm-6">
-                              <div className=" text-danger"><b>3.000</b></div>
+                              <div className=" text-danger"><b>0</b></div>
                             </div>
                           </div>
                       </div>
@@ -274,10 +291,12 @@ class Index extends Component {
                           <div className="col-md-4">
                             <div className="row">
                               <div className="col-5">
-                                <button className="btn-add" type="button"><i className="fa fa-plus fa-2x"></i></button>
+                                <button className="btn-add" type="button" onClick={this.toggleModal}>
+                                  <i className="fa fa-plus fa-2x"></i>
+                                </button>
                               </div>
                               <div className="col-7">
-                                <div className="">Thêm thành viên</div>
+                                <div style={{marginTop: '15px'}}>Thêm thành viên</div>
                                 <div>
                                   <small className="text-gray">Vai trò trong tour</small>
                                 </div>
@@ -286,6 +305,29 @@ class Index extends Component {
                           </div>
                         </div>
                       </div>
+                      <Modal isOpen={this.state.modal} toggle={() => this.toggleModal()}>
+                        <ModalBody>
+                          <div className="d-flex justify-content-between mb-3">
+                            <div className="bd-highlight align-self-center">
+                              <h5>Thêm địa điểm</h5><small></small>
+                            </div>
+                            <div className="bd-highlight align-self-center">
+                              <button className="btn btn-rounded btn-custom btn-linear btn-next-step" onClick={() => this.toggleModal()}>
+                                <i className="fa fa-check"></i> Hoàn thành
+                              </button>
+                            </div>
+                          </div>
+                          <div>
+                            <InputGroup>
+                              <Input type="text" placeholder="Nhập tên địa điểm tìm kiếm"/>
+                              <InputGroupAddon addonType="append">
+                                <InputGroupText><i className="fa fa-search"></i></InputGroupText>
+                              </InputGroupAddon>
+                            </InputGroup>
+                            <hr/>
+                          </div>
+                        </ModalBody>
+                      </Modal>
                     </div>
                   </div>
                 </div>
@@ -308,14 +350,14 @@ class Index extends Component {
                                         <i className="fa fa-circle progress-icon-1"></i>
                                         <small> &gt;= 20 years old</small>
                                       </div>
-                                      <small className="text-gray">$18,570</small>
+                                      <small className="text-gray">0</small>
                                     </div>
                                     <div className="bd-highlight align-self-center">
                                       <div>
                                         <i className="fa fa-circle progress-icon-2"></i>
                                         <small> &lt; 20 years old</small>
                                       </div>
-                                      <small className="text-gray">$31,430</small>
+                                      <small className="text-gray">0</small>
                                     </div>
                                   </div>
                                 </div>
@@ -339,10 +381,10 @@ class Index extends Component {
                                   <div className="d-flex justify-content-between mb-3">
                                     <div className="bd-highlight align-self-center">
                                       <div><i className="fa fa-circle progress-icon-1"></i><small> Domestic</small></div>
-                                      <small className="text-gray">$18,570</small></div>
+                                      <small className="text-gray">0</small></div>
                                     <div className="bd-highlight align-self-center">
                                       <div><i className="fa fa-circle progress-icon-2"></i><small> Foreign</small></div>
-                                      <small className="text-gray">$31,430</small></div>
+                                      <small className="text-gray">0</small></div>
                                   </div>
                                 </div>
                               </div>
@@ -379,46 +421,6 @@ class Index extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                              <td>Samppa Nori</td>
-                              <td>2012/01/01</td>
-                              <td>Member</td>
-                              <td>
-                                <Badge color="success">Active</Badge>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Estavan Lykos</td>
-                              <td>2012/02/01</td>
-                              <td>Staff</td>
-                              <td>
-                                <Badge color="danger">Banned</Badge>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Chetan Mohamed</td>
-                              <td>2012/02/01</td>
-                              <td>Admin</td>
-                              <td>
-                                <Badge color="secondary">Inactive</Badge>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Derick Maximinus</td>
-                              <td>2012/03/01</td>
-                              <td>Member</td>
-                              <td>
-                                <Badge color="warning">Pending</Badge>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Friderik Dávid</td>
-                              <td>2012/01/21</td>
-                              <td>Staff</td>
-                              <td>
-                                <Badge color="success">Active</Badge>
-                              </td>
-                            </tr>
                             </tbody>
                           </Table>
                         </div>

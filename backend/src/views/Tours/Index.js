@@ -11,6 +11,12 @@ function TourRow(props) {
   const viewMode = props.viewMode;
   const linkTour = `/tour/${tour._id}/general`;
 
+  function formatNumber(num) {
+    if(num === undefined) num = 0;
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+  }
+
   if(viewMode){
     return (
         <div className="tour-list-items">
@@ -19,7 +25,7 @@ function TourRow(props) {
             <h6><b>{tour.title}</b></h6>
             <div className="clearfix">
               <div className="float-left">
-                <div className="tour-price text-bold text-orange">1.200.000 đ</div>
+                <div className="tour-price text-bold text-orange">{formatNumber(tour.basePrice)} đ</div>
               </div>
               <div className="float-right">
                 <i className="fa fa-calendar"></i> <span> {tour.estimateDays} days</span>
@@ -36,10 +42,10 @@ function TourRow(props) {
             <img src={tour.avatar} className="tour-item-img-sm" alt={tour.title}/>
           </div>
           <div className="col-md-9">
-            <h5><b>{tour.title}</b></h5>
+            <h6><b>{tour.title}</b></h6>
             <div className="clearfix">
               <div className="float-left">
-                <div className="tour-price text-bold text-orange">1.200.000 đ</div>
+                <div className="tour-price text-bold text-orange">{formatNumber(tour.basePrice)} đ</div>
               </div>
               <div className="float-right">
                 <i className="fa fa-calendar"></i> <span> {tour.estimateDays} days</span>
@@ -91,11 +97,15 @@ class Index extends Component {
                   <div className="clearfix mb-4">
                     <div className="float-left">
                       <h1>My Tours</h1>
-                      <small>There are <span>4</span> tours</small>
+                      <small>There are <span>{tours.length}</span> tours</small>
                     </div>
-                    <div className="float-right"><a href="#/tours/create">
-                      <button className="btn btn-rounded btn-custom">Tạo mới</button>
-                    </a></div>
+                    <div className="float-right">
+                      <a href="#/tours/create">
+                        <button className="btn btn-rounded btn-custom btn-linear" style={{width: '100px'}}>
+                          <i className="fa fa-plus"></i> Tạo mới
+                        </button>
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mb-4">

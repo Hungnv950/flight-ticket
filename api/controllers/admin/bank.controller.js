@@ -5,7 +5,7 @@ const User = require('../../models/user.model');
 exports.index =  async function(req, res) {
     const user = await User.findById(req.user._id).populate('banks');
 
-    res.json(user.banks);
+    res.status(200).send(user.banks);
 };
 
 exports.create = async function(req, res) {

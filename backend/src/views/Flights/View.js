@@ -11,6 +11,8 @@ class View extends Component {
     this.state = {
       flight: Object
     };
+
+    this.formatNumber = this.forceUpdate.bind(this);
   };
 
   componentDidMount(){
@@ -25,9 +27,23 @@ class View extends Component {
     })
   }
 
+  formatNumber(num) {
+    if(num === undefined) num = 0;
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+  }
+
   render() {
 
     const {flight} = this.state;
+
+    const passengers = flight.passengers === undefined ? [] : flight.passengers;
+
+    function  formatNumber(num) {
+      if(num === undefined) num = 0;
+
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
 
     return (
       <div className="animated fadeIn">
@@ -75,9 +91,13 @@ class View extends Component {
                       <label className="form-label control-label">Trạng thái:</label>
                       <div className="form-wrap form-control-static">
                         <div className="input-group mb-3" id="product_coupon">
-                          <button className="btn btn-block btn-success" type="button">
+                          <button style={{display: flight.status === 2 ? 'block' : 'none'}} className="btn btn-block btn-success" type="button">
                             <i className="nav-icon icon-check"></i>
                             Đã thanh toán
+                          </button>
+                          <button style={{display: flight.status === 1 ? 'block' : 'none'}} className="btn btn-block btn-danger" type="button">
+                            <i className="nav-icon icon-clock"></i>
+                            Đang đặt hàng
                           </button>
                         </div>
                       </div>
@@ -160,7 +180,7 @@ class View extends Component {
                         <div className="form-group">
                           <label className="form-label control-label">Ông:</label>
                           <div className="form-wrap form-control-static">
-                            <strong>Võ Thanh Sơn KH</strong>
+                            <strong>{flight.fullName}</strong>
                           </div>
                         </div>
                       </div>
@@ -171,7 +191,7 @@ class View extends Component {
                           </label>
                           <div className="form-wrap form-control-static">
                             <a href="javascript:void(0)">
-                              09667845762
+                              {flight.phone}
                             </a>
                           </div>
                         </div>
@@ -180,7 +200,7 @@ class View extends Component {
                         <div className="form-group">
                           <label className="form-label control-label">Email:</label>
                           <div className="form-wrap form-control-static">
-                            09667845762@thinkflight.com
+                            {flight.email}
                           </div>
                         </div>
                       </div>
@@ -200,33 +220,24 @@ class View extends Component {
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>
-                      Lê Văn Việt
-                    </td>
-                    <td className="th-text-right">
-                      ₫ <strong>1.450.000</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>
-                      Lê Văn Việt
-                    </td>
-                    <td className="th-text-right">
-                      ₫ <strong>1.450.000</strong>
-                    </td>
-                  </tr>
+                  {passengers.map((passenger, index) =>
+                      <tr>
+                        <td>{index+1}</td>
+                        <td>
+                          {passenger.firstName +' '+ passenger.lastName}
+                        </td>
+                        <td className="th-text-right">
+                          ₫ <strong>{formatNumber(passenger.price)}</strong>
+                        </td>
+                      </tr>
+                  )}
                   <tr>
                     <td colSpan="2">
-                      Giảm giá theo
-                      <span className="text-orange font-weight-regular">
-                        ID giới thiệu
-                        <strong style={{color: '#e55353'}}>SON25304830</strong>
+                      Giảm giá theo <span className="text-orange font-weight-regular">
+                        ID giới thiệu <strong style={{color: '#e55353'}}>{flight.collaboratorCode}</strong>
                       </span>
                     </td>
-                    <td className="th-text-right">-₫ <strong>30.000</strong></td>
+                    <td className="th-text-right">-₫ <strong>{formatNumber(flight.discount)}</strong></td>
                   </tr>
                   <tr style={{backgroundColor: 'rgba(255, 219, 196, 0.46)'}}>
                     <td colSpan="2">
@@ -239,7 +250,7 @@ class View extends Component {
                     </td>
                     <td className="th-text-right">
                       <span style={{fontWeight: 700,fontSize: '18px',color: '#00a6d1', whiteSpace: 'nowrap'}}>
-                        ₫ 2.870.000
+                        ₫ {formatNumber(flight.totalMoney)}
                       </span>
                     </td>
                   </tr>
