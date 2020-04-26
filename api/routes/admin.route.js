@@ -10,6 +10,8 @@ const tourCtrl = require('../controllers/admin/tour.controller');
 
 const flightCtrl = require('../controllers/admin/flight.controller');
 
+const transactionCtrl = require('../controllers/admin/transaction.controller');
+
 const collaboratorCtrl = require('../controllers/admin/collaborator.controller');
 
 const router = express.Router();
@@ -29,6 +31,10 @@ router.get('/collaborator/:id', auth, collaboratorCtrl.view);
 router.post('/collaborator/create', auth, collaboratorCtrl.create);
 
 router.post('/collaborator/:id/update', auth, collaboratorCtrl.update);
+
+router.get('/transactions', auth, transactionCtrl.index);
+
+router.get('/transaction/:id', auth, transactionCtrl.view);
 
 router.get('/flights', auth, flightCtrl.index);
 

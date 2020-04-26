@@ -32,6 +32,12 @@ function FlightRow(props) {
     return status === 1 ? 'Đang đặt hàng' : 'Đã thanh toán'
   };
 
+  function  formatNumber(num) {
+    if(num === undefined) num = 0;
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+  }
+
   return (
     <tr key={stt+1}>
       <td>{stt+1}</td>
@@ -65,7 +71,7 @@ function FlightRow(props) {
       </td>
       <td style={{textAlign: 'right'}}>
         <div>
-          <strong>{ flight.totalMoney }</strong>
+          <strong>₫ { formatNumber(flight.totalMoney) }</strong>
         </div>
         <div className="small text-muted">
           <strong>Số chỗ đặt: { flight.passengers.length }</strong>

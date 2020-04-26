@@ -27,8 +27,8 @@ class PlaceItem extends Component {
 
     return (
         <li style={{listStyle: 'none'}}>
-          <div className="">
-            <div className="rct-block">
+          <div>
+            <div className="rct-block" style={{border: '1px solid #f1f1f1'}}>
               <div className="place-item-card rct-block-content">
                 <div className="d-flex justify-content-between">
                   <div className="bd-highlight align-self-center">

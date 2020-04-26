@@ -20,6 +20,9 @@ const TourUpdate = React.lazy(() => import('./views/Tours/Update'));
 const TourGeneral = React.lazy(() => import('./views/Tours/General'));
 const TourSupport = React.lazy(() => import('./views/Tours/Support'));
 
+const Transactions = React.lazy(() => import('./views/Transactions/Index'));
+const TransactionView = React.lazy(() => import('./views/Transactions/View'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -39,6 +42,8 @@ const routes = [
   { path: '/tour/:id/support', exact: true, name: 'Chi tiết tour', component: TourSupport },
   { path: '/tours/create', exact: true, name: 'Thêm mới tour', component: TourCreate },
   { path: '/tour/:id/update', exact: true, name: 'Chỉnh sửa tour', component: TourUpdate },
+  { path: '/transactions', exact: true, name: 'Transactions', component: Transactions },
+  { path: '/transaction/:id', exact: true, name: 'Transactions View', component: TransactionView },
 ];
 
 export default routes;

@@ -99,13 +99,19 @@ class Index extends Component {
             <div className="row">
               <div className="col-md-4 my-tours" style={{position: 'unset'}}>
                 <div className="clearfix mb-4">
-                  <div className="float-left">
-                    <h1>My Tours</h1>
-                    <small>There are <span>4</span> tours</small>
+                  <div>
+                    <div className="float-left">
+                      <h1>My Tours</h1>
+                      <small>There are <span>{tours.length}</span> tours</small>
+                    </div>
+                    <div className="float-right">
+                      <a href="#/tours/create">
+                        <button className="btn btn-rounded btn-custom btn-linear" style={{width: '100px'}}>
+                          <i className="fa fa-plus"></i> Tạo mới
+                        </button>
+                      </a>
+                    </div>
                   </div>
-                  <div className="float-right"><a href="#/tours/create">
-                    <button className="btn btn-rounded btn-custom">Tạo mới</button>
-                  </a></div>
                 </div>
                 <div className="d-flex justify-content-between mb-4">
                   <div className="bd-highlight align-self-center w-70">

@@ -9,6 +9,10 @@ let TourSchema = new Schema({
         type: String, // Tiêu đề tour
         required: true
     },
+    basePrice:{ // Giả khởi điểm Tour
+        type: Number,
+        required: true
+    },
     estimateDays: { // Thời gian đi của tour (số ngày)
         type: Number,
         required: true,
@@ -19,6 +23,28 @@ let TourSchema = new Schema({
         required: true,
         default: 1 // 1 => Nội địa && 2 => Quốc tế
     },
+    description:{ // Mô tả tour
+        type: String,
+        required: true
+    },
+    avatar: { // Hình đại diện tour
+        type: String,
+        required: true
+    },
+    companyTour:{ // Công ty tổ chức Tour
+         name:{ // Tên công ty
+             type: String
+         },
+        avatar:{ // Ảnh đại diện
+            type: String
+        }
+    },
+    imagesTour:[{ // Hình ảnh chuyến đi
+        path:{ // Đường dẫn ảnh
+            type: String,
+            required: true
+        }
+    }],
     schedule:[{
         tpe:{
             type: Number,
@@ -62,14 +88,6 @@ let TourSchema = new Schema({
             }]
         }]
     }],
-    description:{ // Mô tả tour
-        type: String,
-        required: true
-    },
-    avatar: { // Hình đại diện tour
-        type: String,
-        required: true
-    },
     departureSchedule:{ // Lịch trình
         type: {
             type: Number,
