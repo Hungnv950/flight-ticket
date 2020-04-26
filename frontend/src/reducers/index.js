@@ -4,6 +4,7 @@ import authReducer from './authReducer';
 import searchReducer from './searchReducer';
 import loadingReducer from './loadingReducer';
 import bookingReducer from './bookingReducer';
+import tourReducer from './tourReducer';
 
 export default combineReducers({
   errors: errorReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   search: searchReducer,
   loading: loadingReducer,
   booking: bookingReducer,
+  tour: tourReducer,
 });

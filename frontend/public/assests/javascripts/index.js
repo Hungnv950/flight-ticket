@@ -2181,8 +2181,6 @@ $(document).ready(function() {
   $('.js-lazy-load').each(function() {
     if ($(this).data('type') == 'background-image') {
       $(this).css('background-image', 'url(' + $(this).data('src') + ')')
-    } else if ($(this).data('type') == 'image') {
-      $(this).css('src', $(this).data('src'))
     }
   });
 
@@ -2206,15 +2204,15 @@ $(document).ready(function() {
   });
 
   $('.js-tab').each(function() {
-    var tab = $(this);
-    var tabNavItem = $(this).find('.js-tab-nav');
-    var tabContentItem = $(this).find('.js-tab-content-item');
-    tab.find('.js-tab-nav').on('click', function() {
-      tabNavItem.removeClass('active');
-      tabContentItem.removeClass('active');
-      $(this).addClass('active');
-      tab.find($(this).data('target')).addClass('active');
-    });
+    // var tab = $(this);
+    // var tabNavItem = $(this).find('.js-tab-nav');
+    // var tabContentItem = $(this).find('.js-tab-content-item');
+    // tab.find('.js-tab-nav').on('click', function() {
+    //   tabNavItem.removeClass('active');
+    //   tabContentItem.removeClass('active');
+    //   $(this).addClass('active');
+    //   tab.find($(this).data('target')).addClass('active');
+    // });
   });
 
   var slider = function(slider, option) {
