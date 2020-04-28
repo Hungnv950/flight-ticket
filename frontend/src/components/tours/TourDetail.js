@@ -139,25 +139,16 @@ class TourDetail extends Component {
                                         <div className="card__content">
                                             <div className="gallery">
                                                 <div className="gallery__wrap">
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(1).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(2).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(3).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(4).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(5).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(6).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(7).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(8).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(9).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(10).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(11).png"}/>
-                                                    <img className="gallery__item" src={imagesUrl + "gallery(12).png"}/>
+                                                    {tour.imageTour.map((image) =>
+                                                        <img className="gallery__item" src={image}/>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="card card-supply-partner">
                                         <h2 className="title">Đối tác cung cấp</h2>
-                                        <img className="logo" src={imagesUrl + "logo-partner.png"}/>
+                                        <img className="logo" src={tour.companyTour.avatar}/>
                                     </div>
                                 </div>
                                 <div className="col-xl-6 col-lg-8 col-12 col-custom">
@@ -166,19 +157,15 @@ class TourDetail extends Component {
                                             <ul className="tab__nav">
                                                 <li className="tab__nav-item">
                                                     <a className={(this.isActiveTab(1) ? "active" : "") + " js-tab-nav tab__nav-link round-bottom-right"}
-                                                       data-target=".tab-tour-info"
-                                                       onClick={() => this.onChangActiveTab(1)}>THÔNG TIN</a>
+                                                       data-target=".tab-tour-info" onClick={() => this.onChangActiveTab(1)}>THÔNG TIN</a>
                                                 </li>
                                                 <li className="tab__nav-item">
                                                     <a className={(this.isActiveTab(2) ? "active" : "") + " js-tab-nav tab__nav-link"}
-                                                       data-target=".tab-tour-price"
-                                                       onClick={() => this.onChangActiveTab(2)}>CHI TIẾT GIÁ</a>
+                                                       data-target=".tab-tour-price" onClick={() => this.onChangActiveTab(2)}>CHI TIẾT GIÁ</a>
                                                 </li>
                                                 <li className="tab__nav-item">
                                                     <a className={(this.isActiveTab(3) ? "active" : "") + " js-tab-nav tab__nav-link round-bottom-left"}
-                                                       data-target=".term"
-                                                       onClick={() => this.onChangActiveTab(3)}>ĐIỀU KHOẢN&nbsp;<br/>VÀ
-                                                        CHÍNH SÁCH</a>
+                                                       data-target=".term" onClick={() => this.onChangActiveTab(3)}>ĐIỀU KHOẢN&nbsp;<br/>VÀ CHÍNH SÁCH</a>
                                                 </li>
                                             </ul>
                                             <div className="tab__content">
@@ -206,8 +193,7 @@ class TourDetail extends Component {
                                                         <div className="other-day-start">
                                                             <h2 className="title">Ngày khởi hành khác</h2>
                                                             <div className="top">
-                                                                <p className="note">Cùng một tour nhưng khác ngày khởi
-                                                                    hành</p>
+                                                                <p className="note">Cùng một tour nhưng khác ngày khởi hành</p>
                                                                 <a className="load-more">See more</a>
                                                             </div>
                                                             <div className="days">
@@ -460,26 +446,31 @@ class TourDetail extends Component {
                                                                       fill="#ff6127" fillRule="evenodd"/>
                                                             </svg>
                                                         </div>
-                                                        <div className="title"><span>Khởi hành tại&nbsp;</span><span
-                                                            className="title__content">Cảng Hàng Không Tân Sơn Nhất, TP.HCM</span>
+                                                        <div className="title">
+                                                            <span>Khởi hành tại&nbsp;</span>
+                                                            <span className="title__content">
+                                                                {tour.schedule[0].cities[0].name}
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <div className="schedule-tour">
-                                                        <div className="card-collapse active">
-                                                            <div className="card-collapse__icon"><span>1</span></div>
-                                                            <h3 className="card-collapse__title">Ngày thứ 1</h3>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width={13}
-                                                                 height={7} viewBox="0 0 13 7">
-                                                                <g>
+                                                        {tour.schedule.map((day,index) =>
+                                                            <div className="card-collapse active">
+                                                                <div className="card-collapse__icon"><span>1</span></div>
+                                                                <h3 className="card-collapse__title">Ngày thứ 1</h3>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width={13}
+                                                                     height={7} viewBox="0 0 13 7">
                                                                     <g>
                                                                         <g>
-                                                                            <path fill="#919191"
-                                                                                  d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z"/>
+                                                                            <g>
+                                                                                <path fill="#919191"
+                                                                                      d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z"/>
+                                                                            </g>
                                                                         </g>
                                                                     </g>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
+                                                                </svg>
+                                                            </div>
+
                                                         <div className="card-collapse-content active">
                                                             <div className="card-collapse-content__item">
                                                                 <div className="tag"><span className="tag__day">1</span><span
@@ -750,6 +741,7 @@ class TourDetail extends Component {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                            )}
                                                     </div>
                                                 </div>
                                                 <div
@@ -1459,17 +1451,7 @@ class TourDetail extends Component {
                                     </div>
                                     <div className="tour-comment">
                                         <div className="tour-comment__top">
-                                            <div className="tour-place__liked">
-                                                <div className="avatar"><img className="img-full-height"
-                                                                             src={imagesUrl + "avatar-demo.png"}/></div>
-                                                <div className="avatar"><img className="img-full-height"
-                                                                             src={imagesUrl + "avatar-demo.png"}/></div>
-                                                <div className="avatar"><img className="img-full-height"
-                                                                             src={imagesUrl + "avatar-demo.png"}/></div>
-                                                <div className="avatar"><img className="img-full-height"
-                                                                             src={imagesUrl + "avatar-demo.png"}/></div>
-                                                <span>+&nbsp;4&nbsp;liked</span>
-                                            </div>
+                                            <div className="tour-place__liked"></div>
                                             <div className="tour-place__interaction-right">
                                                 <div className="tour-place__point">
                                                     <div className="icon">
@@ -1480,7 +1462,7 @@ class TourDetail extends Component {
                                                                   transform="translate(0 0)" opacity="0.62"/>
                                                         </svg>
                                                     </div>
-                                                    <span>05</span>
+                                                    <span>0</span>
                                                 </div>
                                                 <div className="tour-place__comment">
                                                     <div className="icon">
@@ -1493,7 +1475,7 @@ class TourDetail extends Component {
                                                             </g>
                                                         </svg>
                                                     </div>
-                                                    <span>05</span>
+                                                    <span>0</span>
                                                 </div>
                                                 <div className="tour-place__shared">
                                                     <div className="icon">
@@ -1507,134 +1489,17 @@ class TourDetail extends Component {
                                                             </g>
                                                         </svg>
                                                     </div>
-                                                    <span>05</span>
+                                                    <span>0</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="tour-comment__body">
                                             <h2 className="title">Bình Luận</h2>
-                                            <div className="comment-item">
-                                                <div className="avatar"><img className="img-full-height"
-                                                                             src={imagesUrl + "avatar-demo2.png"}/>
-                                                </div>
-                                                <div className="comment-item__detail">
-                                                    <div className="comment-item__content-top">
-                                                        <h3 className="comment-item__name">Dang Duy Dung</h3>
-                                                        <span className="comment-item__time">05 minutes ago</span>
-                                                    </div>
-                                                    <div className="comment-item__content">
-                                                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. A
-                                                            iure necessitatibus molestias nihil voluptate voluptatibus
-                                                            odio, beatae soluta sed vel.</p>
-                                                    </div>
-                                                    <div className="comment-item__feedback">
-                                                        <div className="comment-item__feedback-left">
-                                                            <div className="comment-item__liked">
-                                                                <div className="icon">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         width="17.857" height="15.887"
-                                                                         viewBox="0 0 17.857 15.887">
-                                                                        <path id="heart"
-                                                                              d="M8.928,15.887a1.047,1.047,0,0,1-.69-.259C7.517,15,6.821,14.4,6.208,13.881l0,0A37.761,37.761,0,0,1,1.771,9.717,6.646,6.646,0,0,1,0,5.366,5.581,5.581,0,0,1,1.417,1.555,4.8,4.8,0,0,1,4.988,0,4.492,4.492,0,0,1,7.794.969,5.74,5.74,0,0,1,8.928,2.153,5.741,5.741,0,0,1,10.063.969,4.491,4.491,0,0,1,12.868,0,4.8,4.8,0,0,1,16.44,1.555a5.581,5.581,0,0,1,1.416,3.812,6.646,6.646,0,0,1-1.771,4.35,37.757,37.757,0,0,1-4.433,4.161c-.615.524-1.311,1.117-2.034,1.75a1.048,1.048,0,0,1-.69.259ZM4.988,1.046a3.767,3.767,0,0,0-2.8,1.218,4.54,4.54,0,0,0-1.14,3.1A5.592,5.592,0,0,0,2.576,9.05a37.16,37.16,0,0,0,4.306,4.033l0,0C7.5,13.61,8.2,14.2,8.927,14.84c.731-.637,1.43-1.233,2.047-1.758A37.169,37.169,0,0,0,15.28,9.05a5.593,5.593,0,0,0,1.53-3.683,4.54,4.54,0,0,0-1.14-3.1,3.767,3.767,0,0,0-2.8-1.218A3.469,3.469,0,0,0,10.7,1.8,5.076,5.076,0,0,0,9.5,3.193a.66.66,0,0,1-1.134,0A5.071,5.071,0,0,0,7.154,1.8a3.469,3.469,0,0,0-2.166-.75Zm0,0"
-                                                                              transform="translate(0 0)"
-                                                                              opacity="0.62"/>
-                                                                    </svg>
-                                                                </div>
-                                                                <span>05</span>
-                                                            </div>
-                                                            <a className="comment-item__reply">Reply</a>
-                                                        </div>
-                                                        <div className="comment-item__option">
-                                                            <svg id="menu" xmlns="http://www.w3.org/2000/svg"
-                                                                 width="5.033" height="20.134"
-                                                                 viewBox="0 0 5.033 20.134">
-                                                                <g id="Group_409" data-name="Group 409"
-                                                                   transform="translate(0)">
-                                                                    <g id="Group_408" data-name="Group 408">
-                                                                        <circle id="Ellipse_21" data-name="Ellipse 21"
-                                                                                cx="2.517" cy="2.517" r="2.517"
-                                                                                transform="translate(0 7.55)"
-                                                                                fill="#c5c5c5"/>
-                                                                        <circle id="Ellipse_22" data-name="Ellipse 22"
-                                                                                cx="2.517" cy="2.517" r="2.517"
-                                                                                transform="translate(0 15.1)"
-                                                                                fill="#c5c5c5"/>
-                                                                        <circle id="Ellipse_23" data-name="Ellipse 23"
-                                                                                cx="2.517" cy="2.517" r="2.517"
-                                                                                fill="#c5c5c5"/>
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="comment-item">
-                                                <div className="avatar"><img className="img-full-height"
-                                                                             src={imagesUrl + "avatar-demo2.png"}/>
-                                                </div>
-                                                <div className="comment-item__detail">
-                                                    <div className="comment-item__content-top">
-                                                        <h3 className="comment-item__name">Dang Duy Dung</h3>
-                                                        <span className="comment-item__time">05 minutes ago</span>
-                                                    </div>
-                                                    <div className="comment-item__content">
-                                                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. A
-                                                            iure necessitatibus molestias nihil voluptate voluptatibus
-                                                            odio, beatae soluta sed vel.</p>
-                                                        <div className="imgs-wrap"><img
-                                                            src={imagesUrl + "tour-place.png"}/><img
-                                                            src={imagesUrl + "tour-place.png"}/></div>
-                                                    </div>
-                                                    <div className="comment-item__feedback">
-                                                        <div className="comment-item__feedback-left">
-                                                            <div className="comment-item__liked">
-                                                                <div className="icon">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         width="17.857" height="15.887"
-                                                                         viewBox="0 0 17.857 15.887">
-                                                                        <path id="heart"
-                                                                              d="M8.928,15.887a1.047,1.047,0,0,1-.69-.259C7.517,15,6.821,14.4,6.208,13.881l0,0A37.761,37.761,0,0,1,1.771,9.717,6.646,6.646,0,0,1,0,5.366,5.581,5.581,0,0,1,1.417,1.555,4.8,4.8,0,0,1,4.988,0,4.492,4.492,0,0,1,7.794.969,5.74,5.74,0,0,1,8.928,2.153,5.741,5.741,0,0,1,10.063.969,4.491,4.491,0,0,1,12.868,0,4.8,4.8,0,0,1,16.44,1.555a5.581,5.581,0,0,1,1.416,3.812,6.646,6.646,0,0,1-1.771,4.35,37.757,37.757,0,0,1-4.433,4.161c-.615.524-1.311,1.117-2.034,1.75a1.048,1.048,0,0,1-.69.259ZM4.988,1.046a3.767,3.767,0,0,0-2.8,1.218,4.54,4.54,0,0,0-1.14,3.1A5.592,5.592,0,0,0,2.576,9.05a37.16,37.16,0,0,0,4.306,4.033l0,0C7.5,13.61,8.2,14.2,8.927,14.84c.731-.637,1.43-1.233,2.047-1.758A37.169,37.169,0,0,0,15.28,9.05a5.593,5.593,0,0,0,1.53-3.683,4.54,4.54,0,0,0-1.14-3.1,3.767,3.767,0,0,0-2.8-1.218A3.469,3.469,0,0,0,10.7,1.8,5.076,5.076,0,0,0,9.5,3.193a.66.66,0,0,1-1.134,0A5.071,5.071,0,0,0,7.154,1.8a3.469,3.469,0,0,0-2.166-.75Zm0,0"
-                                                                              transform="translate(0 0)"
-                                                                              opacity="0.62"/>
-                                                                    </svg>
-                                                                </div>
-                                                                <span>05</span>
-                                                            </div>
-                                                            <a className="comment-item__reply">Reply</a>
-                                                        </div>
-                                                        <div className="comment-item__option">
-                                                            <svg id="menu" xmlns="http://www.w3.org/2000/svg"
-                                                                 width="5.033" height="20.134"
-                                                                 viewBox="0 0 5.033 20.134">
-                                                                <g id="Group_409" data-name="Group 409"
-                                                                   transform="translate(0)">
-                                                                    <g id="Group_408" data-name="Group 408">
-                                                                        <circle id="Ellipse_21" data-name="Ellipse 21"
-                                                                                cx="2.517" cy="2.517" r="2.517"
-                                                                                transform="translate(0 7.55)"
-                                                                                fill="#c5c5c5"/>
-                                                                        <circle id="Ellipse_22" data-name="Ellipse 22"
-                                                                                cx="2.517" cy="2.517" r="2.517"
-                                                                                transform="translate(0 15.1)"
-                                                                                fill="#c5c5c5"/>
-                                                                        <circle id="Ellipse_23" data-name="Ellipse 23"
-                                                                                cx="2.517" cy="2.517" r="2.517"
-                                                                                fill="#c5c5c5"/>
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div className="tour-comment__bottom">
-                                            <div className="text-right"><a className="view-more">View more comments</a>
-                                            </div>
                                             <div className="tour-comment__form">
-                                                <div className="avatar"><img className="img-full-height"
-                                                                             src={imagesUrl + "avatar-demo2.png"}/>
+                                                <div className="avatar">
+                                                    <img className="img-full-height" src={imagesUrl + "avatar-demo2.png"}/>
                                                 </div>
                                                 <input className="form-control" type="text"
                                                        placeholder="Write your comment?"/>
