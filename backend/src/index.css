@@ -1537,3 +1537,7 @@ html:not([dir=rtl]) .was-validated .form-control:invalid, html:not([dir=rtl]) .f
     cursor: pointer;
     z-index: 2;
 }
+
+.my-tours{
+    min-height: 100vh!important;
+}

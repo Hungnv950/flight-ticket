@@ -47,7 +47,7 @@ class TodoItem extends Component {
   render() {
     const { id} = this.props.todo;
 
-    const { cost, title, editCost, editTitle } = this.state;
+    const { cost, title, canDel, editCost, editTitle } = this.state;
 
     return (
         <li draggable="true" data-id="0" className="custom-list-item">
@@ -66,7 +66,7 @@ class TodoItem extends Component {
                 {cost} đ
               </span>
             </div>
-            <div className="col-md-1 align-self-center">
+            <div style={{display: canDel ? 'display' : 'none'}} className="col-md-1 align-self-center">
               <i onClick={this.props.delTodo.bind(this, this.props.keyObject, id)} className="fa fa-times-circle text-gray"></i>
             </div>
           </div>

@@ -86,32 +86,27 @@ class Create extends Component {
         before7Days: 0
       },
       priceIncluded:{
-        transport:{
-          type: String
-        },
-        transporter:{
-          type: String
-        },
-        pointGo:{
-          type: String
-        },
-        destination:{
-          type: String
-        },
-        luggage:{
-
-        },
-        visa:{
-
-        },
-        hotel:{
-
-        },
-        meals:{
-
-        },
+        transport: '',
+        transporter: '',
+        pointGo: '',
+        destination: '',
+        handed: 0,
+        deposit: 0,
         otherCosts:[{
-
+          id: 1,
+          title: 'Visa Hàn Quốc và phí dịch thuật',
+          cost: 0,
+          canDel: false
+        }, {
+          id: 2,
+          title: 'Khách sạn 3 sao tiêu chuẩn Hàn Quốc',
+          cost: 0,
+          canDel: false
+        }, {
+          id: 3,
+          title: 'Các bữa ăn theo chương trình',
+          cost: 0,
+          canDel: false
         }]
       },
       priceNotIncluded:[],
@@ -190,9 +185,7 @@ class Create extends Component {
   };
 
   handleSaveTour(redirect) {
-    const { title, basePrice, estimateDays, companyTour, imageTour, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers, schedule } = this.state;
-
-    const avatar = this.state.avatar.base64;
+    const { title, avatar,basePrice, estimateDays,priceIncluded, companyTour, imageTour, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers, schedule } = this.state;
 
     let that = this;
 
@@ -209,6 +202,7 @@ class Create extends Component {
       faresByPeople,
       faresByTime,
       refundCancel,
+      priceIncluded,
       priceNotIncluded,
       cancelTour,
       boardOthers,
@@ -422,7 +416,7 @@ class Create extends Component {
       this.setState(prevState => ({
         [keyArray[0]]: {
           ...prevState[keyArray[0]],
-          [keyArray[1]]:  [...prevState[keyArray[0]][keyArray[1]], { id: length, title:title, cost:0 }]
+          [keyArray[1]]:  [...prevState[keyArray[0]][keyArray[1]], { id: length, title: title, cost:0, calDel: true }]
         }
       }));
     }
@@ -528,14 +522,20 @@ class Create extends Component {
   }
 
   getImageTour(files){
+    let tempFiles = [];
+
+    files.forEach(function (file) {
+      tempFiles.push(file.base64);
+    });
+
     this.setState({
-      imageTour: files
+      imageTour: tempFiles
     });
   }
 
   getAvatar(file){
     this.setState({
-      avatar: file
+      avatar: file.base64
     });
   }
 
@@ -585,7 +585,7 @@ class Create extends Component {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
     }
 
-    const { title, titleError, avatar, descriptionError, tpe, basePrice, editBasePrice, estimateDays, companyTour, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, schedule, step, placeDetailActive } = this.state;
+    const { title, titleError, avatar, priceIncluded, descriptionError, tpe, basePrice, editBasePrice, estimateDays, companyTour, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, schedule, step, placeDetailActive } = this.state;
 
     return (
       <div className="animated fadeIn">
@@ -1446,25 +1446,25 @@ class Create extends Component {
                                   <div className="row">
                                     <div className="col-md-6">
                                       <FormGroup>
-                                        <Input type="select" name="ccmonth" id="ccmonth">
+                                        <Input type="select" onChange={(ev) => this.handleChangeObjectField('priceIncluded.transport', ev)} value={priceIncluded.transport}>
                                           <option value="">Chọn phương tiện</option>
-                                          <option value="1">Ô tô</option>
-                                          <option value="2">Xe khách</option>
-                                          <option value="3">Tàu hỏa</option>
-                                          <option value="4">Máy bay</option>
-                                          <option value="5">Ca nô</option>
+                                          <option value="Ô tô">Ô tô</option>
+                                          <option value="Xe khách">Xe khách</option>
+                                          <option value="Tàu hỏa">Tàu hỏa</option>
+                                          <option value="Máy bay">Máy bay</option>
+                                          <option value="Ca nô">Ca nô</option>
                                         </Input>
                                       </FormGroup>
                                     </div>
                                     <div className="col-md-6">
                                       <FormGroup>
-                                        <Input type="select" name="ccmonth" id="ccmonth">
+                                        <Input type="select" onChange={(ev) => this.handleChangeObjectField('priceIncluded.transporter', ev)} value={priceIncluded.transporter}>
                                           <option value="">Hãng phương tiện</option>
-                                          <option value="1">Văn Minh</option>
-                                          <option value="2">Đường sắt Việt Nam</option>
-                                          <option value="3">Vietnam Airlines</option>
-                                          <option value="4">VietJet Air</option>
-                                          <option value="5">Bambo Airways</option>
+                                          <option value="Văn Minh">Văn Minh</option>
+                                          <option value="Đường sắt Việt Nam">Đường sắt Việt Nam</option>
+                                          <option value="Vietnam Airlines">Vietnam Airlines</option>
+                                          <option value="VietJet Air">VietJet Air</option>
+                                          <option value="Bambo Airways">Bambo Airways</option>
                                         </Input>
                                       </FormGroup>
                                     </div>
@@ -1475,38 +1475,40 @@ class Create extends Component {
                                     <label htmlFor="" style={{marginTop: '6px'}}>Khởi hành</label>
                                   </div>
                                   <div className="col-md-4">
-                                    <Input type="select" name="ccmonth" id="ccmonth">
+                                    <Input type="select" onChange={(ev) => this.handleChangeObjectField('priceIncluded.pointGo', ev)} value={priceIncluded.pointGo}>
                                       <option value="">Chọn điểm đi</option>
-                                      <option value="1">Hà Nội</option>
-                                      <option value="2">Hải Phòng</option>
-                                      <option value="3">Quảng Ninh</option>
-                                      <option value="4">Nha Trang</option>
-                                      <option value="5">TP. Hồ Chí Minh</option>
+                                      <option value="Hà Nội">Hà Nội</option>
+                                      <option value="Hải Phòng">Hải Phòng</option>
+                                      <option value="Quảng Ninh">Quảng Ninh</option>
+                                      <option value="Nha Trang">Nha Trang</option>
+                                      <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
                                     </Input>
                                   </div>
-                                  <div className="col-md-2">
+                                  <div className="col-md-2" style={{textAlign: 'center'}}>
                                     <i className="fa fa-exchange fa-2x text-primary"></i>
                                   </div>
                                   <div className="col-md-4">
-                                    <Input type="select" name="ccmonth" id="ccmonth">
+                                    <Input type="select" onChange={(ev) => this.handleChangeObjectField('priceIncluded.destination', ev)} value={priceIncluded.destination}>
                                       <option value="">Chọn điểm đến</option>
-                                      <option value="1">Seoul</option>
-                                      <option value="2">Bắc Kinh</option>
-                                      <option value="3">Bangkok</option>
-                                      <option value="4">Tokyo</option>
-                                      <option value="5">Kyoto</option>
+                                      <option value="Seoul">Seoul</option>
+                                      <option value="Bắc Kinh">Bắc Kinh</option>
+                                      <option value="Bangkok">Bangkok</option>
+                                      <option value="Tokyo">Tokyo</option>
+                                      <option value="Kyoto">Kyoto</option>
                                     </Input>
                                   </div>
                                 </div>
                                 <div className="mb-3">Hành lý mang theo (Miễn phí)</div>
-                                <div className="form-group row">
+                                <div style={{display: priceIncluded.transport.toString() === 'Máy bay'.toString() ? 'flex' : 'none'}} className="form-group row">
                                   <div className="col-md-2 align-self-center">Xách tay</div>
                                   <div className="col-md-4">
-                                    <input type="text" className="form-control text-right" name="luggage_weight_1" value="0.0 kg"/>
+                                    <input type="text" className="form-control text-right" name="luggage_weight_1"
+                                           onChange={(ev) => this.handleChangeObjectField('priceIncluded.handed', ev)} value={priceIncluded.handed}/>
                                   </div>
                                   <div className="col-md-2 align-self-center">Kí gửi</div>
                                   <div className="col-md-4">
-                                    <input type="text" className="form-control text-right" name="luggage_weight_2" value="0.0 kg"/>
+                                    <input type="text" className="form-control text-right" name="luggage_weight_2"
+                                           onChange={(ev) => this.handleChangeObjectField('priceIncluded.deposit', ev)} value={priceIncluded.deposit}/>
                                   </div>
                                 </div>
                               </form>
