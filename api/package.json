@@ -5,8 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "backend": "cd ../backend && npm start",
+    "frontend": "cd ../frontend && npm start",
     "api": "DEBUG=express:* node ./bin/www",
-    "dev": "concurrently \"npm run api\" \"npm run backend\""
+    "dev": "concurrently \"npm run api\" \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
     "bcrypt": "^4.0.0",

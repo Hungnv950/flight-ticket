@@ -1,5 +1,5 @@
 import React from 'react'
-import {imagesUrl} from '../consts/path'
+import {imagesUrl} from '../constants/path'
 
 const Navbar = () => {
     return (

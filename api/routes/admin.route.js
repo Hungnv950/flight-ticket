@@ -40,11 +40,11 @@ router.get('/flights', auth, flightCtrl.index);
 
 router.get('/flight/:id', auth, flightCtrl.view);
 
-router.get('/tours', auth, tourCtrl.index);
+router.get('/tours', tourCtrl.index);
 
-router.get('/tour/:id', auth, tourCtrl.view);
+router.get('/tour/:id', tourCtrl.view);
 
-router.post('/tour/create', auth, tourCtrl.create);
+router.post('/tour/create', tourCtrl.create);
 
 router.post('/tour/:id/update', auth, tourCtrl.update);
 

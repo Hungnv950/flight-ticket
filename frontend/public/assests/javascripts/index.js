@@ -2181,22 +2181,20 @@ $(document).ready(function() {
   $('.js-lazy-load').each(function() {
     if ($(this).data('type') == 'background-image') {
       $(this).css('background-image', 'url(' + $(this).data('src') + ')')
-    } else if ($(this).data('type') == 'image') {
-      $(this).css('src', $(this).data('src'))
     }
   });
 
   $('.js-dropdown').each(function() {
     var dropdown = $(this);
-    dropdown.find('.js-control-show-dropdown').on('click', function() {
-      if (dropdown.hasClass('show')) return dropdown.removeClass('show');
-      dropdown.addClass('show');
-    });
-    $(document).on('click', function(e) {
-      if (!$(e.target).closest(dropdown).length) {
-        dropdown.removeClass('show')
-      }
-    })
+    // dropdown.find('.js-control-show-dropdown').on('click', function() {
+    //   if (dropdown.hasClass('show')) return dropdown.removeClass('show');
+    //   dropdown.addClass('show');
+    // });
+    // $(document).on('click', function(e) {
+    //   if (!$(e.target).closest(dropdown).length) {
+    //     dropdown.removeClass('show')
+    //   }
+    // })
   });
 
   $('.js-toggle-control').on('click', function() {
@@ -2206,15 +2204,15 @@ $(document).ready(function() {
   });
 
   $('.js-tab').each(function() {
-    var tab = $(this);
-    var tabNavItem = $(this).find('.js-tab-nav');
-    var tabContentItem = $(this).find('.js-tab-content-item');
-    tab.find('.js-tab-nav').on('click', function() {
-      tabNavItem.removeClass('active');
-      tabContentItem.removeClass('active');
-      $(this).addClass('active');
-      tab.find($(this).data('target')).addClass('active');
-    });
+    // var tab = $(this);
+    // var tabNavItem = $(this).find('.js-tab-nav');
+    // var tabContentItem = $(this).find('.js-tab-content-item');
+    // tab.find('.js-tab-nav').on('click', function() {
+    //   tabNavItem.removeClass('active');
+    //   tabContentItem.removeClass('active');
+    //   $(this).addClass('active');
+    //   tab.find($(this).data('target')).addClass('active');
+    // });
   });
 
   var slider = function(slider, option) {
@@ -2305,13 +2303,6 @@ $(document).ready(function() {
   }
 
   slider($('.review .js-slider'));
-  slider($('.result-board__calendar .js-slider'), {
-    number: 5,
-    activeSlide: 7,
-    reponsive: {
-      desktop: 3
-    }
-  });
 
   $('.js-toggle-modal').on('click', function() {
     // $('body').addClass('show-modal');

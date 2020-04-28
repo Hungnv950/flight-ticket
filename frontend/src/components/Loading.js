@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {imagesUrl} from '../consts/path'
+import {imagesUrl} from '../constants/path'
 import {
   connect
 } from 'react-redux'

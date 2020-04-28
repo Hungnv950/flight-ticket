@@ -1,130 +1,97 @@
 import React, { Component } from 'react';
-import { imagesUrl } from '../consts/path';
+import { imagesUrl } from '../constants/path';
 import AirportDropDown from './AirportDropDown';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
 import {
 	connect
 } from 'react-redux'
 import {submitSearchAction} from '../actions/search.action'
+import ListCustomerDropdown from './ListCustomerDropdown';
 
 class Search extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
-			ViewMode: "",
-			Adt: "0",
-			Chd: "0",
-			Inf: "0",
-			StartPoint: "",
-			StartLocation: "",
-			EndPoint: "",
-			EndLocation: "",
-			StartDate: new Date(),
-			EndDate: new Date()
+			adt: this.props.adt,
+			chd: this.props.chd,
+			inf: this.props.inf,
+			startDate: this.props.startDate,
+			endDate: this.props.endDate,
+			startAirport: this.props.startAirport,
+			endAirport: this.props.endAirport,
+			is_return: this.props.is_return
 		}
 	}
 
-	onChangeStartPoint(value, point){
+	onChangeStartPoint(value, airport){
 		if (value === "startPoint") {
 			this.setState({
-				StartPoint: point["key"],
-				StartLocation: point["airport"] + ", " + point["country"] + "(" + point["key"] + ")"
+				startAirport: airport
 			})
 		} else {
 			this.setState({
-				EndPoint: point["key"],
-				EndLocation: point["airport"] + ", " + point["country"] + "(" + point["key"] + ")"
+				endAirport: airport
 			})
 		}
 	};
 
-	onSelectAdt(Adt, e) {
-		this.setState({
-			Adt: Adt
-		})
-	};
-
-	onSelectChd(Chd, e) {
-		this.setState({
-			Chd: Chd
-		})
-	};
-
-	onSelectInf(Inf, e) {
-		this.setState({
-			Inf: Inf
-		})
+	onSelectCustomer(type, value) {
+		switch (type){
+			case "Adt":
+				this.setState({
+					adt: value
+				});
+				break;
+			case "Chd":
+				this.setState({
+					chd: value
+				})
+				break;
+			case "Inf":
+				this.setState({
+				inf: value
+				})
+				break;
+			default:
+				return
+		}
 	};
 
 	onChangeDate = (date, sinceTime) => {
-		if(sinceTime === "StartDate") {
+		if(sinceTime === "startDate") {
 			this.setState({
-				StartDate: date
+				startDate: date
 			})
 		} else {
 			this.setState({
-				EndDate: date
+				endDate: date
 			})
 		}
-	}
-
-	formatDatePost(date) {
-		let day = ("0" + date.getDate()).slice(-2);
-		let month = ("0" + (date.getMonth() + 1)).slice(-2)
-
-		return (day + month + date.getFullYear())
 	}
 
 	onSubmitSearch(is_return, e) {
 		e.preventDefault();
 
-		let searchParams = {
-			ViewMode: "",
-			Adt: this.state.Adt,
-			Chd: this.state.Chd,
-			Inf: this.state.Inf,
-			ListFlight: [
-				{
-					StartPoint: this.state.StartPoint,
-					EndPoint: this.state.EndPoint,
-					DepartDate: this.formatDatePost(this.state.StartDate)
-				}
-			]
+		let newState = {
+			adt: this.state.adt,
+			chd: this.state.chd,
+			inf: this.state.inf,
+			startDate: this.state.startDate,
+			endDate: this.state.endDate,
+			startAirport: this.state.startAirport,
+			endAirport: this.state.endAirport,
+			is_return: is_return || false
 		}
 
-		if (is_return) {
-			searchParams = {
-				ViewMode: "",
-				Adt: this.state.Adt,
-				Chd: this.state.Chd,
-				Inf: this.state.Inf,
-				ListFlight: [
-					{
-						StartPoint: this.state.StartPoint,
-						EndPoint: this.state.EndPoint,
-						DepartDate: this.formatDatePost(this.state.StartDate)
-					},
-					{
-						StartPoint: this.state.EndPoint,
-						EndPoint: this.state.StartPoint,
-						DepartDate: this.formatDatePost(this.state.EndDate)
-					}
-				]
-			}
-		}
-
-		let location = {
-			StartLocation: this.state.StartLocation,
-			EndLocation: this.state.EndLocation
-		}
-
-		this.props.submitSearchAction(searchParams, location);
+		this.props.submitSearchAction(newState);
 	};
 
 	render() {
+		let is_oneway = this.state.is_return ? "" : "active";
+		let is_return = this.state.is_return ? "active" : "";
+
 		return (
 			<React.Fragment>
 				{/* <header className="header header-search-page">
@@ -228,8 +195,8 @@ class Search extends Component {
 							<form>
 								<div className="tab js-tab">
 									<ul className="tab__nav">
-										<li className="tab__nav-item w-50"><a className="active js-tab-nav tab__nav-link" href="# " data-target=".one-way">Một chiều</a></li>
-										<li className="tab__nav-item w-50"><a className="js-tab-nav tab__nav-link" href="# " data-target=".round-trip">Khứ hồi</a></li>
+										<li className="tab__nav-item w-50"><a className={is_oneway +" js-tab-nav tab__nav-link"} href="# " data-target=".one-way" onClick={ (event) => event.preventDefault() }>Một chiều</a></li>
+										<li className="tab__nav-item w-50" ><a className={is_return +" js-tab-nav tab__nav-link"} href="# " data-target=".round-trip" onClick={ (event) => event.preventDefault() }>Khứ hồi</a></li>
 									</ul>
 									<div className="tab__content">
 										<div className="tab__content-item js-tab-content-item one-way active">
@@ -237,152 +204,50 @@ class Search extends Component {
 												<div className="form__address">
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm khởi hành</label>
-														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "startPoint")}/>
+														<AirportDropDown
+															onChangeStartPoint={this.onChangeStartPoint.bind(this, "startPoint")}
+															airport={this.state.startAirport}
+														/>
 													</div>
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm đến</label>
-														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "endPoint")} />
+														<AirportDropDown
+															onChangeStartPoint={this.onChangeStartPoint.bind(this, "endPoint")}
+															airport={this.state.endAirport}
+														/>
 													</div>
 													<div className="form-group form-group--datepicker">
 														<label className="form-title">Ngày đi</label>
 														<DatePicker
-															selected={this.state.StartDate}
-															onChange={(value) => this.onChangeDate(value, "StartDate")}
+															selected={this.state.startDate}
+															onChange={(value) => this.onChangeDate(value, "startDate")}
 															className = "form-control"
 															dateFormat = "dd/MM/yyyy"
 														/>
 													</div>
 												</div>
 												<div className="form__passenger">
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Số hành khách người lớn</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.Adt} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-											<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectAdt.bind(this, i+1)}><span>{i+1}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em từ 2 đến 11 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.Chd} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-											<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectChd.bind(this, i+1)}><span>{i+1}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em dưới 2 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.Inf} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-											<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectInf.bind(this, i+1)}><span>{i+1}</span></li>
-																))
-															}
-														</ul>
-													</div>
+													<ListCustomerDropdown
+														title="Số hành khách người lớn"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Adt")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em từ 2 đến 11 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Chd")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em dưới 2 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Inf")}
+													/>
 												</div>
 												<div className="form__btn-search">
-
 													<a className="btn btn--large btn--bg-linear mx-auto"
  														onClick={this.onSubmitSearch.bind(this, false)}
 														href="# "
 													>
 														Tìm Kiếm
 													</a>
+													<h5 className="mx-auto">{this.props.error_message}</h5>
 												</div>
 											</div>
 										</div>
@@ -391,17 +256,23 @@ class Search extends Component {
 												<div className="form__address">
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm khởi hành</label>
-														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "startPoint")}/>
+														<AirportDropDown
+															onChangeStartPoint={this.onChangeStartPoint.bind(this, "startPoint")}
+															airport={this.props.startAirport}
+														/>
 													</div>
 													<div className="form-group js-dropdown dropdown dropdown--select-location">
 														<label className="form-title">Điểm đến</label>
-														<AirportDropDown onChangeStartPoint={this.onChangeStartPoint.bind(this, "endPoint")}/>
+														<AirportDropDown
+															onChangeStartPoint={this.onChangeStartPoint.bind(this, "endPoint")}
+															airport={this.state.endAirport}
+														/>
 													</div>
 													<div className="form-group form-group--datepicker">
 														<label className="form-title">Ngày đi</label>
 														<DatePicker
-															selected={this.state.StartDate}
-															onChange={(value) => this.onChangeDate(value, "StartDate")}
+															selected={this.state.startDate}
+															onChange={(value) => this.onChangeDate(value, "startDate")}
 															className = "form-control"
 															dateFormat = "dd/MM/yyyy"
 														/>
@@ -411,141 +282,34 @@ class Search extends Component {
 													<div className="form-group form-group--datepicker">
 														<label className="form-title">Ngày về</label>
 														<DatePicker
-															selected={this.state.EndDate}
-															onChange={(value) => this.onChangeDate(value, "EndDate")}
+															selected={this.state.endDate}
+															onChange={(value) => this.onChangeDate(value, "endDate")}
 															className = "form-control"
 															dateFormat = "dd/MM/yyyy"
 														/>
 													</div>
 												</div>
 												<div className="form__passenger">
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Số hành khách người lớn</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.Adt} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-													<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectAdt.bind(this, i+1)}><span>{i+1}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em từ 2 đến 11 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.Chd} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-													<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectChd.bind(this, i+1)}><span>{i+1}</span></li>
-																))
-															}
-														</ul>
-													</div>
-													<div className="form-group dropdown js-dropdown form-group--dropdown-number">
-														<label className="form-title">Trẻ em dưới 2 tuổi</label>
-														<div className="group-input">
-															<select className="form-control">
-																<option>{this.state.Inf} hành khách</option>
-															</select>
-															<div className="icon-search js-control-show-dropdown">
-																<svg xmlns="http://www.w3.org/2000/svg" width={10} height={6} viewBox="0 0 10 6">
-																	<g>
-																		<g>
-																			<path fill="none" stroke="#989898" strokeMiterlimit={50} d="M9.28.375v0L4.67 5.559v0L.424.375v0" />
-																		</g>
-																	</g>
-																</svg>
-															</div>
-														</div>
-														<ul className="dropdown__list">
-															<li className="dropdown__intro">
-																<p>
-																	Vui lòng chọn
-													<span className="js-control-show-dropdown">
-																		<svg xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-																			<g>
-																				<g>
-																					<g>
-																						<path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-																					</g>
-																				</g>
-																			</g>
-																		</svg>
-																	</span>
-																</p>
-															</li>
-															{
-																Array.apply(null, { length: 7 }).map((e, i) => (
-																	<li className="dropdown__item" value={i+1} key={i+1} onClick={this.onSelectInf.bind(this, i+1)}><span>{i+1}</span></li>
-																))
-															}
-														</ul>
-													</div>
+													<ListCustomerDropdown
+														title="Số hành khách người lớn"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Adt")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em từ 2 đến 11 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Chd")}
+													/>
+													<ListCustomerDropdown
+														title="Trẻ em dưới 2 tuổi"
+														onSelectCustomer={this.onSelectCustomer.bind(this, "Inf")}
+													/>
 												</div>
 												<div className="form__btn-search">
-												<a className="btn btn--large btn--bg-linear mx-auto" href="# "
-													onClick={this.onSubmitSearch.bind(this, true)}
-												>
-													Tìm Kiếm
-												</a>
+													<a className="btn btn--large btn--bg-linear mx-auto" href="# "
+														onClick={this.onSubmitSearch.bind(this, true)}
+													>
+														Tìm Kiếm
+													</a>
+													<h5 className="mx-auto">{this.props.error_message}</h5>
 												</div>
 											</div>
 										</div>
@@ -637,15 +401,23 @@ class Search extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch, searchParams, location) => {
+const mapDispatchToProps = (dispatch, searchParams) => {
 	return {
-		submitSearchAction: (searchParams, location) => submitSearchAction(dispatch, searchParams, location),
+		submitSearchAction: (searchParams) => submitSearchAction(dispatch, searchParams),
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
-		// active: ownProps.filter === state.visibilityFilter
+	  adt: state.search.adt,
+		chd: state.search.chd,
+		inf: state.search.inf,
+		startAirport: state.search.startAirport,
+		endAirport: state.search.endAirport,
+		startDate: state.search.startDate,
+		endDate: state.search.endDate,
+		is_return: state.search.is_return,
+		error_message: state.search.error_message
 	}
 }
 

@@ -88,3 +88,162 @@
 .dropdown__intro {
   padding: 0 12px;
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.board-calendar {
+  padding: 22px 22px 15px 22px;
+  border-radius: 10px;
+  background-color: white;
+  margin-top: 10px;
+  display: none;
+}
+
+.board-calendar__wrap {
+  overflow-x: auto;
+}
+
+.board-calendar__wrap-content {
+  min-width: 690px;
+}
+
+.board-calendar.show {
+  display: block;
+}
+
+.board-calendar__day-of-the-week {
+  display: flex;
+  display: -ms-flexbox;
+}
+
+.board-calendar__day-of-the-week p {
+  width: calc(100% / 7);
+  text-align: center;
+  opacity: .5;
+  font-weight: 300;
+  line-height: 25px;
+  margin-bottom: 6px;
+}
+
+.board-calendar__content {
+  border: 1px solid #dbdbdb;
+  display: flex;
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  font-weight: 300;
+}
+
+.board-calendar__item {
+  border-bottom: 1px dashed #dbdbdb;
+  border-right: 1px dashed #dbdbdb;
+  padding: 10px 8px 5px 10px;
+  width: calc(100% / 7);
+  min-height: 48px;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
+.board-calendar__item:nth-child(7n) {
+  border-right: 0;
+}
+
+.board-calendar__item:nth-child(n + 29) {
+  border-bottom: 0;
+}
+
+.board-calendar__item.active {
+  background-image: linear-gradient(180deg, #ffba00 0%, #ff5111 100%);
+  color: white;
+  border: 0;
+}
+
+.board-calendar__item .date {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.board-calendar__item .price {
+  margin-top: 3px;
+  line-height: 1;
+  text-align: right;
+}
+
+.board-calendar__item.active .price {
+  line-height: 1;
+  font-weight: 600;
+}
+
+.border-bottom-none {
+  border-bottom: none!important;
+}
+
+.board-calendar__control {
+  margin-top: 15px;
+}
+
+.board-calendar__control.hide {
+  display: none;
+}
+
+.board-calendar__control.mt-2 {
+  margin-top: 8px;
+}
+
+.board-calendar__control img {
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.d-none {
+  display: none !important;
+}
+
+/* Tour detail slider */
+.sc-AxjAm.rec-arrow {
+  z-index: 9999;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  min-width: 30px;
+  background-color: white;
+  font-size: 15px;
+}
+
+.sc-AxjAm.rec-arrow:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+.other-day-start .days {
+  padding: 10px 25px;
+  position: relative;
+}
+
+.other-day-start .days__wrap {
+  display: -ms-flexbox;
+  display: flex;
+  width: 500px;
+}
+
+.sc-Axmtr.rec-pagination {
+  display: none;
+}
