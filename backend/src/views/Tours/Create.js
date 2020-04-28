@@ -14,11 +14,12 @@ import {
 } from "reactstrap";
 
 import Todos from "./Todos";
-import Places from "./Places";
 import AddTodo from "./AddTodo";
+import FileBase64 from "./FileBase64";
 import PlaceDetail from "./PlaceDetail";
 
 import {authHeader} from "../../helpers/authHeaders";
+import PlaceItem from "./PlaceItem";
 
 class Create extends Component {
   constructor(props) {
@@ -118,7 +119,9 @@ class Create extends Component {
       },
       loading: false,
       titleError: false,
-      descriptionError: false
+      descriptionError: false,
+      textSearch: '',
+      cities: []
     };
 
     this.addTodo = this.addTodo.bind(this);
@@ -142,13 +145,12 @@ class Create extends Component {
     this.handleChangePlaceDetail = this.handleChangePlaceDetail.bind(this);
     this.handleChangeEstimateDays = this.handleChangeEstimateDays.bind(this);
 
+    this.handleUploadCompanyLogo = this.handleUploadCompanyLogo.bind(this);
     this.handleUpInputNumberField = this.handleUpInputNumberField.bind(this);
     this.handleDownInputNumberField = this.handleDownInputNumberField.bind(this);
   };
 
   handleSubmit() {
-
-
     this.setState({
       titleError: this.state.title === '',
       descriptionError: this.state.description === ''
@@ -187,7 +189,7 @@ class Create extends Component {
       cancelTour,
       boardOthers,
       schedule
-    },{headers:authHeader()}).then((response) => {
+    },{headers:authHeader()}).then(() => {
       that.setState({
         loading: false,
         step: ++that.state.step
@@ -455,6 +457,35 @@ class Create extends Component {
     });
   };
 
+  getCompanyLogo(file){
+    this.setState(prevState => ({
+      companyTour: {
+        ...prevState.companyTour,
+        avatar: file
+      }
+    }));
+  }
+
+  handleUploadCompanyLogo(key,event) {
+    this.setState({
+      [key]: event.target.value
+    });
+
+    axios.get("https://bo-api.thankdev.xyz/api/v2/cities?textSearch="+this.state.textSearch).then(response => {
+      this.setState({ cities: response.data.results });
+    }).catch(function (error) {
+      console.log(error);
+    })
+  }
+
+  componentDidMount(){
+    axios.get("https://bo-api.thankdev.xyz/api/v2/cities?textSearch="+this.state.textSearch).then(response => {
+      this.setState({ cities: response.data.results });
+    }).catch(function (error) {
+      console.log(error);
+    })
+  }
+
   render() {
 
     const { title, titleError, descriptionError, tpe, basePrice, editBasePrice, estimateDays, companyTour, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, schedule, step, placeDetailActive } = this.state;
@@ -588,7 +619,8 @@ class Create extends Component {
                               </div>
                               <div className="col-md-5">
                                 <div tabIndex="0" className="dropzone">
-                                  <input type="file" autoComplete="off" tabIndex="-1" style={{display: 'none'}}/>
+                                  <FileBase64 multiple={ false } onDone={ this.getCompanyLogo.bind(this)} />
+                                  <img style={{width: '100%'}} src={companyTour.avatar.base64} alt=""/>
                                   <div className="text-center">
                                     <i className="fa fa-cloud-upload"></i>
                                     <small>Upload Logo 400 x 400</small>
@@ -694,14 +726,24 @@ class Create extends Component {
                     </div>
                   </div>
                   <div>
-                    <InputGroup>
-                      <Input type="text" placeholder="Nhập tên địa điểm tìm kiếm"/>
-                      <InputGroupAddon addonType="append">
-                        <InputGroupText><i className="fa fa-search"></i></InputGroupText>
-                      </InputGroupAddon>
-                    </InputGroup>
+                    <div className="input-group">
+                      <input placeholder="Nhập tên địa điểm tìm kiếm" type="text" className="form-control" onChange={(ev) => this.handleUploadCompanyLogo('textSearch', ev)}/>
+                      <div className="input-group-append">
+                        <span className="input-group-text">
+                        <i className="fa fa-search"></i>
+                        </span>
+                      </div>
+                    </div>
                     <hr/>
-                    <Places addPlace={this.addPlace} index={this.state.dayActive}/>
+                    <ul className="list-inline">
+                      <li className="list-inline-item react-tabs__tab--selected">Tất cả</li>
+                      <li className="list-inline-item ">Nhà hàng</li>
+                      <li className="list-inline-item ">Khách sạn</li>
+                      <li className="list-inline-item ">Sinh thái</li>
+                    </ul>
+                    {this.state.cities.map((city) => (
+                        <PlaceItem index={this.state.dayActive} addPlace={this.addPlace} key={city.id} place={city}/>
+                    ))}
                   </div>
                 </ModalBody>
               </Modal>
