@@ -25,19 +25,13 @@ exports.create = async function(req, res) {
     }
 };
 
-exports.update =  async function(req, res) {
+exports.update = async function(req, res) {
     try {
-        const user = await View.findById(req.user._id);
+        await Tour.updateOne({_id: req.params.id}, {$set: req.body});
 
-        await updateOne({_id: req.params.id}, {$set: req.body});
+        const tour = await Tour.findById(req.params.id);
 
-        const bank = await Bank.findById(req.params.id);
-
-        user.banks.push(bank);
-
-        await user.save();
-
-        res.status(200).send(bank);
+        res.status(200).send(tour);
     } catch (error) {
         res.status(400).send(error)
     }
@@ -45,7 +39,7 @@ exports.update =  async function(req, res) {
 
 exports.view = async function(req, res) {
     try {
-        const tour = await Tour.findById(req.params._id);
+        const tour = await Tour.findById(req.params.id);
 
         res.status(200).send(tour);
     } catch (error) {

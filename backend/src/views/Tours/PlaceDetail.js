@@ -23,7 +23,7 @@ class PlaceItem extends Component {
   render() {
     const { rateAvgList } = this.state;
 
-    const { name, avatar, rateAvg } = this.props.place;
+    const { name, coverImage, rating } = this.props.place;
 
     return (
         <li style={{listStyle: 'none'}}>
@@ -32,12 +32,12 @@ class PlaceItem extends Component {
               <div className="place-item-card rct-block-content">
                 <div className="d-flex justify-content-between">
                   <div className="bd-highlight align-self-center">
-                    <img alt="place" src={avatar} className="tour-places-image float-left mr-4"/>
+                    <img alt="place" src={coverImage} className="tour-places-image float-left mr-4"/>
                     <div className="d-inline-block">
                       <h5><b>{name}</b></h5>
                       <div style={{overflow: 'hidden', position: 'relative'}}>
                         {rateAvgList.map((value) =>
-                            <span className={(rateAvg >= value) ? 'place-star place-star-active' : 'place-star' }>★</span>
+                            <span className={(rating.avg >= value) ? 'place-star place-star-active' : 'place-star' }>★</span>
                         )}
                       </div>
                     </div>
