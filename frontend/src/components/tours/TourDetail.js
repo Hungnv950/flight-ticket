@@ -455,10 +455,10 @@ class TourDetail extends Component {
                                                     </div>
                                                     <div className="schedule-tour">
                                                         {tour.schedule.map((day,index) =>
-                                                            <div>
+                                                            <div style={{display: index !== 0 ? 'block' : 'none'}}>
                                                                 <div className="card-collapse active">
-                                                                    <div className="card-collapse__icon"><span>1</span></div>
-                                                                    <h3 className="card-collapse__title">Ngày thứ 1</h3>
+                                                                    <div className="card-collapse__icon"><span>{index}</span></div>
+                                                                    <h3 className="card-collapse__title">Ngày thứ {index}</h3>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width={13}
                                                                          height={7} viewBox="0 0 13 7">
                                                                         <g>
@@ -472,274 +472,77 @@ class TourDetail extends Component {
                                                                     </svg>
                                                                 </div>
                                                                 <div className="card-collapse-content active">
-                                                                    <div className="card-collapse-content__item">
-                                                                        <div className="tag"><span className="tag__day">1</span><span
-                                                                            className="tag__content">Start</span></div>
-                                                                        <div className="tour-place">
-                                                                            <div className="tour-place__top">
-                                                                                <div className="tour-place__top-left">
-                                                                                    <h1 className="tour-place__title">Chợ Hải
-                                                                                        Sản</h1>
-                                                                                    <div className="tour-place__rating"><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="tour-place__price">
-                                                                                    <p className="tour-place__price-title">Chi
-                                                                                        phí dự tính</p>
-                                                                                    <p className="tour-place__price-content">500.000</p>
-                                                                                </div>
+                                                                    {day.cities.map((city,indexCity) =>
+                                                                        <div className="card-collapse-content__item">
+                                                                            <div className="tag">
+                                                                                <span className="tag__day">{indexCity+1}</span>
+                                                                                <span className="tag__content">{indexCity === 0 ? 'Start' : '~ 50km'}</span>
                                                                             </div>
-                                                                            <p className="tour-place__description">Lorem ipsum
-                                                                                dolor sit amet consectetur adipisicing elit. Sed
-                                                                                iste omnis tempore. Deleniti earum hic vero enim
-                                                                                velit ratione minus?</p>
-                                                                            <a className="see-more" href='#href'>See more</a>
-                                                                            <div
-                                                                                className="tour-place__thumbnail js-lazy-load"
-                                                                                data-src={imagesUrl + "tour-place.png"}
-                                                                                style={{backgroundImage: `url(${imagesUrl + "tour-place.png"})`}}
-                                                                                data-type="background-image"
-                                                                            />
-                                                                            <div className="tour-place__interaction">
-                                                                                <div className="tour-place__liked">
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
+                                                                            <div className="tour-place">
+                                                                                <div className="tour-place__top">
+                                                                                    <div className="tour-place__top-left">
+                                                                                        <h1 className="tour-place__title">
+                                                                                            {city.name}
+                                                                                        </h1>
+                                                                                        <div className="tour-place__rating">
+                                                                                            <img src={imagesUrl + "star-solid.svg"}/>
+                                                                                            <img src={imagesUrl + "star-solid.svg"}/>
+                                                                                            <img src={imagesUrl + "star-solid.svg"}/>
+                                                                                            <img src={imagesUrl + "star-solid.svg"}/>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
+                                                                                    <div className="tour-place__price">
+                                                                                        <p className="tour-place__price-title">
+                                                                                            Chi phí dự tính
+                                                                                        </p>
+                                                                                        <p className="tour-place__price-content">500.000</p>
                                                                                     </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <span>+&nbsp;4&nbsp;liked</span>
                                                                                 </div>
-                                                                                <div className="tour-place__interaction-right">
-                                                                                    <div className="tour-place__point">
-                                                                                        <div className="icon">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="17.857" height="15.887"
-                                                                                                viewBox="0 0 17.857 15.887">
-                                                                                                <path id="heart"
-                                                                                                      d="M8.928,15.887a1.047,1.047,0,0,1-.69-.259C7.517,15,6.821,14.4,6.208,13.881l0,0A37.761,37.761,0,0,1,1.771,9.717,6.646,6.646,0,0,1,0,5.366,5.581,5.581,0,0,1,1.417,1.555,4.8,4.8,0,0,1,4.988,0,4.492,4.492,0,0,1,7.794.969,5.74,5.74,0,0,1,8.928,2.153,5.741,5.741,0,0,1,10.063.969,4.491,4.491,0,0,1,12.868,0,4.8,4.8,0,0,1,16.44,1.555a5.581,5.581,0,0,1,1.416,3.812,6.646,6.646,0,0,1-1.771,4.35,37.757,37.757,0,0,1-4.433,4.161c-.615.524-1.311,1.117-2.034,1.75a1.048,1.048,0,0,1-.69.259ZM4.988,1.046a3.767,3.767,0,0,0-2.8,1.218,4.54,4.54,0,0,0-1.14,3.1A5.592,5.592,0,0,0,2.576,9.05a37.16,37.16,0,0,0,4.306,4.033l0,0C7.5,13.61,8.2,14.2,8.927,14.84c.731-.637,1.43-1.233,2.047-1.758A37.169,37.169,0,0,0,15.28,9.05a5.593,5.593,0,0,0,1.53-3.683,4.54,4.54,0,0,0-1.14-3.1,3.767,3.767,0,0,0-2.8-1.218A3.469,3.469,0,0,0,10.7,1.8,5.076,5.076,0,0,0,9.5,3.193a.66.66,0,0,1-1.134,0A5.071,5.071,0,0,0,7.154,1.8a3.469,3.469,0,0,0-2.166-.75Zm0,0"
-                                                                                                      transform="translate(0 0)"
-                                                                                                      opacity="0.62"/>
-                                                                                            </svg>
+                                                                                <p className="tour-place__description">
+                                                                                    {city.description}
+                                                                                </p>
+                                                                                <a className="see-more" href='#href'>See more</a>
+                                                                                <div className="tour-place__thumbnail js-lazy-load" data-src={imagesUrl + "tour-place.png"}
+                                                                                    style={{backgroundImage: `url(${city.coverImage})`}} data-type="background-image"/>
+                                                                                <div className="tour-place__interaction">
+                                                                                    <div className="tour-place__liked"></div>
+                                                                                    <div className="tour-place__interaction-right">
+                                                                                        <div className="tour-place__point">
+                                                                                            <div className="icon">
+                                                                                                <svg
+                                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                                    width="17.857" height="15.887"
+                                                                                                    viewBox="0 0 17.857 15.887">
+                                                                                                    <path id="heart"
+                                                                                                          d="M8.928,15.887a1.047,1.047,0,0,1-.69-.259C7.517,15,6.821,14.4,6.208,13.881l0,0A37.761,37.761,0,0,1,1.771,9.717,6.646,6.646,0,0,1,0,5.366,5.581,5.581,0,0,1,1.417,1.555,4.8,4.8,0,0,1,4.988,0,4.492,4.492,0,0,1,7.794.969,5.74,5.74,0,0,1,8.928,2.153,5.741,5.741,0,0,1,10.063.969,4.491,4.491,0,0,1,12.868,0,4.8,4.8,0,0,1,16.44,1.555a5.581,5.581,0,0,1,1.416,3.812,6.646,6.646,0,0,1-1.771,4.35,37.757,37.757,0,0,1-4.433,4.161c-.615.524-1.311,1.117-2.034,1.75a1.048,1.048,0,0,1-.69.259ZM4.988,1.046a3.767,3.767,0,0,0-2.8,1.218,4.54,4.54,0,0,0-1.14,3.1A5.592,5.592,0,0,0,2.576,9.05a37.16,37.16,0,0,0,4.306,4.033l0,0C7.5,13.61,8.2,14.2,8.927,14.84c.731-.637,1.43-1.233,2.047-1.758A37.169,37.169,0,0,0,15.28,9.05a5.593,5.593,0,0,0,1.53-3.683,4.54,4.54,0,0,0-1.14-3.1,3.767,3.767,0,0,0-2.8-1.218A3.469,3.469,0,0,0,10.7,1.8,5.076,5.076,0,0,0,9.5,3.193a.66.66,0,0,1-1.134,0A5.071,5.071,0,0,0,7.154,1.8a3.469,3.469,0,0,0-2.166-.75Zm0,0"
+                                                                                                          transform="translate(0 0)"
+                                                                                                          opacity="0.62"/>
+                                                                                                </svg>
+                                                                                            </div>
+                                                                                            <span>0</span>
                                                                                         </div>
-                                                                                        <span>05</span>
-                                                                                    </div>
-                                                                                    <div className="tour-place__comment">
-                                                                                        <div className="icon">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="20.801" height="15.887"
-                                                                                                viewBox="0 0 20.801 15.887">
-                                                                                                <g id="comment" opacity="0.62">
-                                                                                                    <path id="Path_382"
-                                                                                                          data-name="Path 382"
-                                                                                                          d="M0,19.47V9.292A5.716,5.716,0,0,1,5.709,3.583H15.09A5.716,5.716,0,0,1,20.8,9.292v1.756a5.716,5.716,0,0,1-5.709,5.709H5.841ZM5.709,4.856A4.441,4.441,0,0,0,1.273,9.292v8.183l4.288-1.992h9.531a4.441,4.441,0,0,0,4.436-4.436V9.291A4.442,4.442,0,0,0,15.09,4.855H5.709ZM6.128,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,6.128,9.2Zm8.543,0a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,14.671,9.2ZM10.4,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,10.4,9.2Z"
-                                                                                                          transform="translate(0 -3.583)"
-                                                                                                          fill="#010002"/>
-                                                                                                </g>
-                                                                                            </svg>
+                                                                                        <div className="tour-place__comment">
+                                                                                            <div className="icon">
+                                                                                                <svg
+                                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                                    width="20.801" height="15.887"
+                                                                                                    viewBox="0 0 20.801 15.887">
+                                                                                                    <g id="comment" opacity="0.62">
+                                                                                                        <path id="Path_382"
+                                                                                                              data-name="Path 382"
+                                                                                                              d="M0,19.47V9.292A5.716,5.716,0,0,1,5.709,3.583H15.09A5.716,5.716,0,0,1,20.8,9.292v1.756a5.716,5.716,0,0,1-5.709,5.709H5.841ZM5.709,4.856A4.441,4.441,0,0,0,1.273,9.292v8.183l4.288-1.992h9.531a4.441,4.441,0,0,0,4.436-4.436V9.291A4.442,4.442,0,0,0,15.09,4.855H5.709ZM6.128,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,6.128,9.2Zm8.543,0a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,14.671,9.2ZM10.4,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,10.4,9.2Z"
+                                                                                                              transform="translate(0 -3.583)"
+                                                                                                              fill="#010002"/>
+                                                                                                    </g>
+                                                                                                </svg>
+                                                                                            </div>
+                                                                                            <span>0</span>
                                                                                         </div>
-                                                                                        <span>05</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div className="card-collapse-content__item">
-                                                                        <div className="tag">
-                                                                            <span className="tag__day">2</span>
-                                                                            <div className="tag__content"><img
-                                                                                src={imagesUrl + "car.png"}/><span>~ 50km</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="tour-place">
-                                                                            <div className="tour-place__top">
-                                                                                <div className="tour-place__top-left">
-                                                                                    <h1 className="tour-place__title">Chợ Hải
-                                                                                        Sản</h1>
-                                                                                    <div className="tour-place__rating"><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="tour-place__price">
-                                                                                    <p className="tour-place__price-title">Chi
-                                                                                        phí dự tính</p>
-                                                                                    <p className="tour-place__price-content">500.000</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <p className="tour-place__description">Lorem ipsum
-                                                                                dolor sit amet consectetur adipisicing elit. Sed
-                                                                                iste omnis tempore. Deleniti earum hic vero enim
-                                                                                velit ratione minus?</p>
-                                                                            <a className="see-more" href='#href'>See more</a>
-                                                                            <div className="tour-place__thumbnail js-lazy-load"
-                                                                                 data-src={imagesUrl + "tour-place.png"}
-                                                                                 data-type="background-image"
-                                                                                 style={{backgroundImage: `url(${imagesUrl + "tour-place.png"})`}}
-                                                                            />
-                                                                            <div className="tour-place__interaction">
-                                                                                <div className="tour-place__liked">
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <span>+&nbsp;4&nbsp;liked</span>
-                                                                                </div>
-                                                                                <div className="tour-place__interaction-right">
-                                                                                    <div className="tour-place__point">
-                                                                                        <div className="icon">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="17.857" height="15.887"
-                                                                                                viewBox="0 0 17.857 15.887">
-                                                                                                <path id="heart"
-                                                                                                      d="M8.928,15.887a1.047,1.047,0,0,1-.69-.259C7.517,15,6.821,14.4,6.208,13.881l0,0A37.761,37.761,0,0,1,1.771,9.717,6.646,6.646,0,0,1,0,5.366,5.581,5.581,0,0,1,1.417,1.555,4.8,4.8,0,0,1,4.988,0,4.492,4.492,0,0,1,7.794.969,5.74,5.74,0,0,1,8.928,2.153,5.741,5.741,0,0,1,10.063.969,4.491,4.491,0,0,1,12.868,0,4.8,4.8,0,0,1,16.44,1.555a5.581,5.581,0,0,1,1.416,3.812,6.646,6.646,0,0,1-1.771,4.35,37.757,37.757,0,0,1-4.433,4.161c-.615.524-1.311,1.117-2.034,1.75a1.048,1.048,0,0,1-.69.259ZM4.988,1.046a3.767,3.767,0,0,0-2.8,1.218,4.54,4.54,0,0,0-1.14,3.1A5.592,5.592,0,0,0,2.576,9.05a37.16,37.16,0,0,0,4.306,4.033l0,0C7.5,13.61,8.2,14.2,8.927,14.84c.731-.637,1.43-1.233,2.047-1.758A37.169,37.169,0,0,0,15.28,9.05a5.593,5.593,0,0,0,1.53-3.683,4.54,4.54,0,0,0-1.14-3.1,3.767,3.767,0,0,0-2.8-1.218A3.469,3.469,0,0,0,10.7,1.8,5.076,5.076,0,0,0,9.5,3.193a.66.66,0,0,1-1.134,0A5.071,5.071,0,0,0,7.154,1.8a3.469,3.469,0,0,0-2.166-.75Zm0,0"
-                                                                                                      transform="translate(0 0)"
-                                                                                                      opacity="0.62"/>
-                                                                                            </svg>
-                                                                                        </div>
-                                                                                        <span>05</span>
-                                                                                    </div>
-                                                                                    <div className="tour-place__comment">
-                                                                                        <div className="icon">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="20.801" height="15.887"
-                                                                                                viewBox="0 0 20.801 15.887">
-                                                                                                <g id="comment" opacity="0.62">
-                                                                                                    <path id="Path_382"
-                                                                                                          data-name="Path 382"
-                                                                                                          d="M0,19.47V9.292A5.716,5.716,0,0,1,5.709,3.583H15.09A5.716,5.716,0,0,1,20.8,9.292v1.756a5.716,5.716,0,0,1-5.709,5.709H5.841ZM5.709,4.856A4.441,4.441,0,0,0,1.273,9.292v8.183l4.288-1.992h9.531a4.441,4.441,0,0,0,4.436-4.436V9.291A4.442,4.442,0,0,0,15.09,4.855H5.709ZM6.128,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,6.128,9.2Zm8.543,0a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,14.671,9.2ZM10.4,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,10.4,9.2Z"
-                                                                                                          transform="translate(0 -3.583)"
-                                                                                                          fill="#010002"/>
-                                                                                                </g>
-                                                                                            </svg>
-                                                                                        </div>
-                                                                                        <span>05</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="card-collapse-content__item">
-                                                                        <div className="tag"><span className="tag__day">3</span><span
-                                                                            className="tag__content"><img
-                                                                            src={imagesUrl + "car.png"}/><span>~ 50km</span></span>
-                                                                        </div>
-                                                                        <div className="tour-place">
-                                                                            <div className="tour-place__top">
-                                                                                <div className="tour-place__top-left">
-                                                                                    <h1 className="tour-place__title">Chợ Hải
-                                                                                        Sản</h1>
-                                                                                    <div className="tour-place__rating"><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/><img
-                                                                                        src={imagesUrl + "star-solid.svg"}/>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="tour-place__price">
-                                                                                    <p className="tour-place__price-title">Chi
-                                                                                        phí dự tính</p>
-                                                                                    <p className="tour-place__price-content">500.000</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <p className="tour-place__description">Lorem ipsum
-                                                                                dolor sit amet consectetur adipisicing elit. Sed
-                                                                                iste omnis tempore. Deleniti earum hic vero enim
-                                                                                velit ratione minus?</p>
-                                                                            <a className="see-more" href='#href'>See more</a>
-                                                                            <div className="tour-place__thumbnail js-lazy-load"
-                                                                                 data-src={imagesUrl + "tour-place.png"}
-                                                                                 data-type="background-image"
-                                                                                 style={{backgroundImage: `url(${imagesUrl + "tour-place.png"})`}}
-                                                                            />
-                                                                            <div className="tour-place__interaction">
-                                                                                <div className="tour-place__liked">
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <div className="avatar"><img
-                                                                                        className="img-full-height"
-                                                                                        src={imagesUrl + "avatar-demo.png"}/>
-                                                                                    </div>
-                                                                                    <span>+&nbsp;4&nbsp;liked</span>
-                                                                                </div>
-                                                                                <div className="tour-place__interaction-right">
-                                                                                    <div className="tour-place__point">
-                                                                                        <div className="icon">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="17.857" height="15.887"
-                                                                                                viewBox="0 0 17.857 15.887">
-                                                                                                <path id="heart"
-                                                                                                      d="M8.928,15.887a1.047,1.047,0,0,1-.69-.259C7.517,15,6.821,14.4,6.208,13.881l0,0A37.761,37.761,0,0,1,1.771,9.717,6.646,6.646,0,0,1,0,5.366,5.581,5.581,0,0,1,1.417,1.555,4.8,4.8,0,0,1,4.988,0,4.492,4.492,0,0,1,7.794.969,5.74,5.74,0,0,1,8.928,2.153,5.741,5.741,0,0,1,10.063.969,4.491,4.491,0,0,1,12.868,0,4.8,4.8,0,0,1,16.44,1.555a5.581,5.581,0,0,1,1.416,3.812,6.646,6.646,0,0,1-1.771,4.35,37.757,37.757,0,0,1-4.433,4.161c-.615.524-1.311,1.117-2.034,1.75a1.048,1.048,0,0,1-.69.259ZM4.988,1.046a3.767,3.767,0,0,0-2.8,1.218,4.54,4.54,0,0,0-1.14,3.1A5.592,5.592,0,0,0,2.576,9.05a37.16,37.16,0,0,0,4.306,4.033l0,0C7.5,13.61,8.2,14.2,8.927,14.84c.731-.637,1.43-1.233,2.047-1.758A37.169,37.169,0,0,0,15.28,9.05a5.593,5.593,0,0,0,1.53-3.683,4.54,4.54,0,0,0-1.14-3.1,3.767,3.767,0,0,0-2.8-1.218A3.469,3.469,0,0,0,10.7,1.8,5.076,5.076,0,0,0,9.5,3.193a.66.66,0,0,1-1.134,0A5.071,5.071,0,0,0,7.154,1.8a3.469,3.469,0,0,0-2.166-.75Zm0,0"
-                                                                                                      transform="translate(0 0)"
-                                                                                                      opacity="0.62"/>
-                                                                                            </svg>
-                                                                                        </div>
-                                                                                        <span>05</span>
-                                                                                    </div>
-                                                                                    <div className="tour-place__comment">
-                                                                                        <div className="icon">
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="20.801" height="15.887"
-                                                                                                viewBox="0 0 20.801 15.887">
-                                                                                                <g id="comment" opacity="0.62">
-                                                                                                    <path id="Path_382"
-                                                                                                          data-name="Path 382"
-                                                                                                          d="M0,19.47V9.292A5.716,5.716,0,0,1,5.709,3.583H15.09A5.716,5.716,0,0,1,20.8,9.292v1.756a5.716,5.716,0,0,1-5.709,5.709H5.841ZM5.709,4.856A4.441,4.441,0,0,0,1.273,9.292v8.183l4.288-1.992h9.531a4.441,4.441,0,0,0,4.436-4.436V9.291A4.442,4.442,0,0,0,15.09,4.855H5.709ZM6.128,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,6.128,9.2Zm8.543,0a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,14.671,9.2ZM10.4,9.2a1.21,1.21,0,1,1-1.21,1.21A1.21,1.21,0,0,1,10.4,9.2Z"
-                                                                                                          transform="translate(0 -3.583)"
-                                                                                                          fill="#010002"/>
-                                                                                                </g>
-                                                                                            </svg>
-                                                                                        </div>
-                                                                                        <span>05</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         )}
@@ -1167,7 +970,7 @@ class TourDetail extends Component {
                                                             </div>
                                                             <div className="price-item__content"><span>{tour.priceIncluded.otherCosts[1].title}</span>
                                                             </div>
-                                                            <span className="price-item__number">{tour.priceIncluded.otherCosts[1].title} đ</span>
+                                                            <span className="price-item__number">{tour.priceIncluded.otherCosts[1].cost} đ</span>
                                                         </div>
                                                         <div className="price-item">
                                                             <div className="price-item__icon">
@@ -1192,7 +995,7 @@ class TourDetail extends Component {
                                                             </div>
                                                             <div className="price-item__content"><span>{tour.priceIncluded.otherCosts[2].title}</span>
                                                             </div>
-                                                            <span className="price-item__number">{tour.priceIncluded.otherCosts[2].title} đ</span>
+                                                            <span className="price-item__number">{tour.priceIncluded.otherCosts[2].cost} đ</span>
                                                         </div>
                                                         {tour.priceIncluded.otherCosts.map((other,index) =>
                                                             <div style={{display: index > 2 ? 'block' : 'none'}} className="price-item">
@@ -1396,13 +1199,15 @@ class TourDetail extends Component {
                                                         </a>
                                                     </div>
                                                     <div className="description">
-                                                        <h1 className="description__title">Điều khoản sử dụng dịch
-                                                            vụ</h1>
+                                                        <h1 className="description__title">
+                                                            Điều khoản sử dụng dịch vụ
+                                                        </h1>
                                                         <p className="description__content show">Lorem ipsum dolor sit
                                                             amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                                                             tempor invidunt ut labore et dolore magna aliquyam erat, sed
                                                             diam voluptua. At vero eos et accusam et justo duo dolores
-                                                            et ea rebum. Stet clita kasd gubergren.</p>
+                                                            et ea rebum. Stet clita kasd gubergren.
+                                                        </p>
                                                         <a className="see-more" href="#">See more</a>
                                                     </div>
                                                     <div className="term__item">
