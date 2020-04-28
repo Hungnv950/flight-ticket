@@ -1,6 +1,7 @@
 import React, {
 	Component
 } from 'react'
+import _ from 'lodash';
 import {imagesUrl} from '../constants/path'
 import {
 	connect

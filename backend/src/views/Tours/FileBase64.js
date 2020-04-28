@@ -6,6 +6,8 @@
 */
 
 import React from 'react';
+import PropTypes from "prop-types";
+import Boards from "./Boards";
 
 export default class FileBase64 extends React.Component {
 
@@ -54,18 +56,20 @@ export default class FileBase64 extends React.Component {
                     if(this.props.multiple) this.props.onDone(allFiles);
                     else this.props.onDone(allFiles[0]);
                 }
-
-            } // reader.onload
-
-        } // for
-
+            }
+        }
     }
 
     render() {
         return (
-            <input type="file" onChange={ this.handleChange.bind(this) } multiple={ this.props.multiple } />
+            <input style={{display: 'none'}} ref={this.props.refName} type="file" onChange={ this.handleChange.bind(this) } multiple={ this.props.multiple } />
         );
     }
+}
+
+FileBase64.propTypes = {
+    multiple: PropTypes.bool.isRequired,
+    refName: PropTypes.object.isRequired
 }
 
 FileBase64.defaultProps = {

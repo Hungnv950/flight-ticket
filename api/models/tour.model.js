@@ -51,41 +51,44 @@ let TourSchema = new Schema({
             required: true,
             default: 1 // 1 => Điểm khởi hảnh && 2 => Các ngày tiếp theo
         },
-        places:[{
-            id: { // Id địa chỉ lấy từ API về
-                type: Number,
+        cities:[{
+            cityId: { // Id địa chỉ lấy từ API về
+                type: String,
                 required: true
             },
             name:{ // Tên địa điểm
                 type: String,
                 required: true
             },
-            rateAvg:{ // Đánh giá địa điểm (1 đến 5 sao)
+            rating:{ // Đánh giá địa điểm
+                avg: { // Đánh giá trung bình
+                    type: Number,
+                    default: 0
+                },
+                times:{ // Số lần đánh giá
+                    type: Number,
+                    default: 0
+                }
+            },
+            coverImage:{ // Ảnh đại diển
                 type: String,
                 required: true
             },
-            avatar:{ // Ảnh đại diển
-                type: String,
-                required: true
-            },
-            latLong:{ // Địa chỉ latlong gg map
-                type: String,
-                default: 0
+            geoPoint:{ // Địa chỉ latlong gg map
+                type:{
+                    type: String,
+                    default: 'Point'
+                },
+                coordinates: []
             },
             checkInTime:{ // Thời gian checkin. Theo theo giờ (ví dụ 7:30)
                 type: String,
                 default: '7:30'
             },
             description:{ // Mô tả địa điểm
-                type: String,
-                required: true
+                type: String
             },
-            images:[{ // Danh sách ảnh địa điểm
-                path: { // Đường dẫn ảnh
-                    type: String,
-                    required: true
-                }
-            }]
+            images:[]
         }]
     }],
     departureSchedule:{ // Lịch trình

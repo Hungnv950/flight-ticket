@@ -19,7 +19,7 @@ import FileBase64 from "./FileBase64";
 import PlaceDetail from "./PlaceDetail";
 
 import {authHeader} from "../../helpers/authHeaders";
-import PlaceItem from "./PlaceItem";
+import CityItem from "./CityItem";
 
 class Create extends Component {
   constructor(props) {
@@ -38,6 +38,7 @@ class Create extends Component {
     this.toggleFade = this.toggleFade.bind(this);
 
     this.state = {
+      idTourCurrent: '',
       title: '',
       basePrice: 10000000,
       edtiBasePirce: false,
@@ -45,10 +46,10 @@ class Create extends Component {
       tpe: 1,
       schedule:[{
         tpe:1,
-        places:[]
+        cities:[]
       }, {
           tpe:2,
-          places:[]
+        cities:[]
         }],
       avatar: '',
       description: '',
@@ -97,7 +98,21 @@ class Create extends Component {
         destination:{
           type: String
         },
-        otherCosts:[]
+        luggage:{
+
+        },
+        visa:{
+
+        },
+        hotel:{
+
+        },
+        meals:{
+
+        },
+        otherCosts:[{
+
+        }]
       },
       priceNotIncluded:[],
       cancelTour:[],
@@ -124,10 +139,14 @@ class Create extends Component {
       cities: []
     };
 
+    this.uploadAvatar = React.createRef();
+    this.uploadImageTour = React.createRef();
+    this.uploadCompanyLogo = React.createRef();
+
     this.addTodo = this.addTodo.bind(this);
     this.delTodo = this.delTodo.bind(this);
 
-    this.addPlace = this.addPlace.bind(this);
+    this.addCity = this.addCity.bind(this);
 
     this.addBoard = this.addBoard.bind(this);
     this.delBoard = this.delBoard.bind(this);
@@ -145,6 +164,11 @@ class Create extends Component {
     this.handleChangePlaceDetail = this.handleChangePlaceDetail.bind(this);
     this.handleChangeEstimateDays = this.handleChangeEstimateDays.bind(this);
 
+    this.handleSearchCities = this.handleSearchCities.bind(this);
+    this.handleDelImageTour = this.handleDelImageTour.bind(this);
+    this.handleUploadAvatar = this.handleUploadAvatar.bind(this);
+    this.handleUploadImageTour = this.handleUploadImageTour.bind(this);
+    this.handleSubmitForReview = this.handleSubmitForReview.bind(this);
     this.handleUploadCompanyLogo = this.handleUploadCompanyLogo.bind(this);
     this.handleUpInputNumberField = this.handleUpInputNumberField.bind(this);
     this.handleDownInputNumberField = this.handleDownInputNumberField.bind(this);
@@ -162,17 +186,17 @@ class Create extends Component {
 
     this.setState({ loading: true });
 
-    setTimeout(this.handleSaveTour, 500);
+    setTimeout(this.handleSaveTour(false), 500);
   };
 
-  handleSaveTour() {
+  handleSaveTour(redirect) {
     const { title, basePrice, estimateDays, companyTour, imageTour, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers, schedule } = this.state;
 
-    const avatar = 'https://duybnd-1659.github.io/images/tour-place.png';
+    const avatar = this.state.avatar.base64;
 
     let that = this;
 
-    axios.post('/api/admin/tour/create', {
+    const paramsBody = {
       title,
       estimateDays,
       basePrice,
@@ -189,12 +213,31 @@ class Create extends Component {
       cancelTour,
       boardOthers,
       schedule
-    },{headers:authHeader()}).then(() => {
-      that.setState({
-        loading: false,
-        step: ++that.state.step
+    };
+
+    if(this.state.idTourCurrent){
+      axios.post('/api/admin/tour/'+this.state.idTourCurrent+'/update', paramsBody,{headers:authHeader()}).then(() => {
+        that.setState({
+          loading: false
+        });
+
+        if(redirect){
+          this.props.history.push('/tour/'+this.state.idTourCurrent+'/general');
+        }
       });
-    });
+    }
+    else{
+      axios.post('/api/admin/tour/create', paramsBody,{headers:authHeader()}).then(response => {
+        that.setState({
+          loading: false,
+          idTourCurrent: response.data._id
+        });
+
+        if(redirect){
+          this.props.history.push('/tour/'+this.state.idTourCurrent+'/general');
+        }
+      });
+    }
   }
 
   handleChangeField(key, event) {
@@ -215,7 +258,7 @@ class Create extends Component {
 
     this.setState(prevState => ({
       estimateDays: value,
-      schedule: [...prevState.schedule, {tpe:2, places: []}]
+      schedule: [...prevState.schedule, {tpe:2, cities: []}]
     }));
   }
 
@@ -226,7 +269,7 @@ class Create extends Component {
 
     const {dayActive, placeActive} = this.state;
 
-    schedule[dayActive]['places'][placeActive][key] = value;
+    schedule[dayActive]['cities'][placeActive][key] = value;
 
     this.setState(prevState => ({
       placeDetailActive: {
@@ -235,6 +278,12 @@ class Create extends Component {
       },
       schedule: schedule
     }));
+  }
+
+  handleSubmitForReview(){
+    this.setState({ loading: true });
+
+    setTimeout(this.handleSaveTour(true), 500);
   }
 
   handleNextStep(e) {
@@ -303,7 +352,7 @@ class Create extends Component {
   toggleModalMore(indexPlace) {
     const {dayActive} = this.state;
 
-    let place = this.state.schedule[dayActive]['places'][indexPlace];
+    let place = this.state.schedule[dayActive]['cities'][indexPlace];
 
     this.setState(prevState => ({
       placeActive: indexPlace,
@@ -394,14 +443,26 @@ class Create extends Component {
     }));
   };
 
-  addPlace(key,place,action) {
+  addCity(key,city,action) {
     const scheduleOld = this.state.schedule;
 
     if(action){
-      scheduleOld[key].places.push(place);
+      
+      const cityTemp = {
+        cityId: city._id,
+        name: city.name,
+        rating: city.rating,
+        coverImage: city.coverImage,
+        geoPoint: city.geoPoint,
+        checkInTime: '7:30',
+        description: city.description,
+        images: city.images
+      };
+      
+      scheduleOld[key].cities.push(cityTemp);
     }
     else{
-      scheduleOld[key].places = scheduleOld[key].places.filter(item => item.id !== place.id);
+      scheduleOld[key].cities = scheduleOld[key].cities.filter(item => item.cityId !== city.id);
     }
 
     this.setState({
@@ -466,9 +527,39 @@ class Create extends Component {
     }));
   }
 
-  handleUploadCompanyLogo(key,event) {
+  getImageTour(files){
     this.setState({
-      [key]: event.target.value
+      imageTour: files
+    });
+  }
+
+  getAvatar(file){
+    this.setState({
+      avatar: file
+    });
+  }
+
+  handleDelImageTour(id){
+    this.setState(prevState => ({
+      imageTour: [...prevState.imageTour.filter((image,index) => index !== id)]
+    }));
+  }
+
+  handleUploadImageTour() {
+    this.uploadImageTour.current.click();
+  }
+
+  handleUploadCompanyLogo() {
+    this.uploadCompanyLogo.current.click();
+  }
+
+  handleUploadAvatar() {
+    this.uploadAvatar.current.click();
+  }
+
+  handleSearchCities(event){
+    this.setState({
+      textSearch: event.target.value
     });
 
     axios.get("https://bo-api.thankdev.xyz/api/v2/cities?textSearch="+this.state.textSearch).then(response => {
@@ -488,7 +579,13 @@ class Create extends Component {
 
   render() {
 
-    const { title, titleError, descriptionError, tpe, basePrice, editBasePrice, estimateDays, companyTour, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, schedule, step, placeDetailActive } = this.state;
+    function  formatNumber(num) {
+      if(num === undefined) num = 0;
+
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    const { title, titleError, avatar, descriptionError, tpe, basePrice, editBasePrice, estimateDays, companyTour, description, faresByAge, faresByPeople, faresByTime, departureSchedule, refundCancel, schedule, step, placeDetailActive } = this.state;
 
     return (
       <div className="animated fadeIn">
@@ -618,12 +715,13 @@ class Create extends Component {
                                 </div>
                               </div>
                               <div className="col-md-5">
-                                <div tabIndex="0" className="dropzone">
-                                  <FileBase64 multiple={ false } onDone={ this.getCompanyLogo.bind(this)} />
-                                  <img style={{width: '100%'}} src={companyTour.avatar.base64} alt=""/>
-                                  <div className="text-center">
-                                    <i className="fa fa-cloud-upload"></i>
-                                    <small>Upload Logo 400 x 400</small>
+                                <div tabIndex="0" className="dropzone" onClick={this.handleUploadCompanyLogo}>
+                                  <FileBase64 refName={this.uploadCompanyLogo}  multiple={ false } onDone={ this.getCompanyLogo.bind(this)} />
+                                  <div className="text-center" style={{backgroundImage: 'url('+companyTour.avatar.base64+')'}}>
+                                    <div style={{display: companyTour.avatar.base64 ? 'none': 'block'}}>
+                                      <i className="fa fa-cloud-upload"></i>
+                                      <small>Upload Logo 400 x 400</small>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -634,12 +732,21 @@ class Create extends Component {
                           <div className="form-group">
                             <label>Chọn ảnh đại diện</label>
                             <div>
-                              <div tabIndex="0" className="dropzone">
-                                <input type="file" autoComplete="off" tabIndex="-1" style={{display: 'none'}}/>
-                                <div className="text-center dropzone-placeholder-lg">
-                                  <i className="fa fa-cloud-upload fa-6x"></i>
-                                  <h5 className="mt-2 mb-4">Drag and drop a file here, or click to select file</h5>
-                                  <small>Lưu ý: Hình ảnh có độ phân giải cao và kích thước nhỏ hơn 2MB</small>
+                              <div tabIndex="0" className="dropzone" onClick={this.handleUploadAvatar}>
+                                <FileBase64 refName={this.uploadAvatar} multiple={ false } onDone={this.getAvatar.bind(this)} />
+                                <div style={{display: !avatar ? 'block' : 'none'}} className="text-center dropzone-placeholder-lg">
+                                  <div>
+                                    <i className="fa fa-cloud-upload fa-6x"></i>
+                                    <h5 className="mt-2 mb-4">Drag and drop a file here, or click to select file</h5>
+                                    <small>Lưu ý: Hình ảnh có độ phân giải cao và kích thước nhỏ hơn 2MB</small>
+                                  </div>
+                                </div>
+                                <div style={{display: avatar ? 'block' : 'none'}}>
+                                  <div className="row">
+                                    <div className="col-sm-12 col-md-12 preview-img">
+                                      <img alt="Preview" src={avatar.base64}/>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -647,8 +754,16 @@ class Create extends Component {
                           <div className="form-group">
                             <label>Hình ảnh chuyến đi</label>
                             <div className="upload-preview">
-                              <div tabIndex="0" className="dropzone">
-                                <input type="file" autoComplete="off" tabIndex="-1" style={{display: 'none'}}/>
+                              {this.state.imageTour.map((image,index) =>
+                                  <div className="preview__item">
+                                    <div className="preview__thumbnail"
+                                         style={{backgroundImage: 'url('+image.base64+')'}}>
+                                      <i className="fa fa-times-circle preview__remove" onClick={() => this.handleDelImageTour(index)}></i>
+                                    </div>
+                                  </div>
+                              )}
+                              <div tabIndex="0" className="dropzone" onClick={this.handleUploadImageTour}>
+                                <FileBase64 refName={this.uploadImageTour}  multiple={ true } onDone={this.getImageTour.bind(this)} />
                                 <div className="text-center">
                                   <i className="fa fa-cloud-upload"></i>
                                   <small>Upload Picture</small>
@@ -698,7 +813,7 @@ class Create extends Component {
                           <div className="row">
                             <div className="col-md-8">
                               <ul>
-                                {day.places.map((place,indexPlace) =>
+                                {day.cities.map((place,indexPlace) =>
                                     <PlaceDetail toggleModalMore={this.toggleModalMore} place={place} indexDay={indexDay} indexPlace={indexPlace}/>
                                 )}
                               </ul>
@@ -727,7 +842,7 @@ class Create extends Component {
                   </div>
                   <div>
                     <div className="input-group">
-                      <input placeholder="Nhập tên địa điểm tìm kiếm" type="text" className="form-control" onChange={(ev) => this.handleUploadCompanyLogo('textSearch', ev)}/>
+                      <input placeholder="Nhập tên địa điểm tìm kiếm" type="text" className="form-control" onChange={(ev) => this.handleSearchCities( ev)}/>
                       <div className="input-group-append">
                         <span className="input-group-text">
                         <i className="fa fa-search"></i>
@@ -742,7 +857,7 @@ class Create extends Component {
                       <li className="list-inline-item ">Sinh thái</li>
                     </ul>
                     {this.state.cities.map((city) => (
-                        <PlaceItem index={this.state.dayActive} addPlace={this.addPlace} key={city.id} place={city}/>
+                        <CityItem index={this.state.dayActive} addCity={this.addCity} key={city.id} city={city}/>
                     ))}
                   </div>
                 </ModalBody>
@@ -952,7 +1067,7 @@ class Create extends Component {
                                 <span className="unit blue">vnđ</span>
                               </div>
                               <h3 style={{display: !editBasePrice ? 'block' : 'none'}} onClick={this.handleEditBasePrice}>
-                                <b><span tabIndex="0">{basePrice}</span><span> VNĐ</span></b>
+                                <b><span tabIndex="0">{formatNumber(basePrice)}</span><span> VNĐ</span></b>
                               </h3>
                             </div>
                           </div>
@@ -984,7 +1099,7 @@ class Create extends Component {
                                       </div>
                                     </td>
                                     <td className="table-custom-cell table-text-right">
-                                      {basePrice*(100 - faresByAge.adult)/100} đ
+                                      {formatNumber(basePrice*(100 - faresByAge.adult)/100)} đ
                                     </td>
                                   </tr>
                                   <tr>
@@ -997,7 +1112,7 @@ class Create extends Component {
                                       </div>
                                     </td>
                                     <td className="table-custom-cell table-text-right">
-                                      {basePrice*(100 - faresByAge.from2to11YO)/100} đ
+                                      {formatNumber(basePrice*(100 - faresByAge.from2to11YO)/100)} đ
                                     </td>
                                   </tr>
                                   <tr>
@@ -1010,7 +1125,7 @@ class Create extends Component {
                                       </div>
                                     </td>
                                     <td className="table-custom-cell table-text-right">
-                                      {basePrice*(100 - faresByAge.under2YO)/100} đ
+                                      {formatNumber(basePrice*(100 - faresByAge.under2YO)/100)} đ
                                     </td>
                                   </tr>
                                   </tbody>
@@ -1045,7 +1160,7 @@ class Create extends Component {
                                     </div>
                                   </td>
                                   <td className="table-custom-cell table-text-right">
-                                    {basePrice*(100 - faresByPeople.from10To20)/100} đ
+                                    {formatNumber(basePrice*(100 - faresByPeople.from10To20)/100)} đ
                                   </td>
                                 </tr>
                                 <tr>
@@ -1058,7 +1173,7 @@ class Create extends Component {
                                     </div>
                                   </td>
                                   <td className="table-custom-cell table-text-right">
-                                    {basePrice*(100 - faresByPeople.from20To30)/100} đ
+                                    {formatNumber(basePrice*(100 - faresByPeople.from20To30)/100)} đ
                                   </td>
                                 </tr>
                                 <tr>
@@ -1071,7 +1186,7 @@ class Create extends Component {
                                     </div>
                                   </td>
                                   <td className="table-custom-cell table-text-right">
-                                    {basePrice*(100 - faresByPeople.from30)/100} đ
+                                    {formatNumber(basePrice*(100 - faresByPeople.from30)/100)} đ
                                   </td>
                                 </tr>
                                 </tbody>
@@ -1105,7 +1220,7 @@ class Create extends Component {
                                   </td>
                                   <td className="table-custom-cell"></td>
                                   <td className="table-custom-cell table-text-right">
-                                    {basePrice*(100 - faresByTime.normalDay)/100} đ
+                                    {formatNumber(basePrice*(100 - faresByTime.normalDay)/100)} đ
                                   </td>
                                 </tr>
                                 <tr>
@@ -1119,7 +1234,7 @@ class Create extends Component {
                                   </td>
                                   <td className="table-custom-cell"></td>
                                   <td className="table-custom-cell table-text-right">
-                                    {basePrice*(100 - faresByTime.weekend)/100} đ
+                                    {formatNumber(basePrice*(100 - faresByTime.weekend))/100} đ
                                   </td>
                                 </tr>
                                 <tr>
@@ -1133,7 +1248,7 @@ class Create extends Component {
                                   </td>
                                   <td className="table-custom-cell"></td>
                                   <td className="table-custom-cell table-text-right">
-                                    {basePrice*(100 - faresByTime.holiday)/100} đ
+                                    {formatNumber(basePrice*(100 - faresByTime.holiday)/100)} đ
                                   </td>
                                 </tr>
                                 <tr>
@@ -1257,7 +1372,7 @@ class Create extends Component {
                                       </div>
                                     </td>
                                     <td className="table-custom-cell table-text-right">
-                                      {basePrice*(100 - refundCancel.before20Days)/100} đ
+                                      {formatNumber(basePrice*(100 - refundCancel.before20Days)/100)} đ
                                     </td>
                                   </tr>
                                   <tr>
@@ -1270,7 +1385,7 @@ class Create extends Component {
                                       </div>
                                     </td>
                                     <td className="table-custom-cell table-text-right">
-                                      {basePrice*(100 - refundCancel.before15Days)/100} đ
+                                      {formatNumber(basePrice*(100 - refundCancel.before15Days)/100)} đ
                                     </td>
                                   </tr>
                                   <tr>
@@ -1283,7 +1398,7 @@ class Create extends Component {
                                       </div>
                                     </td>
                                     <td className="table-custom-cell table-text-right">
-                                      {basePrice*(100 - refundCancel.before7Days)/100} đ
+                                      {formatNumber(basePrice*(100 - refundCancel.before7Days)/100)} đ
                                     </td>
                                   </tr>
                                   </tbody>
@@ -1485,7 +1600,7 @@ class Create extends Component {
                         <div className="text-center">
                           <h3><b>CONGRATULATION</b></h3>
                           <div className="mb-4">Bạn đã tạo tour du lịch thành công</div>
-                          <button onClick={this.handleSubmit} type="button" className="btn btn-rounded btn-custom btn-linear btn-next-step">Submit for Review</button>
+                          <button onClick={this.handleSubmitForReview} type="button" className="btn btn-rounded btn-custom btn-linear btn-next-step">Submit for Review</button>
                           <p className="mt-4">
                             <img src={'assets/img/congratulation.svg'} alt="congratulation-img"/>
                           </p>
