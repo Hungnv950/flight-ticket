@@ -39,12 +39,7 @@ let TourSchema = new Schema({
             type: String
         }
     },
-    imagesTour:[{ // Hình ảnh chuyến đi
-        path:{ // Đường dẫn ảnh
-            type: String,
-            required: true
-        }
-    }],
+    imageTour:[],
     schedule:[{
         tpe:{
             type: Number,
