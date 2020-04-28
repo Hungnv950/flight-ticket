@@ -766,6 +766,51 @@ class TourDetail extends Component {
                                                         <h2 className="title">Giá vé bao gồm:</h2>
                                                         <div className="price-item">
                                                             <div className="price-item__icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                     height="20" viewBox="0 0 20 20">
+                                                                    <g id="airplane-shape"
+                                                                       transform="translate(0 -0.002)">
+                                                                        <path id="Path_444" data-name="Path 444"
+                                                                              d="M18.685,4.04A5.788,5.788,0,0,0,20,.985a1.13,1.13,0,0,0-.155-.624.5.5,0,0,0-.091-.116.524.524,0,0,0-.107-.083A1.112,1.112,0,0,0,19.016,0a5.772,5.772,0,0,0-3.054,1.315,26.318,26.318,0,0,0-3.007,2.9q-.313.33-.66.694L9.912,4.194l.007-.007a.534.534,0,0,0,0-.752L9.487,3a.536.536,0,0,0-.379-.157A.526.526,0,0,0,8.731,3l-.644.644-.341-.1a.533.533,0,0,0-.043-.7l-.432-.432a.535.535,0,0,0-.379-.156.522.522,0,0,0-.375.156L5.927,3,3.5,2.274a.606.606,0,0,0-.173-.025.642.642,0,0,0-.448.181l-.852.852a.5.5,0,0,0-.15.351.489.489,0,0,0,.26.438L7.236,6.918a.889.889,0,0,1,.124.094L8.812,8.464C7.453,9.9,6.243,11.282,5.3,12.487c-.088.112-.171.221-.253.33l-3.941-.358a.534.534,0,0,0-.068,0,.727.727,0,0,0-.488.2l-.4.4A.493.493,0,0,0,0,13.4a.484.484,0,0,0,.287.446l2.772,1.317a.648.648,0,0,1,.106.076l.23.228A1.683,1.683,0,0,0,3.285,16a.7.7,0,0,0,.193.511l.01.009,0,0a.7.7,0,0,0,.51.191,1.7,1.7,0,0,0,.529-.11l.234.233a.632.632,0,0,1,.073.1L6.15,19.711A.49.49,0,0,0,6.592,20h0a.493.493,0,0,0,.35-.148l.407-.408a.725.725,0,0,0,.194-.487c0-.023,0-.04,0-.05l-.359-3.955c.108-.081.217-.165.33-.252,1.207-.945,2.594-2.156,4.022-3.512l1.453,1.455a.779.779,0,0,1,.095.125l2.84,5.085a.5.5,0,0,0,.793.116l.858-.857a.65.65,0,0,0,.176-.447.613.613,0,0,0-.023-.167L17,14.076l.59-.591a.534.534,0,0,0,0-.753l-.433-.433a.534.534,0,0,0-.7-.044l-.1-.339L17,11.27a.538.538,0,0,0,.155-.378A.527.527,0,0,0,17,10.516l-.431-.431a.533.533,0,0,0-.757,0l0,0-.714-2.382c.247-.235.48-.459.7-.669A26.219,26.219,0,0,0,18.685,4.04Z"
+                                                                              fill="#414141"></path>
+                                                                    </g>
+                                                                </svg>
+
+                                                            </div>
+                                                            <div className="price-item__content not-flex">
+                                                                <p>{tour.priceIncluded.transport}</p>
+                                                                <p className="address"><span className="airport">Sân bay:</span><span
+                                                                    className="address__start">{tour.priceIncluded.pointGo}</span>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                         width="15.739" height="25.14"
+                                                                         viewBox="0 0 15.739 25.14">
+                                                                        <g id="Group_1152" data-name="Group 1152"
+                                                                           transform="translate(-467.273 -837)">
+                                                                            <g id="arrow-pointing-to-right"
+                                                                               transform="translate(467.273 837)">
+                                                                                <path id="Path_455" data-name="Path 455"
+                                                                                      d="M15.525,46.814l-4.684-4.684a.732.732,0,1,0-1.035,1.035L13.241,46.6H.732a.732.732,0,1,0,0,1.464H13.241L9.806,51.5a.732.732,0,0,0,1.035,1.035l4.684-4.684A.732.732,0,0,0,15.525,46.814Z"
+                                                                                      transform="translate(0 -41.916)"
+                                                                                      fill="#00a6f0"></path>
+                                                                            </g>
+                                                                            <g id="arrow-pointing-to-right-2"
+                                                                               data-name="arrow-pointing-to-right"
+                                                                               transform="translate(467.273 851.309)">
+                                                                                <path id="Path_455-2"
+                                                                                      data-name="Path 455"
+                                                                                      d="M.214,46.814,4.9,42.131a.732.732,0,1,1,1.035,1.035L2.5,46.6H15.008a.732.732,0,1,1,0,1.464H2.5L5.933,51.5A.732.732,0,0,1,4.9,52.533L.214,47.849A.732.732,0,0,1,.214,46.814Z"
+                                                                                      transform="translate(0 -41.916)"
+                                                                                      fill="#00a6f0"></path>
+                                                                            </g>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <span className="address__to">{tour.priceIncluded.destination}</span>
+                                                                </p>
+                                                            </div>
+                                                            <span className="price-item__number">2.000.000 đ</span>
+                                                        </div>
+                                                        <div className="price-item">
+                                                            <div className="price-item__icon">
                                                                 <svg id="portfolio" xmlns="http://www.w3.org/2000/svg"
                                                                      width="22.756" height={20} viewBox="0 0 22.756 20">
                                                                     <path id="Path_445" data-name="Path 445"
@@ -782,7 +827,7 @@ class TourDetail extends Component {
                                                                           fill="#414141"/>
                                                                 </svg>
                                                             </div>
-                                                            <div className="price-item__content"><span>Hành lý ký gửi 20kg và 7kg</span>
+                                                            <div className="price-item__content"><span>Hành lý ký gửi {tour.priceIncluded.handed}kg và {tour.priceIncluded.deposit}kg</span>
                                                             </div>
                                                             <span className="price-item__number">0 đ</span>
                                                         </div>
@@ -814,9 +859,9 @@ class TourDetail extends Component {
                                                                     </g>
                                                                 </svg>
                                                             </div>
-                                                            <div className="price-item__content"><span>Visa Hàn Quốc và phí dịch thuật</span>
+                                                            <div className="price-item__content"><span>{tour.priceIncluded.otherCosts[0].title}</span>
                                                             </div>
-                                                            <span className="price-item__number">2.000.000 đ</span>
+                                                            <span className="price-item__number">{tour.priceIncluded.otherCosts[0].cost} đ</span>
                                                         </div>
                                                         <div className="price-item">
                                                             <div className="price-item__icon">
@@ -1120,9 +1165,9 @@ class TourDetail extends Component {
                                                                     </g>
                                                                 </svg>
                                                             </div>
-                                                            <div className="price-item__content"><span>Khách sạn 3 sao tiêu chuẩn Hàn Quốc</span>
+                                                            <div className="price-item__content"><span>{tour.priceIncluded.otherCosts[1].title}</span>
                                                             </div>
-                                                            <span className="price-item__number">2.000.000 đ</span>
+                                                            <span className="price-item__number">{tour.priceIncluded.otherCosts[1].title} đ</span>
                                                         </div>
                                                         <div className="price-item">
                                                             <div className="price-item__icon">
@@ -1145,25 +1190,28 @@ class TourDetail extends Component {
                                                                     </g>
                                                                 </svg>
                                                             </div>
-                                                            <div className="price-item__content"><span>Các bữa ăn theo chương trình</span>
+                                                            <div className="price-item__content"><span>{tour.priceIncluded.otherCosts[2].title}</span>
                                                             </div>
-                                                            <span className="price-item__number">2.000.000 đ</span>
+                                                            <span className="price-item__number">{tour.priceIncluded.otherCosts[2].title} đ</span>
                                                         </div>
-                                                        <div className="price-item">
-                                                            <div className="price-item__icon">
-                                                                <div className="dot"/>
+                                                        {tour.priceIncluded.otherCosts.map((other,index) =>
+                                                            <div style={{display: index > 2 ? 'block' : 'none'}} className="price-item">
+                                                                <div className="price-item__icon">
+                                                                    <div className="dot"/>
+                                                                </div>
+                                                                <div className="price-item__content">
+                                                                    <p>
+                                                                        {other.title}
+                                                                    </p>
+                                                                </div>
+                                                                <span className="price-item__number">{other.cost} đ</span>
                                                             </div>
-                                                            <div className="price-item__content">
-                                                                <p>Phí tham quan theo chương trình, hướng dẫn viên tiếng
-                                                                    Việt</p>
-                                                            </div>
-                                                            <span className="price-item__number">1.000.000 đ</span>
-                                                        </div>
+                                                        )}
                                                         <h2 className="title mt-48px">Giá tour:</h2>
                                                         <div className="price-table">
-                                                            <p className="price-table__note">Giá tour sẽ giảm tương ứng
-                                                                với số người tham gia. Hãy mời bạn bè hoặc người thân để
-                                                                nhận những ưu đãi từ Thanktriips</p>
+                                                            <p className="price-table__note">
+                                                                Giá tour sẽ giảm tương ứng với số người tham gia. Hãy mời bạn bè hoặc người thân để nhận những ưu đãi từ Thanktriips
+                                                            </p>
                                                             <div className="table">
                                                                 <div className="thead">
                                                                     <div className="th number"><span>SỐ NGƯỜI</span>
@@ -1174,20 +1222,20 @@ class TourDetail extends Component {
                                                                 <div className="tbody">
                                                                     <div className="tr">
                                                                         <div className="td number">
-                                                                            <span>1-10 người</span></div>
-                                                                        <div className="th corresponding-price"><span>100% Giá vé = 8.000.000 đ</span>
+                                                                            <span>10 người</span></div>
+                                                                        <div className="th corresponding-price"><span>Discount {tour.faresByPeople.from10To20}% = {formatNumber((100-tour.faresByPeople.from10To20)*tour.basePrice/100)} đ</span>
                                                                         </div>
                                                                     </div>
                                                                     <div className="tr">
                                                                         <div className="td number">
-                                                                            <span>10-20 người</span></div>
-                                                                        <div className="th corresponding-price"><span>Discount 3% = 7.000.000 đ</span>
+                                                                            <span>20 người</span></div>
+                                                                        <div className="th corresponding-price"><span>Discount {tour.faresByPeople.from20To30}% = {formatNumber((100-tour.faresByPeople.from20To30)*tour.basePrice/100)} đ</span>
                                                                         </div>
                                                                     </div>
                                                                     <div className="tr">
                                                                         <div className="td number">
-                                                                            <span>25-45 người</span></div>
-                                                                        <div className="th corresponding-price"><span>Discount 10% = 6.000.000 đ</span>
+                                                                            <span>30 người</span></div>
+                                                                        <div className="th corresponding-price"><span>Discount {tour.faresByPeople.from30}% = {formatNumber((100-tour.faresByPeople.from30)*tour.basePrice/100)} đ</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1254,8 +1302,9 @@ class TourDetail extends Component {
                                                     <div className="other-start">
                                                         <h2 className="title">Ngày khởi hành khác</h2>
                                                         <div className="top">
-                                                            <p className="note">Cùng một tour nhưng khác ngày khởi
-                                                                hành</p>
+                                                            <p className="note">
+                                                                Cùng một tour nhưng khác ngày khởi hành
+                                                            </p>
                                                             <a className="link">See more</a>
                                                         </div>
                                                         <div className="day">
