@@ -516,7 +516,7 @@ class Create extends Component {
     this.setState(prevState => ({
       companyTour: {
         ...prevState.companyTour,
-        avatar: file
+        avatar: file.base64
       }
     }));
   }
@@ -717,8 +717,8 @@ class Create extends Component {
                               <div className="col-md-5">
                                 <div tabIndex="0" className="dropzone" onClick={this.handleUploadCompanyLogo}>
                                   <FileBase64 refName={this.uploadCompanyLogo}  multiple={ false } onDone={ this.getCompanyLogo.bind(this)} />
-                                  <div className="text-center" style={{backgroundImage: 'url('+companyTour.avatar.base64+')'}}>
-                                    <div style={{display: companyTour.avatar.base64 ? 'none': 'block'}}>
+                                  <div className="text-center" style={{backgroundImage: 'url('+companyTour.avatar+')'}}>
+                                    <div style={{display: companyTour.avatar ? 'none': 'block'}}>
                                       <i className="fa fa-cloud-upload"></i>
                                       <small>Upload Logo 400 x 400</small>
                                     </div>
@@ -744,7 +744,7 @@ class Create extends Component {
                                 <div style={{display: avatar ? 'block' : 'none'}}>
                                   <div className="row">
                                     <div className="col-sm-12 col-md-12 preview-img">
-                                      <img alt="Preview" src={avatar.base64}/>
+                                      <img alt="Preview" src={avatar}/>
                                     </div>
                                   </div>
                                 </div>
@@ -757,7 +757,7 @@ class Create extends Component {
                               {this.state.imageTour.map((image,index) =>
                                   <div className="preview__item">
                                     <div className="preview__thumbnail"
-                                         style={{backgroundImage: 'url('+image.base64+')'}}>
+                                         style={{backgroundImage: 'url('+image+')'}}>
                                       <i className="fa fa-times-circle preview__remove" onClick={() => this.handleDelImageTour(index)}></i>
                                     </div>
                                   </div>
