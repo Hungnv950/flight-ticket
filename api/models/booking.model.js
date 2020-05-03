@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 let BookingSchema = new Schema({
     schedule: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'schedule'
+        ref: 'Schedule'
     },
     fullName: {
         type: String,
