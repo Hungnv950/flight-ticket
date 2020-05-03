@@ -216,7 +216,7 @@ class TourDetail extends Component {
                                                                 <a className="see-more" href="#">See more</a>
                                                                 <div className="book-tour">
                                                                     <p className="price">{formatNumber(tour.basePrice)} đ</p>
-                                                                    <a href={'/booking-tour/'+schedule._id} className="btn btn--bg-linear">
+                                                                    <a href={'/tour/'+schedule._id+'/booking/'} className="btn btn--bg-linear">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width={27}
                                                                              height={19} viewBox="0 0 27 19">
                                                                             <g>
@@ -433,7 +433,7 @@ class TourDetail extends Component {
                                                             <div className="tab-tour-price__top">
                                                                 <div className="book-tour px-0">
                                                                     <p className="price">{formatNumber(tour.basePrice)} đ</p>
-                                                                    <a href={'/booking-tour/'+schedule._id} className="btn btn--bg-linear">
+                                                                    <a href={'/tour/'+schedule._id+'/booking/'} className="btn btn--bg-linear">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width={27}
                                                                              height={19} viewBox="0 0 27 19">
                                                                             <g>
@@ -1035,7 +1035,7 @@ class TourDetail extends Component {
                                                         <div className={(this.isActiveTab(3) ? "active" : "") + " tab__content-item js-tab-content-item term"}>
                                                             <div className="book-tour px-0">
                                                                 <p className="price">{formatNumber(tour.basePrice)} đ</p>
-                                                                <a href={'/booking-tour/'+schedule._id} className="btn btn--bg-linear">
+                                                                <a href={'/tour/'+schedule._id+'/booking/'} className="btn btn--bg-linear">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width={27}
                                                                          height={19} viewBox="0 0 27 19">
                                                                         <g>
