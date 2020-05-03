@@ -10,11 +10,11 @@ import SearchResult from "../components/SearchResult";
 import Booking from "../components/Booking";
 import Register from "../components/Register";
 import Login from "../components/Login";
-import Tour from "../components/Tours/Tour";
-import TourDetail from "../components/Tours/TourDetail";
-import TourPreview from "../components/Tours/TourPreview";
-import TourBooking from "../components/Tours/TourBooking";
-import TourCheckout from "../components/Tours/TourCheckout";
+import Tour from "../components/tours/Tour";
+import TourDetail from "../components/tours/TourDetail";
+import TourPreview from "../components/tours/TourPreview";
+import TourBooking from "../components/tours/TourBooking";
+import TourCheckout from "../components/tours/TourCheckout";
 
 const AppRouter = () => (
   <Router history={history}>
