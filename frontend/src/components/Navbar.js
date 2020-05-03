@@ -32,7 +32,7 @@ const Navbar = () => {
             </a>
           </li>
           <li className="header__nav-item">
-            <a className="header-f-w active" href="#">
+            <a className="header-f-w" href="/flights">
               <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 13 13">
                 <g>
                   <g>
@@ -44,11 +44,19 @@ const Navbar = () => {
             </a>
           </li>
           <li className="header__nav-item">
-            <a className="header-f-w" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 13 13">
-                <g>
-                  <g>
-                    <path fill="#818181" d="M1.811 11.19c-.13-.116-.123-.368.017-.658L0 9.34c.195-.197.39-.322.713-.364l2.124-.283c.16-.02.317-.033.463-.061.233-.355.955-1.254 1.315-1.733l.96-1.268L.932 4.232c-.484-.146.43-1.23.87-1.111l6.121.161L9.465 1.74c1.208-1.205 2.83-1.767 3.196-1.4.367.369-.195 1.988-1.4 3.196L9.718 5.078l.16 6.121c.12.44-.964 1.352-1.108.869l-1.4-4.643-1.27.96c-.476.36-1.377 1.082-1.732 1.317-.03.146-.041.3-.062.46l-.28 2.125A1.132 1.132 0 0 1 3.66 13L2.47 11.17c-.29.14-.543.15-.658.02z" />
+            <a className="header-f-w" href="/tours">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10.76" height="19.958" viewBox="0 0 10.76 19.958">
+                <g id="Group_8846" data-name="Group 8846" transform="translate(-31.632 -260.974)">
+                  <g id="Group_5567" data-name="Group 5567" transform="translate(31.632 260.974)">
+                    <g id="Group_5566" data-name="Group 5566">
+                      <g id="Group_5565" data-name="Group 5565" transform="translate(1.443 17.744)">
+                        <path id="Path_10531" data-name="Path 10531" d="M52.057,303.254v-.724h.521v.724a.519.519,0,0,1,.26.449v.521a.521.521,0,0,1-1.042,0V303.7A.519.519,0,0,1,52.057,303.254Z" transform="translate(-44.63 -302.53)" fill="#818181"/>
+                        <path id="Path_10532" data-name="Path 10532" d="M35.273,303.254v-.724h.521v.724a.518.518,0,0,1,.261.449v.521a.521.521,0,0,1-1.043,0V303.7A.518.518,0,0,1,35.273,303.254Z" transform="translate(-35.012 -302.53)" fill="#818181"/>
+                      </g>
+                      <rect id="Rectangle_2469" data-name="Rectangle 2469" width="10.424" height="14.724" rx="3.461" transform="translate(10.76 18.33) rotate(180)" fill="#818181"/>
+                      <path id="Path_10533" data-name="Path 10533" d="M31.632,267.966v1.109h.335v8.752a1.479,1.479,0,0,0,1.478,1.478h7.47a1.479,1.479,0,0,0,1.478-1.478v-10.74h-3.6V261.3a.321.321,0,0,0-.321-.321H35.8a.323.323,0,0,0-.321.321v5.792h-3.51v.879Zm4.488-6.35h2.032v5.47H36.12Z" transform="translate(-31.632 -260.974)" fill="#818181"/>
+                    </g>
+                    <path id="Path_10534" data-name="Path 10534" d="M46.711,290.645v5.083h2.844a1.479,1.479,0,0,0,1.478-1.478v-4.616H47.722A1.012,1.012,0,0,0,46.711,290.645Z" transform="translate(-40.273 -277.397)" fill="#818181"/>
                   </g>
                 </g>
               </svg>

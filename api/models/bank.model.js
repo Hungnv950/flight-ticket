@@ -2,12 +2,7 @@ const moment = require('moment');
 
 const mongoose = require('mongoose');
 
-const validator = require('validator');
-
 const Schema = mongoose.Schema;
-
-const STATUS_ACTIVE = 10;
-const STATUS_INACTIVE = 0;
 
 let BankSchema = new Schema({
     name: {

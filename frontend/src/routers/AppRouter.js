@@ -10,8 +10,11 @@ import SearchResult from "../components/SearchResult";
 import Booking from "../components/Booking";
 import Register from "../components/Register";
 import Login from "../components/Login";
-import Tour from "../components/tours/Tour";
-import TourDetail from "../components/tours/TourDetail";
+import Tour from "../components/Tours/Tour";
+import TourDetail from "../components/Tours/TourDetail";
+import TourPreview from "../components/Tours/TourPreview";
+import TourBooking from "../components/Tours/TourBooking";
+import TourCheckout from "../components/Tours/TourCheckout";
 
 const AppRouter = () => (
   <Router history={history}>
@@ -21,7 +24,13 @@ const AppRouter = () => (
       <PublicRoute exact path="/" component={Search} />
       <PublicRoute exact path="/search/result" component={SearchResult} />
       <PublicRoute path="/booking" component={Booking} />
+
       <PublicRoute path="/tours" component={Tour} />
+      <PublicRoute path="/tour/:id/booking" component={TourBooking} />
+      <PublicRoute path="/tour/:id/preview" component={TourPreview} />
+      <PublicRoute path="/tour/:id/checkout" component={TourCheckout} />
+      <PublicRoute path="/tour/:id/waiting" component={TourBooking} />
+      <PublicRoute path="/tour/:id/invoice" component={TourBooking} />
       <PublicRoute path="/tour/:id" component={TourDetail} />
 
       <PublicRoute path="/register" component={Register} />

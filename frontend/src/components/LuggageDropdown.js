@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 const luggage = [
-  {value: "0", price: "0"},
+  {value: "Không, cảm ơn", price: "0"},
   {value: "15kg", price: "200000"},
   {value: "20kg", price: "300000"}
 ]
@@ -38,8 +38,6 @@ class LuggageDropdown extends Component {
   render() {
     let show = this.state.isOpen ? "show" : "";
     return (
-      <div className="regis-luggage">
-        <p className="regis-luggage__title">{this.props.title}</p>
         <div className={show + " dropdown"}>
           <div className="js-control-show-dropdown regis-luggage__display">
             <div className="form-control" onClick={this.onToggleShow}>
@@ -73,14 +71,13 @@ class LuggageDropdown extends Component {
               </p>
             </li>
             {luggage.map((item) => (
-              <li className="dropdown__item" key={item.value} onClick={(e) => this.onSelectValue(item)}>
-                <input type="radio" id={item.value} name="radio-luggage" value="0" defaultChecked={item.price === this.state.price}/>
-                <label htmlFor={item.value}><span>{item.value}</span><span className="text-blue-sky">{item.price.toLocaleString()}đ</span></label>
-              </li>
+                <li className="dropdown__item" key={item.value} onClick={(e) => this.onSelectValue(item)}>
+                  <input type="radio" id={item.value} name="radio-luggage" value="0" defaultChecked={item.price === this.state.price}/>
+                  <label htmlFor={item.value}><span>{item.value}</span><span className="text-blue-sky">{item.price.toLocaleString()}đ</span></label>
+                </li>
             ))}
           </ul>}
         </div>
-      </div>
     )
   }
 }

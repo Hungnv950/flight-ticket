@@ -4,24 +4,26 @@ import {
 } from '../../constants/path';
 import {
   connect
-} from 'react-redux'
+} from 'react-redux';
 import {
   setTourAction,
   selectTourAction
 } from '../../actions/tour.action';
+import history from "../../history";
+import {formatDatePost} from "../../helpers/formatFlighAPI";
 
 class Tour extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentGrid: "col-12",
-      page: 1
+      page: 1,
+      currentGrid: "col-12"
     }
   }
 
   componentDidMount() {
-    this.props.setTours(this.state.page);
+    this.props.setTours(this.state.page).then(() => {});
   }
 
   handleControlGrid = (type) => {
@@ -40,31 +42,52 @@ class Tour extends Component {
     this.setState({
       page: this.state.page + 1
     })
-    this.props.setTours(this.state.page);
+    this.props.setTours(this.state.page).then(() => {});
   }
 
   onSelectTour = (id) => {
-    this.props.selectTour(id);
+    this.props.selectTour(id).then(() => {
+      history.push('/tour/' + id);
+    });
+  }
+
+  formatNumber(num) {
+    if (num === undefined) num = 0;
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+  }
+
+  formatDate(date,full) {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    if(full){
+      let dt = new Date(date);
+
+      let day = dt.getDay();
+
+      return (day === 0 ? 'CN': 'Thứ '+(day+1))+', ngày '+day+', tháng '+month+', '+year;
+    }
+
+    return [day, month, year].join('/');
   }
 
   renderTour = ((tour, index) =>
     <div className={this.state.currentGrid + " col-custom js-display-grid"} key={"tour-" + index}>
       <div className="tour-result">
-        <div
-          className="tour-result__thumbnail bg-img-base js-lazy-load"
-          data-src={tour.avatar}
-          data-type="background-image"
-          style={{ backgroundImage: `url(${tour.avatar})` }}
-          onClick={() => this.onSelectTour(tour._id)}
-        >
-          <div className="sale-tag">
-            <p className="percent">Sale 50%</p>
-            <p className="note">Khuyến mãi giờ chốt</p>
-          </div>
+        <div className="tour-result__thumbnail bg-img-base js-lazy-load" data-src={tour.avatar}
+          data-type="background-image" style={{ backgroundImage: `url(${tour.avatar})` }} onClick={() => this.onSelectTour(tour.schedules[0]._id)}>
         </div>
         <div className="tour-result__title">
-          <a className="title" onClick={() => this.onSelectTour(tour._id)}>{tour.title}</a>
-          <p className="day-start">Monday, 3 September, 2018</p>
+          <a className="title" onClick={() => this.onSelectTour(tour.schedules[0]._id)}>{tour.title}</a>
+          <p className="day-start">{this.formatDate(tour.schedules[0].departureDay,true)}</p>
           <div className="tour-result__review">
             <img src={imagesUrl + "star-solid.svg"} />
             <img src={imagesUrl + "star-solid.svg"} />
@@ -79,17 +102,15 @@ class Tour extends Component {
                 <path id="Path_413" data-name="Path 413" d="M2.5,3.125V.625a.625.625,0,0,1,1.25,0v2.5a.625.625,0,0,1-1.25,0Zm10.625.625a.625.625,0,0,0,.625-.625V.625a.625.625,0,0,0-1.25,0v2.5A.625.625,0,0,0,13.126,3.75ZM20,15a5,5,0,1,1-5-5A5,5,0,0,1,20,15Zm-1.25,0A3.75,3.75,0,1,0,15,18.75,3.754,3.754,0,0,0,18.751,15ZM5,7.5H2.5V10H5ZM2.5,13.75H5v-2.5H2.5ZM6.251,10h2.5V7.5h-2.5Zm0,3.75h2.5v-2.5h-2.5Zm-5,1.126V6.25H15v2.5h1.25V3.875A1.364,1.364,0,0,0,14.9,2.5h-.521v.625a1.25,1.25,0,1,1-2.5,0V2.5h-7.5v.625a1.25,1.25,0,1,1-2.5,0V2.5H1.355A1.364,1.364,0,0,0,0,3.875v11A1.366,1.366,0,0,0,1.355,16.25h7.4V15h-7.4A.118.118,0,0,1,1.251,14.876ZM12.5,10V7.5H10V10Zm4.375,5H15V13.125a.625.625,0,0,0-1.25,0v2.5a.625.625,0,0,0,.625.625h2.5a.625.625,0,0,0,0-1.25Z" />
               </g>
             </svg>
-            <span className="text-blue-sky whitespace-nowrap">{tour.estimateDays} ngày</span><span>,&nbsp;</span><span>Monday, 3 September, 2018</span>
+            <span className="text-blue-sky whitespace-nowrap">{tour.estimateDays} ngày</span>
+            <span>, {this.formatDate(tour.schedules[0].departureDay,true)}</span>
+            <span></span>
           </div>
           <div className="tour-result__bought">
-            <div className="avatar-wrap"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} /></div>
-            <div className="avatar-wrap"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} /></div>
-            <div className="avatar-wrap"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} /></div>
-            <div className="avatar-wrap"><img className="img-full-height" src={imagesUrl + "avatar-demo.png"} /></div>
-            <span>+&nbsp;4&nbsp;bought</span>
+            <span>+&nbsp;0&nbsp;bought</span>
           </div>
           <div className="tour-result__price-col-6">
-            <p className="price">1.200.000 đ</p>
+            <p className="price">{this.formatNumber(tour.basePrice)} đ</p>
           </div>
         </div>
         <p className="tour-result__description">{tour.description}</p>
@@ -115,7 +136,7 @@ class Tour extends Component {
           <div className="row row-custom">
             <div className="col-xl-3 col-md-4 col-12 col-custom">
               <div className="card card-filter-tour">
-                <h2 className="title">Filter By</h2>
+                <h2 className="title">Lọc theo</h2>
                 <h3 className="form-group-title">Ngày khởi hành</h3>
                 <div className="form-group form-group--datepicker">
                   <input className="form-control include-icon-calendar datepicker" type="text" defaultValue="14/04/2020" />
@@ -243,7 +264,7 @@ class Tour extends Component {
             <div className="col-xl-6 col-md-8 col-12 col-custom">
               <div className="card card-search-tour-address">
                 <div className="d-flex justify-content-between">
-                  <h2 className="title">Where to go?</h2>
+                  <h2 className="title">Bạn muốn đi đâu?</h2>
                   <div className="control-grid">
                     <svg className={this.handleCurrentGridView('col-12') + " icon-one-col"} xmlns="http://www.w3.org/2000/svg" width="13.442" height="15.565" viewBox="0 0 13.442 15.565" onClick={() => this.handleControlGrid('col-12')}>
                       <g transform="translate(-0.247 0)">
@@ -291,13 +312,13 @@ class Tour extends Component {
                   </svg>
                 </div>
               </div>
-              <p className="number-result">There are 200 results</p>
+              <p className="number-result">CÓ {this.props.tours.length} KẾT QUẢ TÌM KIẾM</p>
               <div className="row row-custom">
                 {
                   this.props.tours.map(this.renderTour)
                 }
               </div>
-              <a className="btn btn-load-more-tour" onClick={this.onLoadMore}><img src={imagesUrl +"spinner-of-dots.png"}/><span>LOAD MORE</span></a>
+              <a className="btn btn-load-more-tour" onClick={this.onLoadMore}><img src={imagesUrl +"spinner-of-dots.png"}/><span>TẢI THÊM</span></a>
             </div>
             <div className="col-xl-3 col-12 col-custom">
               <div className="card card-sale-tour">

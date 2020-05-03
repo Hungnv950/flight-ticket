@@ -5,7 +5,7 @@ import NavMobile from './NavMobile';
 const Footer = () => {
     return (
         <React.Fragment>
-          <footer className="footer footer-search-page js-lazy-load mb-phone-70" data-type="background-image" data-src={imagesUrl + "bg-footer-white.png"}>
+          <footer className="footer footer-search-page js-lazy-load mb-phone-70" data-type="background-image" data-src={imagesUrl + "bg-footer-gray.png"}>
             <div className="footer__content-wrap">
               <div className="footer__content">
                 <div className="footer__content-top">
@@ -22,7 +22,7 @@ const Footer = () => {
                       Ut aliquip ex ea commodo consequat.
                     </p>
                     <div className="footer__social">
-                      <a className="footer__social-item" href="# " src={imagesUrl + "icon_fb.png"}>
+                      <a className="footer__social-item" href="#">
                         <img src={imagesUrl + "icon_fb.png"} alt="icon facebook" /></a><a className="footer__social-item" href="# ">
                         <img src={imagesUrl + "icon_twitter.png"} alt="icon twitter" /></a><a className="footer__social-item" href="# ">
                         <img src={imagesUrl + "icon_gmail.png"} alt="icon gmail" /></a><a className="footer__social-item" href="# ">

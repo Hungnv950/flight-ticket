@@ -220,8 +220,21 @@ let TourSchema = new Schema({
     }],
     status: { // Trạng thái tour
         type: Number,
-        default: 10
+        default: 0
     },
+    onSale: { // Mở bán
+        type: Boolean,
+        default: false
+    },
+    onSaleFrom:{ // Mở bán từ
+        type: Date,
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
+    },
+    onSaleTo:{ // Mở bán đến
+        type: Date,
+        default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
+    },
+    schedules: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }], // Lịch trình
     createdAt: { // Thời gian tạo tour
         type: Date,
         default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
@@ -231,6 +244,13 @@ let TourSchema = new Schema({
         default: new Date(moment().set({'hour': moment().hour()+7}).toDate())
     }
 });
+
+TourSchema.statics.status_active   = 1;  // hoat dong
+TourSchema.statics.status_unactive = 0;  // ngung hoat dong
+TourSchema.statics.status_unactive = -1; // da xoa
+
+TourSchema.statics.on_sale_on  = 1;  // mở bán
+TourSchema.statics.on_sale_off = 0;  // ngừng bán
 
 let Tour = mongoose.model('Tour', TourSchema);
 

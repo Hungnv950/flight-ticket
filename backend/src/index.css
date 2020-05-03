@@ -1541,3 +1541,90 @@ html:not([dir=rtl]) .was-validated .form-control:invalid, html:not([dir=rtl]) .f
 .my-tours{
     min-height: 100vh!important;
 }
+
+.on-sale label{
+    margin-bottom: -8px;
+}
+
+.modal-popup__content img {
+    display: block;
+    margin: 0 auto 40px;
+    max-width: 100%;
+}
+
+.modal-popup__content h5 {
+    margin-bottom: 40px;
+    font-family: SFProDisplay, sans-serif;
+    text-align: center;
+    padding: 0 12px;
+    position: relative;
+}
+
+.btn-orange {
+    background: #FF4827 !important;
+    color: #fff !important;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.switch {
+    width: auto;
+    position: relative;
+}
+
+.switch__control {
+    position: absolute;
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.switch__content {
+    display: inline-block;
+    position: relative;
+    padding-left: 66px;
+    cursor: pointer;
+}
+
+.switch__content:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 30px;
+    width: 52px;
+    border-radius: 15px;
+    border: 2px solid #e5e5e5;
+    box-sizing: border-box;
+    transition: .15s;
+}
+
+.switch__content:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 13px;
+    transition: .15s;
+    box-sizing: border-box;
+}
+
+.switch__control:checked~.switch__content:before {
+    background-image: linear-gradient(90deg, #FFCE00 0%, #FF2600 100%);
+    transition: .15s;
+}
+
+.switch__control:checked~.switch__content:after {
+    left: 24px;
+    border-color: white;
+    transition: .15s;
+}

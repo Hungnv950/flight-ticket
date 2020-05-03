@@ -415,7 +415,7 @@ class Booking extends Component {
 			</main>
 		)
 	}
-};
+}
 
 const mapStateToProps = (state) => ({
 	fare: state.booking.fareData,

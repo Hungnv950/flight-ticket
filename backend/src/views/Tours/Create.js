@@ -167,6 +167,7 @@ class Create extends Component {
     this.handleUploadCompanyLogo = this.handleUploadCompanyLogo.bind(this);
     this.handleUpInputNumberField = this.handleUpInputNumberField.bind(this);
     this.handleDownInputNumberField = this.handleDownInputNumberField.bind(this);
+    this.handleChangeDepartureSchedule = this.handleChangeDepartureSchedule.bind(this);
   };
 
   handleSubmit() {
@@ -185,7 +186,7 @@ class Create extends Component {
   };
 
   handleSaveTour(redirect) {
-    const { title, avatar,basePrice, estimateDays,priceIncluded, companyTour, imageTour, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers, schedule } = this.state;
+    const { title, avatar,basePrice, departureSchedule, estimateDays, priceIncluded, companyTour, imageTour, tpe, description, faresByAge, faresByPeople, faresByTime, refundCancel, priceNotIncluded, cancelTour, boardOthers, schedule } = this.state;
 
     let that = this;
 
@@ -199,6 +200,7 @@ class Create extends Component {
       avatar,
       description,
       faresByAge,
+      departureSchedule,
       faresByPeople,
       faresByTime,
       refundCancel,
@@ -308,10 +310,6 @@ class Create extends Component {
 
     const value = event.target.value;
 
-    if(value > 100 || value < 0){
-      return;
-    }
-
     this.setState(prevState => ({
       [keyArray[0]]: {
         ...prevState[keyArray[0]],
@@ -319,6 +317,37 @@ class Create extends Component {
       }
     }));
   };
+
+  handleChangeDepartureSchedule(value){
+    this.setState(prevState => ({
+      departureSchedule: {
+        ...prevState.departureSchedule,
+        tpe:  value,
+        days: [],
+        allDays: false
+      }
+    }));
+  }
+
+  addDay(day){
+    let days = this.state.departureSchedule.days;
+
+    let indexOf = days.indexOf(day);
+
+    if(indexOf >= 0){
+      delete days[indexOf];
+    }
+    else{
+      days.push(day);
+    }
+
+    this.setState(prevState => ({
+      departureSchedule: {
+        ...prevState.departureSchedule,
+        days: days
+      }
+    }));
+  }
 
   onEntering() {
     this.setState({ status: 'Opening...' });
@@ -579,7 +608,7 @@ class Create extends Component {
 
   render() {
 
-    function  formatNumber(num) {
+    function formatNumber(num) {
       if(num === undefined) num = 0;
 
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
@@ -687,12 +716,12 @@ class Create extends Component {
                                     <div className="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="customRadioInline1" name="tpe" className="custom-control-input" required=""
                                              onChange={(ev) => this.handleChangeField('tpe', ev)} value="1"/>
-                                      <label className={tpe === 1 ? 'custom-control-label-checked': 'custom-control-label'} htmlFor="customRadioInline1">Tour nội địa</label>
+                                      <label className={tpe === 1 ? 'custom-control-label-checked' : 'custom-control-label'} htmlFor="customRadioInline1">Tour nội địa</label>
                                     </div>
                                     <div className="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="customRadioInline2" name="tpe" className="custom-control-input" required=""
                                              onChange={(ev) => this.handleChangeField('tpe', ev)} value="2"/>
-                                      <label className={tpe === 2 ? 'custom-control-label-checked': 'custom-control-label'} htmlFor="customRadioInline2">Tour quốc tế</label>
+                                      <label className={tpe === 2 ? 'custom-control-label-checked' : 'custom-control-label'} htmlFor="customRadioInline2">Tour quốc tế</label>
                                     </div>
                                   </div>
                                 </div>
@@ -996,39 +1025,31 @@ class Create extends Component {
                         <div className="collapse show">
                           <div className="rct-block-content"><h4>Lịch khởi hành</h4>
                             <hr/>
-                            <div className="custom-control custom-radio">
-                              <input type="radio" className="custom-control-input" value="1" checked={departureSchedule.tpe === 1}
-                                     onChange={(ev) => this.handleChangeObjectField('departureSchedule.tpe', ev)}/>
-                              <label className="custom-control-label" htmlFor="option_1">
+                            <div className="custom-control custom-radio" onClick={() => this.handleChangeDepartureSchedule(1)}>
+                              <label className={departureSchedule.tpe === 1 ? 'custom-control-label-checked': 'custom-control-label'} htmlFor="option_1">
                                 Hằng ngày
                               </label>
                             </div>
-                            <div className="custom-control custom-radio">
-                              <input type="radio" className="custom-control-input" value="2" checked={departureSchedule.tpe === 2}
-                                     onClick={(ev) => this.handleChangeObjectField('departureSchedule.tpe', ev)}/>
-                              <label className="custom-control-label" htmlFor="option_2">
+                            <div className="custom-control custom-radio" onClick={() => this.handleChangeDepartureSchedule( 2)}>
+                              <label className={departureSchedule.tpe === 2 ? 'custom-control-label-checked': 'custom-control-label'} htmlFor="option_1">
                                 Các ngày cố định trong tuần
                               </label>
                             </div>
                             <div className="mt-2 mb-4 ml-4" style={{display: departureSchedule.tpe === 2 ? 'block': 'none' }}>
                               <ButtonGroup>
-                                <Button>2</Button>
-                                <Button>3</Button>
-                                <Button>4</Button>
-                                <Button>5</Button>
-                                <Button>6</Button>
-                                <Button>7</Button>
-                                <Button>CN</Button>
+                                {[1,2,3,4,5,6,0].map((value) =>
+                                  <Button className={departureSchedule.days.indexOf(value) >= 0 ? 'btn-orange' : ''} onClick={() => this.addDay(value)}>
+                                    {value === 0 ? 'CN' : value}
+                                  </Button>
+                                )}
                               </ButtonGroup>
-                              <div className="custom-control custom-checkbox">
+                              <div className="custom-control custom-checkbox" style={{marginTop: '10px'}}>
                                 <input type="checkbox" className="custom-control-input" id="customCheck1"/>
                                 <label className="custom-control-label" htmlFor="customCheck1">Tất cả các ngày lễ tết</label>
                               </div>
                             </div>
-                            <div className="custom-control custom-radio">
-                              <input type="radio" className="custom-control-input" value="3"
-                                     onChange={(ev) => this.handleChangeObjectField('departureSchedule.tpe', ev)}/>
-                              <label className="custom-control-label" htmlFor="option_3">
+                            <div className="custom-control custom-radio" onClick={() => this.handleChangeDepartureSchedule(3)}>
+                              <label className={departureSchedule.tpe === 3 ? 'custom-control-label-checked': 'custom-control-label'} htmlFor="option_3">
                                 Các ngày cố định trong tháng
                               </label>
                             </div>
@@ -1036,16 +1057,14 @@ class Create extends Component {
                               <div className="css-1pcexqc-container" id="date-selector">
                                 <InputGroup>
                                   <Input type="select" name="ccmonth" id="ccmonth">
-                                    <option value="">Chọn điểm đi</option>
-                                    <option value="1">Hà Nội</option>
-                                    <option value="2">Hải Phòng</option>
-                                    <option value="3">Quảng Ninh</option>
-                                    <option value="4">Nha Trang</option>
-                                    <option value="5">TP. Hồ Chí Minh</option>
+                                    <option value="">Chọn ngày trong tháng</option>
+                                    {(new Array(31)).map((value, index) =>
+                                        <option value={index+1}>{index+1}</option>
+                                    )}
                                   </Input>
                                 </InputGroup>
                               </div>
-                              <div className="custom-control custom-checkbox">
+                              <div className="custom-control custom-checkbox" style={{marginTop: '10px'}}>
                                 <input type="checkbox" className="custom-control-input" id="customCheck2"/>
                                 <label className="custom-control-label" htmlFor="customCheck2">Tất cả các ngày lễ tết</label>
                               </div>
