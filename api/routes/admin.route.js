@@ -10,6 +10,8 @@ const tourCtrl = require('../controllers/admin/tour.controller');
 
 const flightCtrl = require('../controllers/admin/flight.controller');
 
+const scheduleCtrl = require('../controllers/admin/schedule.controller');
+
 const transactionCtrl = require('../controllers/admin/transaction.controller');
 
 const collaboratorCtrl = require('../controllers/admin/collaborator.controller');
@@ -40,12 +42,16 @@ router.get('/flights', auth, flightCtrl.index);
 
 router.get('/flight/:id', auth, flightCtrl.view);
 
-router.get('/tours', tourCtrl.index);
+router.get('/tours', auth, tourCtrl.index);
 
-router.get('/tour/:id', tourCtrl.view);
+router.get('/tour/:id', auth, tourCtrl.view);
 
-router.post('/tour/create', tourCtrl.create);
+router.post('/tour/create', auth, tourCtrl.create);
 
 router.post('/tour/:id/update', auth, tourCtrl.update);
+
+router.get('/schedules', auth, scheduleCtrl.index);
+
+router.get('/schedule/:id', auth, scheduleCtrl.view);
 
 module.exports = router;

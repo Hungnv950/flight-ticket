@@ -12,7 +12,10 @@ exports.index = async function(req, res) {
             queries.collaboratorCode = req.user.code;
         }
 
-        const flights = await Flight.find(queries).populate('user','fullName');
+        const resPerPage = 15;
+        const page = req.query.page || 1;
+
+        const flights = await Flight.find(queries).skip((resPerPage * page) - resPerPage).limit(resPerPage).populate('user','fullName');
 
         res.status(201).send(flights);
     } catch (error) {

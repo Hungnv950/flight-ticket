@@ -1,5 +1,5 @@
 /* eslint-disable default-case */
-import { airportConst } from "../constants/airport";
+import {airportConst} from "../constants/airport";
 
 export const formatHourMitues = (value) => {
   let date =  new Date(value);
@@ -14,8 +14,7 @@ export const formatHMDFlight = (value) => {
 }
 
 export const intToTime = value => {
-  var num = value;
-  var hours = (num / 60);
+  var hours = (value / 60);
   var rhours = Math.floor(hours);
   var minutes = (hours - rhours) * 60;
   var rminutes = Math.round(minutes);
@@ -64,5 +63,5 @@ export const formatDDMY = (value) => {
 }
 
 export const getAirportCity = value => {
-  return airportConst.find(element => element["key"] === value)["airport"]
+  return 0
 }

@@ -6332,10 +6332,6 @@ a.ui-button:active,
   }
 }
 
-.book-ticket .passenger .regis-luggage__item:last-child {
-  margin-top: 12px;
-}
-
 .book-ticket .passenger .regis-luggage__item-title {
   display: block;
   margin-bottom: 8px;
@@ -11348,15 +11344,15 @@ a.ui-button:active,
 }
 
 .card-tour-detail .tab-style .tab__nav-item:nth-child(1) {
-  width: calc(100% / 3 - 22px);
+  width: calc(100% / 3);
 }
 
 .card-tour-detail .tab-style .tab__nav-item:nth-child(2) {
-  width: calc(100% / 3 - 18px);
+  width: calc(100% / 3);
 }
 
 .card-tour-detail .tab-style .tab__nav-item:nth-child(3) {
-  width: calc(100% / 3 + 40px);
+  width: calc(100% / 3);
 }
 
 .card-tour-detail .tab-style .tab__nav-link {
