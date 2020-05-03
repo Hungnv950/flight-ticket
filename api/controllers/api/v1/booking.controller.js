@@ -21,7 +21,7 @@ exports.create = async function(req, res) {
 
 exports.view = async function(req, res) {
     try {
-        const booking = await Booking.find({_id: req.params.id}).populate({
+        const booking = await Booking.findById(req.params.id).populate({
             path: 'schedule',
             populate: {
                 path: 'tour'
