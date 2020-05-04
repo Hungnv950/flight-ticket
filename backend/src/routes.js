@@ -44,7 +44,7 @@ const routes = [
   { path: '/collaborator/:id', exact: true, name: 'Collaborator Details', component: Collaborator },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/employees', exact: true,  name: 'Users', component: Employees },
+  { path: '/employees', exact: true,  name: 'Nhân viên', component: Employees },
   { path: '/employee/:id', exact: true, name: 'Chi tiết nhân viên', component: EmployeeView },
   { path: '/employees/create', exact: true, name: 'Thêm mới nhân viên', component: EmployeeCreate },
   { path: '/tours', exact: true,  name: 'Tour du lịch', component: Tours },
