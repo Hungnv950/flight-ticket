@@ -1,8 +1,9 @@
 import React from 'react';
 
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
-const Users = React.lazy(() => import('./views/Users/Users'));
+
 const User = React.lazy(() => import('./views/Users/User'));
+const Users = React.lazy(() => import('./views/Users/Users'));
 
 const Flights = React.lazy(() => import('./views/Flights/Index'));
 const Flight = React.lazy(() => import('./views/Flights/View'));
@@ -26,6 +27,10 @@ const ScheduleDetail = React.lazy(() => import('./views/Schedules/View'));
 const Transactions = React.lazy(() => import('./views/Transactions/Index'));
 const TransactionView = React.lazy(() => import('./views/Transactions/View'));
 
+const Employees = React.lazy(() => import('./views/Employees/Index'));
+const EmployeeView = React.lazy(() => import('./views/Employees/View'));
+const EmployeeCreate = React.lazy(() => import('./views/Employees/Create'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -39,6 +44,9 @@ const routes = [
   { path: '/collaborator/:id', exact: true, name: 'Collaborator Details', component: Collaborator },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/employees', exact: true,  name: 'Nhân viên', component: Employees },
+  { path: '/employee/:id', exact: true, name: 'Chi tiết nhân viên', component: EmployeeView },
+  { path: '/employees/create', exact: true, name: 'Thêm mới nhân viên', component: EmployeeCreate },
   { path: '/tours', exact: true,  name: 'Tour du lịch', component: Tours },
   { path: '/tour/:id/general', exact: true, name: 'Chi tiết tour', component: TourGeneral },
   { path: '/tour/:id/chat', exact: true, name: 'Chi tiết tour', component: TourChat },

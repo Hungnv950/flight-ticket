@@ -74,6 +74,7 @@ let UserSchema = new Schema({
         type:Number,
         default:0
     },
+    permissions: [],
     flights: [{ type: Schema.Types.ObjectId, ref: 'Flight' }],
     banks:[{ type: Schema.Types.ObjectId, ref: 'Bank' }],
     transactions:[{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
@@ -94,7 +95,7 @@ UserSchema.statics.role_nv    = 4; // quyen nhan vien
 
 UserSchema.statics.status_active   = 1;  // hoat dong
 UserSchema.statics.status_unactive = 0;  // ngung hoat dong
-UserSchema.statics.status_unactive = -1; // da xoa
+UserSchema.statics.status_deleted = -1; // da xoa
 
 UserSchema.methods.generateAuthToken = async function() {
     const user = this;
@@ -153,7 +154,7 @@ UserSchema.pre('save', function (next) {
 
     let max = 10;
 
-    if ((user.roleId === this.role_ctv || user.roleId === this.role_admin) && !user.code) {
+    if (user.roleId !== this.role_user && !user.code) {
         user.code = slug + getRandomIntInclusive(Math.pow(10, (max - slug.length)), Math.pow(10, (max - slug.length + 1)));
     }
 

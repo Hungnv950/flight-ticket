@@ -1,144 +1,54 @@
 const User = require('../../models/user.model');
 
-exports.index = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                User.find({roleId: 4}).exec(function (err, employees) {
-                    res.render('admin/employee/index', {employees: employees,userLogin: user});
-                });
-            }
-        }
-    });
+exports.index = async function (req, res) {
+    try {
+        const resPerPage = 15;
+        const page = req.query.page || 1;
+
+        const employees = await User.find({roleId: User.role_nv}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+
+        res.send({employees, resPerPage, page});
+    } catch (error) {
+        res.status(400).send(error)
+    }
 };
 
-exports.create = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                res.render('admin/employee/create',{userLogin: user});
-            }
-        }
-    });
+exports.create = async function (req, res) {
+    try {
+        const employee = new User(req.body);
+
+        employee.roleId = User.role_nv;
+        employee.username = req.body.phone;
+        employee.password = req.body.phone;
+
+        await employee.save();
+
+        res.status(201).send(employee);
+    } catch (error) {
+        res.status(400).send(error)
+    }
 };
 
-exports.createPost = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                if (req.body.username && req.body.fullName) {
-                    let employee = new User({
-                        fullName: req.body.fullName,
-                        username: req.body.username,
-                        phone: req.body.username,
-                        password: req.body.username,
-                        address: req.body.address,
-                        note: req.body.note,
-                        roleId: 4,
-                        status: 10
-                    });
+exports.update = async function (req, res) {
+    try {
+        await User.updateOne({_id: req.params.id}, {$set: req.body});
 
-                    employee.save(function (err) {
-                        if (err) return console.error(err);
+        const employee = await User.findById(req.params.id);
 
-                        return res.redirect('/admin/employee/index');
-                    });
-                }
-            }
-        }
-    });
+        res.status(201).send(employee);
+    } catch (error) {
+        res.status(400).send(error)
+    }
 };
 
-exports.update = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                User.findById(req.params.id, function (err, employee) {
-                    if (err) return next(err);
+exports.view = async function (req, res) {
+    try {
+        const employee = await User.findById(req.params.id).find({roleId: User.role_nv});
 
-                    res.render('admin/employee/update', {employee: employee,userLogin: user});
-                })
-            }
-        }
-    });
-};
-
-exports.updatePost = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                User.findById(req.params.id, function (err, employee) {
-                    if (err) return next(err);
-
-                    employee.note = req.body.note;
-                    employee.address = req.body.address;
-                    employee.fullName = req.body.fullName;
-
-                    employee.update(function (err) {
-                        if (err) return console.error(err);
-
-                        return res.redirect('/admin/employee/index');
-                    });
-                });
-            }
-        }
-    });
-};
-
-exports.view = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (err, user) {
-        if (err) {
-            return next(err);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                User.findById(req.params.id).populate('customers').exec( function (err, employee) {
-                    if (err) return next(err);
-
-                    res.render('admin/employee/view', {employee: employee,userLogin: user});
-                })
-            }
-        }
-    });
-};
-
-exports.changePassword = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                User.findById(req.params.id, function (err, employee) {
-                    if (err) return next(err);
-
-                    res.render('admin/employee/change-password', {employee: employee});
-                })
-            }
-        }
-    });
+        res.status(200).send(employee);
+    } catch (error) {
+        res.status(400).send(error)
+    }
 };
 
 exports.changePasswordPost = function (req, res, next) {
@@ -167,26 +77,16 @@ exports.changePasswordPost = function (req, res, next) {
     });
 };
 
-exports.deActive = function (req, res, next) {
-    User.findById(req.session.userid).exec(function (error, user) {
-        if (error) {
-            return next(error);
-        } else {
-            if (user === null) {
-                return res.redirect('/admin/login');
-            } else {
-                User.findById(req.params.id, function (err, employee) {
-                    if (err) return next(err);
+exports.deActive = async function (req, res) {
+    try {
+        const employee = await User.findById(req.params.id);
 
-                    employee.status = employee.status === 10 ? 0 : 10;
+        employee.status = !employee.status;
 
-                    employee.update(function (err) {
-                        if (err) return console.error(err);
+        await employee.save();
 
-                        return res.redirect('/admin/employee/view/'+req.params.id);
-                    });
-                });
-            }
-        }
-    });
+        res.status(200).send(employee);
+    } catch (error) {
+        res.status(400).send(error)
+    }
 };
