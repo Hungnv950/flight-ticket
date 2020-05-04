@@ -1252,10 +1252,6 @@ button#btn-chat-1 {
     transform: rotate(45deg);
 }
 
-.card {
-    padding: 16px;
-}
-
 .card__title {
     padding-bottom: 14px;
     margin-bottom: 16px;
@@ -1436,10 +1432,6 @@ body {
     color: #fff;
     border-left: solid #FF4827!important;
     background-color: #34495e78!important;
-}
-
-.card-header {
-    border-bottom: unset!important;
 }
 
 .modal-body img {

@@ -4,8 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 const jwtToken = new BehaviorSubject(localStorage.getItem('jwtToken'));
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
-console.log(jwtToken);
-
 export const authenticationService = {
     login,
     logout,

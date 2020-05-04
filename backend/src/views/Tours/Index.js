@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {Link} from "react-router-dom";
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import { Input, InputGroup } from 'reactstrap';
 
@@ -63,17 +64,25 @@ class Index extends Component {
 
     this.state = {
       tours: [],
-        viewMode: true
+      loading: true,
+      viewMode: true,
+      redirect: false
     };
 
     this.handleViewMode = this.handleViewMode.bind(this);
   }
 
   componentDidMount(){
+    const that = this;
+
     axios.get("/api/admin/tours",{headers: authHeader()}).then(response => {
-      this.setState({ tours: response.data.tours });
+      this.setState({
+        loading: false,
+        tours: response.data.tours
+      });
     }).catch(function (error) {
       console.log(error);
+      that.setState({ loading: false, redirect: true });
     })
   }
 
@@ -84,8 +93,15 @@ class Index extends Component {
   }
 
   render() {
+    const { tours, viewMode, loading, redirect } = this.state;
 
-    const { tours, viewMode } = this.state;
+    if (loading) {
+      return null;
+    }
+
+    if (redirect) {
+      return <Redirect to="/login"/>;
+    }
 
     return (
       <div className="animated fadeIn">
