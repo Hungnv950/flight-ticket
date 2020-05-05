@@ -12,7 +12,6 @@ class Booking extends Component {
         super(props);
 
         this.state = {
-            fare: [],
             luggage: 0,
             logged: true,
             fullName:'',
@@ -159,8 +158,6 @@ class Booking extends Component {
         const tour = schedule.tour;
 
         const { fullName, gender, phone, email, otherRequirements, company, exportInvoice, logged, passengers } = this.state;
-
-        let fare = this.state.fare;
 
         function formatNumber(num) {
             if (num === undefined) num = 0;
@@ -685,7 +682,7 @@ class Booking extends Component {
                                                 <div className="form-control">
                                                     <div className="d-flex justify-content-between align-items-center">
                                                         <div className="number-passenger active"><span
-                                                            className="number-passenger__content">{fare.Inf}</span><span
+                                                            className="number-passenger__content">{1}</span><span
                                                             className="number-passenger__title">trẻ em &lt; 2 tuổi</span>
                                                         </div>
                                                         <span className="price">{0}đ</span>

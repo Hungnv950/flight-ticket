@@ -66,6 +66,26 @@ let BookingSchema = new Schema({
             default: 0
         }
     },
+    adult: {
+        type: Number,
+        default: 0
+    },
+    under2YO: {
+        type: Number,
+        default: 0
+    },
+    from2to11YO: {
+        type: Number,
+        default: 0
+    },
+    hotelService: {
+        type: Number,
+        default: 1
+    },
+    serviceType: {
+        type: Number,
+        default: 1
+    },
     passengers:[{
         gender:{
             type: String,

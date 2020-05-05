@@ -75,8 +75,6 @@ class Booking extends Component {
     hasPassenger(){
         let passengers = [];
 
-        console.log(this.state.hasPassenger);
-
         if(!this.state.hasPassenger){
             passengers.push({id: 0, gender: 0,firstName: '', lastName:''});
         }
