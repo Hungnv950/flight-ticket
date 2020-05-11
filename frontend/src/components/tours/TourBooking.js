@@ -41,7 +41,6 @@ class Booking extends Component {
             is_return: this.props.is_return
         }
 
-        this.addPassenger = this.addPassenger.bind(this);
         this.hasPassenger = this.hasPassenger.bind(this);
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
         this.handleChangeField = this.handleChangeField.bind(this);
@@ -128,7 +127,21 @@ class Booking extends Component {
 
         this.setState({
             tourBooking: tourBooking
-        })
+        });
+
+        let passengers = [];
+
+        for (let i = 0;i < (tourBooking.adult+tourBooking.from2to11YO+tourBooking.under2YO);i++){
+            let id = this.state.passengers.length + 1;
+            let passenger = {id: id,gender: 0,firstName: '', lastName:''};
+
+            passengers.push(passenger);
+        }
+
+        this.setState(prevState => ({
+            ...prevState.passengers,
+            passengers:  passengers
+        }));
     }
 
     onSelectLuggage(item) {
@@ -139,28 +152,9 @@ class Booking extends Component {
     }
 
     hasPassenger(){
-        let passengers = [];
-
-        console.log(this.state.hasPassenger);
-
-        if(!this.state.hasPassenger){
-            passengers.push({id: 0, gender: 0,firstName: '', lastName:''});
-        }
-
         this.setState({
-            passengers: passengers,
             hasPassenger: !this.state.hasPassenger
         });
-    }
-
-    addPassenger(){
-        let id = this.state.passengers.length + 1;
-        let passenger = {id: id,gender: 0,firstName: '', lastName:''};
-
-        this.setState(prevState => ({
-            ...prevState.passengers,
-            passengers:  [...prevState.passengers, passenger]
-        }));
     }
 
     handleSubmitForm(){
@@ -495,61 +489,61 @@ class Booking extends Component {
                                                 </div>
                                             </div>
                                             <div className="card__content">
-                                                {passengers.map((passenger,index) =>
-                                                    <div key={'passenger-'+index}>
-                                                        <div className="separator-round">
-                                                            <svg className="separator-round__left" xmlns="http://www.w3.org/2000/svg"
-                                                                 width="25" height="49" viewBox="0 0 25 49">
-                                                                <g>
+                                                <div style={{display: this.state.hasPassenger ? 'block' : 'none'}}>
+                                                    {passengers.map((passenger,index) =>
+                                                        <div key={'passenger-'+index}>
+                                                            <div className="separator-round">
+                                                                <svg className="separator-round__left" xmlns="http://www.w3.org/2000/svg"
+                                                                     width="25" height="49" viewBox="0 0 25 49">
                                                                     <g>
-                                                                        <path fill="#f5f5f5"
-                                                                              d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"></path>
+                                                                        <g>
+                                                                            <path fill="#f5f5f5"
+                                                                                  d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"></path>
+                                                                        </g>
                                                                     </g>
-                                                                </g>
-                                                            </svg>
-                                                            <div className="separator-round__dashed"></div>
-                                                            <svg className="separator-round__right" xmlns="http://www.w3.org/2000/svg"
-                                                                 width="24" height="49" viewBox="0 0 24 49">
-                                                                <g>
+                                                                </svg>
+                                                                <div className="separator-round__dashed"></div>
+                                                                <svg className="separator-round__right" xmlns="http://www.w3.org/2000/svg"
+                                                                     width="24" height="49" viewBox="0 0 24 49">
                                                                     <g>
-                                                                        <path fill="#f5f5f5"
-                                                                              d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"></path>
+                                                                        <g>
+                                                                            <path fill="#f5f5f5"
+                                                                                  d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"></path>
+                                                                        </g>
                                                                     </g>
-                                                                </g>
-                                                            </svg>
-                                                        </div>
-                                                        <div className="passenger__item">
-                                                            <p className="passenger__title">Khách hàng thứ {index+1}</p>
-                                                            <div className="passenger__row">
-                                                                <div className="passenger__col-6">
-                                                                    <div className="passenger__row-sm">
-                                                                        <div className="form-group">
-                                                                            <label className="form-title required">Danh xưng</label>
-                                                                            <select className="form-control" onChange={(ev) => this.handleChangePassengerDetail(index,'gender',ev)}
-                                                                                    value={passenger.gender}>
-                                                                                <option value="0">Quý Ông</option>
-                                                                                <option value="1">Quý Bà</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div className="form-group">
-                                                                            <label className="form-title required">Họ</label>
-                                                                            <input className="form-control text-uppercase" type="text" onChange={(ev) => this.handleChangePassengerDetail(index,'firstName',ev)}
-                                                                                   value={passenger.firstName}/>
+                                                                </svg>
+                                                            </div>
+                                                            <div className="passenger__item">
+                                                                <p className="passenger__title">Khách hàng thứ {index+1}</p>
+                                                                <div className="passenger__row">
+                                                                    <div className="passenger__col-6">
+                                                                        <div className="passenger__row-sm">
+                                                                            <div className="form-group">
+                                                                                <label className="form-title required">Danh xưng</label>
+                                                                                <select className="form-control" onChange={(ev) => this.handleChangePassengerDetail(index,'gender',ev)}
+                                                                                        value={passenger.gender}>
+                                                                                    <option value="0">Quý Ông</option>
+                                                                                    <option value="1">Quý Bà</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div className="form-group">
+                                                                                <label className="form-title required">Họ</label>
+                                                                                <input className="form-control text-uppercase" type="text" onChange={(ev) => this.handleChangePassengerDetail(index,'firstName',ev)}
+                                                                                       value={passenger.firstName}/>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className="passenger__col-6">
-                                                                    <div className="form-group">
-                                                                        <label className="form-title required">Tên và tên đệm</label>
-                                                                        <input className="text-uppercase form-control" type="text" onChange={(ev) => this.handleChangePassengerDetail(index,'lastName',ev)}
-                                                                               value={passenger.lastName}/>
+                                                                    <div className="passenger__col-6">
+                                                                        <div className="form-group">
+                                                                            <label className="form-title required">Tên và tên đệm</label>
+                                                                            <input className="text-uppercase form-control" type="text" onChange={(ev) => this.handleChangePassengerDetail(index,'lastName',ev)}
+                                                                                   value={passenger.lastName}/>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                )}
-                                                <div style={{display: this.state.hasPassenger ? 'block' : 'none'}}>
+                                                    )}
                                                     <div className="separator-round">
                                                         <svg className="separator-round__left" xmlns="http://www.w3.org/2000/svg"
                                                              width="25" height="49" viewBox="0 0 25 49">
@@ -570,12 +564,6 @@ class Booking extends Component {
                                                                 </g>
                                                             </g>
                                                         </svg>
-                                                    </div>
-                                                    <div className="passenger__item" style={{textAlign: 'center'}}>
-                                                        <button onClick={this.addPassenger}>
-                                                            <i className="fa fa-plus"></i>
-                                                            Thêm thành viên
-                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
