@@ -15,11 +15,11 @@ exports.index =  async function(req, res) {
         let query = req.query;
 
         if(query.departureDay){
-            conditions.$or = [{
-                "flightCode": new RegExp('.*'+query.flightSearch+'.*', "i")
-            },{
-                "phone": new RegExp('.*'+query.flightSearch+'.*', "i")
-            }];
+
+        }
+
+        if(query.estimateDays){
+            queries.estimateDays = query.estimateDays;
         }
 
         if(query.orderByUpdatedAt){

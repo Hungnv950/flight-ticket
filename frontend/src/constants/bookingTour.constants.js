@@ -1,3 +1,2 @@
-export const SET_TOUR = 'SET_TOUR';
-export const SELECT_TOUR = 'SELECT_TOUR';
-export const TOUR_DETAIL_SET_ACTIVE_TAB = 'TOUR_DETAIL_SET_ACTIVE_TAB';
+export const SET_TOUR_BOOKING = 'SET_TOUR';
+export const SELECT_TOUR_BOOKING = 'SELECT_TOUR';
