@@ -210,7 +210,6 @@
 
 /* Tour detail slider */
 .sc-AxjAm.rec-arrow {
-  z-index: 9999;
   display: flex;
   -ms-flex-align: center;
   align-items: center;
