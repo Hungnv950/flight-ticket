@@ -109,6 +109,11 @@ class TourDetail extends Component {
         script.src = "/assests/javascripts/fixed.js";
         script.async = true;
         document.body.appendChild(script);
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     isActiveTab = (tab) => {
