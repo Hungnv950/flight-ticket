@@ -595,7 +595,7 @@ class Create extends Component {
       this.setState({ cities: response.data.results });
     }).catch(function (error) {
       console.log(error);
-    })
+    });
   }
 
   componentDidMount(){
@@ -603,7 +603,7 @@ class Create extends Component {
       this.setState({ cities: response.data.results });
     }).catch(function (error) {
       console.log(error);
-    })
+    });
   }
 
   render() {

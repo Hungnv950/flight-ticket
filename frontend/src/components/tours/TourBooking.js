@@ -1,8 +1,6 @@
-import _ from 'lodash';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-
 import { imagesUrl } from '../../constants/path'
 import LuggageDropdown from '../LuggageDropdown';
 import {selectTourAction} from "../../actions/tour.action";
@@ -37,6 +35,9 @@ class Booking extends Component {
             passengers: [],
             luggage_money: 0,
             hasPassenger: false,
+            tourBooking: [],
+            showConfirm: false,
+            hasErrorRequire: false,
             is_return: this.props.is_return
         }
 
@@ -45,6 +46,7 @@ class Booking extends Component {
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
         this.handleChangeField = this.handleChangeField.bind(this);
         this.handleChangeObjectField = this.handleChangeObjectField.bind(this);
+        this.handleChangeToggleField = this.handleChangeToggleField.bind(this);
         this.handleChangePassengerDetail = this.handleChangePassengerDetail.bind(this);
     }
 
@@ -63,15 +65,47 @@ class Booking extends Component {
 
     handleChangeField(key, event) {
         let value = event.target.value;
-        if(key === 'title' || key === 'description'){
-            this.setState({
-                [key+'Error']: !value
-            });
-        }
 
         this.setState({
             [key]: value
         });
+    };
+
+    handleChangeToggleField(key) {
+        let  hasErrorRequire = false;
+
+        if(key === 'showConfirm'){
+            const { fullName, gender, phone, email, company, exportInvoice, passengers } = this.state;
+
+
+            if(!fullName || !gender || !phone || !email || (exportInvoice && (!company.name || !company.mst || !company.address || !company.invoiceRecipient))){
+                hasErrorRequire = true;
+            }
+
+            if(passengers.length){
+                passengers.map(passenger => {
+                    if(!passenger.gender || !passenger.firstName || !passenger.lastName){
+                        hasErrorRequire = true;
+                    }
+                });
+            }
+
+            this.setState({
+                hasErrorRequire: hasErrorRequire
+            });
+        }
+
+        if(!hasErrorRequire) {
+            this.setState({
+                [key]: !this.state[key]
+            });
+        }
+        else{
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     };
 
     handleChangePassengerDetail(index,key,event){
@@ -87,10 +121,14 @@ class Booking extends Component {
     }
 
     componentDidMount() {
-        if (_.isEmpty(this.props.tour)) {
-            let id = this.props.match.params.id;
-            this.props.getTour(id).then(() => {});
-        }
+        let id = this.props.match.params.id;
+        this.props.getTour(id).then(() => {});
+
+        const tourBooking = JSON.parse(localStorage.getItem('tourBooking'));
+
+        this.setState({
+            tourBooking: tourBooking
+        })
     }
 
     onSelectLuggage(item) {
@@ -157,7 +195,15 @@ class Booking extends Component {
 
         const tour = schedule.tour;
 
-        const { fullName, gender, phone, email, otherRequirements, company, exportInvoice, logged, passengers } = this.state;
+        const { fullName, gender, phone, email, otherRequirements, company, exportInvoice, logged, passengers, tourBooking, showConfirm, hasErrorRequire } = this.state;
+
+        let totalPrice = 0;
+
+        if('tour' in schedule){
+            totalPrice+=tourBooking.adult*schedule.tour.basePrice*(100 - schedule.tour.faresByAge.under2YO)/100;
+            totalPrice+=tourBooking.under2YO*schedule.tour.basePrice*(100 - schedule.tour.faresByAge.under2YO)/100;
+            totalPrice+=tourBooking.from2to11YO*schedule.tour.basePrice*(100 - schedule.tour.faresByAge.from2to11YO)/100;
+        }
 
         function formatNumber(num) {
             if (num === undefined) num = 0;
@@ -345,6 +391,11 @@ class Booking extends Component {
                                                 để hưởng các ưu đãi đặc biệt cho thành viên từ ThankTrip
                                             </p>
                                         </div>
+                                        <div style={{display: hasErrorRequire ? 'inline-flex' : 'none'}} className="recommend-regis">
+                                            <p className="recommend-regis__content" style={{color: '#ff5111',paddingTop: '8px', paddingLeft: 0}}>
+                                                Vui lòng nhập đẩy đủ thông tin có dấu <strong>(*)</strong>
+                                            </p>
+                                        </div>
                                         <div className="card info-contact">
                                             <h2 className="card__title mbpx-30">THÔNG TIN LIÊN HỆ</h2>
                                             <div className="card__content">
@@ -386,44 +437,46 @@ class Booking extends Component {
                                                 <div className="form-group">
                                                     <label className="form-title">Yêu cầu đặc biệt khác</label>
                                                     <textarea className="form-control form-control--textarea" onChange={(ev) => this.handleChangeField('otherRequirements',ev)}
-                                                              value={otherRequirements} placeholder="Vui lòng nhập yêu cầu của bạn nếu có" defaultValue={""}/>
+                                                              value={otherRequirements} placeholder="Vui lòng nhập yêu cầu của bạn nếu có"/>
                                                 </div>
                                                 <div className="regis-get-bill">
                                                     <div className="checkbox">
-                                                        <input id="bill" type="checkbox" onChange={(ev) => this.handleChangeField('exportInvoice',ev)}
+                                                        <input id="bill" type="checkbox" onChange={() => this.handleChangeToggleField('exportInvoice')}
                                                                value={exportInvoice}/>
                                                         <label htmlFor="bill">Tôi muốn xuất hoá đơn</label>
                                                     </div>
-                                                    <div className="row">
-                                                        <div className="col-12 col-md-6">
-                                                            <div className="form-group">
-                                                                <label className="form-title required">Tên Công Ty</label>
-                                                                <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.name',ev)}
-                                                                       value={company.name}/>
+                                                    <div style={{display: exportInvoice ? 'block' : 'none'}}>
+                                                        <div className="row">
+                                                            <div className="col-12 col-md-6">
+                                                                <div className="form-group">
+                                                                    <label className="form-title required">Tên Công Ty</label>
+                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.name',ev)}
+                                                                           value={company.name}/>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-12 col-md-6">
+                                                                <div className="form-group">
+                                                                    <label className="form-title required">Mã Số Thuế</label>
+                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.mst',ev)}
+                                                                           value={company.mst}/>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-12 col-md-6">
-                                                            <div className="form-group">
-                                                                <label className="form-title required">Mã Số Thuế</label>
-                                                                <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.mst',ev)}
-                                                                       value={company.mst}/>
+                                                        <div className="row">
+                                                            <div className="col-12 col-md-6">
+                                                                <div className="form-group">
+                                                                    <label className="form-title required">Địa chỉ</label>
+                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.address',ev)}
+                                                                           value={company.address}/>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="row">
-                                                        <div className="col-12 col-md-6">
-                                                            <div className="form-group">
-                                                                <label className="form-title required">Địa chỉ</label>
-                                                                <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.address',ev)}
-                                                                       value={company.address}/>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-12 col-md-6">
-                                                            <div className="form-group">
-                                                                <label className="form-title required">Người Nhận Hoá
-                                                                    Đơn</label>
-                                                                <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.invoiceRecipient',ev)}
-                                                                       value={company.invoiceRecipient}/>
+                                                            <div className="col-12 col-md-6">
+                                                                <div className="form-group">
+                                                                    <label className="form-title required">Người Nhận Hoá
+                                                                        Đơn</label>
+                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.invoiceRecipient',ev)}
+                                                                           value={company.invoiceRecipient}/>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -665,41 +718,45 @@ class Booking extends Component {
                                             <div className="compendious__wrap">
                                                 <div className="form-control">
                                                     <div className="d-flex justify-content-between align-items-center">
-                                                        <div className="number-passenger active"><span
-                                                            className="number-passenger__content">{0}</span><span
-                                                            className="number-passenger__title">người lớn</span></div>
-                                                        <span className="price">{0}đ</span>
-                                                    </div>
-                                                </div>
-                                                <div className="form-control">
-                                                    <div className="d-flex justify-content-between align-items-center">
-                                                        <div className="number-passenger active"><span
-                                                            className="number-passenger__content">{0}</span><span
-                                                            className="number-passenger__title">trẻ em 2 - 11 tuổi</span></div>
-                                                        <span className="price">{0}đ</span>
-                                                    </div>
-                                                </div>
-                                                <div className="form-control">
-                                                    <div className="d-flex justify-content-between align-items-center">
-                                                        <div className="number-passenger active"><span
-                                                            className="number-passenger__content">{1}</span><span
-                                                            className="number-passenger__title">trẻ em &lt; 2 tuổi</span>
+                                                        <div className="number-passenger active">
+                                                            <span className="number-passenger__content">{tourBooking.adult}</span>
+                                                            <span className="number-passenger__title">người lớn</span>
                                                         </div>
-                                                        <span className="price">{0}đ</span>
+                                                        <span className="price">{formatNumber(tourBooking.adult*tour.basePrice*(100 - tour.faresByAge.adult)/100)}đ</span>
                                                     </div>
                                                 </div>
                                                 <div className="form-control">
                                                     <div className="d-flex justify-content-between align-items-center">
-                                                        <div className="luggage active"><span
-                                                            className="luggage__number">{0}</span><span
-                                                            className="luggage__title">hành lý kí gửi</span></div>
+                                                        <div className="number-passenger active">
+                                                            <span className="number-passenger__content">{tourBooking.from2to11YO}</span>
+                                                            <span className="number-passenger__title">trẻ em 2 - 11 tuổi</span>
+                                                        </div>
+                                                        <span className="price">{formatNumber(tourBooking.from2to11YO*tour.basePrice*(100 - tour.faresByAge.from2to11YO)/100)}đ</span>
+                                                    </div>
+                                                </div>
+                                                <div className="form-control">
+                                                    <div className="d-flex justify-content-between align-items-center">
+                                                        <div className="number-passenger active"><span
+                                                            className="number-passenger__content">{tourBooking.under2YO}</span>
+                                                            <span className="number-passenger__title">trẻ em &lt; 2 tuổi</span>
+                                                        </div>
+                                                        <span className="price">{formatNumber(tourBooking.under2YO*tour.basePrice*(100 - tour.faresByAge.under2YO)/100)}đ</span>
+                                                    </div>
+                                                </div>
+                                                <div className="form-control">
+                                                    <div className="d-flex justify-content-between align-items-center">
+                                                        <div className="luggage active">
+                                                            <span className="luggage__number">{0} kg</span>
+                                                            <span className="luggage__title">hành lý kí gửi</span>
+                                                        </div>
                                                         <span className="price">{0}đ</span>
                                                     </div>
                                                 </div>
                                                 <div className="compendious__total">
                                                     <span className="compendious__total-title">Tổng tiền</span>
-                                                    <div className="compendious__total-price"><span
-                                                        className="price">{0} đ</span><span className="note">(Đã bao gồm thuế và phí)</span>
+                                                    <div className="compendious__total-price">
+                                                        <span className="price">{formatNumber(totalPrice)} đ</span>
+                                                        <span className="note">(Đã bao gồm thuế và phí)</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -707,14 +764,12 @@ class Booking extends Component {
                                         <div className="card submit">
                                             <input className="form-control border introduce" type="text"
                                                    placeholder="ID giới thiệu"/>
-                                            <button className="submit__btn btn btn--large btn--bg-linear" onClick={this.handleSubmitForm}>
+                                            <button className="submit__btn btn btn--large btn--bg-linear" onClick={()=>this.handleChangeToggleField('showConfirm')}>
                                                 <span>Tiếp theo</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13}
-                                                     viewBox="0 0 8 13">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} viewBox="0 0 8 13">
                                                     <g>
                                                         <g>
-                                                            <path fill="#fff"
-                                                                  d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z"/>
+                                                            <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z"/>
                                                         </g>
                                                     </g>
                                                 </svg>
@@ -723,10 +778,49 @@ class Booking extends Component {
                                                 Nhập ID người giới thiệu để tiết kiệm ngay&nbsp;
                                                 <br/>
                                                 <span className="text-blue-sky font-weight-bold">
-                                            30.000đ
-                                        </span>
+                                                    30.000đ
+                                                </span>
                                                 &nbsp;cho chuyến đi này.
                                             </p>
+                                        </div>
+                                        <div className={showConfirm ? 'modal modal-confirm show' : 'modal modal-confirm'}>
+                                            <div className="modal-content js-lazy-load" style={{ backgroundImage: `url(/assests/images/bg-popup-confirm.png)` }}>
+                                                <div className="form-confirm">
+                                                    <form>
+                                                        <p className="form-confirm__title">
+                                                            Bạn có muốn kiểm tra lại thông tin đặt chỗ của mình một lần nữa không?
+                                                        </p>
+                                                        <a className="form-confirm__back" onClick={() => this.handleChangeToggleField('showConfirm')}>
+                                                            Tôi muốn kiểm tra lại
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13">
+                                                                <g>
+                                                                    <g>
+                                                                        <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z"></path>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                        </a>
+                                                        <div className="form-confirm__group">
+                                                            <input className="form-control item" type="text" placeholder="Nhập ID giới thiệu"/>
+                                                            <a className="btn btn--large btn--bg-linear item" onClick={this.handleSubmitForm}>
+                                                                Đặt chỗ
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13">
+                                                                    <g>
+                                                                        <g>
+                                                                            <path fill="#fff" d="M7.042 7.045l-5.153 5.152a.839.839 0 1 1-1.186-1.186l4.559-4.56-4.56-4.558A.84.84 0 0 1 1.89.707l5.152 5.152a.836.836 0 0 1 0 1.186z"></path>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                        <div className="form-confirm__note">
+                                                            Nhập ID người giới thiệu để tiết kiệm ngay&nbsp;
+                                                            <span className="font-weight-bold text-blue-sky">30.000đ</span>
+                                                            &nbsp;cho chuyến đi này.
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

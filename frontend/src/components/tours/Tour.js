@@ -5,6 +5,7 @@ import { setTourAction, selectTourAction } from '../../actions/tour.action';
 
 import history from "../../history";
 import PriceDropdown from '../dropdowns/PriceDropdown';
+import DeparturePlaceDropdown from '../dropdowns/DeparturePlaceDropdown';
 
 class Tour extends Component {
   constructor(props) {
@@ -189,7 +190,7 @@ class Tour extends Component {
                   </div>
                   <div className="form-group input-range">
                     <label>Đi trong bao lâu?</label>
-                    <p className="min-day">0 ngày</p>
+                    <p className="min-day">{estimateDays} ngày</p>
                     <div className="range-wrap">
                       <div className="range-value js-range-value" style={{left: 'calc('+estimateDays*10+'% + '+(6.5-estimateDays*1.3)+'px)'}}>
                         <span>{estimateDays} ngày</span>
@@ -200,7 +201,7 @@ class Tour extends Component {
                   </div>
                   <h3 className="form-group-title">Khởi hành từ</h3>
                   <div className="form-group">
-                    <input className="form-control" type="text" placeholder="Nhập địa điểm" />
+                    <DeparturePlaceDropdown key="departurePlace" onSelectPlace={this.handleChangeField}/>
                   </div>
                   <h3 className="form-group-title pb-2">Khoảng giá</h3>
                   <PriceDropdown key="startPrice" defaultValue={startPrice} onSelectPrice={this.handleSelectPrice} formTitle="Bắt đầu từ"/>

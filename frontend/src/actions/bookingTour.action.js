@@ -1,11 +1,5 @@
 import axios from "axios";
 import {
-    API_BOOKING_TOUR_PATH,
-    API_BOOKING_TOUR_DETAIL_PATH
-} from '../constants/api';
-
-import {
-  SET_TOUR,
   SELECT_TOUR,
   TOUR_DETAIL_SET_ACTIVE_TAB,
 } from '../constants/tour.constants';
