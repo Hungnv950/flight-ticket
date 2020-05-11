@@ -75,10 +75,10 @@ class Booking extends Component {
         let  hasErrorRequire = false;
 
         if(key === 'showConfirm'){
-            const { fullName, gender, phone, email, company, exportInvoice, passengers } = this.state;
+            const { fullName, phone, email, company, exportInvoice, passengers } = this.state;
 
 
-            if(!fullName || !gender || !phone || !email || (exportInvoice && (!company.name || !company.mst || !company.address || !company.invoiceRecipient))){
+            if(!fullName || !phone || !email || (exportInvoice && (!company.name || !company.mst || !company.address || !company.invoiceRecipient))){
                 hasErrorRequire = true;
             }
 
@@ -186,7 +186,7 @@ class Booking extends Component {
                 loading: false
             });
 
-            this.props.history.push('/tour/'+response.data._id+'/preview');
+            this.props.history.push('/tour/'+response.data._id+'/payment');
         });
     }
 

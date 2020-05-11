@@ -30,3 +30,37 @@ $('.js-col-fixed').each(function() {
         });
     }
 });
+
+$(window).on('scroll', function() {
+    if ($('.header-search-page')) {
+        if (window.width >= 768) {
+            if (window.scrollY > 100) {
+                $('.header-search-page').addClass('on-change');
+            } else {
+                $('.header-search-page').removeClass('on-change');
+            }
+        } else {
+            if (window.scrollY > 70) {
+                $('.header-search-page').addClass('on-change');
+            } else {
+                $('.header-search-page').removeClass('on-change');
+            }
+        }
+    }
+});
+
+if ($('.js-block-countdown').length) {
+    var blockCountdownWidth = $('.js-block-countdown').outerWidth();
+    if ($(document).scrollTop() >= $('.js-block-countdown').offset().top - 83) {
+        $('.js-block-countdown').css('width', blockCountdownWidth);
+        $('.js-block-countdown').addClass('fixed');
+    }
+    $(document).on('scroll', function() {
+        if ($(this).scrollTop() >= 198) {
+            $('.js-block-countdown').css('width', blockCountdownWidth);
+            $('.js-block-countdown').addClass('fixed')
+        } else if ($(this).scrollTop() < 198) {
+            $('.js-block-countdown').removeClass('fixed')
+        }
+    });
+}
