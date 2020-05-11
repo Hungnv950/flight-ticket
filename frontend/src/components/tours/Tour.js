@@ -1,16 +1,10 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react'
-import {
-  imagesUrl
-} from '../../constants/path';
-import {
-  connect
-} from 'react-redux';
-import {
-  setTourAction,
-  selectTourAction
-} from '../../actions/tour.action';
+import { imagesUrl } from '../../constants/path';
+import { setTourAction, selectTourAction } from '../../actions/tour.action';
+
 import history from "../../history";
-import {formatDatePost} from "../../helpers/formatFlighAPI";
+import PriceDropdown from '../dropdowns/PriceDropdown';
 
 class Tour extends Component {
   constructor(props) {
@@ -18,12 +12,39 @@ class Tour extends Component {
 
     this.state = {
       page: 1,
+      endPrice: 0,
+      startPrice: 0,
+      estimateDays: 0,
       currentGrid: "col-12"
     }
+
+    this.handleSearchTour = this.handleSearchTour.bind(this);
+    this.handleSelectPrice = this.handleSelectPrice.bind(this);
+    this.handleChangeField = this.handleChangeField.bind(this);
+    this.convertObjectToParams = this.convertObjectToParams.bind(this);
   }
 
   componentDidMount() {
-    this.props.setTours(this.state.page).then(() => {});
+    const {page} = this.state;
+
+    this.props.setTours(this.convertObjectToParams({page: page})).then(() => {});
+
+    const script = document.createElement("script");
+    script.src = "/assests/javascripts/fixed.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  convertObjectToParams(obj){
+    var str = '';
+    for (let key in obj) {
+      if (str !== '') {
+        str += '&';
+      }
+      str += key + '=' + encodeURIComponent(obj[key]);
+    }
+
+    return str;
   }
 
   handleControlGrid = (type) => {
@@ -41,8 +62,9 @@ class Tour extends Component {
   onLoadMore = () => {
     this.setState({
       page: this.state.page + 1
-    })
-    this.props.setTours(this.state.page).then(() => {});
+    });
+
+    this.props.setTours(this.state).then(() => {});
   }
 
   onSelectTour = (id) => {
@@ -77,6 +99,26 @@ class Tour extends Component {
     }
 
     return [day, month, year].join('/');
+  }
+
+  handleChangeField(key, event) {
+    let value = event.target.value;
+
+    this.setState({
+      [key]: value
+    });
+  };
+
+  handleSearchTour(){
+    const { startPrice, endPrice, estimateDays } = this.state;
+
+    this.props.setTours(this.convertObjectToParams({ startPrice, endPrice, estimateDays })).then(() => {});
+  }
+
+  handleSelectPrice(key,value){
+    this.setState({
+      [key]: value
+    });
   }
 
   renderTour = ((tour, index) =>
@@ -119,15 +161,17 @@ class Tour extends Component {
   )
 
   render () {
+    const { startPrice, endPrice, estimateDays } = this.state;
+
     return (
       <main className="main">
-        <div className="banner bg-img-base js-lazy-load" data-src={imagesUrl + "banner-tour.png"} data-type="background-image" style={{ backgroundImage: `url(${imagesUrl + "banner-tour.png"})`}}>
+        <div className="banner bg-img-base js-lazy-load mb-12px" data-src={imagesUrl + "banner-tour.png"} data-type="background-image" style={{ backgroundImage: `url(${imagesUrl + "banner-tour.png"})`}}>
           <div className="d-flex align-items-center h-100">
             <div className="container container-custom">
               <div className="banner__content">
                 <h1 className="title">ThankTours</h1>
                 <p className="slogan"><span>There are&nbsp;</span><span>3,456 tours</span><span>&nbsp;in ThankTrip</span></p>
-                <a className="btn btn--medium btn-support">HỖ TRỢ</a>
+                <a href="/tour/supports" className="btn btn--medium btn-support">HỖ TRỢ</a>
               </div>
             </div>
           </div>
@@ -135,130 +179,68 @@ class Tour extends Component {
         <div className="container container-custom">
           <div className="row row-custom">
             <div className="col-xl-3 col-md-4 col-12 col-custom">
-              <div className="card card-filter-tour">
-                <h2 className="title">Lọc theo</h2>
-                <h3 className="form-group-title">Ngày khởi hành</h3>
-                <div className="form-group form-group--datepicker">
-                  <input className="form-control include-icon-calendar datepicker" type="text" defaultValue="14/04/2020" />
-                </div>
-                <div className="form-group input-range">
-                  <label>Đi trong bao lâu?</label>
-                  <p className="min-day">0 ngày</p>
-                  <div className="range-wrap">
-                    <div className="range-value js-range-value"><span>3 ngày</span></div>
-                    <input className="field js-input-range" type="range" defaultValue={3} min={0} max={10} step={1} />
+              <div className="js-col-fixed">
+                <div className="card card-filter-tour">
+                  <h2 className="title">Lọc theo</h2>
+                  <h3 className="form-group-title">Ngày khởi hành</h3>
+                  <div className="form-group form-group--datepicker">
+                    <input className="form-control include-icon-calendar datepicker" type="text" defaultValue={startPrice === 0 ? 'Chọn ngày khởi hành': ''} onChange={(ev) => this.handleChangeField('startPrice',ev)}
+                           value={startPrice === 0 ? 'Chọn ngày khởi hành': ''}/>
                   </div>
-                </div>
-                <h3 className="form-group-title">Khởi hành từ</h3>
-                <div className="form-group">
-                  <input className="form-control" type="text" placeholder="Input location..." />
-                </div>
-                <h3 className="form-group-title pb-2">Khoảng giá</h3>
-                <div className="form-group form-group-price-range">
-                  <label className="form-title">Bắt đầu từ</label>
-                  <div className="js-dropdown dropdown">
-                    <input className="form-control" defaultValue="1.000.000 đ" />
-                    <svg className="js-control-show-dropdown" xmlns="http://www.w3.org/2000/svg" width={13} height={7} viewBox="0 0 13 7">
-                      <g>
-                        <g>
-                          <g>
-                            <path fill="#919191" d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z" />
-                          </g>
-                        </g>
-                      </g>
-                    </svg>
-                    <ul className="dropdown__list">
-                      <li className="dropdown__intro">
-                        <p>
-                          <span>Lorem</span>
-                          <svg className="js-control-show-dropdown" xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-                            <g>
-                              <g>
-                                <g>
-                                  <path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </p>
-                      </li>
-                      <li className="dropdown__item"><span>1.000.000 đ</span></li>
-                      <li className="dropdown__item"><span>2.000.000 đ</span></li>
-                    </ul>
+                  <div className="form-group input-range">
+                    <label>Đi trong bao lâu?</label>
+                    <p className="min-day">0 ngày</p>
+                    <div className="range-wrap">
+                      <div className="range-value js-range-value" style={{left: 'calc('+estimateDays*10+'% + '+(6.5-estimateDays*1.3)+'px)'}}>
+                        <span>{estimateDays} ngày</span>
+                      </div>
+                      <input className="field js-input-range" type="range" defaultValue={1} min={0} max={10} step={1} onChange={(ev) => this.handleChangeField('estimateDays',ev)}
+                             value={estimateDays} style={{backgroundImage: 'linear-gradient(90deg, rgb(255, 163, 17) 0%, rgb(255, 69, 0) '+estimateDays*10+'%, rgb(243, 242, 242) '+estimateDays*10+'%)'}}/>
+                    </div>
                   </div>
-                </div>
-                <div className="form-group form-group-price-range">
-                  <label className="form-title">Đến</label>
-                  <div className="js-dropdown dropdown">
-                    <input className="form-control" defaultValue="5.000.000 đ" />
-                    <svg className="js-control-show-dropdown" xmlns="http://www.w3.org/2000/svg" width={13} height={7} viewBox="0 0 13 7">
-                      <g>
-                        <g>
-                          <g>
-                            <path fill="#919191" d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z" />
-                          </g>
-                        </g>
-                      </g>
-                    </svg>
-                    <ul className="dropdown__list">
-                      <li className="dropdown__intro">
-                        <p>
-                          <span>Lorem</span>
-                          <svg className="js-control-show-dropdown" xmlns="http://www.w3.org/2000/svg" width={12} height={8} viewBox="0 0 12 8">
-                            <g>
-                              <g>
-                                <g>
-                                  <path fill="#a4afb7" d="M6.027.301l-5.5 5.56L1.953 7.3l4.074-4.117L10.1 7.3l1.426-1.44z" />
-                                </g>
-                              </g>
-                            </g>
-                          </svg>
-                        </p>
-                      </li>
-                      <li className="dropdown__item"><span>5.000.000 đ</span></li>
-                      <li className="dropdown__item"><span>7.000.000 đ</span></li>
-                    </ul>
+                  <h3 className="form-group-title">Khởi hành từ</h3>
+                  <div className="form-group">
+                    <input className="form-control" type="text" placeholder="Nhập địa điểm" />
                   </div>
+                  <h3 className="form-group-title pb-2">Khoảng giá</h3>
+                  <PriceDropdown key="startPrice" defaultValue={startPrice} onSelectPrice={this.handleSelectPrice} formTitle="Bắt đầu từ"/>
+                  <PriceDropdown key="endPrice" defaultValue={endPrice} onSelectPrice={this.handleSelectPrice} formTitle="Đến"/>
+                  <h3 className="form-group-title pb-2">Hiển thị theo</h3>
+                  <div className="checkbox">
+                    <input id={1} type="checkbox" />
+                    <label className="title" htmlFor={1}>Theo giá từ thấp đến cao</label>
+                  </div>
+                  <div className="checkbox">
+                    <input id={2} type="checkbox" />
+                    <label className="title" htmlFor={2}>Theo giá từ cao đến thấp</label>
+                  </div>
+                  <div className="checkbox">
+                    <input id={3} type="checkbox" />
+                    <label className="title" htmlFor={3}>Theo thời gian cập nhật</label>
+                  </div>
+                  <div className="checkbox">
+                    <input id={4} type="checkbox" />
+                    <label className="title" htmlFor={4}>Theo đánh giá</label>
+                  </div>
+                  <div className="checkbox">
+                    <input id={6} type="checkbox" />
+                    <label className="title" htmlFor={6}>Bán chạy nhất</label>
+                  </div>
+                  <h3 className="form-group-title pb-2">Ngôn ngữ</h3>
+                  <div className="checkbox">
+                    <input id={7} type="checkbox" />
+                    <label className="title" htmlFor={7}>Tiếng Anh</label>
+                  </div>
+                  <div className="checkbox">
+                    <input id={8} type="checkbox" />
+                    <label className="title" htmlFor={8}>Tiếng Việt</label>
+                  </div>
+                  <div className="checkbox">
+                    <input id={9} type="checkbox" />
+                    <label className="title" htmlFor={9}>Ngôn ngữ khác</label>
+                  </div>
+                  <button onClick={this.handleSearchTour} className="btn btn--medium btn--bg-linear btn-submit">OK</button>
                 </div>
-                <h3 className="form-group-title pb-2">Hiển thị theo</h3>
-                <div className="checkbox">
-                  <input id={1} type="checkbox" />
-                  <label className="title" htmlFor={1}>Theo giá từ thấp đến cao</label>
-                </div>
-                <div className="checkbox">
-                  <input id={2} type="checkbox" />
-                  <label className="title" htmlFor={2}>Theo giá từ cao đến thấp</label>
-                </div>
-                <div className="checkbox">
-                  <input id={3} type="checkbox" />
-                  <label className="title" htmlFor={3}>Theo thời gian cập nhật</label>
-                </div>
-                <div className="checkbox">
-                  <input id={4} type="checkbox" />
-                  <label className="title" htmlFor={4}>Theo đánh giá</label>
-                </div>
-                <div className="checkbox">
-                  <input id={5} type="checkbox" />
-                  <label className="title" htmlFor={5}>Liên quan</label>
-                </div>
-                <div className="checkbox">
-                  <input id={6} type="checkbox" />
-                  <label className="title" htmlFor={6}>Bán chạy nhất</label>
-                </div>
-                <h3 className="form-group-title pb-2">Ngôn ngữ</h3>
-                <div className="checkbox">
-                  <input id={7} type="checkbox" />
-                  <label className="title" htmlFor={7}>Tiếng Anh</label>
-                </div>
-                <div className="checkbox">
-                  <input id={8} type="checkbox" />
-                  <label className="title" htmlFor={8}>Tiếng Việt</label>
-                </div>
-                <div className="checkbox">
-                  <input id={9} type="checkbox" />
-                  <label className="title" htmlFor={9}>Ngôn ngữ khác</label>
-                </div>
-                <a className="btn btn--medium btn--bg-linear btn-submit">OK</a>
               </div>
             </div>
             <div className="col-xl-6 col-md-8 col-12 col-custom">
@@ -321,7 +303,8 @@ class Tour extends Component {
               <a className="btn btn-load-more-tour" onClick={this.onLoadMore}><img src={imagesUrl +"spinner-of-dots.png"}/><span>TẢI THÊM</span></a>
             </div>
             <div className="col-xl-3 col-12 col-custom">
-              <div className="card card-sale-tour">
+              <div className="js-col-fixed">
+                <div className="card card-sale-tour">
                 <h2 className="card__title">Sale Tours</h2>
                 <div className="card__content">
                   <div className="tour bg-img-base js-lazy-load" style={{ backgroundImage: `url(${imagesUrl + "bg-banner.png"})`}} data-src={imagesUrl + "bg-banner.png"} data-type="background-image">
@@ -487,6 +470,7 @@ class Tour extends Component {
                   </div>
                 </div>
               </div>
+              </div>
             </div>
           </div>
         </div>
@@ -498,8 +482,8 @@ class Tour extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setTours: (page) => setTourAction(dispatch, page),
     selectTour: (id) => selectTourAction(dispatch, id),
+    setTours: (params) => setTourAction(dispatch, params)
   }
 }
 

@@ -8,15 +8,14 @@ import {
   SELECT_TOUR,
   TOUR_DETAIL_SET_ACTIVE_TAB,
 } from '../constants/tour.constants';
-import history from '../history';
 
-export const setTourAction = (dispatch, page) => {
+export const setTourAction = (dispatch, params) => {
   dispatch({
     type: 'LOADING',
     payload: 'Hệ thống đang thực hiện tìm kiếm'
   });
 
-  return axios.get(API_TOUR_PATH + '?page=' + page)
+  return axios.get(API_TOUR_PATH + '?' + params)
     .then((result) => {
         dispatch({
           type: 'LOADING_FINISHED'

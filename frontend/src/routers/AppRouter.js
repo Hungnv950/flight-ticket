@@ -15,6 +15,7 @@ import TourDetail from "../components/tours/TourDetail";
 import TourPreview from "../components/tours/TourPreview";
 import TourBooking from "../components/tours/TourBooking";
 import TourCheckout from "../components/tours/TourCheckout";
+import TourSupport from "../components/tours/TourSupport";
 
 const AppRouter = () => (
   <Router history={history}>
@@ -26,6 +27,7 @@ const AppRouter = () => (
       <PublicRoute path="/booking" component={Booking} />
 
       <PublicRoute path="/tours" component={Tour} />
+      <PublicRoute path="/tour/supports" component={TourSupport} />
       <PublicRoute path="/tour/:id/booking" component={TourBooking} />
       <PublicRoute path="/tour/:id/preview" component={TourPreview} />
       <PublicRoute path="/tour/:id/checkout" component={TourCheckout} />

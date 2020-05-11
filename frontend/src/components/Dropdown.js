@@ -14,7 +14,8 @@ class Dropdown extends Component {
 
   componentWillMount() {
     const { label } = this.props.list[0];
-    let firstItem = null;
+    let firstItem;
+
     if (typeof label != 'undefined') {
       this.checkType(false);
       firstItem = label;
@@ -22,6 +23,7 @@ class Dropdown extends Component {
       this.checkType(true);
       firstItem = this.props.list[0];
     }
+
     this.setState({
       labelItem: firstItem
     });
@@ -53,7 +55,6 @@ class Dropdown extends Component {
 
     this.props.onChangeCustomer(value);
   };
-
 
   renderDataDropDown = (item, index) => {
     const {value, label} = this.state.typeDropdown ? {value: index, label: item} : item;

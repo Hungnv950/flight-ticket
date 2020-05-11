@@ -71,7 +71,7 @@ class LuggageDropdown extends Component {
               </p>
             </li>
             {luggage.map((item) => (
-                <li className="dropdown__item" key={item.value} onClick={(e) => this.onSelectValue(item)}>
+                <li className="dropdown__item" key={item.value} onClick={() => this.onSelectValue(item)}>
                   <input type="radio" id={item.value} name="radio-luggage" value="0" defaultChecked={item.price === this.state.price}/>
                   <label htmlFor={item.value}><span>{item.value}</span><span className="text-blue-sky">{item.price.toLocaleString()}đ</span></label>
                 </li>

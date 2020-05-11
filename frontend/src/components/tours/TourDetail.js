@@ -1,11 +1,5 @@
-import React, {
-    Component
-}
-    from 'react';
-import {
-    connect
-} from 'react-redux';
-import _ from 'lodash';
+import React, { Component } from 'react';
+import { connect  } from 'react-redux';
 import Carousel from "react-elastic-carousel";
 import {
     imagesUrl
@@ -31,7 +25,6 @@ class TourDetail extends Component {
             modalBook: false,
             tourBooking: false,
             personalTravel: false,
-
             luggage: 0,
             fullName:'',
             phone: '',
@@ -60,7 +53,7 @@ class TourDetail extends Component {
         }
 
         this.openModalBook = this.openModalBook.bind(this);
-        this.openTourBooing = this.openTourBooing.bind(this);
+        this.goToTourBooking = this.goToTourBooking.bind(this);
         this.handleCheckService = this.handleCheckService.bind(this);
         this.handleUpAndDownPeople = this.handleUpAndDownPeople.bind(this);
 
@@ -89,15 +82,17 @@ class TourDetail extends Component {
 
         this.setState({
             modalBook: !this.state.modalBook
-        })
+        });
     }
 
-    openTourBooing(event){
+    goToTourBooking(event){
         event.preventDefault();
 
-        this.setState({
-            tourBooking: !this.state.tourBooking
-        })
+        const { adult, under2YO, from2to11YO, serviceType, hotelService } = this.state;
+
+        localStorage.setItem('tourBooking', JSON.stringify({ adult, under2YO, from2to11YO, serviceType, hotelService }));
+
+        this.props.history.push('/tour/'+this.props.match.params.id+'/booking');
     }
 
     handleChangeObjectField(key, event) {
@@ -115,11 +110,6 @@ class TourDetail extends Component {
 
     handleChangeField(key, event) {
         let value = event.target.value;
-        if(key === 'title' || key === 'description'){
-            this.setState({
-                [key+'Error']: !value
-            });
-        }
 
         this.setState({
             [key]: value
@@ -139,10 +129,13 @@ class TourDetail extends Component {
     }
 
     componentDidMount() {
-        if (_.isEmpty(this.props.tour)) {
-            let id = this.props.match.params.id;
-            this.props.getTour(id).then(() => {});
-        }
+        let id = this.props.match.params.id;
+        this.props.getTour(id).then(() => {});
+
+        const script = document.createElement("script");
+        script.src = "/assests/javascripts/fixed.js";
+        script.async = true;
+        document.body.appendChild(script);
     }
 
     onSelectLuggage(item) {
@@ -266,8 +259,7 @@ class TourDetail extends Component {
                 ) : (
                     <div>
                         <main style={{display: !tourBooking ? 'block':'none'}} className="main main--phone-821">
-                            <div className="tour-detail__banner js-lazy-load" data-src={tour.avatar} data-type="background-image"
-                                 style={{backgroundImage: `url(${tour.avatar})`}}/>
+                            <div className="tour-detail__banner js-lazy-load" style={{backgroundImage: `url(${tour.avatar})`}}/>
                             <div className="tour-detail">
                                 <div className="container">
                                     {logged ? (
@@ -290,84 +282,86 @@ class TourDetail extends Component {
                                             </span>
                                             </p>
                                         </div>
-                                        <a href="/supports" className="btn btn--medium btn-support">HỖ TRỢ</a>
+                                        <a href="/tour/supports" className="btn btn--medium btn-support">HỖ TRỢ</a>
                                     </div>
                                 </div>
                                 <div className="tour-detail__content">
                                     <div className="container container-custom">
                                         <div className="row row-custom">
-                                            <div className="col-xl-3 col-12 col-custom col-left">
-                                                <div className="card card-tour-rating">
-                                                    <div className="rating">
-                                                        <div className="rating__brief">
-                                                            <p className="rating__point">3.5</p>
-                                                            <div className="rating__star"><img
-                                                                src={imagesUrl + "star-border-active.svg"}/><img
-                                                                src={imagesUrl + "star-border-active.svg"}/><img
-                                                                src={imagesUrl + "star-border-active.svg"}/><img
-                                                                src={imagesUrl + "star-border-active.svg"}/><img
-                                                                src={imagesUrl + "star-border-disable.svg"}/></div>
-                                                            <p className="rating__number">(1204 reviews)</p>
-                                                        </div>
-                                                        <div className="rating__right">
-                                                            <div className="rating__statistic">
-                                                                <div className="rating__statistic-item">
-                                                                    <div className="d-flex align-items-center"><span>5</span><img
-                                                                        src={imagesUrl + "star-border-disable.svg"}/></div>
-                                                                    <div className="rating__statistic-ratio">
-                                                                        <div className="ratio" style={{width: '70%'}}/>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="rating__statistic-item">
-                                                                    <div className="d-flex align-items-center"><span>4</span><img
-                                                                        src={imagesUrl + "star-border-disable.svg"}/></div>
-                                                                    <div className="rating__statistic-ratio">
-                                                                        <div className="ratio" style={{width: '70%'}}/>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="rating__statistic-item">
-                                                                    <div className="d-flex align-items-center"><span>3</span><img
-                                                                        src={imagesUrl + "star-border-disable.svg"}/></div>
-                                                                    <div className="rating__statistic-ratio">
-                                                                        <div className="ratio" style={{width: '70%'}}/>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="rating__statistic-item">
-                                                                    <div className="d-flex align-items-center"><span>2</span><img
-                                                                        src={imagesUrl + "star-border-disable.svg"}/></div>
-                                                                    <div className="rating__statistic-ratio">
-                                                                        <div className="ratio" style={{width: '70%'}}/>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="rating__statistic-item">
-                                                                    <div className="d-flex align-items-center"><span>1</span><img
-                                                                        src={imagesUrl + "star-border-disable.svg"}/></div>
-                                                                    <div className="rating__statistic-ratio">
-                                                                        <div className="ratio" style={{width: '70%'}}/>
-                                                                    </div>
-                                                                </div>
+                                            <div className="col-xl-3 col-12 col-custom">
+                                                <div className="js-col-fixed">
+                                                    <div className="card card-tour-rating">
+                                                        <div className="rating">
+                                                            <div className="rating__brief">
+                                                                <p className="rating__point">3.5</p>
+                                                                <div className="rating__star"><img
+                                                                    src={imagesUrl + "star-border-active.svg"}/><img
+                                                                    src={imagesUrl + "star-border-active.svg"}/><img
+                                                                    src={imagesUrl + "star-border-active.svg"}/><img
+                                                                    src={imagesUrl + "star-border-active.svg"}/><img
+                                                                    src={imagesUrl + "star-border-disable.svg"}/></div>
+                                                                <p className="rating__number">(1204 reviews)</p>
                                                             </div>
-                                                            <div className="rating__add-new">
-                                                                <a className="btn btn--medium" href="#">Add Rating</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="card card-gallery">
-                                                    <h2 className="card__title">Gallery</h2>
-                                                    <div className="card__content">
-                                                        <div className="gallery">
-                                                            <div className="gallery__wrap">
-                                                                {tour.imageTour.map((image) =>
-                                                                    <img className="gallery__item" src={image}/>
-                                                                )}
+                                                            <div className="rating__right">
+                                                                <div className="rating__statistic">
+                                                                    <div className="rating__statistic-item">
+                                                                        <div className="d-flex align-items-center"><span>5</span><img
+                                                                            src={imagesUrl + "star-border-disable.svg"}/></div>
+                                                                        <div className="rating__statistic-ratio">
+                                                                            <div className="ratio" style={{width: '70%'}}/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="rating__statistic-item">
+                                                                        <div className="d-flex align-items-center"><span>4</span><img
+                                                                            src={imagesUrl + "star-border-disable.svg"}/></div>
+                                                                        <div className="rating__statistic-ratio">
+                                                                            <div className="ratio" style={{width: '70%'}}/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="rating__statistic-item">
+                                                                        <div className="d-flex align-items-center"><span>3</span><img
+                                                                            src={imagesUrl + "star-border-disable.svg"}/></div>
+                                                                        <div className="rating__statistic-ratio">
+                                                                            <div className="ratio" style={{width: '70%'}}/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="rating__statistic-item">
+                                                                        <div className="d-flex align-items-center"><span>2</span><img
+                                                                            src={imagesUrl + "star-border-disable.svg"}/></div>
+                                                                        <div className="rating__statistic-ratio">
+                                                                            <div className="ratio" style={{width: '70%'}}/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="rating__statistic-item">
+                                                                        <div className="d-flex align-items-center"><span>1</span><img
+                                                                            src={imagesUrl + "star-border-disable.svg"}/></div>
+                                                                        <div className="rating__statistic-ratio">
+                                                                            <div className="ratio" style={{width: '70%'}}/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="rating__add-new">
+                                                                    <a className="btn btn--medium" href="#">Add Rating</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="card card-supply-partner">
-                                                    <h2 className="title">Đối tác cung cấp</h2>
-                                                    <img className="logo" src={tour.companyTour.avatar}/>
+                                                    <div className="card card-gallery">
+                                                        <h2 className="card__title">Gallery</h2>
+                                                        <div className="card__content">
+                                                            <div className="gallery">
+                                                                <div className="gallery__wrap">
+                                                                    {tour.imageTour.map((image) =>
+                                                                        <img className="gallery__item" src={image}/>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card card-supply-partner">
+                                                        <h2 className="title">Đối tác cung cấp</h2>
+                                                        <img className="logo" src={tour.companyTour.avatar}/>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="col-xl-6 col-lg-8 col-12 col-custom">
@@ -1407,285 +1401,407 @@ class TourDetail extends Component {
                                                 </div>
                                             </div>
                                             <div className="col-xl-3 col-lg-4 col-12 col-custom">
-                                                <div className="card card-countdown-start-tour">
-                                                    <h4 className="title">Thời gian khởi hành còn lại<br/>(theo ngày)</h4>
-                                                    <div className="countdown">
-                                                        <div className="bloc-time min" data-init-value={120}>
-                                                            <div className="figure min min-1">
-                                                                <span className="top">1</span><span
-                                                                className="top-back"><span>1</span></span><span
-                                                                className="bottom">1</span><span
-                                                                className="bottom-back"><span>1</span></span>
-                                                                <div className="separator-round">
-                                                                    <svg className="separator-round__left"
-                                                                         xmlns="http://www.w3.org/2000/svg" width={25} height={49}
-                                                                         viewBox="0 0 25 49">
-                                                                        <g>
+                                                <div className="js-col-fixed">
+                                                    <div className="card card-countdown-start-tour">
+                                                        <h4 className="title">Thời gian khởi hành còn lại<br/>(theo ngày)</h4>
+                                                        <div className="countdown">
+                                                            <div className="bloc-time min" data-init-value={120}>
+                                                                <div className="figure min min-1">
+                                                                    <span className="top">1</span><span
+                                                                    className="top-back"><span>1</span></span><span
+                                                                    className="bottom">1</span><span
+                                                                    className="bottom-back"><span>1</span></span>
+                                                                    <div className="separator-round">
+                                                                        <svg className="separator-round__left"
+                                                                             xmlns="http://www.w3.org/2000/svg" width={25} height={49}
+                                                                             viewBox="0 0 25 49">
                                                                             <g>
-                                                                                <path fill="#fff"
-                                                                                      d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"/>
+                                                                                <g>
+                                                                                    <path fill="#fff"
+                                                                                          d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"/>
+                                                                                </g>
                                                                             </g>
-                                                                        </g>
+                                                                        </svg>
+                                                                        <div className="separator-round__dashed"/>
+                                                                        <svg className="separator-round__right"
+                                                                             xmlns="http://www.w3.org/2000/svg" width={24} height={49}
+                                                                             viewBox="0 0 24 49">
+                                                                            <g>
+                                                                                <g>
+                                                                                    <path fill="#fff"
+                                                                                          d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"/>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="figure min min-2">
+                                                                    <span className="top">2</span><span
+                                                                    className="top-back"><span>2</span></span><span
+                                                                    className="bottom">2</span><span
+                                                                    className="bottom-back"><span>2</span></span>
+                                                                    <div className="separator-round">
+                                                                        <svg className="separator-round__left"
+                                                                             xmlns="http://www.w3.org/2000/svg" width={25} height={49}
+                                                                             viewBox="0 0 25 49">
+                                                                            <g>
+                                                                                <g>
+                                                                                    <path fill="#fff"
+                                                                                          d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"/>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                        <div className="separator-round__dashed"/>
+                                                                        <svg className="separator-round__right"
+                                                                             xmlns="http://www.w3.org/2000/svg" width={24} height={49}
+                                                                             viewBox="0 0 24 49">
+                                                                            <g>
+                                                                                <g>
+                                                                                    <path fill="#fff"
+                                                                                          d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"/>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="figure min min-3">
+                                                                    <span className="top">0</span><span
+                                                                    className="top-back"><span>0</span></span><span
+                                                                    className="bottom">0</span><span
+                                                                    className="bottom-back"><span>0</span></span>
+                                                                    <div className="separator-round">
+                                                                        <svg className="separator-round__left"
+                                                                             xmlns="http://www.w3.org/2000/svg" width={25} height={49}
+                                                                             viewBox="0 0 25 49">
+                                                                            <g>
+                                                                                <g>
+                                                                                    <path fill="#fff"
+                                                                                          d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"/>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                        <div className="separator-round__dashed"/>
+                                                                        <svg className="separator-round__right"
+                                                                             xmlns="http://www.w3.org/2000/svg" width={24} height={49}
+                                                                             viewBox="0 0 24 49">
+                                                                            <g>
+                                                                                <g>
+                                                                                    <path fill="#fff"
+                                                                                          d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"/>
+                                                                                </g>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p className="time">
+                                                            <span className="time__title">Khởi hành ngày:&nbsp;</span>
+                                                            <span className="text-blue-sky">
+                                                            {formatDate(schedule.departureDay)}
+                                                        </span>
+                                                        </p>
+                                                        <a className="btn-share btn btn--medium btn--bg-linear" href="#">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width={18} height={16}
+                                                                 viewBox="0 0 18 16">
+                                                                <g>
+                                                                    <g>
+                                                                        <path fill="#ff6200"
+                                                                              d="M17.824 5.274L12.75.2a.61.61 0 0 0-.446-.189.61.61 0 0 0-.445.189.61.61 0 0 0-.189.445v2.537H9.45c-4.71 0-7.6 1.331-8.67 3.993-.35.885-.525 1.985-.525 3.3 0 1.096.42 2.586 1.259 4.469a23.402 23.402 0 0 0 .237.535c.04.085.083.158.13.217.079.113.171.17.277.17a.29.29 0 0 0 .233-.1.37.37 0 0 0 .084-.247c0-.06-.008-.147-.025-.263a2.05 2.05 0 0 1-.025-.233c-.033-.449-.05-.856-.05-1.219 0-.667.059-1.265.174-1.793.116-.529.276-.986.48-1.372.206-.387.47-.72.793-1.001.324-.28.672-.51 1.046-.689a5.667 5.667 0 0 1 1.318-.42 12.565 12.565 0 0 1 1.526-.214c.512-.04 1.091-.06 1.739-.06h2.22v2.537c0 .172.062.32.187.446a.61.61 0 0 0 .446.188.61.61 0 0 0 .446-.188l5.073-5.073a.61.61 0 0 0 .189-.446.61.61 0 0 0-.188-.446z"/>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                            <span>Chia sẻ Tour</span>
+                                                        </a>
+                                                        <p className="note">
+                                                            Chia sẽ Tour và nhận ngay 100,000đ cho mỗi lượt book thành công
+                                                        </p>
+                                                    </div>
+                                                    <div className="card card-sale-tour">
+                                                        <h2 className="card__title">Similars Tour</h2>
+                                                        <div className="card__content">
+                                                            <div className="tour bg-img-base js-lazy-load" data-src={imagesUrl + "bg-banner.png"}
+                                                                 data-type="background-image" style={{backgroundImage: `url(${imagesUrl + "bg-banner.png"})`}}>
+                                                                <div className="tour__review">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
                                                                     </svg>
-                                                                    <div className="separator-round__dashed"/>
-                                                                    <svg className="separator-round__right"
-                                                                         xmlns="http://www.w3.org/2000/svg" width={24} height={49}
-                                                                         viewBox="0 0 24 49">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width={8} height={7}
+                                                                         viewBox="0 0 8 7">
                                                                         <g>
                                                                             <g>
                                                                                 <path fill="#fff"
-                                                                                      d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"/>
+                                                                                      d="M4.072-.136l1.103 2.237 2.468.359L5.857 4.2 6.28 6.66l-2.207-1.16-2.208 1.16.422-2.459L.5 2.46l2.468-.36z"/>
                                                                             </g>
                                                                         </g>
                                                                     </svg>
                                                                 </div>
+                                                                <div className="price-tag">
+                                                                    <p className="current">5.000.000 đ</p>
+                                                                    <p className="sale"><span
+                                                                        className="sale__percent">- 30%&nbsp;</span><span
+                                                                        className="old-price">7.000.000 đ</span></p>
+                                                                </div>
+                                                                <div className="tour__content">
+                                                                    <div className="tour__content-bottom">
+                                                                        <h3 className="tour__title">Phượt Vũng Tàu</h3>
+                                                                        <p className="tour__start"><span className="text-blue-sky">5 ngày</span><span
+                                                                            className="text-white ml-1">nữa khởi hành</span></p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div className="figure min min-2">
-                                                                <span className="top">2</span><span
-                                                                className="top-back"><span>2</span></span><span
-                                                                className="bottom">2</span><span
-                                                                className="bottom-back"><span>2</span></span>
-                                                                <div className="separator-round">
-                                                                    <svg className="separator-round__left"
-                                                                         xmlns="http://www.w3.org/2000/svg" width={25} height={49}
-                                                                         viewBox="0 0 25 49">
-                                                                        <g>
-                                                                            <g>
-                                                                                <path fill="#fff"
-                                                                                      d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"/>
-                                                                            </g>
-                                                                        </g>
+                                                            <div className="tour bg-img-base js-lazy-load"
+                                                                 data-src={imagesUrl + "bg-banner.png"}
+                                                                 data-type="background-image"
+                                                                 style={{backgroundImage: `url(${imagesUrl + "bg-banner.png"})`}}>
+                                                                <div className="tour__review">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
                                                                     </svg>
-                                                                    <div className="separator-round__dashed"/>
-                                                                    <svg className="separator-round__right"
-                                                                         xmlns="http://www.w3.org/2000/svg" width={24} height={49}
-                                                                         viewBox="0 0 24 49">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width={8} height={7}
+                                                                         viewBox="0 0 8 7">
                                                                         <g>
                                                                             <g>
                                                                                 <path fill="#fff"
-                                                                                      d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"/>
+                                                                                      d="M4.072-.136l1.103 2.237 2.468.359L5.857 4.2 6.28 6.66l-2.207-1.16-2.208 1.16.422-2.459L.5 2.46l2.468-.36z"/>
                                                                             </g>
                                                                         </g>
                                                                     </svg>
                                                                 </div>
+                                                                <div className="price-tag">
+                                                                    <p className="current">5.000.000 đ</p>
+                                                                    <p className="sale"><span
+                                                                        className="sale__percent">- 30%&nbsp;</span><span
+                                                                        className="old-price">7.000.000 đ</span></p>
+                                                                </div>
+                                                                <div className="tour__content">
+                                                                    <div className="tour__content-bottom">
+                                                                        <h3 className="tour__title">Phượt Vũng Tàu</h3>
+                                                                        <p className="tour__start"><span className="text-blue-sky">5 ngày</span><span
+                                                                            className="text-white ml-1">nữa khởi hành</span></p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div className="figure min min-3">
-                                                                <span className="top">0</span><span
-                                                                className="top-back"><span>0</span></span><span
-                                                                className="bottom">0</span><span
-                                                                className="bottom-back"><span>0</span></span>
-                                                                <div className="separator-round">
-                                                                    <svg className="separator-round__left"
-                                                                         xmlns="http://www.w3.org/2000/svg" width={25} height={49}
-                                                                         viewBox="0 0 25 49">
+                                                            <div className="tour bg-img-base js-lazy-load"
+                                                                 data-src={imagesUrl + "bg-banner.png"}
+                                                                 data-type="background-image"
+                                                                 style={{backgroundImage: `url(${imagesUrl + "bg-banner.png"})`}}
+                                                            >
+                                                                <div className="tour__review">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
+                                                                         height="12.241" viewBox="0 0 12.871 12.241">
+                                                                        <path id="Path_435" data-name="Path 435"
+                                                                              d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
+                                                                              transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width={8} height={7}
+                                                                         viewBox="0 0 8 7">
                                                                         <g>
                                                                             <g>
                                                                                 <path fill="#fff"
-                                                                                      d="M.5 49C.342 49 .173 49 0 48.997V.005a24.346 24.346 0 0 1 10.037 1.92c2.917 1.234 5.537 3 7.787 5.25A24.409 24.409 0 0 1 25 24.5a24.42 24.42 0 0 1-7.176 17.325A24.421 24.421 0 0 1 .5 49.002z"/>
+                                                                                      d="M4.072-.136l1.103 2.237 2.468.359L5.857 4.2 6.28 6.66l-2.207-1.16-2.208 1.16.422-2.459L.5 2.46l2.468-.36z"/>
                                                                             </g>
                                                                         </g>
                                                                     </svg>
-                                                                    <div className="separator-round__dashed"/>
-                                                                    <svg className="separator-round__right"
-                                                                         xmlns="http://www.w3.org/2000/svg" width={24} height={49}
-                                                                         viewBox="0 0 24 49">
+                                                                </div>
+                                                                <div className="price-tag">
+                                                                    <p className="current">5.000.000 đ</p>
+                                                                    <p className="sale"><span
+                                                                        className="sale__percent">- 30%&nbsp;</span><span
+                                                                        className="old-price">7.000.000 đ</span></p>
+                                                                </div>
+                                                                <div className="tour__content">
+                                                                    <div className="tour__content-bottom">
+                                                                        <h3 className="tour__title">Phượt Vũng Tàu</h3>
+                                                                        <p className="tour__start"><span className="text-blue-sky">5 ngày</span><span
+                                                                            className="text-white ml-1">nữa khởi hành</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="link-wrap">
+                                                                <a className="link-show-all">
+                                                                    <span>Show All</span>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={7}
+                                                                         viewBox="0 0 13 7">
                                                                         <g>
                                                                             <g>
-                                                                                <path fill="#fff"
-                                                                                      d="M24 48.996H24v-.001A24.432 24.432 0 0 1 7.013 41.66 24.358 24.358 0 0 1 0 24.5 24.36 24.36 0 0 1 7.013 7.34 24.437 24.437 0 0 1 24 .007z"/>
+                                                                                <g>
+                                                                                    <path fill="#919191"
+                                                                                          d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z"/>
+                                                                                </g>
                                                                             </g>
                                                                         </g>
                                                                     </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card card-joined-friend">
+                                                        <h2 className="card__title">Joined Friends</h2>
+                                                        <div className="card__content">
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Chou Tzuyu</h4>
+                                                                    <p className="member__tp">90.000 TP</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Bill Gate</h4>
+                                                                    <p className="member__tp">90.000 TP</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Elon Musk</h4>
+                                                                    <p className="member__tp">90.000 TP</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p className="time">
-                                                        <span className="time__title">Khởi hành ngày:&nbsp;</span>
-                                                        <span className="text-blue-sky">
-                                                        {formatDate(schedule.departureDay)}
-                                                    </span>
-                                                    </p>
-                                                    <a className="btn-share btn btn--medium btn--bg-linear" href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width={18} height={16}
-                                                             viewBox="0 0 18 16">
-                                                            <g>
-                                                                <g>
-                                                                    <path fill="#ff6200"
-                                                                          d="M17.824 5.274L12.75.2a.61.61 0 0 0-.446-.189.61.61 0 0 0-.445.189.61.61 0 0 0-.189.445v2.537H9.45c-4.71 0-7.6 1.331-8.67 3.993-.35.885-.525 1.985-.525 3.3 0 1.096.42 2.586 1.259 4.469a23.402 23.402 0 0 0 .237.535c.04.085.083.158.13.217.079.113.171.17.277.17a.29.29 0 0 0 .233-.1.37.37 0 0 0 .084-.247c0-.06-.008-.147-.025-.263a2.05 2.05 0 0 1-.025-.233c-.033-.449-.05-.856-.05-1.219 0-.667.059-1.265.174-1.793.116-.529.276-.986.48-1.372.206-.387.47-.72.793-1.001.324-.28.672-.51 1.046-.689a5.667 5.667 0 0 1 1.318-.42 12.565 12.565 0 0 1 1.526-.214c.512-.04 1.091-.06 1.739-.06h2.22v2.537c0 .172.062.32.187.446a.61.61 0 0 0 .446.188.61.61 0 0 0 .446-.188l5.073-5.073a.61.61 0 0 0 .189-.446.61.61 0 0 0-.188-.446z"/>
-                                                                </g>
-                                                            </g>
-                                                        </svg>
-                                                        <span>Chia sẻ Tour</span>
-                                                    </a>
-                                                    <p className="note">
-                                                        Chia sẽ Tour và nhận ngay 100,000đ cho mỗi lượt book thành công
-                                                    </p>
-                                                </div>
-                                                <div className="card card-sale-tour">
-                                                    <h2 className="card__title">Similars Tour</h2>
-                                                    <div className="card__content">
-                                                        <div className="tour bg-img-base js-lazy-load" data-src={imagesUrl + "bg-banner.png"}
-                                                             data-type="background-image" style={{backgroundImage: `url(${imagesUrl + "bg-banner.png"})`}}>
-                                                            <div className="tour__review">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={7}
-                                                                     viewBox="0 0 8 7">
-                                                                    <g>
-                                                                        <g>
-                                                                            <path fill="#fff"
-                                                                                  d="M4.072-.136l1.103 2.237 2.468.359L5.857 4.2 6.28 6.66l-2.207-1.16-2.208 1.16.422-2.459L.5 2.46l2.468-.36z"/>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                            <div className="price-tag">
-                                                                <p className="current">5.000.000 đ</p>
-                                                                <p className="sale"><span
-                                                                    className="sale__percent">- 30%&nbsp;</span><span
-                                                                    className="old-price">7.000.000 đ</span></p>
-                                                            </div>
-                                                            <div className="tour__content">
-                                                                <div className="tour__content-bottom">
-                                                                    <h3 className="tour__title">Phượt Vũng Tàu</h3>
-                                                                    <p className="tour__start"><span className="text-blue-sky">5 ngày</span><span
-                                                                        className="text-white ml-1">nữa khởi hành</span></p>
+                                                    <div className="card card-bought-friend">
+                                                        <h2 className="card__title">Bought Friends</h2>
+                                                        <div className="card__content">
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Chou Tzuyu</h4>
+                                                                    <p className="member__time">10 tháng trước</p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="tour bg-img-base js-lazy-load"
-                                                             data-src={imagesUrl + "bg-banner.png"}
-                                                             data-type="background-image"
-                                                             style={{backgroundImage: `url(${imagesUrl + "bg-banner.png"})`}}>
-                                                            <div className="tour__review">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={7}
-                                                                     viewBox="0 0 8 7">
-                                                                    <g>
-                                                                        <g>
-                                                                            <path fill="#fff"
-                                                                                  d="M4.072-.136l1.103 2.237 2.468.359L5.857 4.2 6.28 6.66l-2.207-1.16-2.208 1.16.422-2.459L.5 2.46l2.468-.36z"/>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                            <div className="price-tag">
-                                                                <p className="current">5.000.000 đ</p>
-                                                                <p className="sale"><span
-                                                                    className="sale__percent">- 30%&nbsp;</span><span
-                                                                    className="old-price">7.000.000 đ</span></p>
-                                                            </div>
-                                                            <div className="tour__content">
-                                                                <div className="tour__content-bottom">
-                                                                    <h3 className="tour__title">Phượt Vũng Tàu</h3>
-                                                                    <p className="tour__start"><span className="text-blue-sky">5 ngày</span><span
-                                                                        className="text-white ml-1">nữa khởi hành</span></p>
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Chou Tzuyu</h4>
+                                                                    <p className="member__time">10 tháng trước</p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="tour bg-img-base js-lazy-load"
-                                                             data-src={imagesUrl + "bg-banner.png"}
-                                                             data-type="background-image"
-                                                             style={{backgroundImage: `url(${imagesUrl + "bg-banner.png"})`}}
-                                                        >
-                                                            <div className="tour__review">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12.871"
-                                                                     height="12.241" viewBox="0 0 12.871 12.241">
-                                                                    <path id="Path_435" data-name="Path 435"
-                                                                          d="M439.081,1897.577l1.989,4.029,4.447.646-3.218,3.136.76,4.429-3.977-2.091-3.977,2.091.76-4.429-3.218-3.136,4.447-.646Z"
-                                                                          transform="translate(-432.646 -1897.577)" fill="#ffc200"/>
-                                                                </svg>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width={8} height={7}
-                                                                     viewBox="0 0 8 7">
-                                                                    <g>
-                                                                        <g>
-                                                                            <path fill="#fff"
-                                                                                  d="M4.072-.136l1.103 2.237 2.468.359L5.857 4.2 6.28 6.66l-2.207-1.16-2.208 1.16.422-2.459L.5 2.46l2.468-.36z"/>
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                            </div>
-                                                            <div className="price-tag">
-                                                                <p className="current">5.000.000 đ</p>
-                                                                <p className="sale"><span
-                                                                    className="sale__percent">- 30%&nbsp;</span><span
-                                                                    className="old-price">7.000.000 đ</span></p>
-                                                            </div>
-                                                            <div className="tour__content">
-                                                                <div className="tour__content-bottom">
-                                                                    <h3 className="tour__title">Phượt Vũng Tàu</h3>
-                                                                    <p className="tour__start"><span className="text-blue-sky">5 ngày</span><span
-                                                                        className="text-white ml-1">nữa khởi hành</span></p>
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Chou Tzuyu</h4>
+                                                                    <p className="member__time">10 tháng trước</p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="link-wrap">
-                                                            <a className="link-show-all">
-                                                                <span>Show All</span>
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Chou Tzuyu</h4>
+                                                                    <p className="member__time">10 tháng trước</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="member">
+                                                                <div className="member__avatar">
+                                                                    <div className="member__avatar-wrap"><img
+                                                                        className="img-full-height"
+                                                                        src={imagesUrl + "avatar-demo2.png"}/></div>
+                                                                    <img className="member__top" src={imagesUrl + "medal_1.png"}/>
+                                                                </div>
+                                                                <div className="member__content">
+                                                                    <h4 className="member__name">Chou Tzuyu</h4>
+                                                                    <p className="member__time">10 tháng trước</p>
+                                                                </div>
+                                                            </div>
+                                                            <a className="link-view-more">
+                                                                <span>View more</span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width={13} height={7}
                                                                      viewBox="0 0 13 7">
                                                                     <g>
@@ -1699,126 +1815,6 @@ class TourDetail extends Component {
                                                                 </svg>
                                                             </a>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div className="card card-joined-friend">
-                                                    <h2 className="card__title">Joined Friends</h2>
-                                                    <div className="card__content">
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Chou Tzuyu</h4>
-                                                                <p className="member__tp">90.000 TP</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Bill Gate</h4>
-                                                                <p className="member__tp">90.000 TP</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Elon Musk</h4>
-                                                                <p className="member__tp">90.000 TP</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="card card-bought-friend">
-                                                    <h2 className="card__title">Bought Friends</h2>
-                                                    <div className="card__content">
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Chou Tzuyu</h4>
-                                                                <p className="member__time">10 tháng trước</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Chou Tzuyu</h4>
-                                                                <p className="member__time">10 tháng trước</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Chou Tzuyu</h4>
-                                                                <p className="member__time">10 tháng trước</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Chou Tzuyu</h4>
-                                                                <p className="member__time">10 tháng trước</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="member">
-                                                            <div className="member__avatar">
-                                                                <div className="member__avatar-wrap"><img
-                                                                    className="img-full-height"
-                                                                    src={imagesUrl + "avatar-demo2.png"}/></div>
-                                                                <img className="member__top" src={imagesUrl + "medal_1.png"}/>
-                                                            </div>
-                                                            <div className="member__content">
-                                                                <h4 className="member__name">Chou Tzuyu</h4>
-                                                                <p className="member__time">10 tháng trước</p>
-                                                            </div>
-                                                        </div>
-                                                        <a className="link-view-more">
-                                                            <span>View more</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width={13} height={7}
-                                                                 viewBox="0 0 13 7">
-                                                                <g>
-                                                                    <g>
-                                                                        <g>
-                                                                            <path fill="#919191"
-                                                                                  d="M12.133.23a.742.742 0 0 0-.544-.23H.773c-.21 0-.39.077-.544.23A.743.743 0 0 0 0 .772c0 .21.076.39.23.543l5.408 5.408c.153.153.334.23.543.23.21 0 .39-.077.543-.23l5.409-5.408a.743.743 0 0 0 .229-.543c0-.21-.077-.39-.23-.544z"/>
-                                                                        </g>
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2047,7 +2043,7 @@ class TourDetail extends Component {
                                         </div>
                                         <div>
                                             <a className="submit-btn btn btn--large btn--bg-linear" href="#" style={{width: '150px',marginLeft: 'calc(50% - 75px)'}}
-                                                onClick={(ev) => this.openTourBooing(ev)}>
+                                                onClick={(ev) => this.goToTourBooking(ev)}>
                                                 <span style={{marginRight: '5px'}}>Tiếp theo</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13"
                                                      viewBox="0 0 8 13">
@@ -2266,39 +2262,41 @@ class TourDetail extends Component {
                                                                    value={exportInvoice}/>
                                                             <label htmlFor="bill">Tôi muốn xuất hoá đơn</label>
                                                         </div>
-                                                        <div className="row">
-                                                            <div className="col-12 col-md-6">
-                                                                <div className="form-group">
-                                                                    <label className="form-title required">Tên Công Ty</label>
-                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.name',ev)}
-                                                                           value={company.name}/>
+                                                        {exportInvoice ? (<div>
+                                                            <div className="row">
+                                                                <div className="col-12 col-md-6">
+                                                                    <div className="form-group">
+                                                                        <label className="form-title required">Tên Công Ty</label>
+                                                                        <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.name',ev)}
+                                                                               value={company.name}/>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-12 col-md-6">
+                                                                    <div className="form-group">
+                                                                        <label className="form-title required">Mã Số Thuế</label>
+                                                                        <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.mst',ev)}
+                                                                               value={company.mst}/>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div className="col-12 col-md-6">
-                                                                <div className="form-group">
-                                                                    <label className="form-title required">Mã Số Thuế</label>
-                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.mst',ev)}
-                                                                           value={company.mst}/>
+                                                            <div className="row">
+                                                                <div className="col-12 col-md-6">
+                                                                    <div className="form-group">
+                                                                        <label className="form-title required">Địa chỉ</label>
+                                                                        <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.address',ev)}
+                                                                               value={company.address}/>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-12 col-md-6">
+                                                                    <div className="form-group">
+                                                                        <label className="form-title required">Người Nhận Hoá
+                                                                            Đơn</label>
+                                                                        <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.invoiceRecipient',ev)}
+                                                                               value={company.invoiceRecipient}/>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="row">
-                                                            <div className="col-12 col-md-6">
-                                                                <div className="form-group">
-                                                                    <label className="form-title required">Địa chỉ</label>
-                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.address',ev)}
-                                                                           value={company.address}/>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-12 col-md-6">
-                                                                <div className="form-group">
-                                                                    <label className="form-title required">Người Nhận Hoá
-                                                                        Đơn</label>
-                                                                    <input className="form-control" type="text" onChange={(ev) => this.handleChangeObjectField('company.invoiceRecipient',ev)}
-                                                                           value={company.invoiceRecipient}/>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        </div>) : (<div></div>)}
                                                     </div>
                                                 </div>
                                             </div>

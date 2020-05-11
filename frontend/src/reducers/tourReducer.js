@@ -9,7 +9,7 @@ const initialState = {
   per_page: 0,
   tours: [],
   tour: {},
-  activeTabDetail: 2,
+  activeTabDetail: 1,
 };
 
 export default function (state = initialState, action) {
@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
         ...state,
         page: action.payload.page,
         per_page: action.payload.resPerPage,
-        tours: state.tours.concat(action.payload.tours)
+        tours: action.payload.tours
       };
     case SELECT_TOUR:
       return {
