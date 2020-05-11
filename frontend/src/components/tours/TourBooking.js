@@ -142,6 +142,11 @@ class Booking extends Component {
             ...prevState.passengers,
             passengers:  passengers
         }));
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     onSelectLuggage(item) {
